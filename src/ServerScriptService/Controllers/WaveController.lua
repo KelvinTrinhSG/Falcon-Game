@@ -468,6 +468,7 @@ end
 
 function WaveController:SetWaveSpeed(player: Player, multiplier: number)
 	_playerSpeeds[player] = multiplier
+	player:SetAttribute("WaveSpeedMultiplier", multiplier)
 	local plot = getPlotForPlayer(player)
 	if not plot then return end
 	plot:SetAttribute("WaveSpeed", multiplier)
@@ -481,7 +482,7 @@ function WaveController:SetWaveSpeed(player: Player, multiplier: number)
 			end
 		end
 	end
-	print(string.format("[WaveController] WaveSpeed x%d → %s", multiplier, player.Name))
+	print(string.format("[WaveController] WaveSpeed x%g → %s", multiplier, player.Name))
 end
 
 function WaveController:Init(controllers: {[string]: any})
@@ -513,6 +514,7 @@ function WaveController:Start()
 			end
 
 			_playerSpeeds[player] = multiplier
+			player:SetAttribute("WaveSpeedMultiplier", multiplier)
 
 			local plot = getPlotForPlayer(player)
 			if plot then

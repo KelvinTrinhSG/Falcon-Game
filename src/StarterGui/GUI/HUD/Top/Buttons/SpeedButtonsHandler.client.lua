@@ -111,6 +111,16 @@ end)
 -- ==========================================
 -- 🖱️ CLICS SUR LES BOUTONS
 -- ==========================================
+-- Sync GUI khi WaveSpeedMultiplier thay đổi (debug command hoặc nút bấm)
+local speed1Text = speed1Btn:FindFirstChild("Text")
+local function updateSpeedDisplay()
+	local mult = player:GetAttribute("WaveSpeedMultiplier") or 1
+	if speed1Text then
+		speed1Text.Text = "x" .. tostring(mult)
+	end
+end
+player:GetAttributeChangedSignal("WaveSpeedMultiplier"):Connect(updateSpeedDisplay)
+
 speed1Btn.MouseButton1Click:Connect(function()
 	requestWaveSpeed(1)
 end)
