@@ -1,16 +1,22 @@
 {
-  "name": "project",
+  "name": "Falcon",
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
       "$className": "ReplicatedStorage",
       "$ignoreUnknownInstances": true,
-      "$path": "src/ReplicatedStorage"
+      "$path": "src/ReplicatedStorage",
+      "Packages": {
+        "$path": "Packages"
+      }
     },
     "ServerScriptService": {
       "$className": "ServerScriptService",
       "$ignoreUnknownInstances": true,
-      "$path": "src/ServerScriptService"
+      "$path": "src/ServerScriptService",
+      "Packages": {
+        "$path": "ServerPackages"
+      }
     },
     "StarterGui": {
       "$className": "StarterGui",
@@ -19,6 +25,7 @@
     },
     "StarterPlayer": {
       "$className": "StarterPlayer",
+      "$ignoreUnknownInstances": true,
       "StarterCharacterScripts": {
         "$className": "StarterCharacterScripts",
         "$ignoreUnknownInstances": true,
@@ -28,13 +35,16 @@
         "$className": "StarterPlayerScripts",
         "$ignoreUnknownInstances": true,
         "$path": "src/StarterPlayer/StarterPlayerScripts"
-      },
-      "$ignoreUnknownInstances": true
+      }
     },
     "Workspace": {
       "$className": "Workspace",
       "$ignoreUnknownInstances": true,
       "$path": "src/Workspace"
+    },
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "$ignoreUnknownInstances": true
     }
   }
 }

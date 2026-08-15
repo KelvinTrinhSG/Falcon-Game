@@ -12,6 +12,7 @@ local ANIM_IDS = {
 local tracks = {}
 local swingCombo = 1
 local isSwinging = false
+local isHolding = false
 local mouse = nil
 
 local function OnEquipped(toolMouse)
@@ -36,6 +37,7 @@ end
 local function OnUnequipped()
 	if mouse then mouse.Icon = "" end
 	mouse = nil
+	isHolding = false
 	isSwinging = false
 	swingCombo = 1
 	for i, track in ipairs(tracks) do
@@ -65,4 +67,13 @@ end
 
 tool.Equipped:Connect(OnEquipped)
 tool.Unequipped:Connect(OnUnequipped)
-tool.Activated:Connect(OnActivated)
+tool.Activated:Connect(function()
+	isHolding = true
+	while isHolding do
+		OnActivated()
+		task.wait()
+	end
+end)
+tool.Deactivated:Connect(function()
+	isHolding = false
+end)

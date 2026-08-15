@@ -15,6 +15,7 @@ local toolMaid = Maid.new()
 -- State & Constants
 local swingCombo = 1
 local isSwinging = false
+local isHolding = false
 local hitDebounce = {}
 
 -- Sounds & Animations

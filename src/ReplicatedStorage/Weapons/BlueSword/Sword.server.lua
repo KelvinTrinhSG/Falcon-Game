@@ -15,6 +15,7 @@ local toolMaid = Maid.new()
 -- State & Constants
 local swingCombo = 1
 local isSwinging = false
+local isHolding = false
 local hitDebounce = {}
 
 -- Sounds & Animations
@@ -98,11 +99,21 @@ tool.Equipped:Connect(function()
 	end
 
 	toolMaid:GiveTask(blade.Touched:Connect(onBladeTouched))
-	toolMaid:GiveTask(tool.Activated:Connect(onActivated))
+	toolMaid:GiveTask(tool.Activated:Connect(function()
+		isHolding = true
+		while isHolding do
+			onActivated()
+			task.wait()
+		end
+	end))
+	toolMaid:GiveTask(tool.Deactivated:Connect(function()
+		isHolding = false
+	end))
 end)
 
 tool.Unequipped:Connect(function()
 	UnequipSound:Play()
+	isHolding = false
 	isSwinging = false
 
 	for name, track in pairs(tracks) do
