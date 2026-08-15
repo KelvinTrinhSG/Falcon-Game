@@ -1,0 +1,18 @@
+# Wally packages
+Packages/
+ServerPackages/
+DevPackages/
+
+# Roblox Studio
+*.rbxl
+*.rbxlx
+
+# Rojo
+*.lock
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
