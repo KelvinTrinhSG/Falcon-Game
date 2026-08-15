@@ -71,6 +71,7 @@ local function giveSword(player: Player, swordName: string): boolean
 	profile.Data.LastEquippedWeapon = swordName
 	player:SetAttribute("LastEquippedWeapon", swordName)
 	WeaponController:EquipWeapon(player, swordName)
+	ReplicatedStorage.Events.WeaponInventoryUpdated:FireClient(player, profile.Data.WeaponInventory)
 
 	print(string.format("[DebugService] Gave '%s' → %s", swordName, player.Name))
 	return true
