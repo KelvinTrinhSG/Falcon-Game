@@ -466,6 +466,24 @@ startFight = function(player: Player)
 	startNextWave(player, plot)
 end
 
+function WaveController:SetWaveSpeed(player: Player, multiplier: number)
+	_playerSpeeds[player] = multiplier
+	local plot = getPlotForPlayer(player)
+	if not plot then return end
+	plot:SetAttribute("WaveSpeed", multiplier)
+	for _, enemy in ipairs(activeEnemiesFolder:GetChildren()) do
+		local ownerPlotValue = enemy:FindFirstChild("OwnerPlot")
+		if ownerPlotValue and ownerPlotValue.Value == plot then
+			local hum = enemy:FindFirstChild("Humanoid")
+			if hum then
+				local baseSpeed = hum:GetAttribute("BaseWalkSpeed") or 16
+				hum.WalkSpeed = baseSpeed * multiplier
+			end
+		end
+	end
+	print(string.format("[WaveController] WaveSpeed x%d → %s", multiplier, player.Name))
+end
+
 function WaveController:Init(controllers: {[string]: any})
 	PlayerController = controllers.PlayerController
 	TurretController = controllers.TurretController

@@ -7,6 +7,7 @@
 --   /sword <Name>        → cấp sword cho bản thân
 --   /swordid <id> <Name> → cấp sword cho player theo UserId
 --   /swordall <Name>     → cấp sword cho tất cả player
+--   /wavespeed <number>  → đặt tốc độ wave (vd: /wavespeed 2)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -69,6 +70,16 @@ function DebugController:KnitStart()
 				DebugService:GiveSwordAll(swordName)
 			else
 				warn("[Debug] Cú pháp: /swordall <SwordName>")
+			end
+
+		-- WAVE SPEED
+		elseif cmd == "/wavespeed" then
+			local multiplier = tonumber(args[2])
+			if multiplier then
+				print(string.format("[Debug] Đặt wave speed x%g...", multiplier))
+				DebugService:SetWaveSpeed(multiplier)
+			else
+				warn("[Debug] Cú pháp: /wavespeed <number>  (vd: /wavespeed 2)")
 			end
 		end
 	end)

@@ -17,6 +17,7 @@ local DebugService = Knit.CreateService({
 
 local PlayerController
 local WeaponController
+local WaveController
 
 -- ── CASH ──────────────────────────────────────────────────────────────
 
@@ -99,6 +100,12 @@ function DebugService.Client:GiveSwordAll(_player: Player, swordName: string)
 	end
 end
 
+-- ── WAVE SPEED ────────────────────────────────────────────────────────
+
+function DebugService.Client:SetWaveSpeed(player: Player, multiplier: number)
+	WaveController:SetWaveSpeed(player, multiplier)
+end
+
 -- ── LIFECYCLE ─────────────────────────────────────────────────────────
 
 function DebugService:KnitStart()
@@ -106,6 +113,7 @@ function DebugService:KnitStart()
 	task.defer(function()
 		PlayerController = require(ServerScriptService.Controllers.PlayerController)
 		WeaponController = require(ServerScriptService.Controllers.WeaponController)
+		WaveController = require(ServerScriptService.Controllers.WaveController)
 	end)
 end
 
