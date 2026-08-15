@@ -24,7 +24,7 @@ local EquipSound = handle:WaitForChild("EquipSound")
 local UnequipSound = handle:WaitForChild("UnequipSound")
 -- Halve all sound volumes
 for _, snd in handle:GetChildren() do
-	if snd:IsA("Sound") then snd.Volume *= 0.05 end
+	if snd:IsA("Sound") then snd.Volume *= 0.2 end
 end
 local SwingSound1 = handle:WaitForChild("SwingSound1")
 local SwingSound2 = handle:WaitForChild("SwingSound2")
