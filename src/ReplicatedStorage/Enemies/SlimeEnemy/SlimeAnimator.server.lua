@@ -7,14 +7,14 @@ local zombieRoot = zombie:WaitForChild("HumanoidRootPart")
 local slimeModel = zombie:WaitForChild("Toilet")
 local slimeRoot = slimeModel:WaitForChild("RootPart")
 
--- 1. Xóa tất cả Weld/WeldConstraint cũ trên HumanoidRootPart
+-- 1. Xóa tất cả WeldConstraint/Weld cũ trên HumanoidRootPart
 for _, child in ipairs(zombieRoot:GetChildren()) do
 	if child:IsA("WeldConstraint") or child:IsA("Weld") then
 		child:Destroy()
 	end
 end
 
--- 2. Hàn các part con của Toilet vào slimeRoot
+-- 2. Hàn tất cả part con của Toilet vào RootPart của nó
 for _, part in ipairs(slimeModel:GetDescendants()) do
 	if part:IsA("BasePart") and part ~= slimeRoot then
 		local internalWeld = Instance.new("WeldConstraint")
@@ -27,14 +27,20 @@ for _, part in ipairs(slimeModel:GetDescendants()) do
 		part.Massless = true
 	end
 end
+slimeRoot.Anchored = false
 slimeRoot.CanCollide = false
+slimeRoot.Massless = true
 
--- 3. Anchor slimeRoot — không dùng Weld để tránh physics explosion
--- CFrame sẽ được update mỗi frame thay vì dùng constraint
+-- 3. Gắn Toilet vào HumanoidRootPart
 local originalC0 = zombieRoot.CFrame:Inverse() * slimeRoot.CFrame
-slimeRoot.Anchored = true
 
--- 4. Load animation Walk
+local weld = Instance.new("Weld")
+weld.Part0 = zombieRoot
+weld.Part1 = slimeRoot
+weld.C0 = originalC0
+weld.Parent = zombieRoot
+
+-- 4. Load animation Walk qua AnimationController/Animator
 local animController = slimeModel:WaitForChild("AnimationController")
 local animator = animController:WaitForChild("Animator")
 
@@ -56,15 +62,12 @@ RunService.Heartbeat:Connect(function()
 		return
 	end
 
-	-- Snap Toilet theo HumanoidRootPart mỗi frame, không cần constraint
-	slimeRoot.CFrame = zombieRoot.CFrame * originalC0
+	local currentSpeed = Vector3.new(zombieRoot.AssemblyLinearVelocity.X, 0, zombieRoot.AssemblyLinearVelocity.Z).Magnitude
 
-	local isMoving = humanoid.MoveDirection.Magnitude > 0.1
-
-	if isMoving and not isPlaying then
+	if currentSpeed > 0.5 and not isPlaying then
 		walkTrack:Play()
 		isPlaying = true
-	elseif not isMoving and isPlaying then
+	elseif currentSpeed <= 0.5 and isPlaying then
 		walkTrack:Stop()
 		isPlaying = false
 	end
