@@ -52,8 +52,9 @@ walkTrack.Priority = Enum.AnimationPriority.Movement
 walkTrack.Looped = true
 
 local isPlaying = false
+local debugTimer = 0
 
-RunService.Heartbeat:Connect(function()
+RunService.Heartbeat:Connect(function(deltaTime)
 	if humanoid.Health <= 0 then
 		if isPlaying then
 			walkTrack:Stop()
@@ -62,15 +63,27 @@ RunService.Heartbeat:Connect(function()
 		return
 	end
 
-	-- MoveDirection phản ánh ý định di chuyển ngay lập tức,
-	-- tránh trường hợp velocity chưa về 0 khi đang tấn công
 	local isMoving = humanoid.MoveDirection.Magnitude > 0.1
 
 	if isMoving and not isPlaying then
 		walkTrack:Play()
 		isPlaying = true
+		print("[SlimeAnimator] ▶ Walk animation STARTED | MoveDir:", humanoid.MoveDirection)
 	elseif not isMoving and isPlaying then
 		walkTrack:Stop()
 		isPlaying = false
+		print("[SlimeAnimator] ⏹ Walk animation STOPPED | MoveDir:", humanoid.MoveDirection)
+	end
+
+	-- Log mỗi 0.5s: vị trí Y của Toilet để detect nhảy
+	debugTimer += deltaTime
+	if debugTimer >= 0.5 then
+		debugTimer = 0
+		local toiletY = slimeRoot.Position.Y
+		local velocityY = slimeRoot.AssemblyLinearVelocity.Y
+		print(string.format("[SlimeAnimator] Toilet Y=%.3f | VelY=%.3f | isPlaying=%s | MoveDir=(%.2f,%.2f,%.2f)",
+			toiletY, velocityY, tostring(isPlaying),
+			humanoid.MoveDirection.X, humanoid.MoveDirection.Y, humanoid.MoveDirection.Z
+		))
 	end
 end)
