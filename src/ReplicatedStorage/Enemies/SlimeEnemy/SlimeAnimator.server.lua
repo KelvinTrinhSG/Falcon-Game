@@ -7,14 +7,14 @@ local zombieRoot = zombie:WaitForChild("HumanoidRootPart")
 local slimeModel = zombie:WaitForChild("Toilet")
 local slimeRoot = slimeModel:WaitForChild("RootPart")
 
--- 1. Xóa tất cả WeldConstraint/Weld cũ trên HumanoidRootPart
+-- 1. Xóa tất cả Weld/WeldConstraint cũ trên HumanoidRootPart
 for _, child in ipairs(zombieRoot:GetChildren()) do
 	if child:IsA("WeldConstraint") or child:IsA("Weld") then
 		child:Destroy()
 	end
 end
 
--- 2. Hàn tất cả part con của Toilet vào RootPart của nó
+-- 2. Hàn các part con của Toilet vào slimeRoot
 for _, part in ipairs(slimeModel:GetDescendants()) do
 	if part:IsA("BasePart") and part ~= slimeRoot then
 		local internalWeld = Instance.new("WeldConstraint")
@@ -27,20 +27,14 @@ for _, part in ipairs(slimeModel:GetDescendants()) do
 		part.Massless = true
 	end
 end
-slimeRoot.Anchored = false
 slimeRoot.CanCollide = false
-slimeRoot.Massless = true
 
--- 3. Gắn Toilet vào HumanoidRootPart
+-- 3. Anchor slimeRoot — không dùng Weld để tránh physics explosion
+-- CFrame sẽ được update mỗi frame thay vì dùng constraint
 local originalC0 = zombieRoot.CFrame:Inverse() * slimeRoot.CFrame
+slimeRoot.Anchored = true
 
-local weld = Instance.new("Weld")
-weld.Part0 = zombieRoot
-weld.Part1 = slimeRoot
-weld.C0 = originalC0
-weld.Parent = zombieRoot
-
--- 4. Load animation Walk qua AnimationController/Animator
+-- 4. Load animation Walk
 local animController = slimeModel:WaitForChild("AnimationController")
 local animator = animController:WaitForChild("Animator")
 
@@ -52,9 +46,8 @@ walkTrack.Priority = Enum.AnimationPriority.Movement
 walkTrack.Looped = true
 
 local isPlaying = false
-local debugTimer = 0
 
-RunService.Heartbeat:Connect(function(deltaTime)
+RunService.Heartbeat:Connect(function()
 	if humanoid.Health <= 0 then
 		if isPlaying then
 			walkTrack:Stop()
@@ -63,27 +56,16 @@ RunService.Heartbeat:Connect(function(deltaTime)
 		return
 	end
 
+	-- Snap Toilet theo HumanoidRootPart mỗi frame, không cần constraint
+	slimeRoot.CFrame = zombieRoot.CFrame * originalC0
+
 	local isMoving = humanoid.MoveDirection.Magnitude > 0.1
 
 	if isMoving and not isPlaying then
 		walkTrack:Play()
 		isPlaying = true
-		print("[SlimeAnimator] ▶ Walk animation STARTED | MoveDir:", humanoid.MoveDirection)
 	elseif not isMoving and isPlaying then
 		walkTrack:Stop()
 		isPlaying = false
-		print("[SlimeAnimator] ⏹ Walk animation STOPPED | MoveDir:", humanoid.MoveDirection)
-	end
-
-	-- Log mỗi 0.5s: vị trí Y của Toilet để detect nhảy
-	debugTimer += deltaTime
-	if debugTimer >= 0.5 then
-		debugTimer = 0
-		local toiletY = slimeRoot.Position.Y
-		local velocityY = slimeRoot.AssemblyLinearVelocity.Y
-		print(string.format("[SlimeAnimator] Toilet Y=%.3f | VelY=%.3f | isPlaying=%s | MoveDir=(%.2f,%.2f,%.2f)",
-			toiletY, velocityY, tostring(isPlaying),
-			humanoid.MoveDirection.X, humanoid.MoveDirection.Y, humanoid.MoveDirection.Z
-		))
 	end
 end)
