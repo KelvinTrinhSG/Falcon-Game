@@ -7,14 +7,14 @@ local zombieRoot = zombie:WaitForChild("HumanoidRootPart")
 local slimeModel = zombie:WaitForChild("Toilet")
 local slimeRoot = slimeModel:WaitForChild("RootPart")
 
--- 1. Xóa tất cả WeldConstraint cũ trên HumanoidRootPart để tránh xung đột
+-- 1. Xóa tất cả WeldConstraint/Weld cũ trên HumanoidRootPart
 for _, child in ipairs(zombieRoot:GetChildren()) do
 	if child:IsA("WeldConstraint") or child:IsA("Weld") then
 		child:Destroy()
 	end
 end
 
--- 2. Hàn tất cả part con của model Toilet vào RootPart của nó
+-- 2. Hàn tất cả part con của Toilet vào RootPart của nó
 for _, part in ipairs(slimeModel:GetDescendants()) do
 	if part:IsA("BasePart") and part ~= slimeRoot then
 		local internalWeld = Instance.new("WeldConstraint")
@@ -31,7 +31,7 @@ slimeRoot.Anchored = false
 slimeRoot.CanCollide = false
 slimeRoot.Massless = true
 
--- 3. Gắn Toilet vào HumanoidRootPart bằng Weld (có C0 để animate)
+-- 3. Gắn Toilet vào HumanoidRootPart
 local originalC0 = zombieRoot.CFrame:Inverse() * slimeRoot.CFrame
 
 local weld = Instance.new("Weld")
@@ -40,22 +40,35 @@ weld.Part1 = slimeRoot
 weld.C0 = originalC0
 weld.Parent = zombieRoot
 
--- 4. Animation nảy
-local bounceSpeed = 15
-local bounceHeight = 1.5
-local timeElapsed = 0
+-- 4. Load animation Walk qua AnimationController/Animator
+local animController = slimeModel:WaitForChild("AnimationController")
+local animator = animController:WaitForChild("Animator")
 
-RunService.Heartbeat:Connect(function(deltaTime)
-	if humanoid.Health <= 0 then return end
+local walkAnim = Instance.new("Animation")
+walkAnim.AnimationId = "rbxassetid://122351479381147"
+
+local walkTrack = animator:LoadAnimation(walkAnim)
+walkTrack.Priority = Enum.AnimationPriority.Movement
+walkTrack.Looped = true
+
+local isPlaying = false
+
+RunService.Heartbeat:Connect(function()
+	if humanoid.Health <= 0 then
+		if isPlaying then
+			walkTrack:Stop()
+			isPlaying = false
+		end
+		return
+	end
 
 	local currentSpeed = Vector3.new(zombieRoot.AssemblyLinearVelocity.X, 0, zombieRoot.AssemblyLinearVelocity.Z).Magnitude
 
-	if currentSpeed > 0.5 then
-		timeElapsed += deltaTime
-		local bounce = math.abs(math.sin(timeElapsed * bounceSpeed)) * bounceHeight
-		weld.C0 = originalC0 * CFrame.new(0, bounce, 0)
-	else
-		timeElapsed = 0
-		weld.C0 = weld.C0:Lerp(originalC0, 0.2)
+	if currentSpeed > 0.5 and not isPlaying then
+		walkTrack:Play()
+		isPlaying = true
+	elseif currentSpeed <= 0.5 and isPlaying then
+		walkTrack:Stop()
+		isPlaying = false
 	end
 end)
