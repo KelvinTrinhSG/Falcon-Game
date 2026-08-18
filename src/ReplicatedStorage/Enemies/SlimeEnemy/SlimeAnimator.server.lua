@@ -62,12 +62,14 @@ RunService.Heartbeat:Connect(function()
 		return
 	end
 
-	local currentSpeed = Vector3.new(zombieRoot.AssemblyLinearVelocity.X, 0, zombieRoot.AssemblyLinearVelocity.Z).Magnitude
+	-- MoveDirection phản ánh ý định di chuyển ngay lập tức,
+	-- tránh trường hợp velocity chưa về 0 khi đang tấn công
+	local isMoving = humanoid.MoveDirection.Magnitude > 0.1
 
-	if currentSpeed > 0.5 and not isPlaying then
+	if isMoving and not isPlaying then
 		walkTrack:Play()
 		isPlaying = true
-	elseif currentSpeed <= 0.5 and isPlaying then
+	elseif not isMoving and isPlaying then
 		walkTrack:Stop()
 		isPlaying = false
 	end
