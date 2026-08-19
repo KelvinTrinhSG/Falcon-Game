@@ -55,12 +55,27 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 
 	local attachments = {}
 	for _, descendant in ipairs(turretModel:GetDescendants()) do
-		if descendant:IsA("Attachment") then
+		if descendant:IsA("Attachment") and descendant.Name == "FirePoint" then
 			table.insert(attachments, descendant)
 		end
 	end
 
 	local head = turretModel:FindFirstChild("Head")
+
+	local attackTrack, idleTrack = nil, nil
+	local animator = turretModel:FindFirstChildWhichIsA("Animator", true)
+	if animator then
+		local attackAnim = Instance.new("Animation")
+		attackAnim.AnimationId = "rbxassetid://71271915335980"
+		attackTrack = animator:LoadAnimation(attackAnim)
+		attackTrack.Priority = Enum.AnimationPriority.Action
+
+		local idleAnim = Instance.new("Animation")
+		idleAnim.AnimationId = "rbxassetid://80096629370909"
+		idleTrack = animator:LoadAnimation(idleAnim)
+		idleTrack.Priority = Enum.AnimationPriority.Idle
+		idleTrack:Play()
+	end
 
 	_activeTurrets[turretModel] = {
 		config = config,
@@ -70,6 +85,8 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 		originalHeadCFrame = head and head.PrimaryPart and turretModel.PrimaryPart.CFrame:ToObjectSpace(head.PrimaryPart.CFrame),
 		currentTarget = nil,
 		lockOnTime = 0,
+		attackTrack = attackTrack,
+		idleTrack = idleTrack,
 	}
 
 	if not _activeTurrets[turretModel].originalHeadCFrame then
@@ -147,9 +164,16 @@ function TurretController:Start()
 				continue
 			end
 
+			if not data.currentTarget then
+				if data.attackTrack and data.attackTrack.IsPlaying then data.attackTrack:Stop() end
+				if data.idleTrack and not data.idleTrack.IsPlaying then data.idleTrack:Play() end
+			end
+
 			if data.currentTarget then
 				if now - data.lockOnTime >= 0.1 then
-					data.lastFireTime = now 
+					data.lastFireTime = now
+					if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
+					if data.attackTrack and not data.attackTrack.IsPlaying then data.attackTrack:Play() end
 
 					local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
 					if not targetRoot then continue end
