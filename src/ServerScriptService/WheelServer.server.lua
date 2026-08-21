@@ -25,7 +25,7 @@ local Items = {
 	{id="Item2", name="$2,500 Cash",     chance=25,  type="Cash",  amount=2500},
 	{id="Item3", name="Modern Turret",   chance=15,  type="Item",  itemId="ModernTurret"},
 	{id="Item4", name="X3 WAVE Pass",    chance=0.5, type="Pass",  itemId="X3WavePass"},
-	{id="Item5", name="God Crate",       chance=1.5, type="Crate", itemId="GodCrate"},
+	{id="Item5", name="Titan Crate",      chance=1.5, type="Crate", itemId="TitanCrate"},
 	{id="Item6", name="+3 Spins",        chance=10,  type="Spin",  amount=3},
 	{id="Item7", name="$7,500 BIG Cash", chance=3,   type="Cash",  amount=7500},
 	{id="Item8", name="Plasma Block",    chance=5,   type="Item",  itemId="PlasmaBlock"},
@@ -220,8 +220,8 @@ SpinWheelEvent.OnServerEvent:Connect(function(player, isFastSpin)
 						ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, profile.Data.BlockInventory)
 
 					elseif finalItem.type == "Crate" then
-						if finalItem.itemId == "GodCrate" then
-							local config = WeaponConfigurations.Crates.GodCrate
+						if finalItem.itemId == "TitanCrate" then
+							local config = WeaponConfigurations.Crates.TitanCrate
 							if config and config.Loot then
 								local lootTable = config.Loot
 								local totalWeight = 0

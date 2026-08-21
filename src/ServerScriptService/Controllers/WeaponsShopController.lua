@@ -163,7 +163,7 @@ local function processReceipt(receiptInfo: {[string]: any})
 		end
 		return Enum.ProductPurchaseDecision.PurchaseGranted
 	elseif productType == "Crate" then
-		if productId == WeaponConfigurations.Crates.GodCrate.ProductID then
+		if productId == WeaponConfigurations.Crates.TitanCrate.ProductID then
 			local lootTable = config.Loot
 			local totalWeight = 0
 			for _, loot in ipairs(lootTable) do totalWeight += loot.Weight end

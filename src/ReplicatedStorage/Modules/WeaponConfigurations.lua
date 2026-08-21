@@ -26,9 +26,9 @@ local WeaponConfigurations = {
 	--CRATES
 	Crates = {
 		--ROBUX
-		GodCrate = {
-			DisplayName = "GodCrate",
-			ImageId = "rbxassetid://79655653446644",
+		TitanCrate = {
+			DisplayName = "Titan Crate",
+			ImageId = "rbxassetid://120439578077918",
 			ProductID = 3493293425,
 			Loot = {
 				{Item = "PrismFang", Weight = 40},
@@ -38,10 +38,10 @@ local WeaponConfigurations = {
 			}
 		},
 		--SHOP
-		WoodCrate = {
-			DisplayName = "Wood Crate",
+		BasicCrate = {
+			DisplayName = "Basic Crate",
 			Price = 600,
-			ImageId = "rbxassetid://98370866657355",
+			ImageId = "rbxassetid://139710725000541",
 			ProductID = 3493295534,
 			SkipTimerProductID = 3590910161,
 			Unlimited = false,
@@ -54,10 +54,10 @@ local WeaponConfigurations = {
 				{Item = "WhiteSword", Weight = 10},
 			}
 		},
-		MetalCrate = {
-			DisplayName = "Metal Crate",
+		CameraCrate = {
+			DisplayName = "Camera Crate",
 			Price = 4000,
-			ImageId = "rbxassetid://75275480502344",
+			ImageId = "rbxassetid://73525180630420",
 			ProductID = 3493297826,
 			SkipTimerProductID = 3493295140,
 			Unlimited = false,
@@ -71,10 +71,10 @@ local WeaponConfigurations = {
 				{Item = "PinkSword", Weight = 5},
 			}
 		},
-		EarthCrate = {
-			DisplayName = "Earth Crate",
+		SpeakerCrate = {
+			DisplayName = "Speaker Crate",
 			Price = 15000,
-			ImageId = "rbxassetid://79965268850866",
+			ImageId = "rbxassetid://73742143095642",
 			ProductID = 3493298349,
 			SkipTimerProductID = 3590910686,
 			Unlimited = false,

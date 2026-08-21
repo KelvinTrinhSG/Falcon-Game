@@ -65,11 +65,11 @@ end
 local function spawnPromotionalCrate(plot: Model)
 	local spawnPart = plot:FindFirstChild("RobuxCrateSpawn")
 	if not spawnPart then return end
-	local crateTemplate = CRATE_MODELS:FindFirstChild("GodCrate")
+	local crateTemplate = CRATE_MODELS:FindFirstChild("TitanCrate")
 	if not (crateTemplate and crateTemplate.PrimaryPart) then return end
 
 	local promoCrate = crateTemplate:Clone()
-	promoCrate.Name = "PromotionalGodCrate"
+	promoCrate.Name = "PromotionalTitanCrate"
 	promoCrate:SetPrimaryPartCFrame(spawnPart.CFrame * CFrame.new(0, 3, 0))
 	promoCrate.Parent = plot
 end
@@ -213,7 +213,7 @@ local function cleanupPlot(plot: Model)
 				pcall(function() TurretController:RemoveTurret(child) end)
 			end
 			child:Destroy()
-		elseif child.Name == "PromotionalGodCrate" or child.Name == "GodCrate" then
+		elseif child.Name == "PromotionalTitanCrate" or child.Name == "TitanCrate" then
 			child:Destroy()
 		end
 	end

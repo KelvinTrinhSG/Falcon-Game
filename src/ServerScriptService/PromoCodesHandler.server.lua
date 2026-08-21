@@ -14,7 +14,7 @@ local blockInventoryUpdatedEvent = ReplicatedStorage:WaitForChild("Events"):Wait
 -- 🎁 LA LISTE DES CODES SECRETS
 -- ==========================================
 local CODES = {
-	["WELCOME"]      = {RewardType = "Crate", RewardItem = "MetalCrate"},
+	["WELCOME"]      = {RewardType = "Crate", RewardItem = "CameraCrate"},
 	["UPDATE1"]      = {RewardType = "Spin",  Amount = 10},
 	["THANK3KVISIT"] = {RewardType = "Block", RewardItem = "GoldBlock", Amount = 3},
 }

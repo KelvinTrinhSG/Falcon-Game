@@ -19,7 +19,7 @@ task.spawn(function()
 		task.wait(1)
 	end
 
-	local promoCrate = playerPlot:WaitForChild("PromotionalGodCrate", 10)
+	local promoCrate = playerPlot:WaitForChild("PromotionalTitanCrate", 10)
 	if not promoCrate then
 		return 
 	end
@@ -28,7 +28,7 @@ task.spawn(function()
 		return
 	end
 
-	local godCrateConfig = WeaponConfigurations.Crates.GodCrate
+	local godCrateConfig = WeaponConfigurations.Crates.TitanCrate
 	if not godCrateConfig then
 		return
 	end
