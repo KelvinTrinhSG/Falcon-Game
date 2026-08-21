@@ -246,11 +246,11 @@ local function onPlaceItem(player: Player, itemId: string, targetCFrame: CFrame,
 
 	-- 1. Si on attend une tourelle ET qu'on vient de poser une tourelle
 	if profile.Data.OnboardingStep == "Step6_PlaceOldTurret" and config.Type == "Turrets" then
-		profile.Data.OnboardingStep = "Step6b_PlaceCardboardBlock"
-		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step6b_PlaceCardboardBlock")
+		profile.Data.OnboardingStep = "Step6b_PlaceRockBlock"
+		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step6b_PlaceRockBlock")
 
 		-- 2. Si on attend un bloc ET qu'on vient de poser un bloc
-	elseif profile.Data.OnboardingStep == "Step6b_PlaceCardboardBlock" and config.Type == "Blocks" then
+	elseif profile.Data.OnboardingStep == "Step6b_PlaceRockBlock" and config.Type == "Blocks" then
 		profile.Data.OnboardingStep = "Step7_StartFight"
 		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step7_StartFight")
 	end

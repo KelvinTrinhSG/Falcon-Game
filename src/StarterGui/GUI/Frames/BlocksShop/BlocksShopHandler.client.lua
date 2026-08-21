@@ -134,7 +134,7 @@ local function populateShop()
 				if onboardingStepValue.Value == "Step3_BuyOldTurret" and itemId == "OldTurret" then
 					onboardingImage.Visible = true
 					-- ⚡ MODIFIÉ : Cible maintenant le CardboardBlock
-				elseif onboardingStepValue.Value == "Step3b_BuyFirstBlock" and itemId == "CardboardBlock" then
+				elseif onboardingStepValue.Value == "Step3b_BuyFirstBlock" and itemId == "RockBlock" then
 					onboardingImage.Visible = true
 				else
 					onboardingImage.Visible = false

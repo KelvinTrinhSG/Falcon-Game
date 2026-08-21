@@ -1,11 +1,11 @@
 --#ReplicatedStorage>Modules>ItemConfigurations
 local ItemConfigurations = {
 	--BLOCKS
-	CardboardBlock = {
-		DisplayName = "Cardboard Block",
+	RockBlock = {
+		DisplayName = "Rock Block",
 		Type = "Blocks",
 		Price = 25,
-		ImageId = "rbxassetid://108677275289655",
+		ImageId = "rbxassetid://136783950073385",
 		ProductID = 3589301743,
 		Unlimited = false,
 		Chance = 100,
@@ -13,11 +13,11 @@ local ItemConfigurations = {
 		Health = 75,
 	},
 
-	WoodBlock = {
-		DisplayName = "Wood Block",
+	ConcreteBlock = {
+		DisplayName = "Concrete Block",
 		Type = "Blocks",
 		Price = 75,
-		ImageId = "rbxassetid://97139355895875",
+		ImageId = "rbxassetid://114128595436055",
 		ProductID = 3589300930,
 		Unlimited = false,
 		Chance = 90,
@@ -25,11 +25,11 @@ local ItemConfigurations = {
 		Health = 100,
 	},
 
-	SteelBlock = {
-		DisplayName = "Steel Block",
+	IceBlock = {
+		DisplayName = "Ice Block",
 		Type = "Blocks",
 		Price = 150,
-		ImageId = "rbxassetid://82043930176672",
+		ImageId = "rbxassetid://103260168489888",
 		ProductID = 3589302472,
 		Unlimited = false,
 		Chance = 80,
@@ -37,11 +37,11 @@ local ItemConfigurations = {
 		Health = 100,
 	},
 
-	PlateBlock = {
-		DisplayName = "Plate Block",
+	FireBlock = {
+		DisplayName = "Fire Block",
 		Type = "Blocks",
 		Price = 400,
-		ImageId = "rbxassetid://85343695095718",
+		ImageId = "rbxassetid://77293299946865",
 		ProductID = 3589304848,
 		Unlimited = false,
 		Chance = 70,
@@ -49,11 +49,11 @@ local ItemConfigurations = {
 		Health = 125,
 	},
 
-	ConcreteBlock = {
-		DisplayName = "Concrete Block",
+	LavaBlock = {
+		DisplayName = "Lava Block",
 		Type = "Blocks",
 		Price = 750,
-		ImageId = "rbxassetid://79368078622624",
+		ImageId = "rbxassetid://115988803054884",
 		ProductID = 3589305738,
 		Unlimited = false,
 		Chance = 60,
@@ -61,11 +61,11 @@ local ItemConfigurations = {
 		Health = 150,
 	},
 
-	CarbonBlock = {
-		DisplayName = "Carbon Block",
+	ToxicBlock = {
+		DisplayName = "Toxic Block",
 		Type = "Blocks",
 		Price = 1200,
-		ImageId = "rbxassetid://93567618787148",
+		ImageId = "rbxassetid://77307474711071",
 		ProductID = 3589306249,
 		Unlimited = false,
 		Chance = 50,
@@ -73,11 +73,11 @@ local ItemConfigurations = {
 		Health = 200,
 	},
 
-	BrickBlock = {
-		DisplayName = "Brick Block",
+	GoldBlock = {
+		DisplayName = "Gold Block",
 		Type = "Blocks",
 		Price = 2000,
-		ImageId = "rbxassetid://137736390730312",
+		ImageId = "rbxassetid://76880802576509",
 		ProductID = 3589273650,
 		Unlimited = false,
 		Chance = 40,
@@ -85,11 +85,11 @@ local ItemConfigurations = {
 		Health = 300,
 	},
 
-	PirateBlock = {
-		DisplayName = "Pirate Block",
+	PlasmaBlock = {
+		DisplayName = "Plasma Block",
 		Type = "Blocks",
 		Price = 3500,
-		ImageId = "rbxassetid://95974448129618",
+		ImageId = "rbxassetid://116185531123879",
 		ProductID = 3589274300,
 		Unlimited = false,
 		Chance = 35,
@@ -97,11 +97,11 @@ local ItemConfigurations = {
 		Health = 500,
 	},
 
-	NetheriteBlock = {
-		DisplayName = "Netherite Block",
+	CyberBlock = {
+		DisplayName = "Cyber Block",
 		Type = "Blocks",
 		Price = 6000,
-		ImageId = "rbxassetid://113910496066332",
+		ImageId = "rbxassetid://94711260291584",
 		ProductID = 3589279102,
 		Unlimited = false,
 		Chance = 30,
@@ -109,11 +109,11 @@ local ItemConfigurations = {
 		Health = 700,
 	},	
 
-	LavaBlock = {
-		DisplayName = "Lava Block",
+	TitanBlock = {
+		DisplayName = "Titan Block",
 		Type = "Blocks",
 		Price = 10000,
-		ImageId = "rbxassetid://134669945181506",
+		ImageId = "rbxassetid://129725207947239",
 		ProductID = 3589307181,
 		Unlimited = false,
 		Chance = 25,

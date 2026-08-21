@@ -75,9 +75,9 @@ local function populateInventory()
 				-- ==========================================
 				-- ⚡ L'AJOUT POUR LA FLÈCHE DU BLOC
 				-- ==========================================
-			elseif onboardingStepValue.Value == "Step6b_PlaceCardboardBlock" and itemData.Id == "CardboardBlock" then
+			elseif onboardingStepValue.Value == "Step6b_PlaceRockBlock" and itemData.Id == "RockBlock" then
 				onboardingImage.Visible = true
-				instructionsLabel.Text = "Select your Cardboard Block!"
+				instructionsLabel.Text = "Select your Rock Block!"
 				instructionsLabel.Visible = true
 				-- ==========================================
 

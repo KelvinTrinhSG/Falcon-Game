@@ -28,7 +28,7 @@ local Items = {
 	{id="Item5", name="God Crate",       chance=1.5, type="Crate", itemId="GodCrate"},
 	{id="Item6", name="+3 Spins",        chance=10,  type="Spin",  amount=3},
 	{id="Item7", name="$7,500 BIG Cash", chance=3,   type="Cash",  amount=7500},
-	{id="Item8", name="Pirate Bloc",     chance=5,   type="Item",  itemId="PirateBlock"},
+	{id="Item8", name="Plasma Block",    chance=5,   type="Item",  itemId="PlasmaBlock"},
 }
 
 local rng = Random.new()

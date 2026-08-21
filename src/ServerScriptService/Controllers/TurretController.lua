@@ -62,22 +62,7 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 
 	local head = turretModel:FindFirstChild("Head")
 
-	local attackTrack, idleTrack = nil, nil
-	local animator = turretModel:FindFirstChildWhichIsA("Animator", true)
-	if animator then
-		local attackAnim = Instance.new("Animation")
-		attackAnim.AnimationId = "rbxassetid://71271915335980"
-		attackTrack = animator:LoadAnimation(attackAnim)
-		attackTrack.Priority = Enum.AnimationPriority.Action
-
-		local idleAnim = Instance.new("Animation")
-		idleAnim.AnimationId = "rbxassetid://80096629370909"
-		idleTrack = animator:LoadAnimation(idleAnim)
-		idleTrack.Priority = Enum.AnimationPriority.Idle
-		idleTrack:Play()
-	end
-
-	_activeTurrets[turretModel] = {
+	local data = {
 		config = config,
 		plot = plot,
 		lastFireTime = 0,
@@ -85,12 +70,113 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 		originalHeadCFrame = head and head.PrimaryPart and turretModel.PrimaryPart.CFrame:ToObjectSpace(head.PrimaryPart.CFrame),
 		currentTarget = nil,
 		lockOnTime = 0,
-		attackTrack = attackTrack,
-		idleTrack = idleTrack,
+		attackTrack = nil,
+		idleTrack = nil,
 	}
+	_activeTurrets[turretModel] = data
 
-	if not _activeTurrets[turretModel].originalHeadCFrame then
+	if not data.originalHeadCFrame then
 		warn("Could not store original CFrame for turret:", turretModel.Name)
+	end
+
+	local animator = turretModel:FindFirstChildWhichIsA("Animator", true)
+	if animator then
+		local attackAnim = turretModel:FindFirstChild("Attack")
+		local idleAnim = turretModel:FindFirstChild("Idle")
+
+		if attackAnim and attackAnim:IsA("Animation") then
+			local attackTrack = animator:LoadAnimation(attackAnim)
+			attackTrack.Priority = Enum.AnimationPriority.Action
+			data.attackTrack = attackTrack
+
+			attackTrack:GetMarkerReachedSignal("Fire"):Connect(function()
+				if not data.currentTarget then return end
+				local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
+				if not targetRoot then return end
+
+				local ownerId = data.plot:GetAttribute("OwnerId")
+				local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
+
+				local raycastParams = RaycastParams.new()
+				raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+				local ignoreList = {turretModel}
+				for _, item in ipairs(data.plot:GetChildren()) do
+					if item:GetAttribute("IsPlacedItem") then
+						table.insert(ignoreList, item)
+					end
+				end
+				raycastParams.FilterDescendantsInstances = ignoreList
+
+				for _, attachment in ipairs(data.attachments) do
+					local origin = attachment.WorldPosition
+					local direction = (targetRoot.Position - origin).Unit
+					local result = Workspace:Raycast(origin, direction * data.config.Range, raycastParams)
+
+					local hitSomething = false
+					if result and result.Instance then
+						local hitModel = nil
+						local hitHumanoid = nil
+						local currentObj = result.Instance
+
+						while currentObj and currentObj ~= Workspace do
+							if currentObj:IsA("Model") and currentObj:FindFirstChildOfClass("Humanoid") then
+								hitModel = currentObj
+								hitHumanoid = currentObj:FindFirstChildOfClass("Humanoid")
+								break
+							end
+							currentObj = currentObj.Parent
+						end
+
+						if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
+							local healthBefore = hitHumanoid.Health
+
+							DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
+
+							local currentDamage = data.plot:GetAttribute("TotalDamage") or 0
+							data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage)
+
+							if healthBefore > 0 and hitHumanoid.Health <= 0 then
+								if slimeDeathSound then
+									local root = hitModel.PrimaryPart or hitModel:FindFirstChild("HumanoidRootPart")
+									if root then
+										local soundAnchor = Instance.new("Part")
+										soundAnchor.Size = Vector3.new(1, 1, 1)
+										soundAnchor.Position = root.Position
+										soundAnchor.Transparency = 1
+										soundAnchor.Anchored = true
+										soundAnchor.CanCollide = false
+										soundAnchor.CanQuery = false
+										soundAnchor.Parent = Workspace
+
+										local sfx = slimeDeathSound:Clone()
+										sfx.Parent = soundAnchor
+										sfx:Play()
+
+										Debris:AddItem(soundAnchor, 2)
+									end
+								end
+							end
+
+							if ownerPlayer then
+								TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, result.Position)
+							end
+							hitSomething = true
+						end
+					end
+
+					if not hitSomething and ownerPlayer then
+						TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, origin + direction * data.config.Range)
+					end
+				end
+			end)
+		end
+
+		if idleAnim and idleAnim:IsA("Animation") then
+			local idleTrack = animator:LoadAnimation(idleAnim)
+			idleTrack.Priority = Enum.AnimationPriority.Idle
+			idleTrack:Play()
+			data.idleTrack = idleTrack
+		end
 	end
 end
 
@@ -154,108 +240,23 @@ function TurretController:Start()
 				head:SetPrimaryPartCFrame(newCFrame)
 			end
 
-			-- ⚡ NOUVEAU : Lecture du multiplicateur de vitesse depuis le Plot
 			local waveSpeedMultiplier = data.plot:GetAttribute("WaveSpeed") or 1
-			-- On multiplie la cadence de tir par le SpeedMultiplier (1 ou 3)
 			local currentFireRate = data.config.FireRate * waveSpeedMultiplier
-
-			-- Si le temps depuis le dernier tir est inférieur au nouveau délai de tir, on bloque.
-			if now - data.lastFireTime < (1 / currentFireRate) then
-				continue
-			end
 
 			if not data.currentTarget then
 				if data.attackTrack and data.attackTrack.IsPlaying then data.attackTrack:Stop() end
 				if data.idleTrack and not data.idleTrack.IsPlaying then data.idleTrack:Play() end
+				continue
 			end
 
-			if data.currentTarget then
-				if now - data.lockOnTime >= 0.1 then
-					data.lastFireTime = now
-					if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
-					if data.attackTrack and not data.attackTrack.IsPlaying then data.attackTrack:Play() end
+			if now - data.lastFireTime < (1 / currentFireRate) then
+				continue
+			end
 
-					local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
-					if not targetRoot then continue end
-
-					local ownerId = data.plot:GetAttribute("OwnerId")
-					local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
-
-					local raycastParams = RaycastParams.new()
-					raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-					local ignoreList = {turretModel}
-					for _, item in ipairs(data.plot:GetChildren()) do
-						if item:GetAttribute("IsPlacedItem") then
-							table.insert(ignoreList, item)
-						end
-					end
-					raycastParams.FilterDescendantsInstances = ignoreList
-
-					for _, attachment in ipairs(data.attachments) do
-						local origin = attachment.WorldPosition
-						local direction = (targetRoot.Position - origin).Unit
-						local result = Workspace:Raycast(origin, direction * data.config.Range, raycastParams)
-
-						local hitSomething = false
-						if result and result.Instance then
-
-							local hitModel = nil
-							local hitHumanoid = nil
-							local currentObj = result.Instance
-
-							while currentObj and currentObj ~= Workspace do
-								if currentObj:IsA("Model") and currentObj:FindFirstChildOfClass("Humanoid") then
-									hitModel = currentObj
-									hitHumanoid = currentObj:FindFirstChildOfClass("Humanoid")
-									break
-								end
-								currentObj = currentObj.Parent
-							end
-
-							if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
-								local healthBefore = hitHumanoid.Health
-
-								DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
-
-								local currentDamage = data.plot:GetAttribute("TotalDamage") or 0
-								data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage)
-
-								if healthBefore > 0 and hitHumanoid.Health <= 0 then
-									if slimeDeathSound then
-										local root = hitModel.PrimaryPart or hitModel:FindFirstChild("HumanoidRootPart")
-										if root then
-											local soundAnchor = Instance.new("Part")
-											soundAnchor.Size = Vector3.new(1, 1, 1)
-											soundAnchor.Position = root.Position
-											soundAnchor.Transparency = 1
-											soundAnchor.Anchored = true
-											soundAnchor.CanCollide = false
-											soundAnchor.CanQuery = false
-											soundAnchor.Parent = Workspace
-
-											local sfx = slimeDeathSound:Clone()
-											sfx.Parent = soundAnchor
-											sfx:Play()
-
-											Debris:AddItem(soundAnchor, 2) 
-										end
-									end
-								end
-
-								if ownerPlayer then
-									TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, result.Position)
-								end
-								hitSomething = true
-							end
-						end
-
-						if not hitSomething then
-							if ownerPlayer then
-								TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, origin + direction * data.config.Range)
-							end
-						end
-					end
-				end
+			if now - data.lockOnTime >= 0.1 then
+				data.lastFireTime = now
+				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
+				if data.attackTrack and not data.attackTrack.IsPlaying then data.attackTrack:Play() end
 			end
 		end
 	end)

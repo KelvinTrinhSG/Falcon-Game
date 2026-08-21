@@ -16,7 +16,7 @@ local blockInventoryUpdatedEvent = ReplicatedStorage:WaitForChild("Events"):Wait
 local CODES = {
 	["WELCOME"]      = {RewardType = "Crate", RewardItem = "MetalCrate"},
 	["UPDATE1"]      = {RewardType = "Spin",  Amount = 10},
-	["THANK3KVISIT"] = {RewardType = "Block", RewardItem = "BrickBlock", Amount = 3},
+	["THANK3KVISIT"] = {RewardType = "Block", RewardItem = "GoldBlock", Amount = 3},
 }
 
 redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)

@@ -141,8 +141,8 @@ local function setStep(stepName: string)
 		-- ==========================================
 		-- ⚡ AJOUTÉ : Instruction pour poser le bloc de carton
 		-- ==========================================
-	elseif stepName == "Step6b_PlaceCardboardBlock" then
-		instructionsLabel.Text = "Place down your Cardboard Block!"
+	elseif stepName == "Step6b_PlaceRockBlock" then
+		instructionsLabel.Text = "Place down your Rock Block!"
 		instructionsLabel.Visible = true
 		-- ==========================================
 
