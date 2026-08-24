@@ -27,7 +27,7 @@ local hudStockLabel = hudButton:WaitForChild("Text")
 local getStockFunc = ReplicatedStorage.Functions:WaitForChild("GetLimitedTurretStock")
 local stockUpdatedEvent = ReplicatedStorage.Events:WaitForChild("LimitedTurretStockUpdated")
 
-local limitedItemId = "LavaTurret"
+local limitedItemId = "TitanCameraGuy"
 local limitedItemConfig = LimitedItems[limitedItemId]
 local MAX_STOCK = 999
 

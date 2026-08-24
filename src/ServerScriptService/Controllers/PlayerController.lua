@@ -36,7 +36,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV3", -- a changer pour l'ouverture du jeu
+	"PlayerDataV4",
 	ProfileTemplate
 )
 

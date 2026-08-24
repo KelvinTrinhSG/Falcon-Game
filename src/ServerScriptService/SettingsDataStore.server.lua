@@ -5,7 +5,7 @@ local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local SettingsDataStore = DataStoreService:GetDataStore("PlayerSettings_v4") -- Version v4 propre
+local SettingsDataStore = DataStoreService:GetDataStore("PlayerSettings_v5") -- Version v4 propre
 local SaveSettingsEvent = ReplicatedStorage:WaitForChild("Events"):WaitForChild("SaveSettingsEvent")
 
 local sessionSettings = {}

@@ -137,7 +137,9 @@ local function processReceipt(receiptInfo: {[string]: any})
 		player:SetAttribute("OwnsStarterPack", true) 
 
 		local formattedCash = NumberFormatter.formatNumber(config.CashAmount)
-		showNotificationEvent:FireClient(player, `Starter Pack Purchased! +${formattedCash} and 1x LaserTurret!`, "Success")
+		local turretConfig = ItemConfigurations[turretId] or LimitedItems[turretId]
+		local turretDisplayName = turretConfig and turretConfig.DisplayName or turretId
+		showNotificationEvent:FireClient(player, `Starter Pack Purchased! +${formattedCash} and 1x {turretDisplayName}!`, "Success")
 		return Enum.ProductPurchaseDecision.PurchaseGranted
 	elseif productType == "Cash" then
 		local leaderstats = player:FindFirstChild("leaderstats")

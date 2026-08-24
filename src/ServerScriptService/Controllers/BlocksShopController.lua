@@ -10,7 +10,7 @@ local ItemConfigurations = ItemConfigsModule.ItemConfigurations
 local PlayerController
 
 local RESTOCK_INTERVAL_SECONDS = 180
-local GUARANTEED_ITEMS = {"CarboardBlock", "OldTurret"}
+local GUARANTEED_ITEMS = {"CarboardBlock", "CameraGuy"}
 
 local ShopController = {}
 

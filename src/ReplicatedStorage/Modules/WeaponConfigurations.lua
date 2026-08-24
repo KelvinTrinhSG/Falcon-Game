@@ -20,7 +20,7 @@ local WeaponConfigurations = {
 		BeginnerPack = { 
 			ProductID = 3588689957, 
 			CashAmount = 5000, 
-			TurretId = "ModernTurret" 
+			TurretId = "EngineerCameraGuy"
 		},
 	},
 	--CRATES

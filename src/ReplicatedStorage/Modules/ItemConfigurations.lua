@@ -122,145 +122,149 @@ local ItemConfigurations = {
 	},
 
 	--TURRETS
-	OldTurret = {
-		DisplayName = "Old Turret",
+	-- Order: CameraGuy > EngineerCameraGuy > SpeakerGuy > TvGuy > NinjaCameraGuy
+	--        > LargeScientistCameraman > LargeSpeakerGuy > LargeTvGuy > LaserCameramanCar > TitanCameraGuy
+	CameraGuy = {
+		DisplayName = "Camera Guy",
 		Type = "Turrets",
 		Price = 200,
-		ImageId = "rbxassetid://79863737566861",
+		ImageId = "rbxassetid://87434168468506",
 		ProductID = 3495738970,
 		Unlimited = false,
 		Chance = 100,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 50,
-		Range = 10, -- Réduit de 15 à 10
+		Range = 10,
 		FireRate = 1,
 		Health = 5000000000,
 	},
 
-	ModernTurret = {
-		DisplayName = "Modern Turret",
+	EngineerCameraGuy = {
+		DisplayName = "Engineer Camera Guy",
 		Type = "Turrets",
 		Price = 500,
-		ImageId = "rbxassetid://134127163464424",
+		ImageId = "rbxassetid://127153357548293",
 		ProductID = 3495739477,
 		Unlimited = false,
 		Chance = 90,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 100,
-		Range = 12, -- Réduit de 13 à 12
-		FireRate = 0.5, -- Corrigé ! (Ajuste selon ton script : 0.5 ou 1.5)
+		Range = 12,
+		FireRate = 0.5,
 		Health = 5000000000,
 	},
 
-	LaserTurret = {
-		DisplayName = "Laser Turret",
+	SpeakerGuy = {
+		DisplayName = "Speaker Guy",
 		Type = "Turrets",
 		Price = 1000,
-		ImageId = "rbxassetid://138810171314082",
-		ProductID = 3495739902,
+		ImageId = "rbxassetid://95942695589812",
+		ProductID = 3595356576,
 		Unlimited = false,
 		Chance = 80,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 175,
-		Range = 18, -- Réduit de 35 à 18
+		Range = 18,
 		FireRate = 2,
 		Health = 5000000000,
 	},
 
-	ExtremeTurret = {
-		DisplayName = "Extreme Turret",
+	TvGuy = {
+		DisplayName = "TV Guy",
 		Type = "Turrets",
 		Price = 2500,
-		ImageId = "rbxassetid://120922630413741",
-		ProductID = 3590647772,
+		ImageId = "rbxassetid://86656983607357",
+		ProductID = 3595356717,
 		Unlimited = false,
 		Chance = 70,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 250,
-		Range = 20, -- Réduit de 37.5 à 20
+		Range = 20,
 		FireRate = 2,
 		Health = 5000000000,
 	},
 
-	ToxicTurret = {
-		DisplayName = "Toxic Turret",
+	NinjaCameraGuy = {
+		DisplayName = "Ninja Camera Guy",
 		Type = "Turrets",
 		Price = 4000,
-		ImageId = "rbxassetid://79148208455816",
-		ProductID = 3590648594,
+		ImageId = "rbxassetid://135155583396631",
+		ProductID = 3590649517,
 		Unlimited = false,
 		Chance = 60,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 400,
-		Range = 16, -- Le Toxic demande souvent un placement rapproché
+		Range = 16,
 		FireRate = 2,
 		Health = 5000000000,
 	},
 
-	BunkerTurret = {
-		DisplayName = "Bunker Turret",
+	LargeScientistCameraman = {
+		DisplayName = "Large Scientist Cameraman",
 		Type = "Turrets",
 		Price = 7000,
-		ImageId = "rbxassetid://110368994158233",
-		ProductID = 3590649081,
+		ImageId = "rbxassetid://111983598950365",
+		ProductID = 3495739902,
 		Unlimited = false,
 		Chance = 50,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 700,
-		Range = 24, -- Portée d'artillerie correcte
+		Range = 24,
 		FireRate = 1,
 		Health = 5000000000,
 	},
 
-	StarsTurret = {
-		DisplayName = "Stars Turret",
+	LargeSpeakerGuy = {
+		DisplayName = "Large Speaker Guy",
 		Type = "Turrets",
 		Price = 15000,
-		ImageId = "rbxassetid://90506924551302",
-		ProductID = 3590649517,
+		ImageId = "rbxassetid://127572002232247",
+		ProductID = 3590647772,
 		Unlimited = false,
 		Chance = 40,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 1000,
-		Range = 28, -- Réduit de 45 à 28
+		Range = 28,
 		FireRate = 2,
 		Health = 5000000000,
 	},
-	PirateTurret = {
-		DisplayName = "Pirate Turret",
+
+	LargeTvGuy = {
+		DisplayName = "Large TV Guy",
 		Type = "Turrets",
 		Price = 30000,
-		ImageId = "rbxassetid://104918083676404", 
-		ProductID = 3595356576,
+		ImageId = "rbxassetid://134355068425451",
+		ProductID = 3590648594,
 		Unlimited = false,
 		Chance = 30,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 1500,
-		Range = 30, 
+		Range = 30,
 		FireRate = 1,
 		Health = 5000000000,
 	},
-	VikingTurret = {
-		DisplayName = "Viking Turret",
+
+	LaserCameramanCar = {
+		DisplayName = "Laser Cameraman Car",
 		Type = "Turrets",
 		Price = 60000,
-		ImageId = "rbxassetid://107433289761116", 
-		ProductID = 3595356717,
+		ImageId = "rbxassetid://140634982638027",
+		ProductID = 3590649081,
 		Unlimited = false,
 		Chance = 20,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 3000,
-		Range = 35, 
+		Range = 35,
 		FireRate = 1,
 		Health = 5000000000,
 	},
 }
 
 local LimitedItems = {
-	LavaTurret = {
-		DisplayName = "Lava Turret",
+	TitanCameraGuy = {
+		DisplayName = "Titan Camera Guy",
 		Type = "Turrets",
-		ImageId = "rbxassetid://131940710641018",
+		ImageId = "rbxassetid://86548185533421",
 		ProductID = 3589846329,
 		Damage = 2500,
 		Range = 40, -- Réduit de 45 à 30 (la meilleure du jeu)

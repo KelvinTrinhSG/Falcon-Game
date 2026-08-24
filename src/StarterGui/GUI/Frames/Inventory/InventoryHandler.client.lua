@@ -67,7 +67,7 @@ local function populateInventory()
 
 		local onboardingImage = item:FindFirstChild("Onboarding")
 		if onboardingImage then
-			if onboardingStepValue.Value == "Step6_PlaceOldTurret" and itemData.Id == "OldTurret" then
+			if onboardingStepValue.Value == "Step6_PlaceOldTurret" and itemData.Id == "CameraGuy" then
 				onboardingImage.Visible = true
 				instructionsLabel.Text = "Select your old turret!"
 				instructionsLabel.Visible = true

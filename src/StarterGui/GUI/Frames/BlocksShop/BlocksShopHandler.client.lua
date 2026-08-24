@@ -131,7 +131,7 @@ local function populateShop()
 
 			local onboardingImage = buyButton:FindFirstChild("Onboarding")
 			if onboardingImage then
-				if onboardingStepValue.Value == "Step3_BuyOldTurret" and itemId == "OldTurret" then
+				if onboardingStepValue.Value == "Step3_BuyOldTurret" and itemId == "CameraGuy" then
 					onboardingImage.Visible = true
 					-- ⚡ MODIFIÉ : Cible maintenant le CardboardBlock
 				elseif onboardingStepValue.Value == "Step3b_BuyFirstBlock" and itemId == "RockBlock" then

@@ -23,7 +23,7 @@ local COOLDOWN      = 1800
 local Items = {
 	{id="Item1", name="+1 Spin",         chance=40,  type="Spin",  amount=1},
 	{id="Item2", name="$2,500 Cash",     chance=25,  type="Cash",  amount=2500},
-	{id="Item3", name="Modern Turret",   chance=15,  type="Item",  itemId="ModernTurret"},
+	{id="Item3", name="Engineer Camera Guy", chance=15, type="Item",  itemId="EngineerCameraGuy"},
 	{id="Item4", name="X3 WAVE Pass",    chance=0.5, type="Pass",  itemId="X3WavePass"},
 	{id="Item5", name="Titan Crate",      chance=1.5, type="Crate", itemId="TitanCrate"},
 	{id="Item6", name="+3 Spins",        chance=10,  type="Spin",  amount=3},

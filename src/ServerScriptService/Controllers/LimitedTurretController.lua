@@ -12,7 +12,7 @@ local PlayerController
 local LimitedTurretController = {}
 
 local stockDataStore = DataStoreService:GetDataStore("GlobalItemStock")
-local STOCK_KEY = "LavaTurretStock"
+local STOCK_KEY = "TitanCameraGuyStock"
 local MAX_STOCK = 999
 
 -- Remotes
