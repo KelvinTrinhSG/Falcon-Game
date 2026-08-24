@@ -10,6 +10,7 @@ local player = Players.LocalPlayer
 local buttonsFolder = script.Parent
 
 local speed1Btn = buttonsFolder:WaitForChild("Speed1")
+local speed2Btn = buttonsFolder:WaitForChild("Speed2")
 local speed3Btn = buttonsFolder:WaitForChild("Speed3")
 
 -- On prépare l'événement pour parler au serveur
@@ -49,6 +50,7 @@ local function applyAnimations(button: GuiButton)
 end
 
 if speed1Btn:IsA("GuiButton") then applyAnimations(speed1Btn) end
+if speed2Btn:IsA("GuiButton") then applyAnimations(speed2Btn) end
 if speed3Btn:IsA("GuiButton") then applyAnimations(speed3Btn) end
 
 -- ==========================================
@@ -123,6 +125,10 @@ player:GetAttributeChangedSignal("WaveSpeedMultiplier"):Connect(updateSpeedDispl
 
 speed1Btn.MouseButton1Click:Connect(function()
 	requestWaveSpeed(1)
+end)
+
+speed2Btn.MouseButton1Click:Connect(function()
+	requestWaveSpeed(2)
 end)
 
 speed3Btn.MouseButton1Click:Connect(function()

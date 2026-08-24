@@ -277,6 +277,9 @@ startNextWave = function(player: Player, plot: Model)
 					end
 				end
 
+				if not enemy.PrimaryPart then
+					enemy.PrimaryPart = enemy:FindFirstChild("HumanoidRootPart")
+				end
 				enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnPart))
 				enemy.Parent = activeEnemiesFolder
 
@@ -284,7 +287,7 @@ startNextWave = function(player: Player, plot: Model)
 				if rootPart then rootPart:SetNetworkOwner(nil) end
 
 				if waveConfig.IsBossWave then
-					local isTheRealBoss = (group.Enemy == "SlimeBoss1" or group.Enemy == "SlimeBoss2")
+					local isTheRealBoss = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2")
 					if isTheRealBoss then
 						ReplicatedStorage.Events.BossWaveStarted:FireClient(player, humanoid, waveConfig.BossImageId)
 					end
@@ -501,7 +504,7 @@ function WaveController:Start()
 	local changeSpeedEvent = ReplicatedStorage.Events:FindFirstChild("ChangeWaveSpeed")
 	if changeSpeedEvent then
 		changeSpeedEvent.OnServerEvent:Connect(function(player, multiplier)
-			if multiplier ~= 1 and multiplier ~= 3 then return end
+			if multiplier ~= 1 and multiplier ~= 2 and multiplier ~= 3 then return end
 
 			if multiplier == 3 then
 				local success, hasPass = pcall(function()
