@@ -80,10 +80,19 @@ function PlacementController:LoadPlacedItems(player: Player, plot: Model)
 			local relativeCFrame = positionTableToCFrame(itemData.Position)
 			local worldCFrame = plotBase.CFrame * relativeCFrame
 
+			for _, part in ipairs(newItem:GetDescendants()) do
+				if part:IsA("BasePart") and part.Name ~= "PlacementBox" then
+					part.CanQuery = false
+				end
+			end
+
 			newItem:SetPrimaryPartCFrame(worldCFrame)
 			newItem.Parent = plot
 			CollectionService:AddTag(newItem, "PlacedItem")
-			CollectionService:AddTag(newItem, "Damageable")
+
+			if config and config.Type == "Blocks" then
+				CollectionService:AddTag(newItem, "Damageable")
+			end
 
 			if config and config.Type == "Turrets" then
 				TurretController:AddTurret(newItem, plot)
@@ -222,6 +231,12 @@ local function onPlaceItem(player: Player, itemId: string, targetCFrame: CFrame,
 
 	if config and config.Health then
 		newItem:SetAttribute("Health", config.Health)
+	end
+
+	for _, part in ipairs(newItem:GetDescendants()) do
+		if part:IsA("BasePart") and part.Name ~= "PlacementBox" then
+			part.CanQuery = false
+		end
 	end
 
 	newItem:SetPrimaryPartCFrame(targetCFrame)

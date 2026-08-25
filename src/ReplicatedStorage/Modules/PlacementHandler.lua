@@ -186,6 +186,11 @@ function PlacementHandler:EnterPlacementMode(itemId: string)
 		warn("Placement mode: Ghost model missing 'PlacementBox' part:", itemId)
 	end
 
+	local ghostBillboard = ghost:FindFirstChild("HealthBarBillboardGui", true)
+	if ghostBillboard then
+		ghostBillboard.Enabled = false
+	end
+
 	-- ## MODIFIED ## Look for the item's config in the new master table
 	local itemConfig = AllItemConfigs[itemId]
 
