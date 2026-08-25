@@ -12,34 +12,21 @@ local handle = tool:WaitForChild("Handle")
 local blade = tool:WaitForChild("Blade")
 local toolMaid = Maid.new()
 
--- State & Constants
-local swingCombo = 1
+-- State
 local isSwinging = false
-local isHolding = false
 local hitDebounce = {}
 
--- Sounds & Animations
+-- Sounds
 local HitSoundTemplate = handle:WaitForChild("HitSound")
 local EquipSound = handle:WaitForChild("EquipSound")
 local UnequipSound = handle:WaitForChild("UnequipSound")
--- Halve all sound volumes
 for _, snd in handle:GetChildren() do
 	if snd:IsA("Sound") then snd.Volume *= 0.2 end
 end
-local SwingSound1 = handle:WaitForChild("SwingSound1")
-local SwingSound2 = handle:WaitForChild("SwingSound2")
-local SwingSound3 = handle:WaitForChild("SwingSound3")
+local SwingSound = handle:WaitForChild("SwingSound1")
 
 -- Events
 local HighlightZombie = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
-
-local animations = {
-	Swing1 = tool:WaitForChild("SwingAnimation1"),
-	Swing2 = tool:WaitForChild("SwingAnimation2"),
-	Swing3 = tool:WaitForChild("SwingAnimation3"),
-}
-
-local tracks = {}
 
 local function onBladeTouched(hit: BasePart)
 	if not isSwinging or not hit or not hit.Parent then return end
@@ -64,44 +51,20 @@ local function onActivated()
 	local character = tool.Parent
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 	if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead or isSwinging then return end
+
 	isSwinging = true
 	hitDebounce = {}
 
-	local currentSwingTrack: AnimationTrack?
-	local currentSwingSound: Sound?
+	SwingSound:Play()
 
-	if swingCombo == 1 then
-		currentSwingTrack = tracks.Swing1
-		currentSwingSound = SwingSound1
-	elseif swingCombo == 2 then
-		currentSwingTrack = tracks.Swing2
-		currentSwingSound = SwingSound2
-	else
-		currentSwingTrack = tracks.Swing3
-		currentSwingSound = SwingSound3
-	end
+	local debounce = tool:GetAttribute("Debounce") or 0.5
+	task.wait(debounce)
 
-	if currentSwingSound then currentSwingSound:Play() end
-	if currentSwingTrack then currentSwingTrack:Play() end
-
-	task.wait(currentSwingTrack and currentSwingTrack.Length or 0.5)
 	isSwinging = false
-	swingCombo = (swingCombo % 3) + 1
 end
 
 tool.Equipped:Connect(function()
 	EquipSound:Play()
-	local character = tool.Parent
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if not humanoid then return end
-
-	local animator = humanoid:WaitForChild("Animator")
-
-	for name, anim in pairs(animations) do
-		tracks[name] = animator:LoadAnimation(anim)
-		tracks[name].Priority = Enum.AnimationPriority.Action
-	end
-
 	toolMaid:GiveTask(blade.Touched:Connect(onBladeTouched))
 	toolMaid:GiveTask(tool.Activated:Connect(onActivated))
 end)
@@ -109,15 +72,5 @@ end)
 tool.Unequipped:Connect(function()
 	UnequipSound:Play()
 	isSwinging = false
-
-	for name, track in pairs(tracks) do
-		if track then
-			track:Stop()
-			track:Destroy()
-			tracks[name] = nil
-		end
-	end
-
-	swingCombo = 1
 	toolMaid:DoCleaning()
 end)
