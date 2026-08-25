@@ -12,10 +12,6 @@ local handle = tool:WaitForChild("Handle")
 local blade = tool:WaitForChild("Blade")
 local toolMaid = Maid.new()
 
--- State
-local isSwinging = false
-local hitDebounce = {}
-
 -- Sounds
 local HitSoundTemplate = handle:WaitForChild("HitSound")
 local EquipSound = handle:WaitForChild("EquipSound")
@@ -28,49 +24,51 @@ local SwingSound = handle:WaitForChild("SwingSound1")
 -- Events
 local HighlightZombie = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
 
+-- Time-based per-enemy cooldown (works across hold-to-attack loop)
+local lastHitTime = {}
+
 local function onBladeTouched(hit: BasePart)
-	if not isSwinging or not hit or not hit.Parent then return end
-	local hitModel = hit.Parent
+	if not hit or not hit.Parent then return end
+
+	local hitModel = hit:FindFirstAncestorOfClass("Model")
+	if not hitModel then return end
+
 	local humanoid = hitModel:FindFirstChildOfClass("Humanoid")
+	if not humanoid or humanoid.Health <= 0 then return end
+	if not hitModel:FindFirstChild("Goal") then return end
 
-	if humanoid and humanoid.Health > 0 and hitModel:FindFirstChild("Goal") and not hitDebounce[hitModel] then
-		hitDebounce[hitModel] = true
-		local damage = tool:GetAttribute("Damage") or 10
-		humanoid:TakeDamage(damage)
+	local debounce = tool:GetAttribute("Debounce") or 0.5
+	local now = tick()
+	if (now - (lastHitTime[hitModel] or 0)) < debounce then return end
+	lastHitTime[hitModel] = now
 
-		HighlightZombie:FireClient(Players:GetPlayerFromCharacter(tool.Parent), hitModel)
+	local damage = tool:GetAttribute("Damage") or 10
+	humanoid:TakeDamage(damage)
 
-		local sound = HitSoundTemplate:Clone()
-		sound.Parent = humanoid.RootPart or hitModel.PrimaryPart
-		sound:Play()
-		Debris:AddItem(sound, 2)
-	end
+	HighlightZombie:FireClient(Players:GetPlayerFromCharacter(tool.Parent), hitModel)
+
+	local sound = HitSoundTemplate:Clone()
+	sound.Parent = humanoid.RootPart or hitModel.PrimaryPart
+	sound:Play()
+	Debris:AddItem(sound, 2)
 end
 
 local function onActivated()
 	local character = tool.Parent
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-	if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead or isSwinging then return end
-
-	isSwinging = true
-	hitDebounce = {}
-
+	if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead then return end
 	SwingSound:Play()
-
-	local debounce = tool:GetAttribute("Debounce") or 0.5
-	task.wait(debounce)
-
-	isSwinging = false
 end
 
 tool.Equipped:Connect(function()
 	EquipSound:Play()
+	lastHitTime = {}
 	toolMaid:GiveTask(blade.Touched:Connect(onBladeTouched))
 	toolMaid:GiveTask(tool.Activated:Connect(onActivated))
 end)
 
 tool.Unequipped:Connect(function()
 	UnequipSound:Play()
-	isSwinging = false
+	lastHitTime = {}
 	toolMaid:DoCleaning()
 end)
