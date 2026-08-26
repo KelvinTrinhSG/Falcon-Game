@@ -10,7 +10,6 @@ local player = Players.LocalPlayer
 local buttonsFolder = script.Parent
 
 local speed1Btn = buttonsFolder:WaitForChild("Speed1")
-local speed2Btn = buttonsFolder:WaitForChild("Speed2")
 local speed3Btn = buttonsFolder:WaitForChild("Speed3")
 
 -- On prépare l'événement pour parler au serveur
@@ -50,7 +49,6 @@ local function applyAnimations(button: GuiButton)
 end
 
 if speed1Btn:IsA("GuiButton") then applyAnimations(speed1Btn) end
-if speed2Btn:IsA("GuiButton") then applyAnimations(speed2Btn) end
 if speed3Btn:IsA("GuiButton") then applyAnimations(speed3Btn) end
 
 -- ==========================================
@@ -113,23 +111,46 @@ end)
 -- ==========================================
 -- 🖱️ CLICS SUR LES BOUTONS
 -- ==========================================
--- Sync GUI khi WaveSpeedMultiplier thay đổi (debug command hoặc nút bấm)
+
+-- Toggle x1/x2 cho Speed1
+local isX2Active = false
+
+local speed1Design = speed1Btn:FindFirstChild("Design")
+local speed1Gradient = speed1Design and speed1Design:FindFirstChild("Gradient")
+local speed1Stroke = speed1Design and speed1Design:FindFirstChild("Stroke")
 local speed1Text = speed1Btn:FindFirstChild("Text")
-local function updateSpeedDisplay()
-	local mult = player:GetAttribute("WaveSpeedMultiplier") or 1
-	if speed1Text then
-		speed1Text.Text = "x" .. tostring(mult)
-	end
+
+local OnStroke = Color3.fromRGB(33, 100, 0)
+local OnGradient = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 0)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0))
+})
+local OffStroke = Color3.fromRGB(0, 93, 140)
+local OffGradient = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+})
+
+local function updateSpeed1Visuals()
+	if speed1Gradient then speed1Gradient.Color = isX2Active and OnGradient or OffGradient end
+	if speed1Stroke then speed1Stroke.Color = isX2Active and OnStroke or OffStroke end
 end
-player:GetAttributeChangedSignal("WaveSpeedMultiplier"):Connect(updateSpeedDisplay)
+
+local waveStateChanged = eventsFolder:WaitForChild("WaveStateChanged")
+waveStateChanged.OnClientEvent:Connect(function(isActive: boolean)
+	if not isActive then
+		isX2Active = false
+		updateSpeed1Visuals()
+	end
+end)
 
 speed1Btn.MouseButton1Click:Connect(function()
-	requestWaveSpeed(1)
+	isX2Active = not isX2Active
+	updateSpeed1Visuals()
+	requestWaveSpeed(isX2Active and 2 or 1)
 end)
 
-speed2Btn.MouseButton1Click:Connect(function()
-	requestWaveSpeed(2)
-end)
+updateSpeed1Visuals()
 
 speed3Btn.MouseButton1Click:Connect(function()
 	local hasWonPass = (player:GetAttribute("HasX3WavePass") == true)

@@ -37,7 +37,7 @@ local function onBladeTouched(hit: BasePart)
 	if not humanoid or humanoid.Health <= 0 then return end
 	if not hitModel:FindFirstChild("Goal") then return end
 
-	local debounce = tool:GetAttribute("Debounce") or 0.5
+	local debounce = tonumber(tool:GetAttribute("Debounce")) or 0.5
 	local now = tick()
 	if (now - (lastHitTime[hitModel] or 0)) < debounce then return end
 	lastHitTime[hitModel] = now

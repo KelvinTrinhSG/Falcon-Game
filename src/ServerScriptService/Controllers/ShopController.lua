@@ -14,6 +14,7 @@ local openShopFrameEvent: RemoteEvent = ReplicatedStorage.Events:WaitForChild("O
 local shops = {
 	WeaponsShop = Workspace:WaitForChild("WeaponsShop"),
 	BlocksShop = Workspace:WaitForChild("BlocksShop"),
+	BasesShop = Workspace:WaitForChild("BasesShop"),
 }
 
 -- State
