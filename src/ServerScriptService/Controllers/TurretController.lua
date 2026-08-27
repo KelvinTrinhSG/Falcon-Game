@@ -256,7 +256,9 @@ function TurretController:Start()
 			if now - data.lockOnTime >= 0.1 then
 				data.lastFireTime = now
 				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
-				if data.attackTrack and not data.attackTrack.IsPlaying then data.attackTrack:Play() end
+				if data.attackTrack and not data.attackTrack.IsPlaying then
+					data.attackTrack:Play()
+				end
 			end
 		end
 	end)
