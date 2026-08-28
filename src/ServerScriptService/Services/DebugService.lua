@@ -101,6 +101,48 @@ function DebugService.Client:GiveSwordAll(_player: Player, swordName: string)
 	end
 end
 
+-- ── BLOCK ─────────────────────────────────────────────────────────────
+
+local BLOCK_AMOUNT = 10
+
+local function giveAllBlocks(player: Player)
+	local profile = PlayerController:GetProfile(player)
+	if not profile then
+		warn(string.format("[DebugService] Không lấy được profile của %s", player.Name))
+		return
+	end
+
+	local inventory = profile.Data.BlockInventory
+
+	for itemId, config in ItemConfigurations.ItemConfigurations do
+		if config.Type == "Blocks" then
+			inventory[itemId] = (inventory[itemId] or 0) + BLOCK_AMOUNT
+		end
+	end
+
+	ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, inventory)
+	print(string.format("[DebugService] Gave all blocks (%dx each) → %s", BLOCK_AMOUNT, player.Name))
+end
+
+function DebugService.Client:GiveBlockSelf(player: Player)
+	giveAllBlocks(player)
+end
+
+function DebugService.Client:GiveBlockById(player: Player, userId: number)
+	local target = Players:GetPlayerByUserId(userId)
+	if target then
+		giveAllBlocks(target)
+	else
+		warn(string.format("[DebugService] Không tìm thấy player với UserId: %d", userId))
+	end
+end
+
+function DebugService.Client:GiveBlockAll(_player: Player)
+	for _, p in Players:GetPlayers() do
+		giveAllBlocks(p)
+	end
+end
+
 -- ── TURRET ────────────────────────────────────────────────────────────
 
 local function giveAllTurrets(player: Player)

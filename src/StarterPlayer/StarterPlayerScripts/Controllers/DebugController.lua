@@ -9,6 +9,9 @@
 --   /swordall <Name>     → cấp sword cho tất cả player
 --   /wavespeed <number>  → đặt tốc độ wave (vd: /wavespeed 2)
 --   /startwave <number>  → chuyển đến wave mong muốn (lưu data)
+--   /blockme             → cấp toàn bộ block cho bản thân (10 mỗi loại)
+--   /blockid <id>        → cấp toàn bộ block cho player theo UserId (10 mỗi loại)
+--   /blockall            → cấp toàn bộ block cho tất cả player (10 mỗi loại)
 --   /turretme            → cấp toàn bộ turret cho bản thân
 --   /turretid <id>       → cấp toàn bộ turret cho player theo UserId
 --   /turretall           → cấp toàn bộ turret cho tất cả player
@@ -85,6 +88,24 @@ function DebugController:KnitStart()
 			else
 				warn("[Debug] Cú pháp: /startwave <number>  (vd: /startwave 10)")
 			end
+
+		-- BLOCK
+		elseif cmd == "/blockme" then
+			print("[Debug] Đang cấp toàn bộ block cho bản thân...")
+			DebugService:GiveBlockSelf()
+
+		elseif cmd == "/blockid" then
+			local userId = tonumber(args[2])
+			if userId then
+				print(string.format("[Debug] Đang cấp toàn bộ block cho UserId: %d", userId))
+				DebugService:GiveBlockById(userId)
+			else
+				warn("[Debug] Cú pháp: /blockid <UserId>")
+			end
+
+		elseif cmd == "/blockall" then
+			print("[Debug] Đang cấp toàn bộ block cho tất cả người chơi...")
+			DebugService:GiveBlockAll()
 
 		-- TURRET
 		elseif cmd == "/turretme" then
