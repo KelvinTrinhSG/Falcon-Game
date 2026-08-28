@@ -8,6 +8,7 @@
 --   /swordid <id> <Name> → cấp sword cho player theo UserId
 --   /swordall <Name>     → cấp sword cho tất cả player
 --   /wavespeed <number>  → đặt tốc độ wave (vd: /wavespeed 2)
+--   /startwave <number>  → chuyển đến wave mong muốn (lưu data)
 --   /turretme            → cấp toàn bộ turret cho bản thân
 --   /turretid <id>       → cấp toàn bộ turret cho player theo UserId
 --   /turretall           → cấp toàn bộ turret cho tất cả player
@@ -73,6 +74,16 @@ function DebugController:KnitStart()
 				DebugService:GiveSwordAll(swordName)
 			else
 				warn("[Debug] Cú pháp: /swordall <SwordName>")
+			end
+
+		-- STARTING WAVE
+		elseif cmd == "/startwave" then
+			local waveNumber = tonumber(args[2])
+			if waveNumber and waveNumber >= 1 then
+				print(string.format("[Debug] Đặt StartingWave → %d...", waveNumber))
+				DebugService:SetStartingWave(waveNumber)
+			else
+				warn("[Debug] Cú pháp: /startwave <number>  (vd: /startwave 10)")
 			end
 
 		-- TURRET

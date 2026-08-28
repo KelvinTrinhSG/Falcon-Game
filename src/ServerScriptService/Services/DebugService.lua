@@ -153,6 +153,19 @@ function DebugService.Client:SetWaveSpeed(player: Player, multiplier: number)
 	WaveController:SetWaveSpeed(player, multiplier)
 end
 
+-- ── STARTING WAVE ─────────────────────────────────────────────────────
+
+function DebugService.Client:SetStartingWave(player: Player, waveNumber: number)
+	local profile = PlayerController:GetProfile(player)
+	if not profile then
+		warn(string.format("[DebugService] Không lấy được profile của %s", player.Name))
+		return
+	end
+
+	profile.Data.StartingWave = waveNumber
+	print(string.format("[DebugService] StartingWave → %d cho %s", waveNumber, player.Name))
+end
+
 -- ── LIFECYCLE ─────────────────────────────────────────────────────────
 
 function DebugService:KnitStart()
