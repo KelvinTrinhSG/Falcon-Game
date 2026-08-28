@@ -113,7 +113,7 @@ local function updateBossHealthUI(humanoid: Humanoid)
 	local percentage = math.clamp(currentHealth / maxHealth, 0, 1)
 
 	bossProgressBar:TweenSize(UDim2.new(percentage, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2)
-	bossTextLabel.Text = `BOSS: {math.floor(currentHealth)} / {maxHealth}`
+	bossTextLabel.Text = `BOSS: {math.max(0, math.floor(currentHealth))} / {maxHealth}`
 end
 
 BossWaveStarted.OnClientEvent:Connect(function(bossHumanoid: Humanoid, imageId: string)
