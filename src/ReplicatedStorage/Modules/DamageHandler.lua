@@ -16,6 +16,7 @@ function DamageHandler.dealDamage(source: Instance, target: Instance, damageAmou
 
 	if humanoid then
 		humanoid:TakeDamage(damageAmount)
+		print(string.format("[DamageHandler] TakeDamage → %s | -%d | HP after: %d", target.Name, damageAmount, humanoid.Health))
 
 		-- Only highlight if the target is still alive
 		if humanoid.Health > 0 then

@@ -130,6 +130,7 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 						if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
 							local healthBefore = hitHumanoid.Health
 
+							print(string.format("[TurretController] Fire → target: %s | damage: %d | HP before: %d", hitModel.Name, data.config.Damage, healthBefore))
 							DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 
 							local currentDamage = data.plot:GetAttribute("TotalDamage") or 0

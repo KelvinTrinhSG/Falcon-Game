@@ -47,10 +47,9 @@ local function setupHealthBar(block: Model)
 			barOriginalSize.Y.Offset
 		)
 		hpText.Text = math.floor(currentHealth) .. " / " .. math.floor(maxHealth)
-		billboard.Enabled = currentHealth > 0
+		billboard.Enabled = currentHealth > 0 and currentHealth < maxHealth
 	end
 
-	task.defer(update)
 	block:GetAttributeChangedSignal("Health"):Connect(update)
 end
 

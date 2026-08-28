@@ -8,6 +8,9 @@
 --   /swordid <id> <Name> → cấp sword cho player theo UserId
 --   /swordall <Name>     → cấp sword cho tất cả player
 --   /wavespeed <number>  → đặt tốc độ wave (vd: /wavespeed 2)
+--   /turretme            → cấp toàn bộ turret cho bản thân
+--   /turretid <id>       → cấp toàn bộ turret cho player theo UserId
+--   /turretall           → cấp toàn bộ turret cho tất cả player
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -71,6 +74,24 @@ function DebugController:KnitStart()
 			else
 				warn("[Debug] Cú pháp: /swordall <SwordName>")
 			end
+
+		-- TURRET
+		elseif cmd == "/turretme" then
+			print("[Debug] Đang cấp toàn bộ turret cho bản thân...")
+			DebugService:GiveTurretSelf()
+
+		elseif cmd == "/turretid" then
+			local userId = tonumber(args[2])
+			if userId then
+				print(string.format("[Debug] Đang cấp toàn bộ turret cho UserId: %d", userId))
+				DebugService:GiveTurretById(userId)
+			else
+				warn("[Debug] Cú pháp: /turretid <UserId>")
+			end
+
+		elseif cmd == "/turretall" then
+			print("[Debug] Đang cấp toàn bộ turret cho tất cả người chơi...")
+			DebugService:GiveTurretAll()
 
 		-- WAVE SPEED
 		elseif cmd == "/wavespeed" then

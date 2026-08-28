@@ -30,7 +30,7 @@ local function updateHealth()
 
 	hpText.Text = math.floor(currentHealth) .. " / " .. math.floor(maxHealth)
 
-	billboard.Enabled = currentHealth > 0
+	billboard.Enabled = currentHealth > 0 and currentHealth < maxHealth
 end
 
 humanoid.HealthChanged:Connect(updateHealth)

@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 
 local Knit = require(ReplicatedStorage.Packages.knit)
 local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
+local ItemConfigurations = require(ReplicatedStorage.Modules.ItemConfigurations)
 
 local REWARD = 1_000_000
 
@@ -97,6 +98,52 @@ end
 function DebugService.Client:GiveSwordAll(_player: Player, swordName: string)
 	for _, p in Players:GetPlayers() do
 		giveSword(p, swordName)
+	end
+end
+
+-- ── TURRET ────────────────────────────────────────────────────────────
+
+local function giveAllTurrets(player: Player)
+	local profile = PlayerController:GetProfile(player)
+	if not profile then
+		warn(string.format("[DebugService] Không lấy được profile của %s", player.Name))
+		return
+	end
+
+	local inventory = profile.Data.BlockInventory
+
+	for turretId, config in ItemConfigurations.ItemConfigurations do
+		if config.Type == "Turrets" then
+			inventory[turretId] = (inventory[turretId] or 0) + 1
+		end
+	end
+
+	for turretId, config in ItemConfigurations.LimitedItems do
+		if config.Type == "Turrets" then
+			inventory[turretId] = (inventory[turretId] or 0) + 1
+		end
+	end
+
+	ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, inventory)
+	print(string.format("[DebugService] Gave all turrets → %s", player.Name))
+end
+
+function DebugService.Client:GiveTurretSelf(player: Player)
+	giveAllTurrets(player)
+end
+
+function DebugService.Client:GiveTurretById(player: Player, userId: number)
+	local target = Players:GetPlayerByUserId(userId)
+	if target then
+		giveAllTurrets(target)
+	else
+		warn(string.format("[DebugService] Không tìm thấy player với UserId: %d", userId))
+	end
+end
+
+function DebugService.Client:GiveTurretAll(_player: Player)
+	for _, p in Players:GetPlayers() do
+		giveAllTurrets(p)
 	end
 end
 
