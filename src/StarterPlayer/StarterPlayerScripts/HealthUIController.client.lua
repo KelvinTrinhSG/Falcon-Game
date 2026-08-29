@@ -48,6 +48,22 @@ local function updatePlotHealthUI(currentHealth: number, newMaxHealth: number)
 	plotTextLabel.Text = NumberFormatter.formatNumber(math.floor(currentHealth)) .. " / " .. NumberFormatter.formatNumber(plotMaxHealth)
 end
 
+local function connectToCore1(core1: Instance)
+	if plotHealthConnection then plotHealthConnection:Disconnect() end
+	plotHealthPart = core1
+	local maxHealth = core1:GetAttribute("MaxHealth") or plotMaxHealth
+	plotMaxHealth = maxHealth
+	print(string.format("[HealthUI] Connected to Core1 (MaxHealth=%s)", tostring(maxHealth)))
+	plotHealthConnection = core1:GetAttributeChangedSignal("Health"):Connect(function()
+		local health = (core1 :: any):GetAttribute("Health")
+		print(string.format("[HealthUI] Core1 Health changed → %s", tostring(health)))
+		updatePlotHealthUI(health, plotMaxHealth)
+	end)
+	-- Sync current health immediately
+	local currentHealth = core1:GetAttribute("Health") or maxHealth
+	updatePlotHealthUI(currentHealth, maxHealth)
+end
+
 task.spawn(function()
 	local playerPlot: Model?
 	while not playerPlot do
@@ -57,24 +73,19 @@ task.spawn(function()
 				break
 			end
 		end
-		if not playerPlot then
-			task.wait(1)
+		if not playerPlot then task.wait(1) end
+	end
+
+	-- Connect to Core1 now, and reconnect whenever EquipBase swaps it
+	local core1 = playerPlot:WaitForChild("Core1")
+	connectToCore1(core1)
+
+	playerPlot.ChildAdded:Connect(function(child)
+		if child.Name == "Core1" then
+			print("[HealthUI] New Core1 detected (base swapped), reconnecting...")
+			connectToCore1(child)
 		end
-	end
-
-	plotHealthPart = playerPlot:WaitForChild("Core1")
-
-	if plotHealthPart then
-		print(string.format("[HealthUI] Core1 found, listening to Health attribute changes (MaxHealth=%s)", tostring(plotHealthPart:GetAttribute("MaxHealth"))))
-		if plotHealthConnection then plotHealthConnection:Disconnect() end
-		plotHealthConnection = plotHealthPart:GetAttributeChangedSignal("Health"):Connect(function()
-			local health = plotHealthPart:GetAttribute("Health")
-			print(string.format("[HealthUI] Core1 Health attribute changed → %s", tostring(health)))
-			updatePlotHealthUI(health, plotMaxHealth)
-		end)
-	else
-		warn("[HealthUI] Core1 not found in plot!")
-	end
+	end)
 end)
 
 UpdateProtectionModelFX.OnClientEvent:Connect(function(imageId: string, newMaxHealth: number?)
