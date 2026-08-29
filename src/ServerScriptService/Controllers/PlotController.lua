@@ -11,8 +11,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local PlacementController
 local PlayerController
 local CrateController
-local WaveController 
+local WaveController
 local TurretController
+local BaseShopController
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules:WaitForChild("ItemConfigurations"))
 local ModelConfigurations = ItemConfigsModule.ModelConfigurations
@@ -418,8 +419,6 @@ local function setupPlot(plot: Model)
 	if plot:GetAttribute("OwnerId") ~= nil then return end
 	plot:SetAttribute("OwnerId", nil)
 end
-
-local BaseShopController
 
 function PlotController:Init(controllers: {[string]: any})
 	PlacementController = controllers.PlacementController
