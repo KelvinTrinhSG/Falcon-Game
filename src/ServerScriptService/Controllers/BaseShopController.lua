@@ -50,8 +50,16 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 	local profile = PlayerController:GetProfile(player)
 	if not profile then return end
 
+	-- Save preference first so it persists even if model swap fails
+	profile.Data.EquippedBase = baseId
+
 	local plot = getPlotForPlayer(player)
-	if not plot then return end
+	if not plot then
+		if baseDataUpdatedEvent then
+			baseDataUpdatedEvent:FireClient(player, profile.Data.OwnedBases, profile.Data.EquippedBase)
+		end
+		return
+	end
 
 	local currentCore = plot:FindFirstChild("Core1")
 	local coreCFrame = currentCore and currentCore:GetPivot() or CFrame.new()
@@ -74,8 +82,6 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 		end
 	end
 
-	profile.Data.EquippedBase = baseId
-
 	-- Sync health UI if currently fighting
 	if WaveController and WaveController:IsPlayerFighting(player) then
 		local core = plot:FindFirstChild("Core1")
@@ -87,7 +93,9 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 		showNotificationEvent:FireClient(player, config.DisplayName .. " equipped!", "Success")
 	end
 
-	baseDataUpdatedEvent:FireClient(player, profile.Data.OwnedBases, profile.Data.EquippedBase)
+	if baseDataUpdatedEvent then
+		baseDataUpdatedEvent:FireClient(player, profile.Data.OwnedBases, profile.Data.EquippedBase)
+	end
 end
 
 function BaseShopController:Init(controllers: {[string]: any})
