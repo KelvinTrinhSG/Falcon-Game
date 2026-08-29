@@ -55,7 +55,7 @@ local function startTimer()
 			timerLabel.Text = formatRemaining(remaining)
 		end)
 	else
-		warn("[BlocksShopHandler] FAILED to get new restock time.")
+		warn("[TurretsShopHandler] FAILED to get new restock time.")
 	end
 end
 
@@ -68,7 +68,7 @@ local function populateShop()
 
 	local itemsToDisplay = {}
 	for itemId, config in pairs(ItemConfigurations) do
-		if config.Type == "Blocks" then
+		if config.Type == "Turrets" then
 			table.insert(itemsToDisplay, {Id = itemId, Config = config})
 		end
 	end
@@ -113,14 +113,14 @@ local function populateShop()
 
 			local onboardingImage = buyButton:FindFirstChild("Onboarding")
 			if onboardingImage then
-				onboardingImage.Visible = (onboardingStepValue.Value == "Step3b_BuyFirstBlock" and itemId == "RockBlock")
+				onboardingImage.Visible = (onboardingStepValue.Value == "Step3_BuyOldTurret" and itemId == "CameraGuy")
 			end
 		end
 
 		if robuxButton then
 			local tripleText: TextLabel? = robuxButton:FindFirstChild("TripleText")
 			if tripleText then
-				tripleText.Visible = true
+				tripleText.Visible = false
 			end
 
 			if config.ProductID and config.ProductID > 0 then
@@ -213,5 +213,5 @@ local initialStocksSuccess, initialStocks = pcall(getStocks.InvokeServer, getSto
 if initialStocksSuccess and initialStocks then
 	currentStocks = initialStocks
 else
-	warn("[BlocksShopHandler] Could not get initial stocks on startup.")
+	warn("[TurretsShopHandler] Could not get initial stocks on startup.")
 end

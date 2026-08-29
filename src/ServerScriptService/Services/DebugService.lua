@@ -19,6 +19,7 @@ local DebugService = Knit.CreateService({
 local PlayerController
 local WeaponController
 local WaveController
+local BaseShopController
 
 -- ── CASH ──────────────────────────────────────────────────────────────
 
@@ -189,6 +190,58 @@ function DebugService.Client:GiveTurretAll(_player: Player)
 	end
 end
 
+-- ── BASE ──────────────────────────────────────────────────────────────
+
+local function giveAllBases(player: Player)
+	local profile = PlayerController:GetProfile(player)
+	if not profile then
+		warn(string.format("[DebugService] Không lấy được profile của %s", player.Name))
+		return
+	end
+
+	for baseId in ItemConfigurations.BaseConfigurations do
+		if not table.find(profile.Data.OwnedBases, baseId) then
+			table.insert(profile.Data.OwnedBases, baseId)
+		end
+	end
+
+	ReplicatedStorage.Events.BaseDataUpdated:FireClient(player, profile.Data.OwnedBases, profile.Data.EquippedBase)
+	print(string.format("[DebugService] Gave all bases → %s", player.Name))
+end
+
+function DebugService.Client:GiveBaseSelf(player: Player)
+	giveAllBases(player)
+end
+
+function DebugService.Client:GiveBaseById(player: Player, userId: number)
+	local target = Players:GetPlayerByUserId(userId)
+	if target then
+		giveAllBases(target)
+	else
+		warn(string.format("[DebugService] Không tìm thấy player với UserId: %d", userId))
+	end
+end
+
+function DebugService.Client:GiveBaseAll(_player: Player)
+	for _, p in Players:GetPlayers() do
+		giveAllBases(p)
+	end
+end
+
+function DebugService.Client:EquipBase(player: Player, baseId: string)
+	if not ItemConfigurations.BaseConfigurations[baseId] then
+		warn(string.format("[DebugService] Base không tồn tại: '%s'", baseId))
+		return
+	end
+	local profile = PlayerController:GetProfile(player)
+	if not profile then return end
+	if not table.find(profile.Data.OwnedBases, baseId) then
+		table.insert(profile.Data.OwnedBases, baseId)
+	end
+	BaseShopController:EquipBase(player, baseId)
+	print(string.format("[DebugService] Equipped '%s' → %s", baseId, player.Name))
+end
+
 -- ── WAVE SPEED ────────────────────────────────────────────────────────
 
 function DebugService.Client:SetWaveSpeed(player: Player, multiplier: number)
@@ -216,6 +269,7 @@ function DebugService:KnitStart()
 		PlayerController = require(ServerScriptService.Controllers.PlayerController)
 		WeaponController = require(ServerScriptService.Controllers.WeaponController)
 		WaveController = require(ServerScriptService.Controllers.WaveController)
+		BaseShopController = require(ServerScriptService.Controllers.BaseShopController)
 	end)
 end
 

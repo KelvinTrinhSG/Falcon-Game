@@ -15,6 +15,10 @@
 --   /turretme            → cấp toàn bộ turret cho bản thân
 --   /turretid <id>       → cấp toàn bộ turret cho player theo UserId
 --   /turretall           → cấp toàn bộ turret cho tất cả player
+--   /baseme              → cấp toàn bộ base cho bản thân
+--   /baseid <id>         → cấp toàn bộ base cho player theo UserId
+--   /baseall             → cấp toàn bộ base cho tất cả player
+--   /equipbase <CoreX>   → trang bị base cho bản thân (vd: /equipbase Core3)
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -124,6 +128,33 @@ function DebugController:KnitStart()
 		elseif cmd == "/turretall" then
 			print("[Debug] Đang cấp toàn bộ turret cho tất cả người chơi...")
 			DebugService:GiveTurretAll()
+
+		-- BASE
+		elseif cmd == "/baseme" then
+			print("[Debug] Đang cấp toàn bộ base cho bản thân...")
+			DebugService:GiveBaseSelf()
+
+		elseif cmd == "/baseid" then
+			local userId = tonumber(args[2])
+			if userId then
+				print(string.format("[Debug] Đang cấp toàn bộ base cho UserId: %d", userId))
+				DebugService:GiveBaseById(userId)
+			else
+				warn("[Debug] Cú pháp: /baseid <UserId>")
+			end
+
+		elseif cmd == "/baseall" then
+			print("[Debug] Đang cấp toàn bộ base cho tất cả người chơi...")
+			DebugService:GiveBaseAll()
+
+		elseif cmd == "/equipbase" then
+			local baseId = args[2]
+			if baseId then
+				print(string.format("[Debug] Trang bị base '%s' cho bản thân...", baseId))
+				DebugService:EquipBase(baseId)
+			else
+				warn("[Debug] Cú pháp: /equipbase <CoreX>  (vd: /equipbase Core3)")
+			end
 
 		-- WAVE SPEED
 		elseif cmd == "/wavespeed" then

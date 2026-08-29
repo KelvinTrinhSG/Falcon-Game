@@ -360,6 +360,9 @@ function PlotController:OnPlayerProfileLoaded(player: Player)
 
 			if profile then
 				self:EquipModel(player, profile.Data.EquippedModel, true)
+				if BaseShopController then
+					BaseShopController:EquipBase(player, profile.Data.EquippedBase or "Core1", true)
+				end
 			end
 
 			PlacementController:LoadPlacedItems(player, assignedPlot)
@@ -416,12 +419,15 @@ local function setupPlot(plot: Model)
 	plot:SetAttribute("OwnerId", nil)
 end
 
+local BaseShopController
+
 function PlotController:Init(controllers: {[string]: any})
 	PlacementController = controllers.PlacementController
 	PlayerController = controllers.PlayerController
 	CrateController = controllers.CrateController
 	WaveController = controllers.WaveController
-	TurretController = controllers.TurretController 
+	TurretController = controllers.TurretController
+	BaseShopController = controllers.BaseShopController
 end
 
 function PlotController:Start()

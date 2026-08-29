@@ -7,11 +7,19 @@ local Workspace = game:GetService("Workspace")
 local RunService = game:GetService("RunService")
 
 -- Configuration mapping shop names to their objects and events
+local blockShopResetTime = ReplicatedStorage.Functions:WaitForChild("GetBlockShopResetTime")
+local updateBlockStocks = ReplicatedStorage.Events:WaitForChild("UpdateBlockStocks")
+
 local shopConfigs = {
 	BlocksShop = {
 		TimerLabel = Workspace:WaitForChild("BlocksShop"):WaitForChild("RestockGUI"):WaitForChild("TimerLabel"),
-		GetTimeFunc = ReplicatedStorage.Functions:WaitForChild("GetBlockShopResetTime"),
-		UpdateEvent = ReplicatedStorage.Events:WaitForChild("UpdateBlockStocks"),
+		GetTimeFunc = blockShopResetTime,
+		UpdateEvent = updateBlockStocks,
+	},
+	TurretsShop = {
+		TimerLabel = Workspace:WaitForChild("TurretsShop"):WaitForChild("RestockGUI"):WaitForChild("TimerLabel"),
+		GetTimeFunc = blockShopResetTime,
+		UpdateEvent = updateBlockStocks,
 	},
 	WeaponsShop = {
 		TimerLabel = Workspace:WaitForChild("WeaponsShop"):WaitForChild("RestockGUI"):WaitForChild("TimerLabel"),

@@ -412,9 +412,9 @@ stopFight = function(plot: Model, reason: string)
 		PlacementController:LoadPlacedItems(player, plot)
 		local profile = PlayerController:GetProfile(player)
 		if profile then
-			local maxHealth = 100 
 			local coreBuilding = plot:FindFirstChild("Core1")
 			if coreBuilding then
+				local maxHealth = coreBuilding:GetAttribute("MaxHealth") or 100
 				coreBuilding:SetAttribute("Health", maxHealth)
 			end
 		end
@@ -435,9 +435,9 @@ startFight = function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or _plotStates[plot] then return end
 
-	local maxHealth = 50
 	local coreBuilding = plot:FindFirstChild("Core1")
 	if not coreBuilding then return end
+	local maxHealth = coreBuilding:GetAttribute("MaxHealth") or 100
 	coreBuilding:SetAttribute("Health", maxHealth)
 
 	plot:SetAttribute("TotalDamage", 0)
