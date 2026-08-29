@@ -182,9 +182,13 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 			local coreBuilding = plot:FindFirstChild("Core1")
 			if coreBuilding then
 				local currentHealth = coreBuilding:GetAttribute("Health") or 100
-				coreBuilding:SetAttribute("Health", math.max(0, currentHealth - 10)) 
+				local newHealth = math.max(0, currentHealth - 10)
+				print(string.format("[WaveController] Enemy reached end → Base damage: %d → %d", currentHealth, newHealth))
+				coreBuilding:SetAttribute("Health", newHealth)
+			else
+				warn("[WaveController] Core1 not found in plot!")
 			end
-			humanoid.Health = 0 
+			humanoid.Health = 0
 		end
 	end)
 end

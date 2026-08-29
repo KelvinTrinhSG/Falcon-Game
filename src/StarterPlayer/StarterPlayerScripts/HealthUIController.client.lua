@@ -43,6 +43,7 @@ local function updatePlotHealthUI(currentHealth: number, newMaxHealth: number)
 	currentHealth = math.clamp(currentHealth, 0, plotMaxHealth)
 	local percentage = currentHealth / plotMaxHealth
 
+	print(string.format("[HealthUI] GUI update → %d / %d (%.0f%%)", math.floor(currentHealth), plotMaxHealth, percentage * 100))
 	plotProgressBar:TweenSize(UDim2.new(percentage, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
 	plotTextLabel.Text = NumberFormatter.formatNumber(math.floor(currentHealth)) .. " / " .. NumberFormatter.formatNumber(plotMaxHealth)
 end
@@ -64,10 +65,15 @@ task.spawn(function()
 	plotHealthPart = playerPlot:WaitForChild("Core1")
 
 	if plotHealthPart then
+		print(string.format("[HealthUI] Core1 found, listening to Health attribute changes (MaxHealth=%s)", tostring(plotHealthPart:GetAttribute("MaxHealth"))))
 		if plotHealthConnection then plotHealthConnection:Disconnect() end
 		plotHealthConnection = plotHealthPart:GetAttributeChangedSignal("Health"):Connect(function()
-			updatePlotHealthUI(plotHealthPart:GetAttribute("Health"), plotMaxHealth)
+			local health = plotHealthPart:GetAttribute("Health")
+			print(string.format("[HealthUI] Core1 Health attribute changed → %s", tostring(health)))
+			updatePlotHealthUI(health, plotMaxHealth)
 		end)
+	else
+		warn("[HealthUI] Core1 not found in plot!")
 	end
 end)
 
