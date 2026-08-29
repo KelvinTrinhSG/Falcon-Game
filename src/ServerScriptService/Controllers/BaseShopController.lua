@@ -41,6 +41,8 @@ local function getPlotForPlayer(player: Player): Model?
 end
 
 function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip: boolean?)
+	print(string.format("[BaseShopController] EquipBase called | player=%s baseId=%s forceEquip=%s", player.Name, tostring(baseId), tostring(forceEquip)))
+
 	local config = BaseConfigurations[baseId]
 	if not config then
 		warn("[BaseShopController] Unknown baseId:", baseId)
@@ -48,18 +50,25 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 	end
 
 	local profile = PlayerController:GetProfile(player)
-	if not profile then return end
+	if not profile then
+		warn("[BaseShopController] No profile for", player.Name)
+		return
+	end
 
 	-- Save preference first so it persists even if model swap fails
 	profile.Data.EquippedBase = baseId
+	print(string.format("[BaseShopController] profile.Data.EquippedBase set → '%s' for %s", baseId, player.Name))
 
 	local plot = getPlotForPlayer(player)
 	if not plot then
+		warn(string.format("[BaseShopController] Plot not found for %s (PlotNumber=%s)", player.Name, tostring(player:GetAttribute("PlotNumber"))))
 		if baseDataUpdatedEvent then
 			baseDataUpdatedEvent:FireClient(player, profile.Data.OwnedBases, profile.Data.EquippedBase)
 		end
 		return
 	end
+
+	print(string.format("[BaseShopController] Plot found: %s", plot.Name))
 
 	local currentCore = plot:FindFirstChild("Core1")
 	local coreCFrame = currentCore and currentCore:GetPivot() or CFrame.new()
@@ -67,6 +76,7 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 	-- Swap model (all bases including Core1 should be in ReplicatedStorage/Bases/)
 	local template = BASES_FOLDER:FindFirstChild(baseId)
 	if template then
+		print(string.format("[BaseShopController] Template found for '%s', swapping model", baseId))
 		if currentCore then currentCore:Destroy() end
 		local newCore = template:Clone()
 		newCore.Name = "Core1"
@@ -75,6 +85,7 @@ function BaseShopController:EquipBase(player: Player, baseId: string, forceEquip
 		newCore:SetAttribute("Health", config.Health)
 		newCore.Parent = plot
 	else
+		warn(string.format("[BaseShopController] No template in ReplicatedStorage/Bases/%s — only updating health attributes", baseId))
 		-- Model not in ReplicatedStorage/Bases, just update health attributes
 		if currentCore then
 			currentCore:SetAttribute("MaxHealth", config.Health)
