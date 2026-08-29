@@ -274,11 +274,11 @@ local LimitedItems = {
 }
 
 local BaseConfigurations = {
-	Core1 = { DisplayName = "Core 1", Price = 0,     Health = 100 },
-	Core2 = { DisplayName = "Core 2", Price = 2000,  Health = 150 },
-	Core3 = { DisplayName = "Core 3", Price = 10000, Health = 250 },
-	Core4 = { DisplayName = "Core 4", Price = 25000, Health = 400 },
-	Core5 = { DisplayName = "Core 5", Price = 60000, Health = 600 },
+	Core1 = { DisplayName = "Camera Post",    Price = 0,     Health = 100 },
+	Core2 = { DisplayName = "Speaker Station", Price = 2000,  Health = 150 },
+	Core3 = { DisplayName = "Broadcast Tower", Price = 10000, Health = 250 },
+	Core4 = { DisplayName = "Signal Fortress", Price = 25000, Health = 400 },
+	Core5 = { DisplayName = "Titan Dominion",  Price = 60000, Health = 600 },
 }
 
 return {
