@@ -19,6 +19,9 @@
 --   /baseid <id>         → cấp toàn bộ base cho player theo UserId
 --   /baseall             → cấp toàn bộ base cho tất cả player
 --   /equipbase <CoreX>   → trang bị base cho bản thân (vd: /equipbase Core3)
+--   /weaponme            → cấp toàn bộ weapon cho bản thân
+--   /weaponid <id>       → cấp toàn bộ weapon cho player theo UserId
+--   /weaponall           → cấp toàn bộ weapon cho tất cả player
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -165,6 +168,24 @@ function DebugController:KnitStart()
 			else
 				warn("[Debug] Cú pháp: /wavespeed <number>  (vd: /wavespeed 2)")
 			end
+
+		-- ALL WEAPONS
+		elseif cmd == "/weaponme" then
+			print("[Debug] Đang cấp toàn bộ weapon cho bản thân...")
+			DebugService:GiveAllWeaponsSelf()
+
+		elseif cmd == "/weaponid" then
+			local userId = tonumber(args[2])
+			if userId then
+				print(string.format("[Debug] Đang cấp toàn bộ weapon cho UserId: %d", userId))
+				DebugService:GiveAllWeaponsById(userId)
+			else
+				warn("[Debug] Cú pháp: /weaponid <UserId>")
+			end
+
+		elseif cmd == "/weaponall" then
+			print("[Debug] Đang cấp toàn bộ weapon cho tất cả người chơi...")
+			DebugService:GiveAllWeaponsAll()
 		end
 	end)
 end

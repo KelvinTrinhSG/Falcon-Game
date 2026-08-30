@@ -190,6 +190,44 @@ function DebugService.Client:GiveTurretAll(_player: Player)
 	end
 end
 
+-- ── ALL WEAPONS ───────────────────────────────────────────────────────
+
+local function giveAllWeapons(player: Player)
+	local profile = PlayerController:GetProfile(player)
+	if not profile then
+		warn(string.format("[DebugService] Không lấy được profile của %s", player.Name))
+		return
+	end
+
+	for key in pairs(WeaponConfigurations.Weapons) do
+		if not table.find(profile.Data.WeaponInventory, key) then
+			table.insert(profile.Data.WeaponInventory, key)
+		end
+	end
+
+	ReplicatedStorage.Events.WeaponInventoryUpdated:FireClient(player, profile.Data.WeaponInventory)
+	print(string.format("[DebugService] Gave all weapons → %s", player.Name))
+end
+
+function DebugService.Client:GiveAllWeaponsSelf(player: Player)
+	giveAllWeapons(player)
+end
+
+function DebugService.Client:GiveAllWeaponsById(player: Player, userId: number)
+	local target = Players:GetPlayerByUserId(userId)
+	if target then
+		giveAllWeapons(target)
+	else
+		warn(string.format("[DebugService] Không tìm thấy player với UserId: %d", userId))
+	end
+end
+
+function DebugService.Client:GiveAllWeaponsAll(_player: Player)
+	for _, p in Players:GetPlayers() do
+		giveAllWeapons(p)
+	end
+end
+
 -- ── BASE ──────────────────────────────────────────────────────────────
 
 local function giveAllBases(player: Player)
