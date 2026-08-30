@@ -259,6 +259,7 @@ function TurretController:Start()
 				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
 				if data.attackTrack and not data.attackTrack.IsPlaying then
 					data.attackTrack:Play()
+					data.attackTrack:AdjustSpeed(waveSpeedMultiplier)
 				end
 			end
 		end

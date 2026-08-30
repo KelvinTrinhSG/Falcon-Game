@@ -30,6 +30,7 @@ local waveButton = hudTopButtons:WaitForChild("WaveButton")
 local hudBottomButtons = gui.HUD.Bottom
 local inventoryButton = hudBottomButtons:WaitForChild("Inventory")
 
+local turretsShopModel = Workspace:WaitForChild("TurretsShop")
 local blocksShopModel = Workspace:WaitForChild("BlocksShop")
 
 local onboardingImages = {
@@ -75,8 +76,8 @@ local function setStep(stepName: string)
 		end
 		local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
 
-		if not blocksShopModel.PrimaryPart then
-			warn("[OnboardingHandler] The 'BlocksShop' model in Workspace is missing its PrimaryPart! The beam cannot be created.")
+		if not turretsShopModel.PrimaryPart then
+			warn("[OnboardingHandler] The 'TurretsShop' model in Workspace is missing its PrimaryPart! The beam cannot be created.")
 			return
 		end
 
@@ -84,7 +85,7 @@ local function setStep(stepName: string)
 			attachment0 = Instance.new("Attachment")
 			attachment0.Parent = humanoidRootPart
 			attachment1 = Instance.new("Attachment")
-			attachment1.Parent = blocksShopModel.PrimaryPart
+			attachment1.Parent = turretsShopModel.PrimaryPart
 			beam = beamTemplate:Clone()
 			beam.Attachment0 = attachment1
 			beam.Attachment1 = attachment0
@@ -178,7 +179,7 @@ inventoryButton.MouseButton1Click:Connect(function()
 end)
 
 FrameManager.onFrameOpened(function(frameName)
-	if frameName == "BlocksShop" and currentStep == "Step2_OpenDefenceShop" then
+	if frameName == "TurretsShop" and currentStep == "Step2_OpenDefenceShop" then
 		OnboardingStepCompletedEvent:FireServer("Step2_OpenDefenceShop")
 	elseif frameName == "Inventory" and currentStep == "Step5_OpenInventory" then
 		OnboardingStepCompletedEvent:FireServer("Step5_OpenInventory")

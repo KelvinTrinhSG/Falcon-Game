@@ -76,7 +76,22 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 	if not waypointsFolder then return end
 
 	local waypoints = {}
-	for _, wp in ipairs(waypointsFolder:GetChildren()) do
+
+	local pathFolders = {}
+	for _, child in ipairs(waypointsFolder:GetChildren()) do
+		if child:IsA("Folder") then
+			table.insert(pathFolders, child)
+		end
+	end
+
+	local sourceFolder
+	if #pathFolders > 0 then
+		sourceFolder = pathFolders[math.random(1, #pathFolders)]
+	else
+		sourceFolder = waypointsFolder
+	end
+
+	for _, wp in ipairs(sourceFolder:GetChildren()) do
 		if wp:IsA("BasePart") then
 			table.insert(waypoints, wp)
 		end
@@ -318,7 +333,26 @@ startNextWave = function(player: Player, plot: Model)
 					local reachedEnd = false
 					local pathFolder = plot:FindFirstChild("Path")
 					local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
-					local endPoint = waypointsFolder and waypointsFolder:FindFirstChild("End")
+					local endPoint = nil
+
+					if waypointsFolder then
+						for _, folder in ipairs(waypointsFolder:GetChildren()) do
+							if folder:IsA("Folder") then
+								local ep = folder:FindFirstChild("End")
+								if ep then
+									if not endPoint or (rootPart and
+										(rootPart.Position - ep.Position).Magnitude <
+										(rootPart.Position - endPoint.Position).Magnitude)
+									then
+										endPoint = ep
+									end
+								end
+							end
+						end
+						if not endPoint then
+							endPoint = waypointsFolder:FindFirstChild("End")
+						end
+					end
 
 					if rootPart and endPoint then
 						local dist = (Vector3.new(rootPart.Position.X, 0, rootPart.Position.Z) - Vector3.new(endPoint.Position.X, 0, endPoint.Position.Z)).Magnitude
