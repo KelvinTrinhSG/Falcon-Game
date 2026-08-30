@@ -92,26 +92,26 @@ local WeaponConfigurations = {
 
 	Weapons = {
 		--Starter
-		WoodSword = { DisplayName = "Wood Sword", ImageId = "rbxassetid://126321981198719" }, -- 10
+		WoodSword = { DisplayName = "Simple Plunger", ImageId = "rbxassetid://126321981198719" }, -- 10
 		--Wood
-		StoneSword = { DisplayName = "Stone Sword", ImageId = "rbxassetid://98850338938642" }, -- 20
-		ClassicSword = { DisplayName = "Classic Sword", ImageId = "rbxassetid://137083985660048" }, -- 35
-		WhiteSword = { DisplayName = "WhiteSword", ImageId = "rbxassetid://107209992307667" }, -- 50
+		StoneSword = { DisplayName = "Upgraded Plunger", ImageId = "rbxassetid://98850338938642" }, -- 20
+		ClassicSword = { DisplayName = "Spike Plunger", ImageId = "rbxassetid://137083985660048" }, -- 35
+		WhiteSword = { DisplayName = "Blue Sword", ImageId = "rbxassetid://107209992307667" }, -- 50
 		--Metal
-		BlueSword = { DisplayName = "Blue Sword", ImageId = "rbxassetid://106268955187746" }, -- 75
-		IceSword = { DisplayName = "Ice Sword", ImageId = "rbxassetid://86285408542421" }, -- 100
-		AzureSword = { DisplayName = "Azure Sword", ImageId = "rbxassetid://139447042654835" }, -- 150
-		PinkSword = { DisplayName = "Pink Sword", ImageId = "rbxassetid://123160254672400" }, -- 200
+		BlueSword = { DisplayName = "White Sword", ImageId = "rbxassetid://106268955187746" }, -- 75
+		IceSword = { DisplayName = "Red Sword", ImageId = "rbxassetid://86285408542421" }, -- 100
+		AzureSword = { DisplayName = "Blue Cross Sword", ImageId = "rbxassetid://139447042654835" }, -- 150
+		PinkSword = { DisplayName = "Pink Cross Sword", ImageId = "rbxassetid://123160254672400" }, -- 200
 		--Earth
-		EasterSword = { DisplayName = "Easter Sword", ImageId = "rbxassetid://101114127129333" }, -- 300
-		GemSword = { DisplayName = "GemSword", ImageId = "rbxassetid://122285053735268" }, -- 450
-		PotOSword = { DisplayName = "Pot Sword", ImageId = "rbxassetid://108758775618579" }, -- 600
-		EarthSword = { DisplayName = "Earth Sword", ImageId = "rbxassetid://73933794416777" }, -- 900
+		EasterSword = { DisplayName = "Red Cross Sword", ImageId = "rbxassetid://101114127129333" }, -- 300
+		GemSword = { DisplayName = "Eviscerator Axe", ImageId = "rbxassetid://122285053735268" }, -- 450
+		PotOSword = { DisplayName = "Chain Sword", ImageId = "rbxassetid://108758775618579" }, -- 600
+		EarthSword = { DisplayName = "Agent Katana", ImageId = "rbxassetid://73933794416777" }, -- 900
 		--God
-		PrismFang = { DisplayName = "Prism Fang", ImageId = "rbxassetid://138374599530188" }, -- 1500
-		SovereignSplitter = { DisplayName = "Sovereign Splitter", ImageId = "rbxassetid://134644486162929" }, -- 2500
-		Crownbreaker = { DisplayName = "Crown Breaker", ImageId = "rbxassetid://130895318777477" }, -- 4000
-		LightSword = { DisplayName = "Light Sword", ImageId = "rbxassetid://131121345026857" }, -- 7000
+		PrismFang = { DisplayName = "Energized Arm Blade", ImageId = "rbxassetid://138374599530188" }, -- 1500
+		SovereignSplitter = { DisplayName = "TV Man Sword", ImageId = "rbxassetid://134644486162929" }, -- 2500
+		Crownbreaker = { DisplayName = "Mechanical Hammer", ImageId = "rbxassetid://130895318777477" }, -- 4000
+		LightSword = { DisplayName = "Crescent Rose", ImageId = "rbxassetid://131121345026857" }, -- 7000
 	}
 }
 
