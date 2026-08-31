@@ -52,7 +52,7 @@ local function startTimer(nextTime: number?)
 				return
 			end
 			local remaining = timestamp - os.time()
-			timerLabel.Text = "" .. formatRemaining(remaining)
+			timerLabel.Text = "Restocks in " .. formatRemaining(remaining)
 		end)
 	end
 

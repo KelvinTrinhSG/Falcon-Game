@@ -52,7 +52,7 @@ local function startTimer()
 				return
 			end
 			local remaining = nextTime - os.time()
-			timerLabel.Text = formatRemaining(remaining)
+			timerLabel.Text = "Restocks in " .. formatRemaining(remaining)
 		end)
 	else
 		warn("[BlocksShopHandler] FAILED to get new restock time.")
