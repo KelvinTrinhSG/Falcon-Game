@@ -6,6 +6,7 @@ local RunService = game:GetService("RunService")
 local PlayerController
 local BlocksShopController
 local WeaponsShopController
+local BaseShopController
 
 local ShopTimerController = {}
 
@@ -16,6 +17,7 @@ function ShopTimerController:Init(controllers: {[string]: any})
 	PlayerController = controllers.PlayerController
 	BlocksShopController = controllers.BlocksShopController
 	WeaponsShopController = controllers.WeaponsShopController
+	BaseShopController = controllers.BaseShopController
 end
 
 function ShopTimerController:Start()
@@ -41,6 +43,12 @@ function ShopTimerController:Start()
 				if currentTime >= profile.Data.WeaponShopNextRestock then
 					print(`Player {player.Name}'s Weapons Shop is restocking automatically.`)
 					WeaponsShopController:Restock(player)
+				end
+
+				-- Check Bases Shop timer
+				if currentTime >= profile.Data.BaseShopNextRestock then
+					print(`Player {player.Name}'s Bases Shop is restocking automatically.`)
+					BaseShopController:Restock(player)
 				end
 			end
 		end

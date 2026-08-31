@@ -35,10 +35,12 @@ local ProfileTemplate = {
 	BlockShopNextRestock = 0,
 	WeaponShopStock = {},
 	WeaponShopNextRestock = 0,
+	BaseShopStock = {},
+	BaseShopNextRestock = 0,
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV12",
+	"PlayerDataV14",
 	ProfileTemplate
 )
 

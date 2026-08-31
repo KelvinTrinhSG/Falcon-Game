@@ -15,6 +15,7 @@ local NumberFormatter = require(Modules.NumberFormatter)
 local PlayerController
 local CrateController
 local BlocksShopController
+local BaseShopController
 local PlotController
 local LimitedTurretController
 
@@ -106,7 +107,7 @@ local function processReceipt(receiptInfo: {[string]: any})
 			showNotificationEvent:FireClient(player, "Defenders Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		elseif itemId == "RestockBasesShop" then
-			BlocksShopController:Restock(player, true)
+			BaseShopController:Restock(player, true)
 			showNotificationEvent:FireClient(player, "Bases Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		elseif itemId == "RestockWeaponsShop" then
@@ -274,6 +275,7 @@ function ShopController:Init(controllers: {[string]: any})
 	PlayerController = controllers.PlayerController
 	CrateController = controllers.CrateController
 	BlocksShopController = controllers.BlocksShopController
+	BaseShopController = controllers.BaseShopController
 	PlotController = controllers.PlotController
 	LimitedTurretController = controllers.LimitedTurretController
 end
