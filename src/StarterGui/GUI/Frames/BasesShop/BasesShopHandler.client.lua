@@ -84,6 +84,9 @@ local function populateShop()
 		local isEquipped = equippedBase == baseId
 		local inStock    = (currentStocks[baseId] or 0) > 0
 
+		local itemImage: ImageLabel? = item:FindFirstChild("ItemImage")
+		if itemImage then itemImage.Image = config.ImageId end
+
 		local nameLabel: TextLabel? = item:FindFirstChild("ItemName")
 		if nameLabel then nameLabel.Text = config.DisplayName end
 

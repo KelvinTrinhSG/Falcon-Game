@@ -10,6 +10,7 @@ local WeaponConfigurations = require(Modules.WeaponConfigurations)
 local ItemConfigsModule = require(Modules.ItemConfigurations)
 local LimitedItems = ItemConfigsModule.LimitedItems
 local ItemConfigurations = ItemConfigsModule.ItemConfigurations
+local BaseConfigurations = ItemConfigsModule.BaseConfigurations
 local NumberFormatter = require(Modules.NumberFormatter)
 
 local PlayerController
@@ -55,9 +56,12 @@ local function getProductConfig(productId: number)
 	end
 	local models = type(ItemConfigsModule.ModelConfigurations) == "table" and ItemConfigsModule.ModelConfigurations or {}
 	for id, config in pairs(models) do
-		if type(config) == "table" and config.PowerLevel and config.ProductID and config.ProductID == productId then 
-			return id, config, "Model" 
+		if type(config) == "table" and config.PowerLevel and config.ProductID and config.ProductID == productId then
+			return id, config, "Model"
 		end
+	end
+	for id, config in pairs(BaseConfigurations) do
+		if config.ProductID and config.ProductID == productId then return id, config, "Base" end
 	end
 	return nil, nil, nil
 end
@@ -115,6 +119,17 @@ local function processReceipt(receiptInfo: {[string]: any})
 			showNotificationEvent:FireClient(player, "Crates Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		end
+	elseif productType == "Base" then
+		if not table.find(profile.Data.OwnedBases, itemId) then
+			table.insert(profile.Data.OwnedBases, itemId)
+			local stock = profile.Data.BaseShopStock or {}
+			stock[itemId] = 0
+			profile.Data.BaseShopStock = stock
+			BaseShopController:EquipBase(player, itemId)
+			ReplicatedStorage.Events.UpdateBaseStocks:FireClient(player, stock)
+			showNotificationEvent:FireClient(player, config.DisplayName .. " purchased!", "Success")
+		end
+		return Enum.ProductPurchaseDecision.PurchaseGranted
 	elseif productType == "Model" then
 		if not table.find(profile.Data.OwnedModels, itemId) then
 			table.insert(profile.Data.OwnedModels, itemId)

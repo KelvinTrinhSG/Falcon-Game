@@ -324,11 +324,11 @@ local LimitedItems = {
 }
 
 local BaseConfigurations = {
-	Core1 = { DisplayName = "Camera Post",    Price = 0,     Health = 100 },
-	Core2 = { DisplayName = "Speaker Station", Price = 2000,  Health = 150 },
-	Core3 = { DisplayName = "Broadcast Tower", Price = 10000, Health = 250 },
-	Core4 = { DisplayName = "Signal Fortress", Price = 25000, Health = 400 },
-	Core5 = { DisplayName = "Titan Dominion",  Price = 60000, Health = 600 },
+	Core1 = { DisplayName = "Camera Post",     Price = 0,     Health = 100, ImageId = "rbxassetid://138618181818045", ProductID = 0           },
+	Core2 = { DisplayName = "Speaker Station", Price = 2000,  Health = 150, ImageId = "rbxassetid://119650006445523", ProductID = 3710733502  },
+	Core3 = { DisplayName = "Broadcast Tower", Price = 10000, Health = 250, ImageId = "rbxassetid://72443890466175",  ProductID = 3710733557  },
+	Core4 = { DisplayName = "Signal Fortress", Price = 25000, Health = 400, ImageId = "rbxassetid://129302868825261", ProductID = 3710733607  },
+	Core5 = { DisplayName = "Titan Dominion",  Price = 60000, Health = 600, ImageId = "rbxassetid://117127516225593", ProductID = 3710733660  },
 }
 
 return {
