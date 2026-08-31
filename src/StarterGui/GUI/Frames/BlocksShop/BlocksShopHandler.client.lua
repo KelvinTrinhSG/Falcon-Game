@@ -134,7 +134,7 @@ local function populateShop()
 						task.spawn(function()
 							local success, result = pcall(MarketplaceService.GetProductInfo, MarketplaceService, config.ProductID, Enum.InfoType.Product)
 							if success and result and result.PriceInRobux and item.Parent then
-								local priceString = "" .. result.PriceInRobux
+								local priceString = "" .. result.PriceInRobux
 								robuxPricesCache[config.ProductID] = priceString
 								priceLabel.Text = priceString
 							elseif item.Parent then
@@ -194,7 +194,7 @@ if restockButton and restockConfig then
 					return MarketplaceService:GetProductInfo(restockConfig.ProductID, Enum.InfoType.Product)
 				end)
 				if success and productInfo and restockButton.Parent then
-					local priceString = "" .. productInfo.PriceInRobux
+					local priceString = "" .. productInfo.PriceInRobux
 					robuxPricesCache[restockConfig.ProductID] = priceString
 					priceLabel.Text = priceString
 				elseif restockButton.Parent then
