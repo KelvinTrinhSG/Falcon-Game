@@ -33,6 +33,8 @@ local equippedBase: string = "Core1"
 local currentStocks: {[string]: number} = {}
 local visualTimerConnection: RBXScriptConnection?
 local isFighting: boolean = false
+local robuxPricesCache: {[number]: string} = {}
+local ROBUX_ICON = "\xee\x80\x82"
 
 waveStateChanged.OnClientEvent:Connect(function(active: boolean)
 	isFighting = active
@@ -149,6 +151,24 @@ local function populateShop()
 			end
 			if robuxBuyButton and config.ProductID and config.ProductID > 0 then
 				robuxBuyButton.Visible = true
+				local robuxText: TextLabel? = robuxBuyButton:FindFirstChild("Text")
+				if robuxText then
+					if robuxPricesCache[config.ProductID] then
+						robuxText.Text = robuxPricesCache[config.ProductID]
+					else
+						robuxText.Text = "..."
+						task.spawn(function()
+							local ok, result = pcall(MarketplaceService.GetProductInfo, MarketplaceService, config.ProductID, Enum.InfoType.Product)
+							if ok and result and result.PriceInRobux and robuxBuyButton.Parent then
+								local priceString = ROBUX_ICON .. result.PriceInRobux
+								robuxPricesCache[config.ProductID] = priceString
+								robuxText.Text = priceString
+							elseif robuxBuyButton.Parent then
+								robuxText.Text = "N/A"
+							end
+						end)
+					end
+				end
 				robuxBuyButton.MouseButton1Click:Connect(function()
 					if isFighting then
 						NotificationManager.show("Stop fighting first!", "Error")
