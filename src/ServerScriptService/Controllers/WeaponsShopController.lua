@@ -98,12 +98,20 @@ local function processReceipt(receiptInfo: {[string]: any})
 		return LimitedTurretController:ProcessPurchase(player, itemId)
 	elseif productType == "ShopAction" then
 		if itemId == "RestockBlocksShop" then
-			BlocksShopController:Restock(player)
+			BlocksShopController:Restock(player, true)
 			showNotificationEvent:FireClient(player, "Blocks Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
+		elseif itemId == "RestockTurretsShop" then
+			BlocksShopController:Restock(player, true)
+			showNotificationEvent:FireClient(player, "Defenders Shop Restocked!", "Success")
+			return Enum.ProductPurchaseDecision.PurchaseGranted
+		elseif itemId == "RestockBasesShop" then
+			BlocksShopController:Restock(player, true)
+			showNotificationEvent:FireClient(player, "Bases Shop Restocked!", "Success")
+			return Enum.ProductPurchaseDecision.PurchaseGranted
 		elseif itemId == "RestockWeaponsShop" then
-			ShopController:Restock(player)
-			showNotificationEvent:FireClient(player, "Weapons Shop Restocked!", "Success")
+			ShopController:Restock(player, true)
+			showNotificationEvent:FireClient(player, "Crates Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		end
 	elseif productType == "Model" then
@@ -214,7 +222,7 @@ function ShopController:RequestSkipTimer(player: Player, crateModel: Model)
 	promptSkipTimerRequest:FireClient(player, crateConfig.SkipTimerProductID)
 end
 
-function ShopController:Restock(player: Player)
+function ShopController:Restock(player: Player, suppressNotification: boolean?)
 	local profile = PlayerController:GetProfile(player)
 	if not profile then return end
 	local newStock = {}
@@ -231,7 +239,9 @@ function ShopController:Restock(player: Player)
 	profile.Data.WeaponShopStock = newStock
 	profile.Data.WeaponShopNextRestock = os.time() + RESTOCK_INTERVAL_SECONDS
 	updateStocksEvent:FireClient(player, newStock)
-	showNotificationEvent:FireClient(player, "The Crate Shop has been restocked!", "Normal")
+	if not suppressNotification then
+		showNotificationEvent:FireClient(player, "The Crate Shop has been restocked!", "Normal")
+	end
 end
 
 local function onPurchaseRequest(player: Player, itemId: string)

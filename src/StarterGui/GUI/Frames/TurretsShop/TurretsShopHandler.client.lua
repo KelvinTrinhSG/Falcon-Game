@@ -181,7 +181,7 @@ onboardingStepValue.Changed:Connect(function()
 	end
 end)
 
-local restockConfig = WeaponConfigurations.ShopProducts.RestockBlocksShop
+local restockConfig = WeaponConfigurations.ShopProducts.RestockTurretsShop
 if restockButton and restockConfig then
 	local priceLabel = restockButton:FindFirstChild("Text")
 	if priceLabel and priceLabel:IsA("TextLabel") then

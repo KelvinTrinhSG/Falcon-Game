@@ -2,14 +2,18 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 local BaseConfigurations = ItemConfigsModule.BaseConfigurations
 local NumberFormatter = require(ReplicatedStorage.Modules.NumberFormatter)
+local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
 
 local player = Players.LocalPlayer
 local shopFrame = script.Parent
 local scrollingFrame = shopFrame:WaitForChild("ScrollingFrame")
+local designFrame = shopFrame:WaitForChild("Design")
+local restockButton = designFrame:WaitForChild("RestockButton")
 local itemTemplate = ReplicatedStorage.Templates:WaitForChild("BasesTemplate")
 
 local purchaseBaseEvent = ReplicatedStorage.Events:WaitForChild("PurchaseBase")
@@ -102,4 +106,26 @@ if success and owned then
 	equippedBase = equipped or "Core1"
 else
 	warn("[BasesShopHandler] Could not get initial base data.")
+end
+
+local restockConfig = WeaponConfigurations.ShopProducts.RestockBasesShop
+if restockButton and restockConfig then
+	local priceLabel = restockButton:FindFirstChild("Text")
+	if priceLabel and priceLabel:IsA("TextLabel") then
+		priceLabel.Text = "..."
+		task.spawn(function()
+			local ok, productInfo = pcall(function()
+				return MarketplaceService:GetProductInfo(restockConfig.ProductID, Enum.InfoType.Product)
+			end)
+			if ok and productInfo and restockButton.Parent then
+				priceLabel.Text = "" .. productInfo.PriceInRobux
+			elseif restockButton.Parent then
+				priceLabel.Text = "N/A"
+			end
+		end)
+	end
+
+	restockButton.MouseButton1Click:Connect(function()
+		MarketplaceService:PromptProductPurchase(player, restockConfig.ProductID)
+	end)
 end

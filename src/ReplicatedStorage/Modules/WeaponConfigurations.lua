@@ -4,16 +4,18 @@
 local WeaponConfigurations = {
 	--RESTOCKS
 	ShopProducts = {
-		RestockBlocksShop = { ProductID = 3590907519}, -- Use your new DevProduct ID here
-		RestockWeaponsShop = { ProductID = 3590907781}, -- Use your new DevProduct ID here
+		RestockBasesShop = { ProductID = 3710668336 },
+		RestockBlocksShop = { ProductID = 3710668255 },
+		RestockTurretsShop = { ProductID = 3710668801 },
+		RestockWeaponsShop = { ProductID = 3710668368 },
 	},
 	--CASH
 	CashProducts = {
-		Product1 = { ProductID = 3493289499, CashAmount = 5000 },
-		Product2 = { ProductID = 3493290556, CashAmount = 20000 },
-		Product3 = { ProductID = 3493290114, CashAmount = 75000 },
-		Product4 = { ProductID = 3493290944, CashAmount = 250000 },
-		Product5 = { ProductID = 3588689362, CashAmount = 1000000 },
+		Product1 = { ProductID = 3710671477, CashAmount = 5000 },
+		Product2 = { ProductID = 3710671545, CashAmount = 20000 },
+		Product3 = { ProductID = 3710671583, CashAmount = 75000 },
+		Product4 = { ProductID = 3710671617, CashAmount = 250000 },
+		Product5 = { ProductID = 3710671649, CashAmount = 1000000 },
 	},
 	--STARTER PACK
 	StarterPack = {

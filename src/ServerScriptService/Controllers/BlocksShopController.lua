@@ -21,7 +21,7 @@ local getStocks = ReplicatedStorage.Functions:WaitForChild("GetBlockShopStocks")
 local showNotificationEvent = ReplicatedStorage.Events:WaitForChild("ShowNotification")
 local blockInventoryUpdatedEvent = ReplicatedStorage.Events:WaitForChild("BlockInventoryUpdated")
 
-function ShopController:Restock(player: Player)
+function ShopController:Restock(player: Player, suppressNotification: boolean?)
 	local profile = PlayerController:GetProfile(player)
 	if not profile then return end
 
@@ -48,7 +48,9 @@ function ShopController:Restock(player: Player)
 	profile.Data.BlockShopNextRestock = os.time() + RESTOCK_INTERVAL_SECONDS
 
 	updateStocksEvent:FireClient(player, newStock)
-	showNotificationEvent:FireClient(player, "The Blocks Shop has been restocked!", "Normal")
+	if not suppressNotification then
+		showNotificationEvent:FireClient(player, "The Blocks Shop has been restocked!", "Normal")
+	end
 end
 
 local function onPurchaseRequest(player: Player, itemId: string)
