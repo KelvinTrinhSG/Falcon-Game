@@ -21,20 +21,20 @@ local damageLabel = statsFrame:WaitForChild("DamageLabel")
 local itemNameLabel = frame:WaitForChild("ItemName")
 local itemImage = frame:WaitForChild("ItemImage")
 
-local hudButton = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Right"):WaitForChild("LimitedTurret")
+local hudButton = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Right"):WaitForChild("LimitedTurretTitanTV")
 local hudStockLabel = hudButton:WaitForChild("Text")
 
 -- Remotes
 local getStockFunc = ReplicatedStorage.Functions:WaitForChild("GetLimitedTurretStock")
 local stockUpdatedEvent = ReplicatedStorage.Events:WaitForChild("LimitedTurretStockUpdated")
 
-local limitedItemId = "TitanCameraGuy"
+local limitedItemId = "TitanTVMan"
 local limitedItemConfig = LimitedItems[limitedItemId]
 local MAX_STOCK = 999
 
 local function updateDisplay(stock: number)
 	if not limitedItemConfig then
-		warn("[LimitedTurretHandler] Could not find config for '" .. limitedItemId .. "' in ItemConfigurations.LimitedItems.")
+		warn("[LimitedTurretTitanTVManHandler] Could not find config for '" .. limitedItemId .. "' in LimitedItems.")
 		return
 	end
 
@@ -73,7 +73,6 @@ else
 	buyButton.Visible = false
 end
 
--- Only react to stock updates for this specific turret
 stockUpdatedEvent.OnClientEvent:Connect(function(itemId: string, stock: number)
 	if itemId == limitedItemId then
 		updateDisplay(stock)

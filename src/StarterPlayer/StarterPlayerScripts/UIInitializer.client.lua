@@ -35,10 +35,36 @@ local function initializeUI()
 		end
 	
 	-- ## ADDED ## Connect the new LimitedTurret button
-	local rightHud = hud:WaitForChild("Right")
+	local rightHud = hud:WaitForChild("Right", 10)
+	if not rightHud then
+		warn("[DEBUG] HUD/Right NOT FOUND after 10s")
+		return
+	end
+	print("[DEBUG] HUD/Right found:", rightHud:GetFullName())
+
 	local limitedTurretButton = rightHud:FindFirstChild("LimitedTurret")
 	if limitedTurretButton then
 		FrameManager.connect(limitedTurretButton, "LimitedTurret", "Toggle")
+	end
+
+	local limitedTurretTitanTVButton = rightHud:FindFirstChild("LimitedTurretTitanTV")
+	if limitedTurretTitanTVButton then
+		print("[DEBUG] LimitedTurretTitanTV button FOUND")
+		local targetFrame = framesContainer:FindFirstChild("LimitedTurretTitanTVMan")
+		print("[DEBUG] LimitedTurretTitanTVMan frame exists:", targetFrame ~= nil)
+		FrameManager.connect(limitedTurretTitanTVButton, "LimitedTurretTitanTVMan", "Toggle")
+	else
+		print("[DEBUG] LimitedTurretTitanTV button NOT FOUND in HUD/Right")
+		print("[DEBUG] Children of Right:", table.concat(rightHud:GetChildren() and (function()
+			local names = {}
+			for _, c in ipairs(rightHud:GetChildren()) do table.insert(names, c.Name) end
+			return names
+		end)() or {}, ", "))
+	end
+
+	local limitedTurretTitanSpeakermanButton = rightHud:FindFirstChild("LimitedTurretTitanSpeakerman")
+	if limitedTurretTitanSpeakermanButton then
+		FrameManager.connect(limitedTurretTitanSpeakermanButton, "LimitedTurretTitanSpeakerman", "Toggle")
 	end
 
 	-- Connects all "Close" buttons inside your frames
