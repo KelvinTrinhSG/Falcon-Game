@@ -255,7 +255,7 @@ local ItemConfigurations = {
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 3000,
 		Range = 35,
-		FireRate = 1,
+		FireRate = 10,
 		Health = 5000000000,
 	},
 }
