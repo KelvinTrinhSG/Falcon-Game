@@ -196,7 +196,7 @@ SpinWheelEvent.OnServerEvent:Connect(function(player, isFastSpin)
 	task.delay(tempsAnimation, function()
 		if not player or not player.Parent then return end
 
-		local message = "🎉 Tu as gagné : " .. finalItem.name .. " !"
+		local message = "🎉 You won: " .. finalItem.name .. "!"
 		local colorTheme = finalItem.chance <= 5 and "Mythical" or "Success"
 		ShowNotificationEvent:FireClient(player, message, colorTheme)
 

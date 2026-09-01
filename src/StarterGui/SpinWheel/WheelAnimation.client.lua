@@ -233,9 +233,11 @@ addHover(spinButton); addHover(closeButton); addHover(fastToggle); addHover(rate
 -- =====================================
 -- ACHAT DE SPINS (ROBUX) & AFFICHAGE PRIX
 -- =====================================
-local ID_1_SPIN   = 3595244091
-local ID_3_SPINS  = 3595244324
-local ID_10_SPINS = 3595244673
+local ROBUX_ICON = "\xee\x80\x82"
+
+local ID_1_SPIN   = 3710799997
+local ID_3_SPINS  = 3710800155
+local ID_10_SPINS = 3710800204
 
 local btn1Spin  = main:WaitForChild("1SpinRbx")
 local btn3Spin  = main:WaitForChild("3SpinRbx")
@@ -253,7 +255,7 @@ local function actualiserPrix(bouton, idProduit)
 				return MarketplaceService:GetProductInfo(idProduit, Enum.InfoType.Product)
 			end)
 			if succes and info and info.PriceInRobux then
-				textePrix.Text = tostring(info.PriceInRobux)
+				textePrix.Text = ROBUX_ICON .. info.PriceInRobux
 			end
 		end)
 	end
