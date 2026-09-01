@@ -11,7 +11,8 @@ local Stroke = DesignFrame:WaitForChild("Stroke")
 
 -- Events
 local SetAutoWaveEvent = ReplicatedStorage.Events:WaitForChild("SetAutoWave")
-local AutoWaveStateChangedEvent = ReplicatedStorage.Events:WaitForChild("AutoWaveStateChanged") -- ## ADDED ##
+local AutoWaveStateChangedEvent = ReplicatedStorage.Events:WaitForChild("AutoWaveStateChanged")
+local WaveUIStateChanged = ReplicatedStorage.Events:WaitForChild("WaveUIStateChanged")
 
 -- State
 local isAutoWaveEnabled = false -- Default to off
@@ -61,5 +62,10 @@ AutoWaveStateChangedEvent.OnClientEvent:Connect(function(newState: boolean)
 end)
 
 
+WaveUIStateChanged.OnClientEvent:Connect(function(isFighting: boolean)
+	autoWaveButton.Visible = isFighting
+end)
+
 -- Set the initial appearance
+autoWaveButton.Visible = false
 updateButtonVisuals()
