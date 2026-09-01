@@ -46,6 +46,16 @@ end
 local TurretController = {}
 local _activeTurrets = {}
 
+local function setFX(turretModel: Model, enabled: boolean)
+	task.spawn(function()
+		for _, desc in ipairs(turretModel:GetDescendants()) do
+			if desc:IsA("Light") or desc:IsA("ParticleEmitter") or desc:IsA("Beam") then
+				desc.Enabled = enabled
+			end
+		end
+	end)
+end
+
 function TurretController:AddTurret(turretModel: Model, plot: Model)
 	local config = AllItemConfigs[turretModel.Name]
 	if not config then
@@ -72,8 +82,10 @@ function TurretController:AddTurret(turretModel: Model, plot: Model)
 		lockOnTime = 0,
 		attackTrack = nil,
 		idleTrack = nil,
+		fxEnabled = false,
 	}
 	_activeTurrets[turretModel] = data
+	setFX(turretModel, false)
 
 	if not data.originalHeadCFrame then
 		warn("Could not store original CFrame for turret:", turretModel.Name)
@@ -247,6 +259,10 @@ function TurretController:Start()
 			if not data.currentTarget then
 				if data.attackTrack and data.attackTrack.IsPlaying then data.attackTrack:Stop() end
 				if data.idleTrack and not data.idleTrack.IsPlaying then data.idleTrack:Play() end
+				if data.fxEnabled then
+					data.fxEnabled = false
+					setFX(turretModel, false)
+				end
 				continue
 			end
 
@@ -260,6 +276,10 @@ function TurretController:Start()
 				if data.attackTrack and not data.attackTrack.IsPlaying then
 					data.attackTrack:Play()
 					data.attackTrack:AdjustSpeed(waveSpeedMultiplier)
+				end
+				if not data.fxEnabled then
+					data.fxEnabled = true
+					setFX(turretModel, true)
 				end
 			end
 		end
