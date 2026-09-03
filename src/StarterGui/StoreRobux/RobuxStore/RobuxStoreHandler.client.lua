@@ -28,7 +28,7 @@ local GamepassIDs = {
 	X2Cash = 1969462271,
 }
 local robuxPricesCache = {}
-local purchaseButtons = {} -- NOUVEAU : Sauvegarde tous les boutons pour les mettre à jour en direct
+local purchaseButtons = {}
 
 -- ==========================================
 -- ✨ ANIMATIONS DE L'INTERFACE
@@ -66,7 +66,7 @@ local function addHoverAnimation(button: GuiButton)
 		scale.Parent = button
 	end
 	button.MouseEnter:Connect(function()
-		if not button:GetAttribute("AlreadyOwned") then -- Ne grossit plus si déjà acheté
+		if not button:GetAttribute("AlreadyOwned") then
 			TweenService:Create(scale, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1.05}):Play()
 		end
 	end)
@@ -88,14 +88,9 @@ end
 if openStoreButton then
 	local mark = openStoreButton:FindFirstChild("Mark")
 	if mark then
-		-- Position de départ inclinée
 		mark.Rotation = -15
-
-		-- TweenInfo : 0.4s l'aller, Style doux, -1 pour une boucle infinie, true pour faire l'aller-retour (yoyo)
 		local markTweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
 		local markTween = TweenService:Create(mark, markTweenInfo, {Rotation = 15})
-
-		-- Lancement de l'animation de balancier
 		markTween:Play()
 	end
 end
@@ -109,24 +104,39 @@ end
 -- 💰 GESTION DES PRIX ET ACHATS
 -- ==========================================
 
--- Fonction pour bloquer visuellement un bouton "Déjà possédé"
+local GREEN_GRADIENT = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromHex("1aaa00")),
+	ColorSequenceKeypoint.new(1, Color3.fromHex("aaff00")),
+})
+
 local function markAsOwned(button: GuiButton, priceLabel: TextLabel)
-	priceLabel.Text = "Owned"
+	priceLabel.Text = "Đã sở hữu"
 	button:SetAttribute("AlreadyOwned", true)
+
+	local stroke = button:FindFirstChild("Stroke")
+	if stroke then
+		local gradient = stroke:FindFirstChildOfClass("UIGradient")
+		if gradient then
+			gradient.Color = GREEN_GRADIENT
+		end
+	end
 end
 
-local function setupPriceLabel(priceLabel: TextLabel, id: number, infoType: Enum.InfoType)
+local function setupPriceLabel(button: GuiButton, priceLabel: TextLabel, id: number, infoType: Enum.InfoType)
 	if robuxPricesCache[id] then
-		priceLabel.Text = robuxPricesCache[id]
+		if not button:GetAttribute("AlreadyOwned") then
+			priceLabel.Text = robuxPricesCache[id]
+		end
 		return
 	end
-	priceLabel.Text = "..." 
+	priceLabel.Text = "..."
 	task.spawn(function()
 		local success, productInfo = pcall(function()
 			return MarketplaceService:GetProductInfo(id, infoType)
 		end)
+		if button:GetAttribute("AlreadyOwned") then return end
 		if success and productInfo then
-			local priceString = " " .. productInfo.PriceInRobux
+			local priceString = " " .. productInfo.PriceInRobux
 			robuxPricesCache[id] = priceString
 			priceLabel.Text = priceString
 		else
@@ -156,11 +166,11 @@ local function connectPurchase(parentFolder: Instance, searchName: string, id: n
 			if success and hasPass then
 				markAsOwned(buyButton, priceLabel)
 			else
-				setupPriceLabel(priceLabel, id, Enum.InfoType.GamePass)
+				setupPriceLabel(buyButton, priceLabel, id, Enum.InfoType.GamePass)
 			end
 		end)
 	else
-		setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
+		setupPriceLabel(buyButton, priceLabel, id, Enum.InfoType.Product)
 	end
 
 	buyButton.MouseButton1Click:Connect(function()
@@ -193,10 +203,8 @@ for productName, productConfig in pairs(WeaponConfigurations.CashProducts) do
 	connectPurchase(coinPacksFrame, guiName, productConfig.ProductID, false)
 end
 
-local vipFrame = scrollingFrame:WaitForChild("VIP")
 connectPurchase(scrollingFrame, "VIP", GamepassIDs.VIP, true)
 
 local gamepassesFrame = scrollingFrame:WaitForChild("Gamepasses")
 connectPurchase(gamepassesFrame, "Pack1", GamepassIDs.X3Speed, true)
 connectPurchase(gamepassesFrame, "Pack2", GamepassIDs.X2Cash, true)
-
