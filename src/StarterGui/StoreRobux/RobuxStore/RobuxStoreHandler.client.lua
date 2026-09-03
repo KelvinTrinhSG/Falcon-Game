@@ -7,6 +7,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local TweenService = game:GetService("TweenService")
 
 local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
+local NotificationManager = require(ReplicatedStorage.Modules:WaitForChild("NotificationManager"))
 
 local player = Players.LocalPlayer
 local storeFrame = script.Parent
@@ -23,8 +24,8 @@ local openStoreButton = hud:FindFirstChild("RobuxStore", true) or hud:FindFirstC
 -- ==========================================
 local GamepassIDs = {
 	VIP = 1832112258,
-	X3Speed = 1831192303,
-	X2Cash = 1831404291,
+	X3Speed = 1968442351,
+	X2Cash = 1969462271,
 }
 local StarterPackID = 3588689957
 local robuxPricesCache = {}
@@ -136,55 +137,80 @@ local function setupPriceLabel(priceLabel: TextLabel, id: number, infoType: Enum
 end
 
 local function connectPurchase(parentFolder: Instance, searchName: string, id: number, isGamepass: boolean)
+	print("[RobuxStore] connectPurchase -> searchName:", searchName, "| id:", id, "| parent:", parentFolder.Name)
+
 	local pack = parentFolder:FindFirstChild(searchName, true)
-	if not pack then return end
+	if not pack then
+		warn("[RobuxStore] FAIL: pack not found ->", searchName, "in", parentFolder.Name)
+		return
+	end
+	print("[RobuxStore] pack found:", pack:GetFullName())
 
 	local buyButton = pack:FindFirstChild("BuyButton1", true) or pack:FindFirstChild("BuyButton", true)
-	if buyButton and buyButton:IsA("GuiButton") then
+	if not buyButton then
+		warn("[RobuxStore] FAIL: BuyButton1/BuyButton not found inside", pack:GetFullName())
+		return
+	end
+	if not buyButton:IsA("GuiButton") then
+		warn("[RobuxStore] FAIL: button found but is not GuiButton, class:", buyButton.ClassName)
+		return
+	end
+	print("[RobuxStore] buyButton found:", buyButton:GetFullName())
 
-		addHoverAnimation(buyButton)
-		local priceLabel = buyButton:FindFirstChild("Label") or buyButton:FindFirstChild("Text")
-		if not (priceLabel and priceLabel:IsA("TextLabel")) then return end
+	addHoverAnimation(buyButton)
+	local priceLabel = buyButton:FindFirstChild("Label") or buyButton:FindFirstChild("Text")
+	if not (priceLabel and priceLabel:IsA("TextLabel")) then
+		warn("[RobuxStore] FAIL: price label (Label/Text TextLabel) not found inside", buyButton:GetFullName())
+		return
+	end
+	print("[RobuxStore] priceLabel found:", priceLabel:GetFullName())
 
-		-- On sauvegarde le bouton
-		purchaseButtons[id] = {Button = buyButton, Label = priceLabel}
+	-- On sauvegarde le bouton
+	purchaseButtons[id] = {Button = buyButton, Label = priceLabel}
 
-		-- VERIFICATION SI DEJA POSSEDE
-		if isGamepass then
-			task.spawn(function()
-				local success, hasPass = pcall(function()
-					return MarketplaceService:UserOwnsGamePassAsync(player.UserId, id)
-				end)
-				if success and hasPass then
-					markAsOwned(buyButton, priceLabel)
-				else
-					setupPriceLabel(priceLabel, id, Enum.InfoType.GamePass)
-				end
+	-- VERIFICATION SI DEJA POSSEDE
+	if isGamepass then
+		task.spawn(function()
+			local success, hasPass = pcall(function()
+				return MarketplaceService:UserOwnsGamePassAsync(player.UserId, id)
 			end)
-		else
-			if id == StarterPackID then
-				-- Le serveur nous dit si le Starter Pack a déjà été acheté
-				if player:GetAttribute("OwnsStarterPack") then
-					markAsOwned(buyButton, priceLabel)
-				else
-					setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
-				end
+			print("[RobuxStore] UserOwnsGamePassAsync id:", id, "| success:", success, "| hasPass:", hasPass)
+			if success and hasPass then
+				markAsOwned(buyButton, priceLabel)
 			else
-				-- Pour l'argent normal (achetable à l'infini)
-				setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
-			end
-		end
-
-		buyButton.MouseButton1Click:Connect(function()
-			if buyButton:GetAttribute("AlreadyOwned") then return end -- Bloque le clic !
-
-			if isGamepass then
-				MarketplaceService:PromptGamePassPurchase(player, id)
-			else
-				MarketplaceService:PromptProductPurchase(player, id)
+				setupPriceLabel(priceLabel, id, Enum.InfoType.GamePass)
 			end
 		end)
+	else
+		if id == StarterPackID then
+			-- Le serveur nous dit si le Starter Pack a déjà été acheté
+			if player:GetAttribute("OwnsStarterPack") then
+				markAsOwned(buyButton, priceLabel)
+			else
+				setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
+			end
+		else
+			-- Pour l'argent normal (achetable à l'infini)
+			setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
+		end
 	end
+
+	buyButton.MouseButton1Click:Connect(function()
+		print("[RobuxStore] BuyButton clicked -> searchName:", searchName, "| id:", id, "| AlreadyOwned:", buyButton:GetAttribute("AlreadyOwned"))
+		if buyButton:GetAttribute("AlreadyOwned") then
+			print("[RobuxStore] Blocked: player already owns this item")
+			NotificationManager.show("You already own this item!", "Error")
+			return
+		end
+
+		if isGamepass then
+			print("[RobuxStore] Calling PromptGamePassPurchase for id:", id)
+			MarketplaceService:PromptGamePassPurchase(player, id)
+		else
+			print("[RobuxStore] Calling PromptProductPurchase for id:", id)
+			MarketplaceService:PromptProductPurchase(player, id)
+		end
+	end)
 end
 
 -- Mises à jour en direct (Si le joueur achète pendant qu'il joue)

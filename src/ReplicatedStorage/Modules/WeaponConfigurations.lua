@@ -11,11 +11,11 @@ local WeaponConfigurations = {
 	},
 	--CASH
 	CashProducts = {
-		Product1 = { ProductID = 3710671477, CashAmount = 5000 },
-		Product2 = { ProductID = 3710671545, CashAmount = 20000 },
-		Product3 = { ProductID = 3710671583, CashAmount = 75000 },
-		Product4 = { ProductID = 3710671617, CashAmount = 250000 },
-		Product5 = { ProductID = 3710671649, CashAmount = 1000000 },
+		Product1 = { ProductID = 3710671477, CashAmount = 1000 },
+		Product2 = { ProductID = 3710671545, CashAmount = 5000 },
+		Product3 = { ProductID = 3710671583, CashAmount = 25000 },
+		Product4 = { ProductID = 3710671617, CashAmount = 100000 },
+		Product5 = { ProductID = 3710671649, CashAmount = 250000 },
 	},
 	--STARTER PACK
 	StarterPack = {

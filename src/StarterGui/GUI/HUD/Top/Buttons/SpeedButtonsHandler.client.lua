@@ -17,7 +17,7 @@ local eventsFolder = ReplicatedStorage:WaitForChild("Events")
 local changeSpeedEvent = eventsFolder:WaitForChild("ChangeWaveSpeed", 5) 
 
 -- L'ID de ton Gamepass X3 Speed
-local GAMEPASS_X3_SPEED = 1831192303
+local GAMEPASS_X3_SPEED = 1968442351
 local ownsSpeedPass = false
 
 -- ==========================================
@@ -112,23 +112,27 @@ end)
 -- 🖱️ CLICS SUR LES BOUTONS
 -- ==========================================
 
--- Toggle x1/x2 cho Speed1
+-- Toggle x1/x2 cho Speed1 | Toggle x3 cho Speed3
 local isX2Active = false
+local isX3Active = false
 
 local speed1Design = speed1Btn:FindFirstChild("Design")
 local speed1Gradient = speed1Design and speed1Design:FindFirstChild("Gradient")
 local speed1Stroke = speed1Design and speed1Design:FindFirstChild("Stroke")
-local speed1Text = speed1Btn:FindFirstChild("Text")
 
-local OnStroke = Color3.fromRGB(33, 100, 0)
+local speed3Design = speed3Btn:FindFirstChild("Design")
+local speed3Gradient = speed3Design and speed3Design:FindFirstChild("Gradient")
+local speed3Stroke = speed3Design and speed3Design:FindFirstChild("Stroke")
+
+local OnStroke = Color3.fromRGB(0, 100, 0)
 local OnGradient = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 0)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 210, 0)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 255, 50))
 })
-local OffStroke = Color3.fromRGB(0, 93, 140)
+local OffStroke = Color3.fromRGB(80, 80, 80)
 local OffGradient = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(120, 120, 120)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(180, 180, 180))
 })
 
 local function updateSpeed1Visuals()
@@ -136,27 +140,41 @@ local function updateSpeed1Visuals()
 	if speed1Stroke then speed1Stroke.Color = isX2Active and OnStroke or OffStroke end
 end
 
+local function updateSpeed3Visuals()
+	if speed3Gradient then speed3Gradient.Color = isX3Active and OnGradient or OffGradient end
+	if speed3Stroke then speed3Stroke.Color = isX3Active and OnStroke or OffStroke end
+end
+
 local waveStateChanged = eventsFolder:WaitForChild("WaveStateChanged")
 waveStateChanged.OnClientEvent:Connect(function(isActive: boolean)
 	if not isActive then
 		isX2Active = false
+		isX3Active = false
 		updateSpeed1Visuals()
+		updateSpeed3Visuals()
 	end
 end)
 
 speed1Btn.MouseButton1Click:Connect(function()
 	isX2Active = not isX2Active
+	if isX2Active then isX3Active = false end
 	updateSpeed1Visuals()
+	updateSpeed3Visuals()
 	requestWaveSpeed(isX2Active and 2 or 1)
 end)
 
 updateSpeed1Visuals()
+updateSpeed3Visuals()
 
 speed3Btn.MouseButton1Click:Connect(function()
 	local hasWonPass = (player:GetAttribute("HasX3WavePass") == true)
 
 	if ownsSpeedPass or hasWonPass then
-		requestWaveSpeed(3)
+		isX3Active = not isX3Active
+		if isX3Active then isX2Active = false end
+		updateSpeed1Visuals()
+		updateSpeed3Visuals()
+		requestWaveSpeed(isX3Active and 3 or 1)
 	else
 		MarketplaceService:PromptGamePassPurchase(player, GAMEPASS_X3_SPEED)
 	end

@@ -22,7 +22,7 @@ local EnemyConfigurations = require(ReplicatedStorage.Modules.EnemyConfiguration
 -- Constants
 local INTERMISSION_TIME = 1
 local FINAL_VICTORY_CASH = 1000
-local GAMEPASS_X3_SPEED = 1831192303 
+local GAMEPASS_X3_SPEED = 1968442351
 
 -- Controller
 local WaveController = {}

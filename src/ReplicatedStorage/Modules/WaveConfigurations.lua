@@ -314,7 +314,7 @@ local WaveConfigurations = {
 		CashReward = 300,
 		IsBossWave = true,
 		UnlocksStartingWave = 35,
-		BossImageId = "rbxassetid://79570261815183", -- L'image de ton SlimeBoss1
+		BossImageId = "rbxassetid://81446192290144", -- L'image de ton SlimeBoss1
 		Enemies = {
 			{Enemy = "DJRedToilet", Count = 10, DelayBetweenSpawns = 0.5},
 			{Enemy = "DJYellowToilet", Count = 20, DelayBetweenSpawns = 0.8},
@@ -635,7 +635,7 @@ local WaveConfigurations = {
 		CashReward = 400,
 		IsBossWave = true,
 		UnlocksStartingWave = 70,
-		BossImageId = "rbxassetid://130072194772346", -- L'image de ton SlimeBoss2
+		BossImageId = "rbxassetid://94670596503261", -- L'image de ton SlimeBoss2
 		Enemies = {
 			{Enemy = "LargeFlyingBuzzsawRedToilet", Count = 10, DelayBetweenSpawns = 0.5},
 			{Enemy = "GiantDualBladeToilet", Count = 5, DelayBetweenSpawns = 1},

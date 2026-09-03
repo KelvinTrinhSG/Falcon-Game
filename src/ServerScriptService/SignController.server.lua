@@ -20,7 +20,7 @@ local function setupSignForPlot(plot)
 
 	local function updateDisplay()
 		local ownerId = plot:GetAttribute("OwnerId")
-		print("--- Mise à jour du panneau de " .. plot.Name .. " | OwnerId: " .. tostring(ownerId))
+		print("--- Updating sign for " .. plot.Name .. " | OwnerId: " .. tostring(ownerId))
 
 		if ownerId and ownerId > 0 then
 			-- 1. NOM DU JOUEUR
