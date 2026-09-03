@@ -110,7 +110,7 @@ local GREEN_GRADIENT = ColorSequence.new({
 })
 
 local function markAsOwned(button: GuiButton, priceLabel: TextLabel)
-	priceLabel.Text = "Đã sở hữu"
+	priceLabel.Text = "Owned"
 	button:SetAttribute("AlreadyOwned", true)
 
 	local stroke = button:FindFirstChild("Stroke")
