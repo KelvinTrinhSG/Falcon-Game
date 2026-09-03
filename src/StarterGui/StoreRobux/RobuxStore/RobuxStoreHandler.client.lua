@@ -153,7 +153,7 @@ local function connectPurchase(parentFolder: Instance, searchName: string, id: n
 	if not buyButton or not buyButton:IsA("GuiButton") then return end
 
 	addHoverAnimation(buyButton)
-	local priceLabel = buyButton:FindFirstChild("Label") or buyButton:FindFirstChild("Text")
+	local priceLabel = buyButton:FindFirstChild("Text")
 	if not (priceLabel and priceLabel:IsA("TextLabel")) then return end
 
 	purchaseButtons[id] = {Button = buyButton, Label = priceLabel}
