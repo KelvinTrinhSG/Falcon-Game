@@ -158,6 +158,10 @@ local function connectPurchase(parentFolder: Instance, searchName: string, id: n
 
 	purchaseButtons[id] = {Button = buyButton, Label = priceLabel}
 
+	priceLabel:GetPropertyChangedSignal("Text"):Connect(function()
+		print("[Store] Text thay đổi →", priceLabel:GetFullName(), "| Text mới:", priceLabel.Text, "| AlreadyOwned:", buyButton:GetAttribute("AlreadyOwned"))
+	end)
+
 	if isGamepass then
 		task.spawn(function()
 			local success, hasPass = pcall(function()
