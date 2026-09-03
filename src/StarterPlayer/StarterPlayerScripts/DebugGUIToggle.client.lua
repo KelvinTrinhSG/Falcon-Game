@@ -1,0 +1,2 @@
+--!strict
+-- GUI toggle đã được gộp vào DebugController (/togglegui)

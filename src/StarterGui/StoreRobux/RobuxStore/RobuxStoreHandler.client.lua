@@ -27,7 +27,6 @@ local GamepassIDs = {
 	X3Speed = 1968442351,
 	X2Cash = 1969462271,
 }
-local StarterPackID = 3588689957
 local robuxPricesCache = {}
 local purchaseButtons = {} -- NOUVEAU : Sauvegarde tous les boutons pour les mettre à jour en direct
 
@@ -182,17 +181,7 @@ local function connectPurchase(parentFolder: Instance, searchName: string, id: n
 			end
 		end)
 	else
-		if id == StarterPackID then
-			-- Le serveur nous dit si le Starter Pack a déjà été acheté
-			if player:GetAttribute("OwnsStarterPack") then
-				markAsOwned(buyButton, priceLabel)
-			else
-				setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
-			end
-		else
-			-- Pour l'argent normal (achetable à l'infini)
-			setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
-		end
+		setupPriceLabel(priceLabel, id, Enum.InfoType.Product)
 	end
 
 	buyButton.MouseButton1Click:Connect(function()
@@ -220,12 +209,6 @@ MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(purchasedPlay
 	end
 end)
 
-player:GetAttributeChangedSignal("OwnsStarterPack"):Connect(function()
-	if player:GetAttribute("OwnsStarterPack") and purchaseButtons[StarterPackID] then
-		markAsOwned(purchaseButtons[StarterPackID].Button, purchaseButtons[StarterPackID].Label)
-	end
-end)
-
 -- ==========================================
 -- 🚀 CONNEXION DE TOUTE LA BOUTIQUE
 -- ==========================================
@@ -242,5 +225,3 @@ local gamepassesFrame = scrollingFrame:WaitForChild("Gamepasses")
 connectPurchase(gamepassesFrame, "Pack1", GamepassIDs.X3Speed, true)
 connectPurchase(gamepassesFrame, "Pack2", GamepassIDs.X2Cash, true)
 
-local starterPackFrame = scrollingFrame:WaitForChild("StarterPackHolder")
-connectPurchase(starterPackFrame, "BeginnerPack", StarterPackID, false)

@@ -1,6 +1,8 @@
 --!strict
 -- LOCATION: StarterPlayerScripts/Controllers/DebugController.lua
+-- Chỉ thành viên Debug Team mới dùng được các lệnh chat bên dưới.
 -- Lệnh chat:
+--   /togglegui           → bật/tắt toàn bộ ScreenGui
 --   /giveme              → cấp 1M cash cho bản thân
 --   /giveid <id>         → cấp 1M cash cho player theo UserId
 --   /giveall             → cấp 1M cash cho tất cả player
@@ -25,8 +27,10 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local Knit = require(ReplicatedStorage.Packages.knit)
+local DebugTeamConfig = require(ReplicatedStorage.Modules.DebugTeamConfig)
 
 local DebugController = Knit.CreateController({ Name = "DebugController" })
 
@@ -35,12 +39,39 @@ local DebugService
 function DebugController:KnitStart()
 	DebugService = Knit.GetService("DebugService")
 
-	Players.LocalPlayer.Chatted:Connect(function(message: string)
+	local player = Players.LocalPlayer
+	if not DebugTeamConfig.IsDebugMember(player.UserId) then return end
+
+	local playerGui = player:WaitForChild("PlayerGui")
+	local guiVisible = true
+
+	local function toggleGui()
+		guiVisible = not guiVisible
+		for _, gui in ipairs(playerGui:GetChildren()) do
+			if gui:IsA("ScreenGui") then
+				gui.Enabled = guiVisible
+			end
+		end
+		print(string.format("[Debug] GUI: %s", guiVisible and "BẬT" or "TẮT"))
+	end
+
+	UserInputService.InputBegan:Connect(function(input: InputObject, gameProcessed: boolean)
+		if gameProcessed then return end
+		if input.KeyCode == Enum.KeyCode.P then
+			toggleGui()
+		end
+	end)
+
+	player.Chatted:Connect(function(message: string)
 		local args = message:split(" ")
 		local cmd = string.lower(args[1])
 
+		-- TOGGLE GUI
+		if cmd == "/togglegui" then
+			toggleGui()
+
 		-- CASH
-		if cmd == "/giveme" then
+		elseif cmd == "/giveme" then
 			print("[Debug] Đang cấp 1M cho bản thân...")
 			DebugService:GiveSelf()
 
