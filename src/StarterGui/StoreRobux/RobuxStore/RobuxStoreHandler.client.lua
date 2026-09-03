@@ -136,44 +136,23 @@ local function setupPriceLabel(priceLabel: TextLabel, id: number, infoType: Enum
 end
 
 local function connectPurchase(parentFolder: Instance, searchName: string, id: number, isGamepass: boolean)
-	print("[RobuxStore] connectPurchase -> searchName:", searchName, "| id:", id, "| parent:", parentFolder.Name)
-
 	local pack = parentFolder:FindFirstChild(searchName, true)
-	if not pack then
-		warn("[RobuxStore] FAIL: pack not found ->", searchName, "in", parentFolder.Name)
-		return
-	end
-	print("[RobuxStore] pack found:", pack:GetFullName())
+	if not pack then return end
 
 	local buyButton = pack:FindFirstChild("BuyButton1", true) or pack:FindFirstChild("BuyButton", true)
-	if not buyButton then
-		warn("[RobuxStore] FAIL: BuyButton1/BuyButton not found inside", pack:GetFullName())
-		return
-	end
-	if not buyButton:IsA("GuiButton") then
-		warn("[RobuxStore] FAIL: button found but is not GuiButton, class:", buyButton.ClassName)
-		return
-	end
-	print("[RobuxStore] buyButton found:", buyButton:GetFullName())
+	if not buyButton or not buyButton:IsA("GuiButton") then return end
 
 	addHoverAnimation(buyButton)
 	local priceLabel = buyButton:FindFirstChild("Label") or buyButton:FindFirstChild("Text")
-	if not (priceLabel and priceLabel:IsA("TextLabel")) then
-		warn("[RobuxStore] FAIL: price label (Label/Text TextLabel) not found inside", buyButton:GetFullName())
-		return
-	end
-	print("[RobuxStore] priceLabel found:", priceLabel:GetFullName())
+	if not (priceLabel and priceLabel:IsA("TextLabel")) then return end
 
-	-- On sauvegarde le bouton
 	purchaseButtons[id] = {Button = buyButton, Label = priceLabel}
 
-	-- VERIFICATION SI DEJA POSSEDE
 	if isGamepass then
 		task.spawn(function()
 			local success, hasPass = pcall(function()
 				return MarketplaceService:UserOwnsGamePassAsync(player.UserId, id)
 			end)
-			print("[RobuxStore] UserOwnsGamePassAsync id:", id, "| success:", success, "| hasPass:", hasPass)
 			if success and hasPass then
 				markAsOwned(buyButton, priceLabel)
 			else
@@ -185,18 +164,14 @@ local function connectPurchase(parentFolder: Instance, searchName: string, id: n
 	end
 
 	buyButton.MouseButton1Click:Connect(function()
-		print("[RobuxStore] BuyButton clicked -> searchName:", searchName, "| id:", id, "| AlreadyOwned:", buyButton:GetAttribute("AlreadyOwned"))
 		if buyButton:GetAttribute("AlreadyOwned") then
-			print("[RobuxStore] Blocked: player already owns this item")
 			NotificationManager.show("You already own this item!", "Error")
 			return
 		end
 
 		if isGamepass then
-			print("[RobuxStore] Calling PromptGamePassPurchase for id:", id)
 			MarketplaceService:PromptGamePassPurchase(player, id)
 		else
-			print("[RobuxStore] Calling PromptProductPurchase for id:", id)
 			MarketplaceService:PromptProductPurchase(player, id)
 		end
 	end)

@@ -43,7 +43,6 @@ local function updatePlotHealthUI(currentHealth: number, newMaxHealth: number)
 	currentHealth = math.clamp(currentHealth, 0, plotMaxHealth)
 	local percentage = currentHealth / plotMaxHealth
 
-	print(string.format("[HealthUI] GUI update → %d / %d (%.0f%%)", math.floor(currentHealth), plotMaxHealth, percentage * 100))
 	plotProgressBar:TweenSize(UDim2.new(percentage, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
 	plotTextLabel.Text = NumberFormatter.formatNumber(math.floor(currentHealth)) .. " / " .. NumberFormatter.formatNumber(plotMaxHealth)
 end
@@ -53,10 +52,8 @@ local function connectToCore1(core1: Instance)
 	plotHealthPart = core1
 	local maxHealth = core1:GetAttribute("MaxHealth") or plotMaxHealth
 	plotMaxHealth = maxHealth
-	print(string.format("[HealthUI] Connected to Core1 (MaxHealth=%s)", tostring(maxHealth)))
 	plotHealthConnection = core1:GetAttributeChangedSignal("Health"):Connect(function()
 		local health = (core1 :: any):GetAttribute("Health")
-		print(string.format("[HealthUI] Core1 Health changed → %s", tostring(health)))
 		updatePlotHealthUI(health, plotMaxHealth)
 	end)
 	-- Sync current health immediately
@@ -82,7 +79,6 @@ task.spawn(function()
 
 	playerPlot.ChildAdded:Connect(function(child)
 		if child.Name == "Core1" then
-			print("[HealthUI] New Core1 detected (base swapped), reconnecting...")
 			connectToCore1(child)
 		end
 	end)
