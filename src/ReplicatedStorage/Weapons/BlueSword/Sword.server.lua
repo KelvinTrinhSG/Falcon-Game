@@ -24,8 +24,11 @@ local SwingSound = handle:WaitForChild("SwingSound1")
 -- Events
 local HighlightZombie = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
 
--- Time-based per-enemy cooldown (works across hold-to-attack loop)
-local lastHitTime = {}
+-- Only allow hits during the active swing window
+local SWING_WINDOW = 0.7
+
+-- Track which enemies were already hit this swing (1 hit per enemy per swing)
+local hitThisSwing = {}
 
 local function onBladeTouched(hit: BasePart)
 	if not hit or not hit.Parent then return end
@@ -37,10 +40,8 @@ local function onBladeTouched(hit: BasePart)
 	if not humanoid or humanoid.Health <= 0 then return end
 	if not hitModel:FindFirstChild("Goal") then return end
 
-	local debounce = tonumber(tool:GetAttribute("Debounce")) or 0.5
-	local now = tick()
-	if (now - (lastHitTime[hitModel] or 0)) < debounce then return end
-	lastHitTime[hitModel] = now
+	if hitThisSwing[hitModel] then return end
+	hitThisSwing[hitModel] = true
 
 	local damage = tool:GetAttribute("Damage") or 10
 	humanoid:TakeDamage(damage)
@@ -58,11 +59,17 @@ local function onActivated()
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 	if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead then return end
 	SwingSound:Play()
+	hitThisSwing = {}
+	blade.CanTouch = true
+	task.delay(SWING_WINDOW, function()
+		blade.CanTouch = false
+	end)
 end
 
 tool.Equipped:Connect(function()
 	EquipSound:Play()
-	lastHitTime = {}
+	hitThisSwing = {}
+	blade.CanTouch = false
 	toolMaid:GiveTask(blade.Touched:Connect(onBladeTouched))
 	toolMaid:GiveTask(tool.Activated:Connect(onActivated))
 end)

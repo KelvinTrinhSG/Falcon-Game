@@ -6,7 +6,6 @@ local player = game:GetService("Players").LocalPlayer
 local ANIM_ID = "rbxassetid://111717843133410"
 local track = nil
 local isSwinging = false
-local isHolding = false
 local mouse = nil
 
 local function OnEquipped(toolMouse)
@@ -28,7 +27,6 @@ end
 local function OnUnequipped()
 	if mouse then mouse.Icon = "" end
 	mouse = nil
-	isHolding = false
 	isSwinging = false
 	if track then
 		track:Stop()
@@ -53,13 +51,4 @@ end
 
 tool.Equipped:Connect(OnEquipped)
 tool.Unequipped:Connect(OnUnequipped)
-tool.Activated:Connect(function()
-	isHolding = true
-	while isHolding do
-		OnActivated()
-		task.wait()
-	end
-end)
-tool.Deactivated:Connect(function()
-	isHolding = false
-end)
+tool.Activated:Connect(OnActivated)
