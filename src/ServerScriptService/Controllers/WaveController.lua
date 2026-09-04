@@ -65,17 +65,14 @@ local function getRandomSpawnCFrame(spawnPart: BasePart): CFrame
 	local size = spawnPart.Size
 	local randomX = (math.random() - 0.5) * size.X
 	local randomZ = (math.random() - 0.5) * size.Z
-	local yOffset = size.Y / 2 + 3 
+	local yOffset = size.Y / 2 + 3
 	return spawnPart.CFrame * CFrame.new(randomX, yOffset, randomZ)
 end
 
-local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?)
+local function getRandomPathFolder(plot: Model): Folder?
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
-
-	if not waypointsFolder then return end
-
-	local waypoints = {}
+	if not waypointsFolder then return nil end
 
 	local pathFolders = {}
 	for _, child in ipairs(waypointsFolder:GetChildren()) do
@@ -84,12 +81,22 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 		end
 	end
 
-	local sourceFolder
 	if #pathFolders > 0 then
-		sourceFolder = pathFolders[math.random(1, #pathFolders)]
-	else
-		sourceFolder = waypointsFolder
+		return pathFolders[math.random(1, #pathFolders)]
 	end
+	return waypointsFolder
+end
+
+local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?, preSelectedFolder: Folder?)
+	local pathFolder = plot:FindFirstChild("Path")
+	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
+
+	if not waypointsFolder then return end
+
+	local waypoints = {}
+
+	local sourceFolder = preSelectedFolder or getRandomPathFolder(plot)
+	if not sourceFolder then return end
 
 	for _, wp in ipairs(sourceFolder:GetChildren()) do
 		if wp:IsA("BasePart") then
@@ -250,9 +257,6 @@ startNextWave = function(player: Player, plot: Model)
 
 	ReplicatedStorage.Events.WaveUIStateChanged:FireClient(player, true, state.CurrentWave, totalEnemiesInWave, waveConfig.IsBossWave)
 
-	local spawnPart = plot:FindFirstChild("EnemySpawn")
-	if not spawnPart then return end
-
 	for _, group in ipairs(waveConfig.Enemies) do
 		task.spawn(function()
 			local enemyTemplate = ReplicatedStorage.Enemies:FindFirstChild(group.Enemy)
@@ -269,15 +273,15 @@ startNextWave = function(player: Player, plot: Model)
 				end
 
 				if waveConfig.IsBossWave then
-					humanoid.HumanoidDescription.HeightScale = 1 
-					humanoid.HumanoidDescription.WidthScale = 1 
+					humanoid.HumanoidDescription.HeightScale = 1
+					humanoid.HumanoidDescription.WidthScale = 1
 					humanoid.MaxSlopeAngle = 0
 					humanoid.AutoJumpEnabled = false
 					humanoid.JumpPower = 0
 				end
 
 				local currentSpeed = _playerSpeeds[player] or 1
-				humanoid:SetAttribute("BaseWalkSpeed", humanoid.WalkSpeed) 
+				humanoid:SetAttribute("BaseWalkSpeed", humanoid.WalkSpeed)
 				humanoid.WalkSpeed = humanoid.WalkSpeed * currentSpeed
 
 				local goalValue = Instance.new("ObjectValue")
@@ -299,7 +303,17 @@ startNextWave = function(player: Player, plot: Model)
 				if not enemy.PrimaryPart then
 					enemy.PrimaryPart = enemy:FindFirstChild("HumanoidRootPart")
 				end
-				enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnPart))
+
+				local selectedFolder = getRandomPathFolder(plot)
+				local spawnWaypoint = selectedFolder and selectedFolder:FindFirstChild("1")
+				if spawnWaypoint then
+					enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnWaypoint))
+				else
+					local fallback = plot:FindFirstChild("EnemySpawn")
+					if fallback then
+						enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(fallback))
+					end
+				end
 				enemy.Parent = activeEnemiesFolder
 
 				local rootPart = enemy:FindFirstChild("HumanoidRootPart")
@@ -324,7 +338,7 @@ startNextWave = function(player: Player, plot: Model)
 					attackTrack = animator:LoadAnimation(attackAnim)
 				end
 
-				moveEnemyAlongWaypoints(enemy, humanoid, plot, state, goalValue, enemyConfig, attackTrack)
+				moveEnemyAlongWaypoints(enemy, humanoid, plot, state, goalValue, enemyConfig, attackTrack, selectedFolder)
 
 				local function onEnemyDeath()
 					state.EnemiesKilledInWave += 1

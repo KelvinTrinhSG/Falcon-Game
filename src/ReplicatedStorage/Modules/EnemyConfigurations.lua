@@ -193,23 +193,23 @@ local EnemyConfigurations = {
 	
 	["QuadBladeStriderToilet"] = {
 		CashReward = 28,
-		MaxHealth = 60000, 
-		Damage = 9000,
+		MaxHealth = 60000,
+		Damage = 900,
 	},
 	["UFOToilet"] = {
 		CashReward = 29,
-		MaxHealth = 70000, 
-		Damage = 10000,
+		MaxHealth = 70000,
+		Damage = 1000,
 	},
-	["RocketToilet"] = { --Proche de l'autre
+	["RocketToilet"] = {
 		CashReward = 30,
-		MaxHealth = 800000, 
-		Damage = 11000,
+		MaxHealth = 800000,
+		Damage = 1100,
 	},
 	["StriderRocketToilet"] = {
 		CashReward = 31,
 		MaxHealth = 900000,
-		Damage = 12500,
+		Damage = 1250,
 	},	
 	
 	
