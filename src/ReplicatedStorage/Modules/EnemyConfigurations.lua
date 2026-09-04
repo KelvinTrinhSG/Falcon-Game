@@ -11,18 +11,21 @@ local EnemyConfigurations = {
 		MaxHealth = 60,
 		Damage = 5,
 		WalkSpeed = 10,
+		BaseDamage = 10,
 	},
 	["SmallRedToilet"] = {
 		CashReward = 2,
 		MaxHealth = 35,
 		Damage = 3,
 		WalkSpeed = 15,
+		BaseDamage = 12,
 	},
 	["LargeToilet"] = {
 		CashReward = 3,
 		MaxHealth = 250,
 		Damage = 15,
 		WalkSpeed = 8,
+		BaseDamage = 20,
 	},
 
 	-- ==========================================
@@ -34,18 +37,21 @@ local EnemyConfigurations = {
 		MaxHealth = 180,
 		Damage = 12,
 		WalkSpeed = 10,
+		BaseDamage = 15,
 	},
 	["AssassinRedToilet"] = {
 		CashReward = 5,
 		MaxHealth = 100,
 		Damage = 8,
 		WalkSpeed = 15,
+		BaseDamage = 18,
 	},
 	["PoliceToilet"] = {
 		CashReward = 6,
 		MaxHealth = 650,
 		Damage = 30,
 		WalkSpeed = 9,
+		BaseDamage = 30,
 	},
 
 	-- ==========================================
@@ -57,18 +63,21 @@ local EnemyConfigurations = {
 		MaxHealth = 450,
 		Damage = 25,
 		WalkSpeed = 11,
+		BaseDamage = 20,
 	},
 	["GlassesRedToilet"] = {
 		CashReward = 8,
 		MaxHealth = 280,
 		Damage = 18,
 		WalkSpeed = 16,
+		BaseDamage = 25,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
 		MaxHealth = 1800,
 		Damage = 50,
 		WalkSpeed = 12,
+		BaseDamage = 40,
 	},
 
 	-- ==========================================
@@ -80,18 +89,21 @@ local EnemyConfigurations = {
 		MaxHealth = 1200,
 		Damage = 45,
 		WalkSpeed = 11,
+		BaseDamage = 25,
 	},
 	["DJRedToilet"] = {
 		CashReward = 11,
 		MaxHealth = 850,
 		Damage = 35,
 		WalkSpeed = 17,
+		BaseDamage = 30,
 	},
 	["DualBladeToilet"] = {
 		CashReward = 12,
 		MaxHealth = 8000,
 		Damage = 120,
 		WalkSpeed = 10,
+		BaseDamage = 50,
 	},
 
 	-- ==========================================
@@ -103,18 +115,21 @@ local EnemyConfigurations = {
 		MaxHealth = 2000,
 		Damage = 50,
 		WalkSpeed = 11,
+		BaseDamage = 30,
 	},
 	["VacuumRedToilet"] = {
 		CashReward = 14,
 		MaxHealth = 4500,
 		Damage = 80,
 		WalkSpeed = 17,
+		BaseDamage = 40,
 	},
 	["FlyingBuzzsawToilet"] = {
 		CashReward = 15,
 		MaxHealth = 9000,
 		Damage = 150,
 		WalkSpeed = 12,
+		BaseDamage = 60,
 	},
 
 	-- ==========================================
@@ -126,18 +141,21 @@ local EnemyConfigurations = {
 		MaxHealth = 3500,
 		Damage = 90,
 		WalkSpeed = 12,
+		BaseDamage = 35,
 	},
 	["DualBladeRedToilet"] = {
 		CashReward = 17,
 		MaxHealth = 2800,
 		Damage = 70,
 		WalkSpeed = 18,
+		BaseDamage = 45,
 	},
 	["FlyingRocketLauncherToilet"] = {
 		CashReward = 18,
 		MaxHealth = 25000,
 		Damage = 200,
 		WalkSpeed = 10,
+		BaseDamage = 70,
 	},
 
 	-- ==========================================
@@ -149,18 +167,21 @@ local EnemyConfigurations = {
 		MaxHealth = 6000,
 		Damage = 120,
 		WalkSpeed = 12,
+		BaseDamage = 40,
 	},
 	["HelicopterParasiteRedToilet"] = {
 		CashReward = 20,
 		MaxHealth = 15000,
 		Damage = 250,
 		WalkSpeed = 19,
+		BaseDamage = 55,
 	},
 	["LargePoliceToilet"] = {
 		CashReward = 25,
 		MaxHealth = 50000,
 		Damage = 400,
 		WalkSpeed = 8,
+		BaseDamage = 80,
 	},
 
 	-- ==========================================
@@ -172,18 +193,21 @@ local EnemyConfigurations = {
 		MaxHealth = 12000,
 		Damage = 150,
 		WalkSpeed = 9,
+		BaseDamage = 50,
 	},
 	["LargeFlyingBuzzsawRedToilet"] = {
 		CashReward = 22,
 		MaxHealth = 25000,
 		Damage = 250,
 		WalkSpeed = 9,
+		BaseDamage = 65,
 	},
 	["GiantDualBladeToilet"] = {
 		CashReward = 23,
 		MaxHealth = 60000,
 		Damage = 350,
 		WalkSpeed = 10,
+		BaseDamage = 90,
 	},
 
 	-- ==========================================
@@ -194,24 +218,28 @@ local EnemyConfigurations = {
 		MaxHealth = 30000,
 		Damage = 200,
 		WalkSpeed = 10,
+		BaseDamage = 60,
 	},
 	["GiantGlassesRedToilet"] = {
 		CashReward = 25,
 		MaxHealth = 35000,
 		Damage = 250,
 		WalkSpeed = 10,
+		BaseDamage = 75,
 	},
 	["SpiderToilet"] = {
 		CashReward = 26,
 		MaxHealth = 40000,
 		Damage = 400,
 		WalkSpeed = 14,
+		BaseDamage = 85,
 	},
 	["InfectedTitanSpeakerman"] = {
 		CashReward = 27,
 		MaxHealth = 50000,
 		Damage = 800,
 		WalkSpeed = 10,
+		BaseDamage = 100,
 	},
 	-- ==========================================
 	-- CYCLE 10 (Vagues 101 à 120) - Nouveau plot univers
@@ -223,24 +251,28 @@ local EnemyConfigurations = {
 		MaxHealth = 60000,
 		Damage = 900,
 		WalkSpeed = 12,
+		BaseDamage = 70,
 	},
 	["UFOToilet"] = {
 		CashReward = 29,
 		MaxHealth = 70000,
 		Damage = 1000,
 		WalkSpeed = 14,
+		BaseDamage = 85,
 	},
 	["RocketToilet"] = {
 		CashReward = 30,
 		MaxHealth = 800000,
 		Damage = 1100,
 		WalkSpeed = 12,
+		BaseDamage = 100,
 	},
 	["StriderRocketToilet"] = {
 		CashReward = 31,
 		MaxHealth = 900000,
 		Damage = 1250,
 		WalkSpeed = 10,
+		BaseDamage = 120,
 	},	
 	
 	
@@ -252,12 +284,14 @@ local EnemyConfigurations = {
 		MaxHealth = 35000,
 		Damage = 200,
 		WalkSpeed = 8,
+		BaseDamage = 100,
 	},
 	["BossToilet2"] = {
 		CashReward = 150,
 		MaxHealth = 150000,
 		Damage = 500,
 		WalkSpeed = 8,
+		BaseDamage = 150,
 	},
 }
 

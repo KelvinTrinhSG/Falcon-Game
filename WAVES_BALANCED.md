@@ -6,42 +6,42 @@
 
 ## Chỉ số quái
 
-| Tên quái | HP | Damage | Tiền/con | Ghi chú |
-|---|---:|---:|---:|---|
-| SmallYellowToilet | 60 | 5 | 1 | — |
-| SmallRedToilet | 35 | 3 | 2 | Chết 1 phát Old Turret |
-| LargeToilet | 250 | 15 | 3 | Tank đầu tiên |
-| AssassinYellowToilet | 180 | 12 | 4 | — |
-| AssassinRedToilet | 100 | 8 | 5 | — |
-| PoliceToilet | 650 | 30 | 6 | Tank cycle 2 |
-| GlassesYellowToilet | 450 | 25 | 7 | — |
-| GlassesRedToilet | 280 | 18 | 8 | — |
-| GlitchToilet | 1,800 | 50 | 9 | Phá Cardboard tức thì |
-| DJYellowToilet | 1,200 | 45 | 10 | — |
-| DJRedToilet | 850 | 35 | 11 | — |
-| DualBladeToilet | 8,000 | 120 | 12 | Mini-boss cycle 4 |
-| **BossToilet** | **35,000** | **200** | **50** | **Boss Wave 40** |
-| VacuumYellowToilet | 2,000 | 50 | 13 | — |
-| VacuumRedToilet | 4,500 | 80 | 14 | — |
-| FlyingBuzzsawToilet | 9,000 | 150 | 15 | Boss cycle 5 |
-| DualBladeYellowToilet | 3,500 | 90 | 16 | — |
-| DualBladeRedToilet | 2,800 | 70 | 17 | — |
-| FlyingRocketLauncherToilet | 25,000 | 200 | 18 | Boss Vịt Khổng Lồ |
-| HelicopterParasiteYellowToilet | 6,000 | 120 | 19 | — |
-| HelicopterParasiteRedToilet | 15,000 | 250 | 20 | Phá Netherite 2 phát |
-| LargePoliceToilet | 50,000 | 400 | 25 | Boss tối thượng wave 70 |
-| LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | — |
-| LargeFlyingBuzzsawRedToilet | 25,000 | 250 | 22 | — |
-| GiantDualBladeToilet | 60,000 | 350 | 23 | Mini-boss Dưa Hấu |
-| **BossToilet2** | **150,000** | **500** | **150** | **Boss Wave 80** |
-| GiantGlassesYellowToilet | 30,000 | 200 | 24 | — |
-| GiantGlassesRedToilet | 35,000 | 250 | 25 | — |
-| SpiderToilet | 40,000 | 400 | 26 | — |
-| InfectedTitanSpeakerman | 50,000 | 800 | 27 | — |
-| QuadBladeStriderToilet | 60,000 | 900 | 28 | — |
-| UFOToilet | 70,000 | 1,000 | 29 | — |
-| RocketToilet | 800,000 | 1,100 | 30 | — |
-| StriderRocketToilet | 900,000 | 1,250 | 31 | — |
+| Tên quái | HP | Damage | Tiền/con | Damage Base | Ghi chú |
+|---|---:|---:|---:|---:|---|
+| SmallYellowToilet | 60 | 5 | 1 | 10 | — |
+| SmallRedToilet | 35 | 3 | 2 | 12 | Chết 1 phát Old Turret |
+| LargeToilet | 250 | 15 | 3 | 20 | Tank đầu tiên |
+| AssassinYellowToilet | 180 | 12 | 4 | 15 | — |
+| AssassinRedToilet | 100 | 8 | 5 | 18 | — |
+| PoliceToilet | 650 | 30 | 6 | 30 | Tank cycle 2 |
+| GlassesYellowToilet | 450 | 25 | 7 | 20 | — |
+| GlassesRedToilet | 280 | 18 | 8 | 25 | — |
+| GlitchToilet | 1,800 | 50 | 9 | 40 | Phá Cardboard tức thì |
+| DJYellowToilet | 1,200 | 45 | 10 | 25 | — |
+| DJRedToilet | 850 | 35 | 11 | 30 | — |
+| DualBladeToilet | 8,000 | 120 | 12 | 50 | Mini-boss cycle 4 |
+| **BossToilet** | **35,000** | **200** | **50** | **100** | **Boss Wave 40** |
+| VacuumYellowToilet | 2,000 | 50 | 13 | 30 | — |
+| VacuumRedToilet | 4,500 | 80 | 14 | 40 | — |
+| FlyingBuzzsawToilet | 9,000 | 150 | 15 | 60 | Boss cycle 5 |
+| DualBladeYellowToilet | 3,500 | 90 | 16 | 35 | — |
+| DualBladeRedToilet | 2,800 | 70 | 17 | 45 | — |
+| FlyingRocketLauncherToilet | 25,000 | 200 | 18 | 70 | Boss Vịt Khổng Lồ |
+| HelicopterParasiteYellowToilet | 6,000 | 120 | 19 | 40 | — |
+| HelicopterParasiteRedToilet | 15,000 | 250 | 20 | 55 | Phá Netherite 2 phát |
+| LargePoliceToilet | 50,000 | 400 | 25 | 80 | Boss tối thượng wave 70 |
+| LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | 50 | — |
+| LargeFlyingBuzzsawRedToilet | 25,000 | 250 | 22 | 65 | — |
+| GiantDualBladeToilet | 60,000 | 350 | 23 | 90 | Mini-boss Dưa Hấu |
+| **BossToilet2** | **150,000** | **500** | **150** | **150** | **Boss Wave 80** |
+| GiantGlassesYellowToilet | 30,000 | 200 | 24 | 60 | — |
+| GiantGlassesRedToilet | 35,000 | 250 | 25 | 75 | — |
+| SpiderToilet | 40,000 | 400 | 26 | 85 | — |
+| InfectedTitanSpeakerman | 50,000 | 800 | 27 | 100 | — |
+| QuadBladeStriderToilet | 60,000 | 900 | 28 | 70 | — |
+| UFOToilet | 70,000 | 1,000 | 29 | 85 | — |
+| RocketToilet | 800,000 | 1,100 | 30 | 100 | — |
+| StriderRocketToilet | 900,000 | 1,250 | 31 | 120 | — |
 
 ---
 
