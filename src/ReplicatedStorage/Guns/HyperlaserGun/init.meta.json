@@ -1,0 +1,9 @@
+{
+  "className": "Tool",
+  "properties": {
+    "CanBeDropped": false,
+    "TextureId": "rbxassetid://130093050",
+    "ToolTip": ""
+  },
+  "ignoreUnknownInstances": true
+}
