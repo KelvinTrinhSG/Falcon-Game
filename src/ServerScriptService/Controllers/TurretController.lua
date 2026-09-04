@@ -48,7 +48,9 @@ local _activeTurrets = {}
 
 local function setFX(turretModel: Model, enabled: boolean)
 	task.spawn(function()
-		for _, desc in ipairs(turretModel:GetDescendants()) do
+		local vfxPart = turretModel:FindFirstChild("TVVFXs", true)
+		if not vfxPart then return end
+		for _, desc in ipairs(vfxPart:GetDescendants()) do
 			if desc:IsA("Light") or desc:IsA("ParticleEmitter") or desc:IsA("Beam") then
 				desc.Enabled = enabled
 			end

@@ -280,9 +280,10 @@ startNextWave = function(player: Player, plot: Model)
 					humanoid.JumpPower = 0
 				end
 
+				local baseWalkSpeed = (enemyConfig and enemyConfig.WalkSpeed) or humanoid.WalkSpeed
 				local currentSpeed = _playerSpeeds[player] or 1
-				humanoid:SetAttribute("BaseWalkSpeed", humanoid.WalkSpeed)
-				humanoid.WalkSpeed = humanoid.WalkSpeed * currentSpeed
+				humanoid.WalkSpeed = baseWalkSpeed * currentSpeed
+				humanoid:SetAttribute("BaseWalkSpeed", baseWalkSpeed)
 
 				local goalValue = Instance.new("ObjectValue")
 				goalValue.Name = "Goal"

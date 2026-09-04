@@ -8,18 +8,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["SmallYellowToilet"] = {
 		CashReward = 1,
-		MaxHealth = 60, -- 2 tirs de Old Turret, ou 1 tir presque fatal de Modern Turret
-		Damage = 5,     -- Il faut 10 coups pour casser un Cardboard Block
+		MaxHealth = 60,
+		Damage = 5,
+		WalkSpeed = 10,
 	},
 	["SmallRedToilet"] = {
 		CashReward = 2,
-		MaxHealth = 35, -- Fragile mais rapide, meurt en 1 tir de Old Turret
+		MaxHealth = 35,
 		Damage = 3,
+		WalkSpeed = 15,
 	},
 	["LargeToilet"] = {
 		CashReward = 3,
-		MaxHealth = 250, -- Le premier tank. Résiste à 5 tirs de Old Turret
-		Damage = 15,     -- Dangereux pour les petits blocs
+		MaxHealth = 250,
+		Damage = 15,
+		WalkSpeed = 8,
 	},
 
 	-- ==========================================
@@ -28,18 +31,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["AssassinYellowToilet"] = {
 		CashReward = 4,
-		MaxHealth = 180, -- Le Laser Turret le tue presque en un coup
+		MaxHealth = 180,
 		Damage = 12,
+		WalkSpeed = 10,
 	},
 	["AssassinRedToilet"] = {
 		CashReward = 5,
-		MaxHealth = 100, -- L'équivalent du Fast, mais plus résistant
+		MaxHealth = 100,
 		Damage = 8,
+		WalkSpeed = 15,
 	},
 	["PoliceToilet"] = {
 		CashReward = 6,
-		MaxHealth = 650, -- Gros tank du cycle 2
-		Damage = 30,     -- Commence à bien entamer le Steel/Plate Block
+		MaxHealth = 650,
+		Damage = 30,
+		WalkSpeed = 9,
 	},
 
 	-- ==========================================
@@ -48,18 +54,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["GlassesYellowToilet"] = {
 		CashReward = 7,
-		MaxHealth = 450, -- Un tir de Toxic Turret ou 2 de Extreme
+		MaxHealth = 450,
 		Damage = 25,
+		WalkSpeed = 11,
 	},
 	["GlassesRedToilet"] = {
 		CashReward = 8,
-		MaxHealth = 280, -- L'ennemi rapide du cycle 3
+		MaxHealth = 280,
 		Damage = 18,
+		WalkSpeed = 16,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
-		MaxHealth = 1800, -- Un vrai cauchemar sans bonnes tourelles
-		Damage = 50,      -- Détruit le Cardboard instantanément, menace le Concrete Block
+		MaxHealth = 1800,
+		Damage = 50,
+		WalkSpeed = 12,
 	},
 
 	-- ==========================================
@@ -68,18 +77,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["DJYellowToilet"] = {
 		CashReward = 10,
-		MaxHealth = 1200, -- Le standard de fin de partie
+		MaxHealth = 1200,
 		Damage = 45,
+		WalkSpeed = 11,
 	},
 	["DJRedToilet"] = {
 		CashReward = 11,
-		MaxHealth = 850, -- L'ennemi rapide très coriace
+		MaxHealth = 850,
 		Damage = 35,
+		WalkSpeed = 17,
 	},
 	["DualBladeToilet"] = {
 		CashReward = 12,
-		MaxHealth = 8000, -- Le Boss final absolu. Nécessite beaucoup de puissance de feu.
-		Damage = 120,     -- Brise très vite les murs, même le Netherite/Lava
+		MaxHealth = 8000,
+		Damage = 120,
+		WalkSpeed = 10,
 	},
 
 	-- ==========================================
@@ -90,16 +102,19 @@ local EnemyConfigurations = {
 		CashReward = 13,
 		MaxHealth = 2000,
 		Damage = 50,
+		WalkSpeed = 11,
 	},
 	["VacuumRedToilet"] = {
 		CashReward = 14,
-		MaxHealth = 4500, -- Très résistant, comme un arbre
+		MaxHealth = 4500,
 		Damage = 80,
+		WalkSpeed = 17,
 	},
 	["FlyingBuzzsawToilet"] = {
 		CashReward = 15,
-		MaxHealth = 9000, -- Boss du cycle Nature
-		Damage = 150,      -- Pique très fort, détruit le Concrete Block rapidement
+		MaxHealth = 9000,
+		Damage = 150,
+		WalkSpeed = 12,
 	},
 
 	-- ==========================================
@@ -108,18 +123,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["DualBladeYellowToilet"] = {
 		CashReward = 16,
-		MaxHealth = 3500, -- Charge avec pas mal de PV
+		MaxHealth = 3500,
 		Damage = 90,
+		WalkSpeed = 12,
 	},
 	["DualBladeRedToilet"] = {
 		CashReward = 17,
-		MaxHealth = 2800, -- Un peu moins de PV mais censé être rapide
+		MaxHealth = 2800,
 		Damage = 70,
+		WalkSpeed = 18,
 	},
 	["FlyingRocketLauncherToilet"] = {
 		CashReward = 18,
-		MaxHealth = 25000, -- Le Boss Canard Géant ! Un vrai tank
-		Damage = 200,      -- Très dangereux pour les murs
+		MaxHealth = 25000,
+		Damage = 200,
+		WalkSpeed = 10,
 	},
 
 	-- ==========================================
@@ -128,18 +146,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
 		CashReward = 19,
-		MaxHealth = 6000, 
+		MaxHealth = 6000,
 		Damage = 120,
+		WalkSpeed = 12,
 	},
 	["HelicopterParasiteRedToilet"] = {
 		CashReward = 20,
-		MaxHealth = 15000, -- Un mastodonte des mers
-		Damage = 250,      -- Brise le Netherite en 2 coups
+		MaxHealth = 15000,
+		Damage = 250,
+		WalkSpeed = 19,
 	},
 	["LargePoliceToilet"] = {
 		CashReward = 25,
-		MaxHealth = 50000, -- Le Boss Suprême des Slimes (Vague 70)
-		Damage = 400,      -- One-shot quasiment tous les murs sauf la Lava
+		MaxHealth = 50000,
+		Damage = 400,
+		WalkSpeed = 8,
 	},
 
 	-- ==========================================
@@ -148,18 +169,21 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["LargeFlyingBuzzsawYellowToilet"] = {
 		CashReward = 21,
-		MaxHealth = 12000, 
+		MaxHealth = 12000,
 		Damage = 150,
+		WalkSpeed = 9,
 	},
 	["LargeFlyingBuzzsawRedToilet"] = {
 		CashReward = 22,
-		MaxHealth = 25000, -- Plus lent mais très tanky
+		MaxHealth = 25000,
 		Damage = 250,
+		WalkSpeed = 9,
 	},
 	["GiantDualBladeToilet"] = {
 		CashReward = 23,
-		MaxHealth = 60000, -- Le mini-boss pastèque, énorme sac à PV
+		MaxHealth = 60000,
 		Damage = 350,
+		WalkSpeed = 10,
 	},
 
 	-- ==========================================
@@ -167,24 +191,27 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["GiantGlassesYellowToilet"] = {
 		CashReward = 24,
-		MaxHealth = 30000, 
+		MaxHealth = 30000,
 		Damage = 200,
+		WalkSpeed = 10,
 	},
 	["GiantGlassesRedToilet"] = {
 		CashReward = 25,
 		MaxHealth = 35000,
 		Damage = 250,
+		WalkSpeed = 10,
 	},
 	["SpiderToilet"] = {
 		CashReward = 26,
 		MaxHealth = 40000,
 		Damage = 400,
+		WalkSpeed = 14,
 	},
-
 	["InfectedTitanSpeakerman"] = {
 		CashReward = 27,
-		MaxHealth = 50000, 
-		Damage = 800,       
+		MaxHealth = 50000,
+		Damage = 800,
+		WalkSpeed = 10,
 	},
 	-- ==========================================
 	-- CYCLE 10 (Vagues 101 à 120) - Nouveau plot univers
@@ -195,21 +222,25 @@ local EnemyConfigurations = {
 		CashReward = 28,
 		MaxHealth = 60000,
 		Damage = 900,
+		WalkSpeed = 12,
 	},
 	["UFOToilet"] = {
 		CashReward = 29,
 		MaxHealth = 70000,
 		Damage = 1000,
+		WalkSpeed = 14,
 	},
 	["RocketToilet"] = {
 		CashReward = 30,
 		MaxHealth = 800000,
 		Damage = 1100,
+		WalkSpeed = 12,
 	},
 	["StriderRocketToilet"] = {
 		CashReward = 31,
 		MaxHealth = 900000,
 		Damage = 1250,
+		WalkSpeed = 10,
 	},	
 	
 	
@@ -218,13 +249,15 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["BossToilet"] = {
 		CashReward = 50,
-		MaxHealth = 35000, -- Très résistant, requiert Bunker/Stars Turret (Vague 40)
-		Damage = 200,      -- Détruira très vite les blocs moyens
+		MaxHealth = 35000,
+		Damage = 200,
+		WalkSpeed = 8,
 	},
 	["BossToilet2"] = {
 		CashReward = 150,
-		MaxHealth = 150000, -- Un véritable titan pour la vague 80 (nécessite Lava/Stars Turrets)
-		Damage = 500,       -- Détruit n'importe quel bloc quasi instantanément, sauf le Lava Block
+		MaxHealth = 150000,
+		Damage = 500,
+		WalkSpeed = 8,
 	},
 }
 

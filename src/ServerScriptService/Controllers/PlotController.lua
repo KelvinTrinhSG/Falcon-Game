@@ -27,23 +27,6 @@ local PLOTS_FOLDER = Workspace:WaitForChild("Plots")
 local ResetPlotEvent = ReplicatedStorage.Events:WaitForChild("ResetPlot")
 local UpdateProtectionModelFX = ReplicatedStorage.Events:WaitForChild("UpdateProtectionModelFX")
 
--- ==========================================================
--- 🛡️ SÉCURITÉS DES DOSSIERS
--- ==========================================================
-local PLOTS_V2_TEMPLATES = ReplicatedStorage:FindFirstChild("PlotsV2")
-if not PLOTS_V2_TEMPLATES then
-	warn("[PlotController] Dossier 'PlotsV2' introuvable ! Création d'un dossier vide par sécurité.")
-	PLOTS_V2_TEMPLATES = Instance.new("Folder")
-	PLOTS_V2_TEMPLATES.Name = "PlotsV2"
-	PLOTS_V2_TEMPLATES.Parent = ReplicatedStorage
-end
-
-local HIDDEN_PLOTS_FOLDER = ReplicatedStorage:FindFirstChild("HiddenPlots")
-if not HIDDEN_PLOTS_FOLDER then
-	HIDDEN_PLOTS_FOLDER = Instance.new("Folder")
-	HIDDEN_PLOTS_FOLDER.Name = "HiddenPlots"
-	HIDDEN_PLOTS_FOLDER.Parent = ReplicatedStorage
-end
 
 -- ==========================================================
 -- 👑 GET PLOT
@@ -237,58 +220,6 @@ local function cleanupPlot(plot: Model)
 	end
 end
 
--- ==========================================================
--- 🚀 UPGRADE AUTOMATIQUE DU TERRAIN EN V2 (EN DIRECT)
--- ==========================================================
-function PlotController:UpgradePlotToV2(player: Player)
-	local profile = PlayerController:GetProfile(player)
-	if not profile then return end
-
-	local plotNum = player:GetAttribute("PlotNumber")
-	if not plotNum then return end
-
-	local currentPlot = PLOTS_FOLDER:FindFirstChild("Plot" .. plotNum)
-	-- Si le terrain n'existe pas ou s'il est DÉJÀ en V2, on annule
-	if not currentPlot or currentPlot:GetAttribute("IsV2") then return end
-
-	local v2Template = PLOTS_V2_TEMPLATES:FindFirstChild("Plot" .. plotNum .. "_v2")
-	if not v2Template then return end
-
-	-- 1. On nettoie (virtuellement) et on cache l'ancien terrain
-	local exactCFrame = currentPlot:GetPivot()
-	cleanupPlot(currentPlot)
-	currentPlot.Parent = HIDDEN_PLOTS_FOLDER
-
-	-- 2. On installe le nouveau terrain V2
-	local assignedPlot = v2Template:Clone()
-	assignedPlot.Name = "Plot" .. plotNum 
-	assignedPlot:SetAttribute("IsV2", true) 
-	assignedPlot:SetAttribute("OwnerId", player.UserId)
-	assignedPlot:PivotTo(exactCFrame)
-	assignedPlot.Parent = PLOTS_FOLDER
-
-	local plotHealthPart = assignedPlot:FindFirstChild("PlotHealth")
-	if plotHealthPart then
-		CollectionService:AddTag(plotHealthPart, "Damageable")
-	end
-
-	spawnPromotionalCrate(assignedPlot)
-
-	if profile.Data.EquippedModel then
-		self:EquipModel(player, profile.Data.EquippedModel, true)
-	end
-
-	-- 3. On recharge et recalcule tout (Tourelles, blocus, caisses)
-	PlacementController:LoadPlacedItems(player, assignedPlot)
-	validateAndRefundPlacements(player, assignedPlot)
-	CrateController:LoadPlayerCrates(player, assignedPlot)
-
-	-- 4. On met à jour la sauvegarde
-	profile.Data.HadV2Plot = true
-
-	-- Petite notification de victoire !
-	ShowNotificationEvent:FireClient(player, "🎉 TERRAIN V2 DÉBLOQUÉ ET INSTALLÉ !", "Success")
-end
 
 -- ==========================================================
 -- 👑 ATTRIBUTION DU TERRAIN (AU CHARGEMENT)
@@ -299,59 +230,22 @@ function PlotController:OnPlayerProfileLoaded(player: Player)
 	end
 
 	local profile = PlayerController:GetProfile(player)
-	local isV2 = profile and profile.Data.HighestWave and profile.Data.HighestWave >= 100
-	local hadV2LastTime = profile.Data.HadV2Plot == true
-	local terrainChanged = false
-
-	if isV2 ~= hadV2LastTime then
-		terrainChanged = true
-		profile.Data.HadV2Plot = isV2
-	end
 
 	local chosenPlotNum = nil
 	local assignedPlot = nil
 
 	for i = 1, 20 do
-		local normalInWorkspace = PLOTS_FOLDER:FindFirstChild("Plot" .. i)
-		if normalInWorkspace and not normalInWorkspace:GetAttribute("OwnerId") then
+		local plot = PLOTS_FOLDER:FindFirstChild("Plot" .. i)
+		if plot and not plot:GetAttribute("OwnerId") then
 			chosenPlotNum = i
 			break
 		end
 	end
 
 	if chosenPlotNum then
-		local normalPlot = PLOTS_FOLDER:FindFirstChild("Plot" .. chosenPlotNum)
-
-		if isV2 then
-			local v2Template = PLOTS_V2_TEMPLATES:FindFirstChild("Plot" .. chosenPlotNum .. "_v2")
-
-			if v2Template then
-				local exactCFrame = nil
-				if normalPlot then 
-					exactCFrame = normalPlot:GetPivot()
-					normalPlot.Parent = HIDDEN_PLOTS_FOLDER 
-				end
-
-				assignedPlot = v2Template:Clone()
-				assignedPlot.Name = "Plot" .. chosenPlotNum 
-				assignedPlot:SetAttribute("IsV2", true) 
-				assignedPlot:SetAttribute("OwnerId", player.UserId)
-
-				if exactCFrame then
-					assignedPlot:PivotTo(exactCFrame)
-				end
-
-				assignedPlot.Parent = PLOTS_FOLDER
-			else
-				assignedPlot = normalPlot
-				if assignedPlot then assignedPlot:SetAttribute("OwnerId", player.UserId) end
-			end
-		else
-			assignedPlot = normalPlot
-			if assignedPlot then assignedPlot:SetAttribute("OwnerId", player.UserId) end
-		end
-
+		assignedPlot = PLOTS_FOLDER:FindFirstChild("Plot" .. chosenPlotNum)
 		if assignedPlot then
+			assignedPlot:SetAttribute("OwnerId", player.UserId)
 			player:SetAttribute("PlotNumber", chosenPlotNum)
 
 			local plotHealthPart = assignedPlot:FindFirstChild("PlotHealth")
@@ -367,11 +261,6 @@ function PlotController:OnPlayerProfileLoaded(player: Player)
 			end
 
 			PlacementController:LoadPlacedItems(player, assignedPlot)
-
-			if terrainChanged then
-				validateAndRefundPlacements(player, assignedPlot)
-			end
-
 			CrateController:LoadPlayerCrates(player, assignedPlot)
 
 			local spawnLocation = assignedPlot:FindFirstChild("SpawnPart")
@@ -399,18 +288,7 @@ local function onPlayerRemoving(player: Player)
 	local plot = PLOTS_FOLDER:FindFirstChild("Plot" .. plotNum)
 	if plot then
 		cleanupPlot(plot)
-
-		if plot:GetAttribute("IsV2") then
-			plot:Destroy() 
-
-			local hiddenNormalPlot = HIDDEN_PLOTS_FOLDER:FindFirstChild("Plot" .. plotNum)
-			if hiddenNormalPlot then
-				hiddenNormalPlot:SetAttribute("OwnerId", nil)
-				hiddenNormalPlot.Parent = PLOTS_FOLDER
-			end
-		else
-			plot:SetAttribute("OwnerId", nil)
-		end
+		plot:SetAttribute("OwnerId", nil)
 	end
 end
 
@@ -460,25 +338,7 @@ function PlotController:Start()
 		self:EquipModel(player, modelName)
 	end)
 
-	-- ⚡ LE DÉTECTEUR AUTOMATIQUE (Vérifie toutes les 5 secondes en arrière-plan)
-	task.spawn(function()
-		while true do
-			task.wait(5)
-			for _, player in ipairs(Players:GetPlayers()) do
-				local profile = PlayerController:GetProfile(player)
-				if profile and profile.Data.HighestWave and profile.Data.HighestWave >= 100 then
-					local plotNum = player:GetAttribute("PlotNumber")
-					if plotNum then
-						local plot = PLOTS_FOLDER:FindFirstChild("Plot" .. plotNum)
-						-- S'il a le niveau pour la V2 mais qu'il est toujours sur la V1, on le met à jour !
-						if plot and not plot:GetAttribute("IsV2") then
-							self:UpgradePlotToV2(player)
-						end
-					end
-				end
-			end
-		end
-	end)
+
 end
 
 return PlotController
