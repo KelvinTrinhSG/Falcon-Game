@@ -156,6 +156,7 @@ local WaveConfigurations = {
 			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
 			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
 			{Enemy = "GlassesYellowToilet",            Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJYellowToiletBuff",             Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -165,74 +166,82 @@ local WaveConfigurations = {
 	[21] = {
 		CashReward = 110,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 1.3},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[22] = {
 		CashReward = 115,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
+			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 1.1},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[23] = {
 		CashReward = 120,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
+			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 1.0},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	-- GlassesRedToilet solo intro
 	[24] = {
 		CashReward = 125,
 		Enemies = {
-			{Enemy = "GlassesRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "GlassesRedToilet", Count = 1, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[25] = {
 		CashReward = 130,
 		UnlocksStartingWave = 20,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
+			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 0.9},
+			{Enemy = "GlassesRedToilet",    Count = 1, DelayBetweenSpawns = 1.3},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	-- FlyingBuzzsawToilet solo intro
 	[26] = {
 		CashReward = 140,
 		Enemies = {
-			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 3.0},
+			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[27] = {
 		CashReward = 150,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 0.9},
+			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.1},
 			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[28] = {
 		CashReward = 160,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingBuzzsawToilet", Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 0.8},
+			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.0},
+			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[29] = {
 		CashReward = 170,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 2.5},
+			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 0.8},
+			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.0},
+			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[30] = {
 		CashReward = 215,
 		UnlocksStartingWave = 25,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 0.8},
+			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 0.9},
+			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.3},
+			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 			{Enemy = "DJYellowToilet",      Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},

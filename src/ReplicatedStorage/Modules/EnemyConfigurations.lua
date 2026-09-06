@@ -78,6 +78,7 @@ local EnemyConfigurations = {
 		Damage = 150,
 		WalkSpeed = 12,
 		BaseDamage = 60,
+		ExplosionRadius = 6,
 	},
 
 	-- ==========================================
@@ -90,6 +91,13 @@ local EnemyConfigurations = {
 		Damage = 45,
 		WalkSpeed = 11,
 		BaseDamage = 25,
+	},
+	["DJYellowToiletBuff"] = {
+		CashReward = 8,
+		MaxHealth = 700,
+		Damage = 28,
+		WalkSpeed = 8,
+		BaseDamage = 22,
 	},
 	["DJRedToilet"] = {
 		CashReward = 11,
@@ -104,6 +112,7 @@ local EnemyConfigurations = {
 		Damage = 120,
 		WalkSpeed = 10,
 		BaseDamage = 50,
+		ExplosionRadius = 6,
 	},
 
 	-- ==========================================
@@ -186,6 +195,7 @@ local EnemyConfigurations = {
 		Damage = 400,
 		WalkSpeed = 8,
 		BaseDamage = 80,
+		ExplosionRadius = 10,
 	},
 
 	-- ==========================================
@@ -239,6 +249,7 @@ local EnemyConfigurations = {
 		Damage = 400,
 		WalkSpeed = 14,
 		BaseDamage = 85,
+		ExplosionRadius = 8,
 	},
 	["InfectedTitanSpeakerman"] = {
 		CashReward = 27,

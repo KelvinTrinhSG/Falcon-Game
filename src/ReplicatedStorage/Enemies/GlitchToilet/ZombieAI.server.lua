@@ -6,6 +6,7 @@ local Workspace = game:GetService("Workspace")
 
 local EnemyConfigurations = require(ReplicatedStorage.Modules.EnemyConfigurations)
 local DamageHandler = require(ReplicatedStorage.Modules.DamageHandler)
+local EnemySkills = require(ReplicatedStorage.Modules.EnemySkills)
 
 -- ⚡ NOUVEAU : On importe les configurations de tes objets pour distinguer Blocs et Tourelles
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
@@ -104,5 +105,12 @@ task.spawn(function()
 			humanoid:MoveTo(finalGoal.Position)
 		end
 		task.wait(0.2)
+	end
+end)
+
+humanoid.Died:Connect(function()
+	local enemyConfig = EnemyConfigurations[zombie.Name]
+	if enemyConfig and enemyConfig.ExplosionRadius then
+		EnemySkills.explodeOnDeath(zombie, enemyConfig.ExplosionRadius)
 	end
 end)

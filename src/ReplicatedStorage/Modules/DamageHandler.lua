@@ -15,6 +15,9 @@ function DamageHandler.dealDamage(source: Instance, target: Instance, damageAmou
 	local healthAttribute = target:GetAttribute("Health")
 
 	if humanoid then
+		local model = target:IsA("Model") and target or target:FindFirstAncestorOfClass("Model")
+		if model and model:GetAttribute("IsInvincible") then return false end
+
 		humanoid:TakeDamage(damageAmount)
 		print(string.format("[DamageHandler] TakeDamage → %s | -%d | HP after: %d", target.Name, damageAmount, humanoid.Health))
 

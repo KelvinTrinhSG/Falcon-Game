@@ -7,8 +7,6 @@ local Workspace = game:GetService("Workspace")
 local EnemyConfigurations = require(ReplicatedStorage.Modules.EnemyConfigurations)
 local DamageHandler = require(ReplicatedStorage.Modules.DamageHandler)
 local EnemySkills = require(ReplicatedStorage.Modules.EnemySkills)
-
--- ⚡ NOUVEAU : On importe les configurations de tes objets pour distinguer Blocs et Tourelles
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 
 local zombie = script.Parent
@@ -20,12 +18,10 @@ local ATTACK_COOLDOWN = 1
 local lastAttackTime = 0
 
 local function getDamageableTarget(instance: Instance)
-	-- 1. Si c'est le Core/Base (PlotHealth), on l'attaque toujours !
 	if instance:IsA("BasePart") and instance.Name == "PlotHealth" then
 		return instance
 	end
 
-	-- 2. On cherche si l'objet fait partie d'un modèle posé
 	local model = nil
 	if instance:IsA("Model") then
 		model = instance
@@ -33,10 +29,7 @@ local function getDamageableTarget(instance: Instance)
 		model = instance:FindFirstAncestorOfClass("Model")
 	end
 
-	-- 3. Si on trouve un modèle posé par le joueur
 	if model and model:GetAttribute("IsPlacedItem") == true then
-
-		-- On cherche sa configuration dans ItemConfigurations
 		local config = nil
 		if ItemConfigsModule.ItemConfigurations then
 			config = ItemConfigsModule.ItemConfigurations[model.Name] or (ItemConfigsModule.LimitedItems and ItemConfigsModule.LimitedItems[model.Name])
@@ -44,16 +37,15 @@ local function getDamageableTarget(instance: Instance)
 			config = ItemConfigsModule[model.Name]
 		end
 
-		-- ⚡ LA MAGIE EST ICI : On retourne le modèle SEULEMENT si c'est un bloc !
 		if config and config.Type == "Blocks" then
 			return model
 		end
 	end
 
-	-- Si ce n'est ni le Core, ni un Bloc (ex: c'est une tourelle), on l'ignore.
 	return nil
 end
 
+-- Movement + attack loop
 task.spawn(function()
 	local goalValue = zombie:FindFirstChild("Goal")
 	if not goalValue or not goalValue.Value then return end
@@ -72,7 +64,6 @@ task.spawn(function()
 			for _, child in ipairs(thingsToCheck) do
 				if not child then continue end
 
-				-- On utilise notre fonction modifiée ici
 				local target = getDamageableTarget(child)
 				local primaryPart = target and (target:IsA("Model") and target.PrimaryPart or target)
 
@@ -108,9 +99,23 @@ task.spawn(function()
 	end
 end)
 
-humanoid.Died:Connect(function()
-	local enemyConfig = EnemyConfigurations[zombie.Name]
-	if enemyConfig and enemyConfig.ExplosionRadius then
-		EnemySkills.explodeOnDeath(zombie, enemyConfig.ExplosionRadius)
+-- Speed buff skill: cooldown 10s, tác dụng 3s, buff tất cả enemy
+task.spawn(function()
+	local buffedSpheres: {[Model]: Part} = {}
+
+	humanoid.Died:Connect(function()
+		for model, sphere in pairs(buffedSpheres) do
+			if model.Parent then
+				model:SetAttribute("IsInvincible", nil)
+				model:SetAttribute("InvincibleActive", nil)
+			end
+			sphere:Destroy()
+			buffedSpheres[model] = nil
+		end
+	end)
+
+	while humanoid.Health > 0 do
+		EnemySkills.activateInvincibleBuff(zombie, 5, buffedSpheres)
+		task.wait(10)
 	end
 end)

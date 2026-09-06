@@ -8,42 +8,43 @@
 
 ## Chỉ số quái
 
-| Tên quái | HP | Damage | Tiền/con | Damage Base | WalkSpeed | Ghi chú |
-|---|---:|---:|---:|---:|---:|---|
-| SmallYellowToilet | 60 | 5 | 1 | 10 | 10 | — |
-| SmallRedToilet | 35 | 3 | 2 | 12 | **25** | Chết 1 phát Old Turret |
-| LargeToilet | 250 | 15 | 3 | 20 | 8 | Tank đầu tiên |
-| AssassinYellowToilet | 6,000 | 120 | 4 | 40 | 12 | — |
-| AssassinRedToilet | 4,000 | 250 | 5 | 55 | **25** | — |
-| PoliceToilet | 650 | 30 | 6 | 30 | 9 | Tank cycle 2 |
-| GlassesYellowToilet | 450 | 25 | 7 | 20 | 11 | — |
-| GlassesRedToilet | 280 | 18 | 8 | 25 | **25** | — |
-| GlitchToilet | 9,000 | 150 | 9 | 60 | 12 | Phá Cardboard tức thì |
-| DJYellowToilet | 1,200 | 45 | 10 | 25 | 11 | — |
-| DJRedToilet | 850 | 35 | 11 | 30 | **25** | — |
-| DualBladeToilet | 8,000 | 120 | 12 | 50 | 10 | Mini-boss cycle 4 |
-| **BossToilet** | **35,000** | **200** | **50** | **100** | 8 | **Boss Wave 40** |
-| VacuumYellowToilet | 2,000 | 50 | 13 | 30 | 11 | — |
-| VacuumRedToilet | 1,400 | 80 | 14 | 40 | **25** | — |
-| FlyingBuzzsawToilet | 1,800 | 50 | 15 | 40 | 12 | ✈ Bay · Boss cycle 5 |
-| DualBladeYellowToilet | 3,500 | 90 | 16 | 35 | 12 | — |
-| DualBladeRedToilet | 2,800 | 70 | 17 | 45 | **25** | — |
-| FlyingRocketLauncherToilet | 25,000 | 200 | 18 | 70 | 10 | ✈ Bay · Boss Vịt Khổng Lồ |
-| HelicopterParasiteYellowToilet | 180 | 12 | 19 | 15 | 10 | ✈ Bay |
-| HelicopterParasiteRedToilet | 100 | 8 | 20 | 18 | **25** | ✈ Bay |
-| LargePoliceToilet | 50,000 | 400 | 25 | 80 | 8 | Boss tối thượng wave 70 |
-| LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | 50 | 9 | ✈ Bay |
-| LargeFlyingBuzzsawRedToilet | 8,000 | 250 | 22 | 65 | **25** | ✈ Bay |
-| GiantDualBladeToilet | 60,000 | 350 | 23 | 90 | 10 | Mini-boss Dưa Hấu |
-| **BossToilet2** | **150,000** | **500** | **150** | **150** | 8 | **Boss Wave 80** |
-| GiantGlassesYellowToilet | 30,000 | 200 | 24 | 60 | 10 | — |
-| GiantGlassesRedToilet | 22,000 | 250 | 25 | 75 | **25** | — |
-| SpiderToilet | 40,000 | 400 | 26 | 85 | 14 | — |
-| InfectedTitanSpeakerman | 50,000 | 800 | 27 | 100 | 10 | — |
-| QuadBladeStriderToilet | 60,000 | 900 | 28 | 70 | 12 | — |
-| UFOToilet | 70,000 | 1,000 | 29 | 85 | 14 | ✈ Bay |
-| RocketToilet | 800,000 | 1,100 | 30 | 100 | 12 | ✈ Bay |
-| StriderRocketToilet | 900,000 | 1,250 | 31 | 120 | 10 | — |
+| Wave | Tên quái | HP | Damage | Tiền/con | Damage Base | WalkSpeed | Ghi chú | Kỹ năng riêng |
+|:---:|---|---:|---:|---:|---:|---:|---|---|
+| 1 | SmallYellowToilet | 60 | 5 | 1 | 10 | 10 | — | — |
+| 5 | SmallRedToilet | 35 | 3 | 2 | 12 | **25** | Nhanh | — |
+| 7 | LargeToilet | 250 | 15 | 3 | 20 | 8 | Trâu | — |
+| 11 | HelicopterParasiteYellowToilet | 180 | 12 | 19 | 15 | 10 | — | ✈ Bay |
+| 14 | HelicopterParasiteRedToilet | 100 | 8 | 20 | 18 | **25** | Nhanh | ✈ Bay |
+| 17 | PoliceToilet | 650 | 30 | 6 | 30 | 9 | Trâu | — |
+| 20 | DJYellowToiletBuff | 700 | 28 | 8 | 22 | 8 | — | 🛡️ Buff bất tử 5s (cd 10s) |
+| 21 | GlassesYellowToilet | 450 | 25 | 7 | 20 | 11 | — | — |
+| 24 | GlassesRedToilet | 280 | 18 | 8 | 25 | **25** | Nhanh | — |
+| 26 | FlyingBuzzsawToilet | 1,800 | 50 | 15 | 40 | 12 | Trâu | ✈ Bay |
+| 31 | DJYellowToilet | 1,200 | 45 | 10 | 25 | 11 | — | — |
+| 34 | DJRedToilet | 850 | 35 | 11 | 30 | **25** | Nhanh | — |
+| 36 | DualBladeToilet | 8,000 | 120 | 12 | 50 | 10 | Trâu | 💥 Nổ khi chết (r=6) |
+| **40** | **BossToilet** | **35,000** | **200** | **50** | **100** | 8 | **Trâu** | — |
+| 41 | VacuumYellowToilet | 2,000 | 50 | 13 | 30 | 11 | — | — |
+| 44 | VacuumRedToilet | 1,400 | 80 | 14 | 40 | **25** | Nhanh | — |
+| 46 | GlitchToilet | 9,000 | 150 | 9 | 60 | 12 | Trâu | 💥 Nổ khi chết (r=6) |
+| 51 | DualBladeYellowToilet | 3,500 | 90 | 16 | 35 | 12 | — | — |
+| 54 | DualBladeRedToilet | 2,800 | 70 | 17 | 45 | **25** | Nhanh | — |
+| 56 | FlyingRocketLauncherToilet | 25,000 | 200 | 18 | 70 | 10 | Trâu | ✈ Bay |
+| 61 | AssassinYellowToilet | 6,000 | 120 | 4 | 40 | 12 | — | — |
+| 64 | AssassinRedToilet | 4,000 | 250 | 5 | 55 | **25** | Nhanh | — |
+| 66 | LargePoliceToilet | 50,000 | 400 | 25 | 80 | 8 | Trâu | 💥 Nổ khi chết (r=10) |
+| 71 | LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | 50 | 9 | Trâu | ✈ Bay |
+| 74 | LargeFlyingBuzzsawRedToilet | 8,000 | 250 | 22 | 65 | **25** | Nhanh · Trâu | ✈ Bay |
+| 76 | GiantDualBladeToilet | 60,000 | 350 | 23 | 90 | 10 | Trâu | — |
+| **80** | **BossToilet2** | **150,000** | **500** | **150** | **150** | 8 | **Trâu** | — |
+| 81 | GiantGlassesYellowToilet | 30,000 | 200 | 24 | 60 | 10 | Trâu | — |
+| 84 | GiantGlassesRedToilet | 22,000 | 250 | 25 | 75 | **25** | Nhanh · Trâu | — |
+| 86 | SpiderToilet | 40,000 | 400 | 26 | 85 | 14 | Trâu | 💥 Nổ khi chết (r=8) |
+| 90 | InfectedTitanSpeakerman | 50,000 | 800 | 27 | 100 | 10 | Trâu | — |
+| 101 | QuadBladeStriderToilet | 60,000 | 900 | 28 | 70 | 12 | Trâu | — |
+| 104 | UFOToilet | 70,000 | 1,000 | 29 | 85 | 14 | Trâu | ✈ Bay |
+| 106 | RocketToilet | 800,000 | 1,100 | 30 | 100 | 12 | Trâu | ✈ Bay |
+| 111 | StriderRocketToilet | 900,000 | 1,250 | 31 | 120 | 10 | Trâu | — |
 
 ---
 
@@ -92,27 +93,36 @@
 | | | | | | HelicopterParasiteRedToilet | 5 | 0.9s | 25 |
 | | | | | | PoliceToilet | 2 | 2.5s | 9 |
 | | | | | | GlassesYellowToilet | 1 | 2.5s | 11 |
-| 21 | Mid Game | 110 | — | — | GlassesYellowToilet | 4 | 1.3s | 11 |
-| 22 | Mid Game | 115 | — | — | GlassesYellowToilet | 6 | 1.1s | 11 |
-| 23 | Mid Game | 120 | — | — | GlassesYellowToilet | 8 | 1.0s | 11 |
-| 24 | Mid Game | 125 | — | — | **GlassesRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 21 | Mid Game | 110 | — | — | GlassesYellowToilet | 2 | 1.3s | 11 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 22 | Mid Game | 115 | — | — | GlassesYellowToilet | 3 | 1.1s | 11 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 23 | Mid Game | 120 | — | — | GlassesYellowToilet | 4 | 1.0s | 11 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 24 | Mid Game | 125 | — | — | **GlassesRedToilet** | **1** | **1.5s** | **25** |
 | | | | | | *(Giới thiệu solo)* | | | |
-| 25 | Mid Game | 130 | Wave 20 | — | GlassesYellowToilet | 8 | 0.9s | 11 |
-| | | | | | GlassesRedToilet | 3 | 1.3s | 25 |
-| 26 | Mid Game | 140 | — | — | **FlyingBuzzsawToilet** | **3** | **3.0s** | **12** |
+| 25 | Mid Game | 130 | Wave 20 | — | GlassesYellowToilet | 4 | 0.9s | 11 |
+| | | | | | GlassesRedToilet | 1 | 1.3s | 25 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 26 | Mid Game | 140 | — | — | **FlyingBuzzsawToilet** | **1** | **3.0s** | **12** |
 | | | | | | *(Giới thiệu solo)* | | | |
-| 27 | Mid Game | 150 | — | — | GlassesYellowToilet | 6 | 0.9s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.1s | 25 |
+| 27 | Mid Game | 150 | — | — | GlassesYellowToilet | 3 | 0.9s | 11 |
+| | | | | | GlassesRedToilet | 2 | 1.1s | 25 |
 | | | | | | FlyingBuzzsawToilet | 1 | 2.8s | 12 |
-| 28 | Mid Game | 160 | — | — | GlassesYellowToilet | 6 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.0s | 25 |
-| | | | | | FlyingBuzzsawToilet | 2 | 2.5s | 12 |
-| 29 | Mid Game | 170 | — | — | GlassesYellowToilet | 5 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.0s | 25 |
-| | | | | | FlyingBuzzsawToilet | 3 | 2.5s | 12 |
-| 30 | Mid Game | 215 | Wave 25 | — | GlassesYellowToilet | 4 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 0.9s | 25 |
-| | | | | | FlyingBuzzsawToilet | 3 | 2.3s | 12 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 28 | Mid Game | 160 | — | — | GlassesYellowToilet | 3 | 0.8s | 11 |
+| | | | | | GlassesRedToilet | 2 | 1.0s | 25 |
+| | | | | | FlyingBuzzsawToilet | 1 | 2.5s | 12 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 29 | Mid Game | 170 | — | — | GlassesYellowToilet | 2 | 0.8s | 11 |
+| | | | | | GlassesRedToilet | 2 | 1.0s | 25 |
+| | | | | | FlyingBuzzsawToilet | 1 | 2.5s | 12 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
+| 30 | Mid Game | 215 | Wave 25 | — | GlassesYellowToilet | 2 | 0.8s | 11 |
+| | | | | | GlassesRedToilet | 2 | 0.9s | 25 |
+| | | | | | FlyingBuzzsawToilet | 1 | 2.3s | 12 |
+| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | | | | | | DJYellowToilet | 1 | 2.5s | 11 |
 | 31 | Late Game | 165 | — | — | DJYellowToilet | 4 | 1.3s | 11 |
 | 32 | Late Game | 170 | — | — | DJYellowToilet | 6 | 1.1s | 11 |
