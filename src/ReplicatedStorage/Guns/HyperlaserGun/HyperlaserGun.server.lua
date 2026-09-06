@@ -169,7 +169,7 @@ function Touched(Projectile, Hit)
 		return
 	end
 	local character, humanoid = FindCharacterAncestor(Hit)
-	if character and humanoid and character ~= Character then
+	if character and humanoid and character ~= Character and not character:GetAttribute("IsFlying") then
 		local ForceFieldExists = false
 		for i, v in pairs(character:GetChildren()) do
 			if v:IsA("ForceField") then

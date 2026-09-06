@@ -39,6 +39,7 @@ local function onBladeTouched(hit: BasePart)
 	local humanoid = hitModel:FindFirstChildOfClass("Humanoid")
 	if not humanoid or humanoid.Health <= 0 then return end
 	if not hitModel:FindFirstChild("Goal") then return end
+	if hitModel:GetAttribute("IsFlying") then return end
 
 	if hitThisSwing[hitModel] then return end
 	hitThisSwing[hitModel] = true
