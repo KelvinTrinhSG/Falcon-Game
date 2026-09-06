@@ -45,7 +45,9 @@ local function getDamageableTarget(instance: Instance)
 
 		-- ⚡ LA MAGIE EST ICI : On retourne le modèle SEULEMENT si c'est un bloc !
 		if config and config.Type == "Blocks" then
-			return model
+			if not zombie:GetAttribute("IsFlying") then
+				return model
+			end
 		end
 	end
 

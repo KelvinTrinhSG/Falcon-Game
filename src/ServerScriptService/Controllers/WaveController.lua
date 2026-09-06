@@ -90,6 +90,7 @@ end
 local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?, preSelectedFolder: Folder?)
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
+	local isFlying = enemy:GetAttribute("IsFlying") == true
 
 	if not waypointsFolder then return end
 
@@ -122,8 +123,12 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 
 			local reached = false
 
+			-- Gọi ngay lập tức để Humanoid bắt đầu di chuyển trong khi physics đang settle
+			humanoid:MoveTo(wp.Position)
+
 			while not reached and humanoid.Health > 0 and enemy.Parent and state.IsActive do
 				task.wait(0.1)
+
 				local rootPart = enemy:FindFirstChild("HumanoidRootPart")
 				if not rootPart then break end
 
@@ -138,57 +143,60 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 				end
 
 				local isBlocked = false
-				local attackCooldown = enemy:GetAttribute("LastAttack") or 0
-				local waveSpeedMultiplier = plot:GetAttribute("WaveSpeed") or 1
-				local attackRate = 1 / waveSpeedMultiplier
 
-				local hitboxCFrame = rootPart.CFrame * CFrame.new(0, 0, -1.5) 
-				local hitboxSize = Vector3.new(1.5, 4, 2) 
-				local overlapParams = OverlapParams.new()
-				overlapParams.FilterType = Enum.RaycastFilterType.Include
-				overlapParams.FilterDescendantsInstances = {plot}
+				if not isFlying then
+					local attackCooldown = enemy:GetAttribute("LastAttack") or 0
+					local waveSpeedMultiplier = plot:GetAttribute("WaveSpeed") or 1
+					local attackRate = 1 / waveSpeedMultiplier
 
-				local partsInBox = Workspace:GetPartBoundsInBox(hitboxCFrame, hitboxSize, overlapParams)
+					local hitboxCFrame = rootPart.CFrame * CFrame.new(0, 0, -1.5)
+					local hitboxSize = Vector3.new(1.5, 4, 2)
+					local overlapParams = OverlapParams.new()
+					overlapParams.FilterType = Enum.RaycastFilterType.Include
+					overlapParams.FilterDescendantsInstances = {plot}
 
-				for _, part in ipairs(partsInBox) do
-					local hitModel = part:FindFirstAncestorOfClass("Model")
-					if hitModel and hitModel:GetAttribute("IsPlacedItem") then
+					local partsInBox = Workspace:GetPartBoundsInBox(hitboxCFrame, hitboxSize, overlapParams)
 
-						local config = nil
-						if ItemConfigurations.ItemConfigurations then
-							config = ItemConfigurations.ItemConfigurations[hitModel.Name] or ItemConfigurations.LimitedItems[hitModel.Name]
-						else
-							config = ItemConfigurations[hitModel.Name]
-						end
+					for _, part in ipairs(partsInBox) do
+						local hitModel = part:FindFirstAncestorOfClass("Model")
+						if hitModel and hitModel:GetAttribute("IsPlacedItem") then
 
-						-- ⚡ CORRECTION : On s'assure que c'est un bloc et SURTOUT PAS une tourelle
-						local isBlock = (config and config.Type == "Blocks")
-						local isTurret = (config and config.Type == "Turrets")
+							local config = nil
+							if ItemConfigurations.ItemConfigurations then
+								config = ItemConfigurations.ItemConfigurations[hitModel.Name] or ItemConfigurations.LimitedItems[hitModel.Name]
+							else
+								config = ItemConfigurations[hitModel.Name]
+							end
 
-						if isBlock and not isTurret then
-							local health = hitModel:GetAttribute("Health")
-							if health and health > 0 then
-								isBlocked = true
-								humanoid:MoveTo(rootPart.Position) 
+							-- ⚡ CORRECTION : On s'assure que c'est un bloc et SURTOUT PAS une tourelle
+							local isBlock = (config and config.Type == "Blocks")
+							local isTurret = (config and config.Type == "Turrets")
 
-								local now = os.clock()
-								if now - attackCooldown >= attackRate then 
-									enemy:SetAttribute("LastAttack", now)
+							if isBlock and not isTurret then
+								local health = hitModel:GetAttribute("Health")
+								if health and health > 0 then
+									isBlocked = true
+									humanoid:MoveTo(rootPart.Position)
 
-									if attackTrack then
-										attackTrack:Play()
-									else
-										if rootPart then
-											rootPart.AssemblyLinearVelocity = (rootPart.CFrame.LookVector * 15) + Vector3.new(0, 20, 0)
+									local now = os.clock()
+									if now - attackCooldown >= attackRate then
+										enemy:SetAttribute("LastAttack", now)
+
+										if attackTrack then
+											attackTrack:Play()
+										else
+											if rootPart then
+												rootPart.AssemblyLinearVelocity = (rootPart.CFrame.LookVector * 15) + Vector3.new(0, 20, 0)
+											end
 										end
+
+										local newHealth = health - (enemyConfig.Damage or 10)
+										hitModel:SetAttribute("Health", newHealth)
+
+										if newHealth <= 0 then hitModel:Destroy() end
 									end
-
-									local newHealth = health - (enemyConfig.Damage or 10)
-									hitModel:SetAttribute("Health", newHealth)
-
-									if newHealth <= 0 then hitModel:Destroy() end
+									break
 								end
-								break 
 							end
 						end
 					end
@@ -283,6 +291,10 @@ startNextWave = function(player: Player, plot: Model)
 				humanoid.WalkSpeed = baseWalkSpeed * currentSpeed
 				humanoid:SetAttribute("BaseWalkSpeed", baseWalkSpeed)
 
+				if enemyConfig and enemyConfig.IsFlying then
+					enemy:SetAttribute("IsFlying", true)
+				end
+
 				local goalValue = Instance.new("ObjectValue")
 				goalValue.Name = "Goal"
 				goalValue.Value = plot:FindFirstChild("Core1")
@@ -296,6 +308,16 @@ startNextWave = function(player: Player, plot: Model)
 				for _, descendant in ipairs(enemy:GetDescendants()) do
 					if descendant:IsA("BasePart") then
 						descendant.CollisionGroup = "Zombies"
+					end
+				end
+
+				local toiletModel = enemy:FindFirstChild("Toilet")
+				if toiletModel then
+					for _, descendant in ipairs(toiletModel:GetDescendants()) do
+						if descendant:IsA("BasePart") then
+							descendant.CanCollide = false
+							descendant.Massless = true
+						end
 					end
 				end
 

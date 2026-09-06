@@ -17,7 +17,7 @@ local EnemyConfigurations = {
 		CashReward = 2,
 		MaxHealth = 35,
 		Damage = 3,
-		WalkSpeed = 15,
+		WalkSpeed = 25,
 		BaseDamage = 12,
 	},
 	["LargeToilet"] = {
@@ -34,17 +34,17 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["AssassinYellowToilet"] = {
 		CashReward = 4,
-		MaxHealth = 180,
-		Damage = 12,
-		WalkSpeed = 10,
-		BaseDamage = 15,
+		MaxHealth = 6000,
+		Damage = 120,
+		WalkSpeed = 12,
+		BaseDamage = 40,
 	},
 	["AssassinRedToilet"] = {
 		CashReward = 5,
-		MaxHealth = 100,
-		Damage = 8,
-		WalkSpeed = 15,
-		BaseDamage = 18,
+		MaxHealth = 4000,
+		Damage = 250,
+		WalkSpeed = 25,
+		BaseDamage = 55,
 	},
 	["PoliceToilet"] = {
 		CashReward = 6,
@@ -69,15 +69,15 @@ local EnemyConfigurations = {
 		CashReward = 8,
 		MaxHealth = 280,
 		Damage = 18,
-		WalkSpeed = 16,
+		WalkSpeed = 25,
 		BaseDamage = 25,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
-		MaxHealth = 1800,
-		Damage = 50,
+		MaxHealth = 9000,
+		Damage = 150,
 		WalkSpeed = 12,
-		BaseDamage = 40,
+		BaseDamage = 60,
 	},
 
 	-- ==========================================
@@ -95,7 +95,7 @@ local EnemyConfigurations = {
 		CashReward = 11,
 		MaxHealth = 850,
 		Damage = 35,
-		WalkSpeed = 17,
+		WalkSpeed = 25,
 		BaseDamage = 30,
 	},
 	["DualBladeToilet"] = {
@@ -119,17 +119,18 @@ local EnemyConfigurations = {
 	},
 	["VacuumRedToilet"] = {
 		CashReward = 14,
-		MaxHealth = 4500,
+		MaxHealth = 1400,
 		Damage = 80,
-		WalkSpeed = 17,
+		WalkSpeed = 25,
 		BaseDamage = 40,
 	},
 	["FlyingBuzzsawToilet"] = {
 		CashReward = 15,
-		MaxHealth = 9000,
-		Damage = 150,
+		MaxHealth = 1800,
+		Damage = 50,
 		WalkSpeed = 12,
-		BaseDamage = 60,
+		BaseDamage = 40,
+		IsFlying = true,
 	},
 
 	-- ==========================================
@@ -147,7 +148,7 @@ local EnemyConfigurations = {
 		CashReward = 17,
 		MaxHealth = 2800,
 		Damage = 70,
-		WalkSpeed = 18,
+		WalkSpeed = 25,
 		BaseDamage = 45,
 	},
 	["FlyingRocketLauncherToilet"] = {
@@ -156,6 +157,7 @@ local EnemyConfigurations = {
 		Damage = 200,
 		WalkSpeed = 10,
 		BaseDamage = 70,
+		IsFlying = true,
 	},
 
 	-- ==========================================
@@ -164,17 +166,19 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
 		CashReward = 19,
-		MaxHealth = 6000,
-		Damage = 120,
-		WalkSpeed = 12,
-		BaseDamage = 40,
+		MaxHealth = 180,
+		Damage = 12,
+		WalkSpeed = 10,
+		BaseDamage = 15,
+		IsFlying = true,
 	},
 	["HelicopterParasiteRedToilet"] = {
 		CashReward = 20,
-		MaxHealth = 15000,
-		Damage = 250,
-		WalkSpeed = 19,
-		BaseDamage = 55,
+		MaxHealth = 100,
+		Damage = 8,
+		WalkSpeed = 25,
+		BaseDamage = 18,
+		IsFlying = true,
 	},
 	["LargePoliceToilet"] = {
 		CashReward = 25,
@@ -194,13 +198,15 @@ local EnemyConfigurations = {
 		Damage = 150,
 		WalkSpeed = 9,
 		BaseDamage = 50,
+		IsFlying = true,
 	},
 	["LargeFlyingBuzzsawRedToilet"] = {
 		CashReward = 22,
-		MaxHealth = 25000,
+		MaxHealth = 8000,
 		Damage = 250,
-		WalkSpeed = 9,
+		WalkSpeed = 25,
 		BaseDamage = 65,
+		IsFlying = true,
 	},
 	["GiantDualBladeToilet"] = {
 		CashReward = 23,
@@ -222,9 +228,9 @@ local EnemyConfigurations = {
 	},
 	["GiantGlassesRedToilet"] = {
 		CashReward = 25,
-		MaxHealth = 35000,
+		MaxHealth = 22000,
 		Damage = 250,
-		WalkSpeed = 10,
+		WalkSpeed = 25,
 		BaseDamage = 75,
 	},
 	["SpiderToilet"] = {
@@ -259,6 +265,7 @@ local EnemyConfigurations = {
 		Damage = 1000,
 		WalkSpeed = 14,
 		BaseDamage = 85,
+		IsFlying = true,
 	},
 	["RocketToilet"] = {
 		CashReward = 30,
@@ -266,6 +273,7 @@ local EnemyConfigurations = {
 		Damage = 1100,
 		WalkSpeed = 12,
 		BaseDamage = 100,
+		IsFlying = true,
 	},
 	["StriderRocketToilet"] = {
 		CashReward = 31,

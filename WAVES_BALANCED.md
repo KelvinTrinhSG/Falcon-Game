@@ -1,47 +1,49 @@
 # Falcon — WAVES BALANCED (Max 15 quái/wave)
 
 > Tổng quái mỗi wave tối đa **15**. Delay spawn giảm dần khi wave tăng (spawn nhanh hơn = khó hơn). Số lượng có biến động nhẹ để tránh pattern quá đều.
+>
+> **Quy tắc giới thiệu enemy:** Mỗi enemy mới xuất hiện lần đầu phải có **1 wave solo 3 con** trước, rồi wave sau mới kết hợp với các enemy khác.
 
 ---
 
 ## Chỉ số quái
 
-| Tên quái | HP | Damage | Tiền/con | Damage Base | Ghi chú |
-|---|---:|---:|---:|---:|---|
-| SmallYellowToilet | 60 | 5 | 1 | 10 | — |
-| SmallRedToilet | 35 | 3 | 2 | 12 | Chết 1 phát Old Turret |
-| LargeToilet | 250 | 15 | 3 | 20 | Tank đầu tiên |
-| AssassinYellowToilet | 180 | 12 | 4 | 15 | — |
-| AssassinRedToilet | 100 | 8 | 5 | 18 | — |
-| PoliceToilet | 650 | 30 | 6 | 30 | Tank cycle 2 |
-| GlassesYellowToilet | 450 | 25 | 7 | 20 | — |
-| GlassesRedToilet | 280 | 18 | 8 | 25 | — |
-| GlitchToilet | 1,800 | 50 | 9 | 40 | Phá Cardboard tức thì |
-| DJYellowToilet | 1,200 | 45 | 10 | 25 | — |
-| DJRedToilet | 850 | 35 | 11 | 30 | — |
-| DualBladeToilet | 8,000 | 120 | 12 | 50 | Mini-boss cycle 4 |
-| **BossToilet** | **35,000** | **200** | **50** | **100** | **Boss Wave 40** |
-| VacuumYellowToilet | 2,000 | 50 | 13 | 30 | — |
-| VacuumRedToilet | 4,500 | 80 | 14 | 40 | — |
-| FlyingBuzzsawToilet | 9,000 | 150 | 15 | 60 | Boss cycle 5 |
-| DualBladeYellowToilet | 3,500 | 90 | 16 | 35 | — |
-| DualBladeRedToilet | 2,800 | 70 | 17 | 45 | — |
-| FlyingRocketLauncherToilet | 25,000 | 200 | 18 | 70 | Boss Vịt Khổng Lồ |
-| HelicopterParasiteYellowToilet | 6,000 | 120 | 19 | 40 | — |
-| HelicopterParasiteRedToilet | 15,000 | 250 | 20 | 55 | Phá Netherite 2 phát |
-| LargePoliceToilet | 50,000 | 400 | 25 | 80 | Boss tối thượng wave 70 |
-| LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | 50 | — |
-| LargeFlyingBuzzsawRedToilet | 25,000 | 250 | 22 | 65 | — |
-| GiantDualBladeToilet | 60,000 | 350 | 23 | 90 | Mini-boss Dưa Hấu |
-| **BossToilet2** | **150,000** | **500** | **150** | **150** | **Boss Wave 80** |
-| GiantGlassesYellowToilet | 30,000 | 200 | 24 | 60 | — |
-| GiantGlassesRedToilet | 35,000 | 250 | 25 | 75 | — |
-| SpiderToilet | 40,000 | 400 | 26 | 85 | — |
-| InfectedTitanSpeakerman | 50,000 | 800 | 27 | 100 | — |
-| QuadBladeStriderToilet | 60,000 | 900 | 28 | 70 | — |
-| UFOToilet | 70,000 | 1,000 | 29 | 85 | — |
-| RocketToilet | 800,000 | 1,100 | 30 | 100 | — |
-| StriderRocketToilet | 900,000 | 1,250 | 31 | 120 | — |
+| Tên quái | HP | Damage | Tiền/con | Damage Base | WalkSpeed | Ghi chú |
+|---|---:|---:|---:|---:|---:|---|
+| SmallYellowToilet | 60 | 5 | 1 | 10 | 10 | — |
+| SmallRedToilet | 35 | 3 | 2 | 12 | **25** | Chết 1 phát Old Turret |
+| LargeToilet | 250 | 15 | 3 | 20 | 8 | Tank đầu tiên |
+| AssassinYellowToilet | 6,000 | 120 | 4 | 40 | 12 | — |
+| AssassinRedToilet | 4,000 | 250 | 5 | 55 | **25** | — |
+| PoliceToilet | 650 | 30 | 6 | 30 | 9 | Tank cycle 2 |
+| GlassesYellowToilet | 450 | 25 | 7 | 20 | 11 | — |
+| GlassesRedToilet | 280 | 18 | 8 | 25 | **25** | — |
+| GlitchToilet | 9,000 | 150 | 9 | 60 | 12 | Phá Cardboard tức thì |
+| DJYellowToilet | 1,200 | 45 | 10 | 25 | 11 | — |
+| DJRedToilet | 850 | 35 | 11 | 30 | **25** | — |
+| DualBladeToilet | 8,000 | 120 | 12 | 50 | 10 | Mini-boss cycle 4 |
+| **BossToilet** | **35,000** | **200** | **50** | **100** | 8 | **Boss Wave 40** |
+| VacuumYellowToilet | 2,000 | 50 | 13 | 30 | 11 | — |
+| VacuumRedToilet | 1,400 | 80 | 14 | 40 | **25** | — |
+| FlyingBuzzsawToilet | 1,800 | 50 | 15 | 40 | 12 | ✈ Bay · Boss cycle 5 |
+| DualBladeYellowToilet | 3,500 | 90 | 16 | 35 | 12 | — |
+| DualBladeRedToilet | 2,800 | 70 | 17 | 45 | **25** | — |
+| FlyingRocketLauncherToilet | 25,000 | 200 | 18 | 70 | 10 | ✈ Bay · Boss Vịt Khổng Lồ |
+| HelicopterParasiteYellowToilet | 180 | 12 | 19 | 15 | 10 | ✈ Bay |
+| HelicopterParasiteRedToilet | 100 | 8 | 20 | 18 | **25** | ✈ Bay |
+| LargePoliceToilet | 50,000 | 400 | 25 | 80 | 8 | Boss tối thượng wave 70 |
+| LargeFlyingBuzzsawYellowToilet | 12,000 | 150 | 21 | 50 | 9 | ✈ Bay |
+| LargeFlyingBuzzsawRedToilet | 8,000 | 250 | 22 | 65 | **25** | ✈ Bay |
+| GiantDualBladeToilet | 60,000 | 350 | 23 | 90 | 10 | Mini-boss Dưa Hấu |
+| **BossToilet2** | **150,000** | **500** | **150** | **150** | 8 | **Boss Wave 80** |
+| GiantGlassesYellowToilet | 30,000 | 200 | 24 | 60 | 10 | — |
+| GiantGlassesRedToilet | 22,000 | 250 | 25 | 75 | **25** | — |
+| SpiderToilet | 40,000 | 400 | 26 | 85 | 14 | — |
+| InfectedTitanSpeakerman | 50,000 | 800 | 27 | 100 | 10 | — |
+| QuadBladeStriderToilet | 60,000 | 900 | 28 | 70 | 12 | — |
+| UFOToilet | 70,000 | 1,000 | 29 | 85 | 14 | ✈ Bay |
+| RocketToilet | 800,000 | 1,100 | 30 | 100 | 12 | ✈ Bay |
+| StriderRocketToilet | 900,000 | 1,250 | 31 | 120 | 10 | — |
 
 ---
 
@@ -53,250 +55,238 @@
 | 2 | Khởi Đầu | 15 | — | — | SmallYellowToilet | 5 | 1.3s | 10 |
 | 3 | Khởi Đầu | 20 | — | — | SmallYellowToilet | 7 | 1.1s | 10 |
 | 4 | Khởi Đầu | 30 | — | — | SmallYellowToilet | 9 | 1.0s | 10 |
-| 5 | Khởi Đầu | 40 | — | — | SmallYellowToilet | 7 | 1.0s | 10 |
-| | | | | | SmallRedToilet | 3 | 1.5s | 15 |
-| 6 | Khởi Đầu | 50 | — | — | SmallYellowToilet | 6 | 0.9s | 10 |
-| | | | | | SmallRedToilet | 4 | 1.3s | 15 |
-| 7 | Khởi Đầu | 65 | — | — | SmallYellowToilet | 8 | 0.9s | 10 |
-| | | | | | SmallRedToilet | 3 | 1.2s | 15 |
-| | | | | | LargeToilet | 1 | 3.0s | 8 |
-| 8 | Khởi Đầu | 80 | — | — | SmallYellowToilet | 6 | 0.8s | 10 |
-| | | | | | SmallRedToilet | 5 | 1.1s | 15 |
+| 5 | Khởi Đầu | 40 | — | — | **SmallRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 6 | Khởi Đầu | 50 | — | — | SmallYellowToilet | 8 | 0.9s | 10 |
+| | | | | | SmallRedToilet | 4 | 1.3s | 25 |
+| 7 | Khởi Đầu | 65 | — | — | **LargeToilet** | **3** | **3.0s** | **8** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 8 | Khởi Đầu | 80 | — | — | SmallYellowToilet | 7 | 0.8s | 10 |
+| | | | | | SmallRedToilet | 4 | 1.1s | 25 |
 | | | | | | LargeToilet | 1 | 2.8s | 8 |
 | 9 | Khởi Đầu | 100 | — | — | SmallYellowToilet | 6 | 0.8s | 10 |
-| | | | | | SmallRedToilet | 5 | 1.0s | 15 |
+| | | | | | SmallRedToilet | 5 | 1.0s | 25 |
 | | | | | | LargeToilet | 2 | 2.5s | 8 |
 | 10 | Khởi Đầu | 150 | Wave 5 | — | SmallYellowToilet | 5 | 0.8s | 10 |
-| | | | | | SmallRedToilet | 5 | 0.9s | 15 |
+| | | | | | SmallRedToilet | 5 | 0.9s | 25 |
 | | | | | | LargeToilet | 2 | 2.5s | 8 |
-| | | | | | AssassinYellowToilet | 1 | 2.5s | 10 |
-| 11 | Transition | 60 | — | — | AssassinYellowToilet | 4 | 1.3s | 10 |
-| 12 | Transition | 65 | — | — | AssassinYellowToilet | 6 | 1.1s | 10 |
-| 13 | Transition | 70 | — | — | AssassinYellowToilet | 8 | 1.0s | 10 |
-| 14 | Transition | 75 | — | — | AssassinYellowToilet | 7 | 1.0s | 10 |
-| | | | | | AssassinRedToilet | 3 | 1.5s | 15 |
-| 15 | Transition | 80 | Wave 10 | — | AssassinYellowToilet | 8 | 0.9s | 10 |
-| | | | | | AssassinRedToilet | 3 | 1.4s | 15 |
-| 16 | Transition | 85 | — | — | AssassinYellowToilet | 7 | 0.9s | 10 |
-| | | | | | AssassinRedToilet | 4 | 1.2s | 15 |
-| 17 | Transition | 90 | — | — | AssassinYellowToilet | 6 | 0.9s | 10 |
-| | | | | | AssassinRedToilet | 5 | 1.1s | 15 |
-| | | | | | PoliceToilet | 1 | 3.0s | 9 |
-| 18 | Transition | 95 | — | — | AssassinYellowToilet | 6 | 0.8s | 10 |
-| | | | | | AssassinRedToilet | 4 | 1.1s | 15 |
-| | | | | | PoliceToilet | 2 | 2.8s | 9 |
-| 19 | Transition | 100 | — | — | AssassinYellowToilet | 5 | 0.8s | 10 |
-| | | | | | AssassinRedToilet | 5 | 1.0s | 15 |
-| | | | | | PoliceToilet | 3 | 2.5s | 9 |
-| 20 | Transition | 160 | Wave 15 | — | AssassinYellowToilet | 4 | 0.8s | 10 |
-| | | | | | AssassinRedToilet | 5 | 0.9s | 15 |
-| | | | | | PoliceToilet | 3 | 2.5s | 9 |
+| 11 | Transition | 60 | — | — | **HelicopterParasiteYellowToilet** | **3** | **1.3s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 12 | Transition | 65 | — | — | HelicopterParasiteYellowToilet | 6 | 1.1s | 10 |
+| 13 | Transition | 70 | — | — | HelicopterParasiteYellowToilet | 8 | 1.0s | 10 |
+| 14 | Transition | 75 | — | — | **HelicopterParasiteRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 15 | Transition | 80 | Wave 10 | — | HelicopterParasiteYellowToilet | 8 | 0.9s | 10 |
+| | | | | | HelicopterParasiteRedToilet | 3 | 1.4s | 25 |
+| 16 | Transition | 85 | — | — | HelicopterParasiteYellowToilet | 7 | 0.9s | 10 |
+| | | | | | HelicopterParasiteRedToilet | 4 | 1.2s | 25 |
+| 17 | Transition | 90 | — | — | **PoliceToilet** | **3** | **3.0s** | **9** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 18 | Transition | 95 | — | — | HelicopterParasiteYellowToilet | 6 | 0.8s | 10 |
+| | | | | | HelicopterParasiteRedToilet | 4 | 1.1s | 25 |
+| | | | | | PoliceToilet | 1 | 2.8s | 9 |
+| 19 | Transition | 100 | — | — | HelicopterParasiteYellowToilet | 5 | 0.8s | 10 |
+| | | | | | HelicopterParasiteRedToilet | 5 | 1.0s | 25 |
+| | | | | | PoliceToilet | 2 | 2.5s | 9 |
+| 20 | Transition | 160 | Wave 15 | — | HelicopterParasiteYellowToilet | 4 | 0.8s | 10 |
+| | | | | | HelicopterParasiteRedToilet | 5 | 0.9s | 25 |
+| | | | | | PoliceToilet | 2 | 2.5s | 9 |
 | | | | | | GlassesYellowToilet | 1 | 2.5s | 11 |
 | 21 | Mid Game | 110 | — | — | GlassesYellowToilet | 4 | 1.3s | 11 |
 | 22 | Mid Game | 115 | — | — | GlassesYellowToilet | 6 | 1.1s | 11 |
 | 23 | Mid Game | 120 | — | — | GlassesYellowToilet | 8 | 1.0s | 11 |
-| 24 | Mid Game | 125 | — | — | GlassesYellowToilet | 8 | 1.0s | 11 |
-| | | | | | GlassesRedToilet | 2 | 1.5s | 16 |
-| 25 | Mid Game | 130 | Wave 20 | — | GlassesYellowToilet | 7 | 0.9s | 11 |
-| | | | | | GlassesRedToilet | 4 | 1.3s | 16 |
-| 26 | Mid Game | 140 | — | — | GlassesYellowToilet | 8 | 0.9s | 11 |
-| | | | | | GlassesRedToilet | 3 | 1.2s | 16 |
-| | | | | | GlitchToilet | 1 | 3.0s | 12 |
+| 24 | Mid Game | 125 | — | — | **GlassesRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 25 | Mid Game | 130 | Wave 20 | — | GlassesYellowToilet | 8 | 0.9s | 11 |
+| | | | | | GlassesRedToilet | 3 | 1.3s | 25 |
+| 26 | Mid Game | 140 | — | — | **FlyingBuzzsawToilet** | **3** | **3.0s** | **12** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 27 | Mid Game | 150 | — | — | GlassesYellowToilet | 6 | 0.9s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.1s | 16 |
-| | | | | | GlitchToilet | 1 | 2.8s | 12 |
+| | | | | | GlassesRedToilet | 5 | 1.1s | 25 |
+| | | | | | FlyingBuzzsawToilet | 1 | 2.8s | 12 |
 | 28 | Mid Game | 160 | — | — | GlassesYellowToilet | 6 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.0s | 16 |
-| | | | | | GlitchToilet | 2 | 2.5s | 12 |
+| | | | | | GlassesRedToilet | 5 | 1.0s | 25 |
+| | | | | | FlyingBuzzsawToilet | 2 | 2.5s | 12 |
 | 29 | Mid Game | 170 | — | — | GlassesYellowToilet | 5 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 1.0s | 16 |
-| | | | | | GlitchToilet | 3 | 2.5s | 12 |
+| | | | | | GlassesRedToilet | 5 | 1.0s | 25 |
+| | | | | | FlyingBuzzsawToilet | 3 | 2.5s | 12 |
 | 30 | Mid Game | 215 | Wave 25 | — | GlassesYellowToilet | 4 | 0.8s | 11 |
-| | | | | | GlassesRedToilet | 5 | 0.9s | 16 |
-| | | | | | GlitchToilet | 3 | 2.3s | 12 |
+| | | | | | GlassesRedToilet | 5 | 0.9s | 25 |
+| | | | | | FlyingBuzzsawToilet | 3 | 2.3s | 12 |
 | | | | | | DJYellowToilet | 1 | 2.5s | 11 |
 | 31 | Late Game | 165 | — | — | DJYellowToilet | 4 | 1.3s | 11 |
 | 32 | Late Game | 170 | — | — | DJYellowToilet | 6 | 1.1s | 11 |
 | 33 | Late Game | 175 | — | — | DJYellowToilet | 8 | 1.0s | 11 |
-| 34 | Late Game | 180 | — | — | DJYellowToilet | 8 | 1.0s | 11 |
-| | | | | | DJRedToilet | 2 | 1.5s | 17 |
-| 35 | Late Game | 185 | Wave 30 | — | DJYellowToilet | 7 | 0.9s | 11 |
-| | | | | | DJRedToilet | 4 | 1.3s | 17 |
-| 36 | Late Game | 195 | — | — | DJYellowToilet | 7 | 0.9s | 11 |
-| | | | | | DJRedToilet | 4 | 1.2s | 17 |
-| | | | | | DualBladeToilet | 1 | 3.0s | 10 |
+| 34 | Late Game | 180 | — | — | **DJRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 35 | Late Game | 185 | Wave 30 | — | DJYellowToilet | 8 | 0.9s | 11 |
+| | | | | | DJRedToilet | 3 | 1.3s | 25 |
+| 36 | Late Game | 195 | — | — | **DualBladeToilet** | **3** | **3.0s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 37 | Late Game | 205 | — | — | DJYellowToilet | 6 | 0.9s | 11 |
-| | | | | | DJRedToilet | 5 | 1.1s | 17 |
+| | | | | | DJRedToilet | 5 | 1.1s | 25 |
 | | | | | | DualBladeToilet | 1 | 2.8s | 10 |
 | 38 | Late Game | 215 | — | — | DJYellowToilet | 6 | 0.8s | 11 |
-| | | | | | DJRedToilet | 4 | 1.1s | 17 |
+| | | | | | DJRedToilet | 4 | 1.1s | 25 |
 | | | | | | DualBladeToilet | 2 | 2.5s | 10 |
 | 39 | Late Game | 225 | — | — | DJYellowToilet | 5 | 0.8s | 11 |
-| | | | | | DJRedToilet | 5 | 1.0s | 17 |
+| | | | | | DJRedToilet | 5 | 1.0s | 25 |
 | | | | | | DualBladeToilet | 3 | 2.3s | 10 |
-| **40** | **Late Game** | **320** | Wave 35 | ✅ BossToilet | DJRedToilet | 5 | 0.8s | 17 |
+| **40** | **Late Game** | **320** | Wave 35 | ✅ BossToilet | DJRedToilet | 5 | 0.8s | 25 |
 | | | | | | DJYellowToilet | 4 | 0.8s | 11 |
 | | | | | | **BossToilet** | **1** | **3.0s** | **8** |
 | | | | | | VacuumYellowToilet | 1 | 2.5s | 11 |
 | 41 | Nature | 220 | — | — | VacuumYellowToilet | 4 | 1.3s | 11 |
 | 42 | Nature | 225 | — | — | VacuumYellowToilet | 6 | 1.1s | 11 |
 | 43 | Nature | 230 | — | — | VacuumYellowToilet | 8 | 1.0s | 11 |
-| 44 | Nature | 235 | — | — | VacuumYellowToilet | 8 | 1.0s | 11 |
-| | | | | | VacuumRedToilet | 2 | 1.5s | 17 |
-| 45 | Nature | 240 | Wave 40 | — | VacuumYellowToilet | 7 | 0.9s | 11 |
-| | | | | | VacuumRedToilet | 4 | 1.3s | 17 |
-| 46 | Nature | 250 | — | — | VacuumYellowToilet | 8 | 0.9s | 11 |
-| | | | | | VacuumRedToilet | 3 | 1.2s | 17 |
-| | | | | | FlyingBuzzsawToilet | 1 | 3.0s | 12 |
+| 44 | Nature | 235 | — | — | **VacuumRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 45 | Nature | 240 | Wave 40 | — | VacuumYellowToilet | 8 | 0.9s | 11 |
+| | | | | | VacuumRedToilet | 3 | 1.3s | 25 |
+| 46 | Nature | 250 | — | — | **GlitchToilet** | **3** | **3.0s** | **12** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 47 | Nature | 260 | — | — | VacuumYellowToilet | 6 | 0.9s | 11 |
-| | | | | | VacuumRedToilet | 5 | 1.1s | 17 |
-| | | | | | FlyingBuzzsawToilet | 1 | 2.8s | 12 |
+| | | | | | VacuumRedToilet | 5 | 1.1s | 25 |
+| | | | | | GlitchToilet | 1 | 2.8s | 12 |
 | 48 | Nature | 270 | — | — | VacuumYellowToilet | 6 | 0.8s | 11 |
-| | | | | | VacuumRedToilet | 5 | 1.0s | 17 |
-| | | | | | FlyingBuzzsawToilet | 2 | 2.5s | 12 |
+| | | | | | VacuumRedToilet | 5 | 1.0s | 25 |
+| | | | | | GlitchToilet | 2 | 2.5s | 12 |
 | 49 | Nature | 280 | — | — | VacuumYellowToilet | 5 | 0.8s | 11 |
-| | | | | | VacuumRedToilet | 5 | 1.0s | 17 |
-| | | | | | FlyingBuzzsawToilet | 3 | 2.3s | 12 |
+| | | | | | VacuumRedToilet | 5 | 1.0s | 25 |
+| | | | | | GlitchToilet | 3 | 2.3s | 12 |
 | 50 | Nature | 370 | Wave 45 | — | VacuumYellowToilet | 4 | 0.8s | 11 |
-| | | | | | VacuumRedToilet | 5 | 0.9s | 17 |
-| | | | | | FlyingBuzzsawToilet | 3 | 2.3s | 12 |
+| | | | | | VacuumRedToilet | 5 | 0.9s | 25 |
+| | | | | | GlitchToilet | 3 | 2.3s | 12 |
 | | | | | | DualBladeYellowToilet | 1 | 2.5s | 12 |
 | 51 | Animals | 270 | — | — | DualBladeYellowToilet | 4 | 1.3s | 12 |
 | 52 | Animals | 275 | — | — | DualBladeYellowToilet | 6 | 1.1s | 12 |
 | 53 | Animals | 280 | — | — | DualBladeYellowToilet | 8 | 1.0s | 12 |
-| 54 | Animals | 285 | — | — | DualBladeYellowToilet | 8 | 1.0s | 12 |
-| | | | | | DualBladeRedToilet | 2 | 1.5s | 18 |
-| 55 | Animals | 290 | Wave 50 | — | DualBladeYellowToilet | 7 | 0.9s | 12 |
-| | | | | | DualBladeRedToilet | 4 | 1.3s | 18 |
-| 56 | Animals | 300 | — | — | DualBladeYellowToilet | 7 | 0.9s | 12 |
-| | | | | | DualBladeRedToilet | 4 | 1.2s | 18 |
-| | | | | | FlyingRocketLauncherToilet | 1 | 3.0s | 10 |
+| 54 | Animals | 285 | — | — | **DualBladeRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 55 | Animals | 290 | Wave 50 | — | DualBladeYellowToilet | 8 | 0.9s | 12 |
+| | | | | | DualBladeRedToilet | 3 | 1.3s | 25 |
+| 56 | Animals | 300 | — | — | **FlyingRocketLauncherToilet** | **3** | **3.0s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 57 | Animals | 310 | — | — | DualBladeYellowToilet | 6 | 0.9s | 12 |
-| | | | | | DualBladeRedToilet | 5 | 1.1s | 18 |
+| | | | | | DualBladeRedToilet | 5 | 1.1s | 25 |
 | | | | | | FlyingRocketLauncherToilet | 1 | 2.8s | 10 |
 | 58 | Animals | 320 | — | — | DualBladeYellowToilet | 6 | 0.8s | 12 |
-| | | | | | DualBladeRedToilet | 5 | 1.0s | 18 |
+| | | | | | DualBladeRedToilet | 5 | 1.0s | 25 |
 | | | | | | FlyingRocketLauncherToilet | 2 | 2.5s | 10 |
 | 59 | Animals | 330 | — | — | DualBladeYellowToilet | 5 | 0.8s | 12 |
-| | | | | | DualBladeRedToilet | 5 | 1.0s | 18 |
+| | | | | | DualBladeRedToilet | 5 | 1.0s | 25 |
 | | | | | | FlyingRocketLauncherToilet | 3 | 2.3s | 10 |
 | 60 | Animals | 420 | Wave 55 | — | DualBladeYellowToilet | 4 | 0.8s | 12 |
-| | | | | | DualBladeRedToilet | 5 | 0.9s | 18 |
+| | | | | | DualBladeRedToilet | 5 | 0.9s | 25 |
 | | | | | | FlyingRocketLauncherToilet | 3 | 2.3s | 10 |
-| | | | | | HelicopterParasiteYellowToilet | 1 | 2.5s | 12 |
-| 61 | Ocean | 320 | — | — | HelicopterParasiteYellowToilet | 4 | 1.3s | 12 |
-| 62 | Ocean | 325 | — | — | HelicopterParasiteYellowToilet | 6 | 1.1s | 12 |
-| 63 | Ocean | 330 | — | — | HelicopterParasiteYellowToilet | 8 | 1.0s | 12 |
-| 64 | Ocean | 335 | — | — | HelicopterParasiteYellowToilet | 8 | 1.0s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 2 | 1.5s | 19 |
-| 65 | Ocean | 340 | Wave 60 | — | HelicopterParasiteYellowToilet | 7 | 0.9s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 4 | 1.3s | 19 |
-| 66 | Ocean | 350 | — | — | HelicopterParasiteYellowToilet | 7 | 0.9s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 4 | 1.2s | 19 |
-| | | | | | LargePoliceToilet | 1 | 3.0s | 8 |
-| 67 | Ocean | 360 | — | — | HelicopterParasiteYellowToilet | 6 | 0.9s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 5 | 1.1s | 19 |
+| | | | | | AssassinYellowToilet | 1 | 2.5s | 12 |
+| 61 | Ocean | 320 | — | — | AssassinYellowToilet | 4 | 1.3s | 12 |
+| 62 | Ocean | 325 | — | — | AssassinYellowToilet | 6 | 1.1s | 12 |
+| 63 | Ocean | 330 | — | — | AssassinYellowToilet | 8 | 1.0s | 12 |
+| 64 | Ocean | 335 | — | — | **AssassinRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 65 | Ocean | 340 | Wave 60 | — | AssassinYellowToilet | 8 | 0.9s | 12 |
+| | | | | | AssassinRedToilet | 3 | 1.3s | 25 |
+| 66 | Ocean | 350 | — | — | **LargePoliceToilet** | **3** | **3.0s** | **8** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 67 | Ocean | 360 | — | — | AssassinYellowToilet | 6 | 0.9s | 12 |
+| | | | | | AssassinRedToilet | 5 | 1.1s | 25 |
 | | | | | | LargePoliceToilet | 1 | 2.8s | 8 |
-| 68 | Ocean | 370 | — | — | HelicopterParasiteYellowToilet | 6 | 0.8s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 5 | 1.0s | 19 |
+| 68 | Ocean | 370 | — | — | AssassinYellowToilet | 6 | 0.8s | 12 |
+| | | | | | AssassinRedToilet | 5 | 1.0s | 25 |
 | | | | | | LargePoliceToilet | 2 | 2.5s | 8 |
-| 69 | Ocean | 380 | — | — | HelicopterParasiteYellowToilet | 5 | 0.8s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 5 | 1.0s | 19 |
+| 69 | Ocean | 380 | — | — | AssassinYellowToilet | 5 | 0.8s | 12 |
+| | | | | | AssassinRedToilet | 5 | 1.0s | 25 |
 | | | | | | LargePoliceToilet | 2 | 2.3s | 9 |
-| 70 | Ocean | 420 | Wave 65 | — | HelicopterParasiteYellowToilet | 4 | 0.8s | 12 |
-| | | | | | HelicopterParasiteRedToilet | 5 | 0.9s | 19 |
+| 70 | Ocean | 420 | Wave 65 | — | AssassinYellowToilet | 4 | 0.8s | 12 |
+| | | | | | AssassinRedToilet | 5 | 0.9s | 25 |
 | | | | | | LargePoliceToilet | 3 | 2.3s | 9 |
 | | | | | | LargeFlyingBuzzsawYellowToilet | 1 | 2.5s | 9 |
 | 71 | Fruits | 370 | — | — | LargeFlyingBuzzsawYellowToilet | 4 | 1.3s | 9 |
 | 72 | Fruits | 375 | — | — | LargeFlyingBuzzsawYellowToilet | 6 | 1.1s | 9 |
 | 73 | Fruits | 380 | — | — | LargeFlyingBuzzsawYellowToilet | 8 | 1.0s | 9 |
-| 74 | Fruits | 385 | — | — | LargeFlyingBuzzsawYellowToilet | 8 | 1.0s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 2 | 1.5s | 9 |
-| 75 | Fruits | 390 | Wave 70 | — | LargeFlyingBuzzsawYellowToilet | 7 | 0.9s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 4 | 1.3s | 9 |
-| 76 | Fruits | 400 | — | — | LargeFlyingBuzzsawYellowToilet | 7 | 0.9s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 4 | 1.2s | 9 |
-| | | | | | GiantDualBladeToilet | 1 | 3.0s | 10 |
+| 74 | Fruits | 385 | — | — | **LargeFlyingBuzzsawRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 75 | Fruits | 390 | Wave 70 | — | LargeFlyingBuzzsawYellowToilet | 8 | 0.9s | 9 |
+| | | | | | LargeFlyingBuzzsawRedToilet | 3 | 1.3s | 25 |
+| 76 | Fruits | 400 | — | — | **GiantDualBladeToilet** | **3** | **3.0s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 77 | Fruits | 410 | — | — | LargeFlyingBuzzsawYellowToilet | 6 | 0.9s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.1s | 9 |
+| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.1s | 25 |
 | | | | | | GiantDualBladeToilet | 1 | 2.8s | 10 |
 | 78 | Fruits | 420 | — | — | LargeFlyingBuzzsawYellowToilet | 6 | 0.8s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.0s | 9 |
+| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.0s | 25 |
 | | | | | | GiantDualBladeToilet | 2 | 2.5s | 10 |
 | 79 | Fruits | 430 | — | — | LargeFlyingBuzzsawYellowToilet | 5 | 0.8s | 9 |
-| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.0s | 9 |
+| | | | | | LargeFlyingBuzzsawRedToilet | 5 | 1.0s | 25 |
 | | | | | | GiantDualBladeToilet | 3 | 2.3s | 10 |
-| **80** | **Fruits** | **420** | Wave 70 | ✅ BossToilet2 | LargeFlyingBuzzsawRedToilet | 5 | 0.8s | 9 |
+| **80** | **Fruits** | **420** | Wave 70 | ✅ BossToilet2 | LargeFlyingBuzzsawRedToilet | 5 | 0.8s | 25 |
 | | | | | | GiantDualBladeToilet | 3 | 1.5s | 10 |
 | | | | | | **BossToilet2** | **1** | **2.0s** | **8** |
 | 81 | Veggie Hell | 430 | — | — | GiantGlassesYellowToilet | 4 | 1.2s | 10 |
 | 82 | Veggie Hell | 440 | — | — | GiantGlassesYellowToilet | 6 | 1.1s | 10 |
 | 83 | Veggie Hell | 450 | — | — | GiantGlassesYellowToilet | 8 | 1.0s | 10 |
-| 84 | Veggie Hell | 460 | — | — | GiantGlassesYellowToilet | 7 | 1.0s | 10 |
-| | | | | | GiantGlassesRedToilet | 3 | 1.5s | 10 |
-| 85 | Veggie Hell | 470 | Wave 80 | — | GiantGlassesYellowToilet | 7 | 0.9s | 10 |
-| | | | | | GiantGlassesRedToilet | 4 | 1.3s | 10 |
-| 86 | Veggie Hell | 480 | — | — | GiantGlassesYellowToilet | 6 | 0.9s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 1.1s | 10 |
-| | | | | | SpiderToilet | 1 | 2.5s | 14 |
+| 84 | Veggie Hell | 460 | — | — | **GiantGlassesRedToilet** | **3** | **1.5s** | **25** |
+| | | | | | *(Giới thiệu solo)* | | | |
+| 85 | Veggie Hell | 470 | Wave 80 | — | GiantGlassesYellowToilet | 8 | 0.9s | 10 |
+| | | | | | GiantGlassesRedToilet | 3 | 1.3s | 25 |
+| 86 | Veggie Hell | 480 | — | — | **SpiderToilet** | **3** | **2.5s** | **14** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 87 | Veggie Hell | 490 | — | — | GiantGlassesYellowToilet | 6 | 0.9s | 10 |
-| | | | | | GiantGlassesRedToilet | 4 | 1.1s | 10 |
-| | | | | | SpiderToilet | 2 | 2.3s | 14 |
+| | | | | | GiantGlassesRedToilet | 5 | 1.1s | 25 |
+| | | | | | SpiderToilet | 1 | 2.3s | 14 |
 | 88 | Veggie Hell | 500 | — | — | GiantGlassesYellowToilet | 5 | 0.8s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 1.0s | 10 |
+| | | | | | GiantGlassesRedToilet | 5 | 1.0s | 25 |
 | | | | | | SpiderToilet | 3 | 2.0s | 14 |
 | 89 | Veggie Hell | 510 | — | — | GiantGlassesYellowToilet | 5 | 0.8s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 1.0s | 10 |
+| | | | | | GiantGlassesRedToilet | 5 | 1.0s | 25 |
 | | | | | | SpiderToilet | 3 | 2.0s | 14 |
-| 90 | Veggie Hell | 520 | Wave 85 | — | GiantGlassesYellowToilet | 4 | 0.8s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 0.9s | 10 |
-| | | | | | SpiderToilet | 4 | 1.8s | 14 |
-| | | | | | InfectedTitanSpeakerman | 1 | 3.0s | 10 |
+| 90 | Veggie Hell | 520 | Wave 85 | — | **InfectedTitanSpeakerman** | **3** | **3.0s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 91 | Veggie Hell | 460 | — | — | GiantGlassesYellowToilet | 3 | 0.8s | 10 |
-| | | | | | GiantGlassesRedToilet | 6 | 0.9s | 10 |
+| | | | | | GiantGlassesRedToilet | 6 | 0.9s | 25 |
 | | | | | | SpiderToilet | 4 | 1.8s | 15 |
 | | | | | | InfectedTitanSpeakerman | 1 | 2.8s | 10 |
 | 92 | Veggie Hell | 470 | — | — | GiantGlassesYellowToilet | 4 | 0.7s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 0.9s | 10 |
+| | | | | | GiantGlassesRedToilet | 5 | 0.9s | 25 |
 | | | | | | SpiderToilet | 4 | 1.5s | 15 |
 | | | | | | InfectedTitanSpeakerman | 2 | 2.5s | 10 |
-| 93 | Veggie Hell | 480 | — | — | GiantGlassesRedToilet | 6 | 0.8s | 10 |
+| 93 | Veggie Hell | 480 | — | — | GiantGlassesRedToilet | 6 | 0.8s | 25 |
 | | | | | | SpiderToilet | 5 | 1.5s | 15 |
 | | | | | | InfectedTitanSpeakerman | 2 | 2.5s | 10 |
 | 94 | Veggie Hell | 490 | — | — | GiantGlassesYellowToilet | 3 | 0.7s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 0.8s | 10 |
+| | | | | | GiantGlassesRedToilet | 5 | 0.8s | 25 |
 | | | | | | SpiderToilet | 5 | 1.5s | 16 |
 | | | | | | InfectedTitanSpeakerman | 2 | 2.3s | 10 |
-| 95 | Veggie Hell | 500 | Wave 90 | — | GiantGlassesRedToilet | 5 | 0.8s | 10 |
+| 95 | Veggie Hell | 500 | Wave 90 | — | GiantGlassesRedToilet | 5 | 0.8s | 25 |
 | | | | | | SpiderToilet | 6 | 1.3s | 16 |
 | | | | | | InfectedTitanSpeakerman | 3 | 2.0s | 10 |
 | 96 | Veggie Hell | 510 | — | — | GiantGlassesYellowToilet | 2 | 0.7s | 10 |
-| | | | | | GiantGlassesRedToilet | 5 | 0.8s | 10 |
+| | | | | | GiantGlassesRedToilet | 5 | 0.8s | 25 |
 | | | | | | SpiderToilet | 5 | 1.3s | 16 |
 | | | | | | InfectedTitanSpeakerman | 3 | 2.0s | 11 |
-| 97 | Veggie Hell | 520 | — | — | GiantGlassesRedToilet | 4 | 0.7s | 10 |
+| 97 | Veggie Hell | 520 | — | — | GiantGlassesRedToilet | 4 | 0.7s | 25 |
 | | | | | | SpiderToilet | 7 | 1.2s | 16 |
 | | | | | | InfectedTitanSpeakerman | 3 | 1.8s | 11 |
 | 98 | Veggie Hell | 530 | — | — | GiantGlassesYellowToilet | 2 | 0.6s | 10 |
-| | | | | | GiantGlassesRedToilet | 4 | 0.7s | 10 |
+| | | | | | GiantGlassesRedToilet | 4 | 0.7s | 25 |
 | | | | | | SpiderToilet | 6 | 1.2s | 16 |
 | | | | | | InfectedTitanSpeakerman | 3 | 1.8s | 11 |
-| 99 | Veggie Hell | 540 | — | — | GiantGlassesRedToilet | 3 | 0.7s | 10 |
+| 99 | Veggie Hell | 540 | — | — | GiantGlassesRedToilet | 3 | 0.7s | 25 |
 | | | | | | SpiderToilet | 7 | 1.1s | 16 |
 | | | | | | InfectedTitanSpeakerman | 4 | 1.5s | 11 |
-| 100 | Veggie Hell | 550 | Wave 96 | — | GiantGlassesRedToilet | 2 | 0.6s | 10 |
+| 100 | Veggie Hell | 550 | Wave 96 | — | GiantGlassesRedToilet | 2 | 0.6s | 25 |
 | | | | | | SpiderToilet | 6 | 1.1s | 16 |
 | | | | | | InfectedTitanSpeakerman | 5 | 1.5s | 12 |
 | 101 | Planetary | 545 | — | — | QuadBladeStriderToilet | 4 | 1.3s | 12 |
 | 102 | Planetary | 555 | — | — | QuadBladeStriderToilet | 6 | 1.1s | 12 |
 | 103 | Planetary | 565 | — | — | QuadBladeStriderToilet | 8 | 1.0s | 12 |
-| 104 | Planetary | 575 | — | — | QuadBladeStriderToilet | 7 | 1.0s | 12 |
-| | | | | | UFOToilet | 3 | 1.5s | 14 |
+| 104 | Planetary | 575 | — | — | **UFOToilet** | **3** | **1.5s** | **14** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 105 | Planetary | 585 | Wave 100 | — | QuadBladeStriderToilet | 6 | 0.9s | 12 |
 | | | | | | UFOToilet | 5 | 1.3s | 14 |
-| 106 | Planetary | 595 | — | — | QuadBladeStriderToilet | 6 | 0.9s | 12 |
-| | | | | | UFOToilet | 5 | 1.2s | 14 |
-| | | | | | RocketToilet | 1 | 2.5s | 12 |
+| 106 | Planetary | 595 | — | — | **RocketToilet** | **3** | **2.5s** | **12** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 107 | Planetary | 605 | — | — | QuadBladeStriderToilet | 5 | 0.9s | 12 |
 | | | | | | UFOToilet | 6 | 1.1s | 14 |
 | | | | | | RocketToilet | 1 | 2.3s | 12 |
@@ -309,11 +299,8 @@
 | 110 | Planetary | 640 | Wave 105 | — | QuadBladeStriderToilet | 4 | 0.8s | 13 |
 | | | | | | UFOToilet | 5 | 1.0s | 15 |
 | | | | | | RocketToilet | 4 | 1.8s | 13 |
-| | | | | | StriderRocketToilet | 1 | 2.5s | 10 |
-| 111 | Galactic | 650 | — | — | QuadBladeStriderToilet | 3 | 0.8s | 13 |
-| | | | | | UFOToilet | 6 | 0.9s | 15 |
-| | | | | | RocketToilet | 4 | 1.8s | 13 |
-| | | | | | StriderRocketToilet | 1 | 2.5s | 10 |
+| 111 | Galactic | 650 | — | — | **StriderRocketToilet** | **3** | **2.5s** | **10** |
+| | | | | | *(Giới thiệu solo)* | | | |
 | 112 | Galactic | 660 | — | — | QuadBladeStriderToilet | 3 | 0.7s | 13 |
 | | | | | | UFOToilet | 5 | 0.9s | 15 |
 | | | | | | RocketToilet | 5 | 1.5s | 14 |
@@ -354,14 +341,25 @@
 | Wave | Sự kiện | Tổng quái |
 |:---:|---|:---:|
 | 10 | Mở Starting Wave 5 | 13 |
-| 20 | Mở Starting Wave 15 | 13 |
+| 20 | Mở Starting Wave 15 | 12 |
 | 30 | Mở Starting Wave 25 | 13 |
 | **40** | **BOSS — BossToilet · Mở Wave 35** | **11** |
 | 50 | Mở Starting Wave 45 | 13 |
 | 60 | Mở Starting Wave 55 | 13 |
 | 70 | Mở Starting Wave 65 | 13 |
 | **80** | **BOSS — BossToilet2 · Mở Wave 70** | **9** |
-| 90 | Mở Starting Wave 85 | 14 |
+| 90 | Mở Wave 85 · Giới thiệu InfectedTitan solo | 3 |
 | 100 | Mở Starting Wave 96 | 13 |
-| 110 | Mở Starting Wave 105 | 14 |
+| 110 | Mở Starting Wave 105 | 13 |
 | 120 | **FINAL** · Mở Starting Wave 115 | 15 |
+
+---
+
+## Quy tắc thiết kế wave
+
+| Wave loại | Mô tả |
+|---|---|
+| **Solo intro** | Enemy mới xuất hiện **3 con duy nhất**, không kết hợp. Người chơi học hành vi enemy thuần túy. |
+| **Combo** | Sau wave solo intro, enemy mới được trộn dần với các enemy đã biết, số lượng tăng theo từng wave. |
+| **Milestone** | Wave chia 10 (10, 20, 30…): mở shop trước, tặng tiền thưởng, preview enemy cycle tiếp theo. |
+| **Boss** | Wave 40 và 80: tiền thưởng lớn, spawn boss + combo enemy mạnh nhất của cycle. |

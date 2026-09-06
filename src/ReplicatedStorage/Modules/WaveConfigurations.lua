@@ -2,6 +2,8 @@
 --[[
 	Wave configurations - balanced, max 15 enemies per wave.
 	Source of truth: WAVES_BALANCED.md
+
+	Intro rule: every new enemy type gets one solo wave (×3) before being mixed.
 --]]
 
 local WaveConfigurations = {
@@ -32,33 +34,32 @@ local WaveConfigurations = {
 			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- SmallRedToilet solo intro
 	[5] = {
 		CashReward = 40,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 1.0},
-			{Enemy = "SmallRedToilet",    Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "SmallRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[6] = {
 		CashReward = 50,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
+			{Enemy = "SmallYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
 			{Enemy = "SmallRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- LargeToilet solo intro
 	[7] = {
 		CashReward = 65,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "SmallRedToilet",    Count = 3, DelayBetweenSpawns = 1.2},
-			{Enemy = "LargeToilet",       Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "LargeToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[8] = {
 		CashReward = 80,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "SmallRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 0.8},
+			{Enemy = "SmallRedToilet",    Count = 4, DelayBetweenSpawns = 1.1},
 			{Enemy = "LargeToilet",       Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
@@ -74,88 +75,87 @@ local WaveConfigurations = {
 		CashReward = 150,
 		UnlocksStartingWave = 5,
 		Enemies = {
-			{Enemy = "SmallYellowToilet",   Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "SmallRedToilet",      Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "LargeToilet",         Count = 2, DelayBetweenSpawns = 2.5},
-			{Enemy = "AssassinYellowToilet",Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "SmallRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
+			{Enemy = "LargeToilet",       Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 
 	-- ==========================================
 	-- CYCLE 2 (Waves 11-20) - Transition
 	-- ==========================================
+	-- HelicopterParasiteYellowToilet solo intro
 	[11] = {
 		CashReward = 60,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
 	[12] = {
 		CashReward = 65,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
 		},
 	},
 	[13] = {
 		CashReward = 70,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- HelicopterParasiteRedToilet solo intro
 	[14] = {
 		CashReward = 75,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 7, DelayBetweenSpawns = 1.0},
-			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "HelicopterParasiteRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[15] = {
 		CashReward = 80,
 		UnlocksStartingWave = 10,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.4},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 3, DelayBetweenSpawns = 1.4},
 		},
 	},
 	[16] = {
 		CashReward = 85,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "AssassinRedToilet",    Count = 4, DelayBetweenSpawns = 1.2},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 4, DelayBetweenSpawns = 1.2},
 		},
 	},
+	-- PoliceToilet solo intro
 	[17] = {
 		CashReward = 90,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "PoliceToilet",         Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "PoliceToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[18] = {
 		CashReward = 95,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "AssassinRedToilet",    Count = 4, DelayBetweenSpawns = 1.1},
-			{Enemy = "PoliceToilet",         Count = 2, DelayBetweenSpawns = 2.8},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 4, DelayBetweenSpawns = 1.1},
+			{Enemy = "PoliceToilet",                   Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
 	[19] = {
 		CashReward = 100,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "PoliceToilet",         Count = 3, DelayBetweenSpawns = 2.5},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[20] = {
 		CashReward = 160,
 		UnlocksStartingWave = 15,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "PoliceToilet",         Count = 3, DelayBetweenSpawns = 2.5},
-			{Enemy = "GlassesYellowToilet",  Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
+			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "GlassesYellowToilet",            Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -180,27 +180,26 @@ local WaveConfigurations = {
 			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- GlassesRedToilet solo intro
 	[24] = {
 		CashReward = 125,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "GlassesRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[25] = {
 		CashReward = 130,
 		UnlocksStartingWave = 20,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlassesRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "GlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- FlyingBuzzsawToilet solo intro
 	[26] = {
 		CashReward = 140,
 		Enemies = {
-			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.2},
-			{Enemy = "GlitchToilet",        Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[27] = {
@@ -208,7 +207,7 @@ local WaveConfigurations = {
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
 			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "GlitchToilet",        Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
 	[28] = {
@@ -216,7 +215,7 @@ local WaveConfigurations = {
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "GlitchToilet",        Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "FlyingBuzzsawToilet", Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[29] = {
@@ -224,7 +223,7 @@ local WaveConfigurations = {
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "GlitchToilet",        Count = 3, DelayBetweenSpawns = 2.5},
+			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[30] = {
@@ -233,7 +232,7 @@ local WaveConfigurations = {
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlitchToilet",        Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "FlyingBuzzsawToilet", Count = 3, DelayBetweenSpawns = 2.3},
 			{Enemy = "DJYellowToilet",      Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
@@ -259,27 +258,26 @@ local WaveConfigurations = {
 			{Enemy = "DJYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- DJRedToilet solo intro
 	[34] = {
 		CashReward = 180,
 		Enemies = {
-			{Enemy = "DJYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "DJRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "DJRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[35] = {
 		CashReward = 185,
 		UnlocksStartingWave = 30,
 		Enemies = {
-			{Enemy = "DJYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "DJRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "DJYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "DJRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- DualBladeToilet solo intro
 	[36] = {
 		CashReward = 195,
 		Enemies = {
-			{Enemy = "DJYellowToilet",  Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "DJRedToilet",     Count = 4, DelayBetweenSpawns = 1.2},
-			{Enemy = "DualBladeToilet", Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "DualBladeToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[37] = {
@@ -312,10 +310,10 @@ local WaveConfigurations = {
 		UnlocksStartingWave = 35,
 		BossImageId = "rbxassetid://81446192290144",
 		Enemies = {
-			{Enemy = "DJRedToilet",         Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "DJYellowToilet",      Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "BossToilet",          Count = 1, DelayBetweenSpawns = 3.0},
-			{Enemy = "VacuumYellowToilet",  Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJRedToilet",        Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "DJYellowToilet",     Count = 4, DelayBetweenSpawns = 0.8},
+			{Enemy = "BossToilet",         Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "VacuumYellowToilet", Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -340,61 +338,60 @@ local WaveConfigurations = {
 			{Enemy = "VacuumYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- VacuumRedToilet solo intro
 	[44] = {
 		CashReward = 235,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "VacuumRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "VacuumRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[45] = {
 		CashReward = 240,
 		UnlocksStartingWave = 40,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "VacuumRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "VacuumYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "VacuumRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- GlitchToilet solo intro
 	[46] = {
 		CashReward = 250,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",   Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "VacuumRedToilet",      Count = 3, DelayBetweenSpawns = 1.2},
-			{Enemy = "FlyingBuzzsawToilet",  Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "GlitchToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[47] = {
 		CashReward = 260,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",   Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "VacuumRedToilet",      Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "FlyingBuzzsawToilet",  Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "VacuumYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
+			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "GlitchToilet",       Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
 	[48] = {
 		CashReward = 270,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",   Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",      Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingBuzzsawToilet",  Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "VacuumYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
+			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "GlitchToilet",       Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[49] = {
 		CashReward = 280,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",   Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",      Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingBuzzsawToilet",  Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "VacuumYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "GlitchToilet",       Count = 3, DelayBetweenSpawns = 2.3},
 		},
 	},
 	[50] = {
 		CashReward = 370,
 		UnlocksStartingWave = 45,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",      Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",         Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "FlyingBuzzsawToilet",     Count = 3, DelayBetweenSpawns = 2.3},
-			{Enemy = "DualBladeYellowToilet",   Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "VacuumYellowToilet",    Count = 4, DelayBetweenSpawns = 0.8},
+			{Enemy = "VacuumRedToilet",       Count = 5, DelayBetweenSpawns = 0.9},
+			{Enemy = "GlitchToilet",          Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "DualBladeYellowToilet", Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -419,61 +416,60 @@ local WaveConfigurations = {
 			{Enemy = "DualBladeYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- DualBladeRedToilet solo intro
 	[54] = {
 		CashReward = 285,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "DualBladeRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "DualBladeRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[55] = {
 		CashReward = 290,
 		UnlocksStartingWave = 50,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "DualBladeRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "DualBladeYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "DualBladeRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- FlyingRocketLauncherToilet solo intro
 	[56] = {
 		CashReward = 300,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet",       Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "DualBladeRedToilet",           Count = 4, DelayBetweenSpawns = 1.2},
-			{Enemy = "FlyingRocketLauncherToilet",   Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "FlyingRocketLauncherToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[57] = {
 		CashReward = 310,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet",       Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "DualBladeRedToilet",           Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "FlyingRocketLauncherToilet",   Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "DualBladeYellowToilet",      Count = 6, DelayBetweenSpawns = 0.9},
+			{Enemy = "DualBladeRedToilet",          Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "FlyingRocketLauncherToilet",  Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
 	[58] = {
 		CashReward = 320,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet",       Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "DualBladeRedToilet",           Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingRocketLauncherToilet",   Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "DualBladeYellowToilet",      Count = 6, DelayBetweenSpawns = 0.8},
+			{Enemy = "DualBladeRedToilet",          Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "FlyingRocketLauncherToilet",  Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[59] = {
 		CashReward = 330,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet",       Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "DualBladeRedToilet",           Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "FlyingRocketLauncherToilet",   Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "DualBladeYellowToilet",      Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "DualBladeRedToilet",          Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "FlyingRocketLauncherToilet",  Count = 3, DelayBetweenSpawns = 2.3},
 		},
 	},
 	[60] = {
 		CashReward = 420,
 		UnlocksStartingWave = 55,
 		Enemies = {
-			{Enemy = "DualBladeYellowToilet",           Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "DualBladeRedToilet",               Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "FlyingRocketLauncherToilet",       Count = 3, DelayBetweenSpawns = 2.3},
-			{Enemy = "HelicopterParasiteYellowToilet",   Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DualBladeYellowToilet",   Count = 4, DelayBetweenSpawns = 0.8},
+			{Enemy = "DualBladeRedToilet",       Count = 5, DelayBetweenSpawns = 0.9},
+			{Enemy = "FlyingRocketLauncherToilet", Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "AssassinYellowToilet",     Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -483,74 +479,73 @@ local WaveConfigurations = {
 	[61] = {
 		CashReward = 320,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "AssassinYellowToilet", Count = 4, DelayBetweenSpawns = 1.3},
 		},
 	},
 	[62] = {
 		CashReward = 325,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
+			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
 		},
 	},
 	[63] = {
 		CashReward = 330,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
+			{Enemy = "AssassinYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- AssassinRedToilet solo intro
 	[64] = {
 		CashReward = 335,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "AssassinRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[65] = {
 		CashReward = 340,
 		UnlocksStartingWave = 60,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "AssassinYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- LargePoliceToilet solo intro
 	[66] = {
 		CashReward = 350,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 4, DelayBetweenSpawns = 1.2},
-			{Enemy = "LargePoliceToilet",              Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "LargePoliceToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[67] = {
 		CashReward = 360,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "LargePoliceToilet",              Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
+			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "LargePoliceToilet",    Count = 1, DelayBetweenSpawns = 2.8},
 		},
 	},
 	[68] = {
 		CashReward = 370,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "LargePoliceToilet",              Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "AssassinYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
+			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "LargePoliceToilet",    Count = 2, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[69] = {
 		CashReward = 380,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "LargePoliceToilet",              Count = 2, DelayBetweenSpawns = 2.3},
+			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
+			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
+			{Enemy = "LargePoliceToilet",    Count = 2, DelayBetweenSpawns = 2.3},
 		},
 	},
 	[70] = {
 		CashReward = 420,
 		UnlocksStartingWave = 65,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet",  Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",     Count = 5, DelayBetweenSpawns = 0.9},
+			{Enemy = "AssassinYellowToilet",           Count = 4, DelayBetweenSpawns = 0.8},
+			{Enemy = "AssassinRedToilet",               Count = 5, DelayBetweenSpawns = 0.9},
 			{Enemy = "LargePoliceToilet",               Count = 3, DelayBetweenSpawns = 2.3},
 			{Enemy = "LargeFlyingBuzzsawYellowToilet",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
@@ -577,27 +572,26 @@ local WaveConfigurations = {
 			{Enemy = "LargeFlyingBuzzsawYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- LargeFlyingBuzzsawRedToilet solo intro
 	[74] = {
 		CashReward = 385,
 		Enemies = {
-			{Enemy = "LargeFlyingBuzzsawYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
-			{Enemy = "LargeFlyingBuzzsawRedToilet",    Count = 2, DelayBetweenSpawns = 1.5},
+			{Enemy = "LargeFlyingBuzzsawRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[75] = {
 		CashReward = 390,
 		UnlocksStartingWave = 70,
 		Enemies = {
-			{Enemy = "LargeFlyingBuzzsawYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "LargeFlyingBuzzsawRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "LargeFlyingBuzzsawYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "LargeFlyingBuzzsawRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- GiantDualBladeToilet solo intro
 	[76] = {
 		CashReward = 400,
 		Enemies = {
-			{Enemy = "LargeFlyingBuzzsawYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "LargeFlyingBuzzsawRedToilet",    Count = 4, DelayBetweenSpawns = 1.2},
-			{Enemy = "GiantDualBladeToilet",           Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "GiantDualBladeToilet", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[77] = {
@@ -657,35 +651,34 @@ local WaveConfigurations = {
 			{Enemy = "GiantGlassesYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- GiantGlassesRedToilet solo intro
 	[84] = {
 		CashReward = 460,
 		Enemies = {
-			{Enemy = "GiantGlassesYellowToilet", Count = 7, DelayBetweenSpawns = 1.0},
-			{Enemy = "GiantGlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "GiantGlassesRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[85] = {
 		CashReward = 470,
 		UnlocksStartingWave = 80,
 		Enemies = {
-			{Enemy = "GiantGlassesYellowToilet", Count = 7, DelayBetweenSpawns = 0.9},
-			{Enemy = "GiantGlassesRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "GiantGlassesYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
+			{Enemy = "GiantGlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- SpiderToilet solo intro
 	[86] = {
 		CashReward = 480,
 		Enemies = {
-			{Enemy = "GiantGlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "GiantGlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "SpiderToilet",             Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "SpiderToilet", Count = 3, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[87] = {
 		CashReward = 490,
 		Enemies = {
 			{Enemy = "GiantGlassesYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "GiantGlassesRedToilet",    Count = 4, DelayBetweenSpawns = 1.1},
-			{Enemy = "SpiderToilet",             Count = 2, DelayBetweenSpawns = 2.3},
+			{Enemy = "GiantGlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
+			{Enemy = "SpiderToilet",             Count = 1, DelayBetweenSpawns = 2.3},
 		},
 	},
 	[88] = {
@@ -704,14 +697,12 @@ local WaveConfigurations = {
 			{Enemy = "SpiderToilet",             Count = 3, DelayBetweenSpawns = 2.0},
 		},
 	},
+	-- InfectedTitanSpeakerman solo intro (milestone)
 	[90] = {
 		CashReward = 520,
 		UnlocksStartingWave = 85,
 		Enemies = {
-			{Enemy = "GiantGlassesYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "GiantGlassesRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "SpiderToilet",             Count = 4, DelayBetweenSpawns = 1.8},
-			{Enemy = "InfectedTitanSpeakerman",  Count = 1, DelayBetweenSpawns = 3.0},
+			{Enemy = "InfectedTitanSpeakerman", Count = 3, DelayBetweenSpawns = 3.0},
 		},
 	},
 	[91] = {
@@ -823,11 +814,11 @@ local WaveConfigurations = {
 			{Enemy = "QuadBladeStriderToilet", Count = 8, DelayBetweenSpawns = 1.0},
 		},
 	},
+	-- UFOToilet solo intro
 	[104] = {
 		CashReward = 575,
 		Enemies = {
-			{Enemy = "QuadBladeStriderToilet", Count = 7, DelayBetweenSpawns = 1.0},
-			{Enemy = "UFOToilet",              Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "UFOToilet", Count = 3, DelayBetweenSpawns = 1.5},
 		},
 	},
 	[105] = {
@@ -838,12 +829,11 @@ local WaveConfigurations = {
 			{Enemy = "UFOToilet",              Count = 5, DelayBetweenSpawns = 1.3},
 		},
 	},
+	-- RocketToilet solo intro
 	[106] = {
 		CashReward = 595,
 		Enemies = {
-			{Enemy = "QuadBladeStriderToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "UFOToilet",              Count = 5, DelayBetweenSpawns = 1.2},
-			{Enemy = "RocketToilet",           Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "RocketToilet", Count = 3, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[107] = {
@@ -877,20 +867,17 @@ local WaveConfigurations = {
 			{Enemy = "QuadBladeStriderToilet", Count = 4, DelayBetweenSpawns = 0.8},
 			{Enemy = "UFOToilet",              Count = 5, DelayBetweenSpawns = 1.0},
 			{Enemy = "RocketToilet",           Count = 4, DelayBetweenSpawns = 1.8},
-			{Enemy = "StriderRocketToilet",    Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
 	-- ==========================================
 	-- CYCLE 11 (Waves 111-120) - Galactic
 	-- ==========================================
+	-- StriderRocketToilet solo intro
 	[111] = {
 		CashReward = 650,
 		Enemies = {
-			{Enemy = "QuadBladeStriderToilet", Count = 3, DelayBetweenSpawns = 0.8},
-			{Enemy = "UFOToilet",              Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "RocketToilet",           Count = 4, DelayBetweenSpawns = 1.8},
-			{Enemy = "StriderRocketToilet",    Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "StriderRocketToilet", Count = 3, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[112] = {
