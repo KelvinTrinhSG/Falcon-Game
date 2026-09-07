@@ -156,7 +156,6 @@ local WaveConfigurations = {
 			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
 			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
 			{Enemy = "GlassesYellowToilet",            Count = 1, DelayBetweenSpawns = 2.5},
-			{Enemy = "DJYellowToiletBuff",             Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 
@@ -167,21 +166,18 @@ local WaveConfigurations = {
 		CashReward = 110,
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 1.3},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[22] = {
 		CashReward = 115,
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 1.1},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[23] = {
 		CashReward = 120,
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 1.0},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	-- GlassesRedToilet solo intro
@@ -197,7 +193,6 @@ local WaveConfigurations = {
 		Enemies = {
 			{Enemy = "GlassesYellowToilet", Count = 4, DelayBetweenSpawns = 0.9},
 			{Enemy = "GlassesRedToilet",    Count = 1, DelayBetweenSpawns = 1.3},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	-- FlyingBuzzsawToilet solo intro
@@ -213,7 +208,6 @@ local WaveConfigurations = {
 			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 0.9},
 			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.1},
 			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.8},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[28] = {
@@ -222,7 +216,6 @@ local WaveConfigurations = {
 			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.0},
 			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.5},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[29] = {
@@ -231,7 +224,6 @@ local WaveConfigurations = {
 			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 1.0},
 			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.5},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},
 	[30] = {
@@ -241,7 +233,6 @@ local WaveConfigurations = {
 			{Enemy = "GlassesYellowToilet", Count = 2, DelayBetweenSpawns = 0.8},
 			{Enemy = "GlassesRedToilet",    Count = 2, DelayBetweenSpawns = 0.9},
 			{Enemy = "FlyingBuzzsawToilet", Count = 1, DelayBetweenSpawns = 2.3},
-			{Enemy = "DJYellowToiletBuff",  Count = 1, DelayBetweenSpawns = 2.5},
 			{Enemy = "DJYellowToilet",      Count = 1, DelayBetweenSpawns = 2.5},
 		},
 	},

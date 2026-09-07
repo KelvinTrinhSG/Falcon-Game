@@ -92,13 +92,6 @@ local EnemyConfigurations = {
 		WalkSpeed = 11,
 		BaseDamage = 25,
 	},
-	["DJYellowToiletBuff"] = {
-		CashReward = 8,
-		MaxHealth = 700,
-		Damage = 28,
-		WalkSpeed = 8,
-		BaseDamage = 22,
-	},
 	["DJRedToilet"] = {
 		CashReward = 11,
 		MaxHealth = 850,

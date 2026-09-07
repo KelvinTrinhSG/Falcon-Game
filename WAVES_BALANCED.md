@@ -16,7 +16,6 @@
 | 11 | HelicopterParasiteYellowToilet | 180 | 12 | 19 | 15 | 10 | — | ✈ Bay |
 | 14 | HelicopterParasiteRedToilet | 100 | 8 | 20 | 18 | **25** | Nhanh | ✈ Bay |
 | 17 | PoliceToilet | 650 | 30 | 6 | 30 | 9 | Trâu | — |
-| 20 | DJYellowToiletBuff | 700 | 28 | 8 | 22 | 8 | — | 🛡️ Buff bất tử 5s (cd 10s) |
 | 21 | GlassesYellowToilet | 450 | 25 | 7 | 20 | 11 | — | — |
 | 24 | GlassesRedToilet | 280 | 18 | 8 | 25 | **25** | Nhanh | — |
 | 26 | FlyingBuzzsawToilet | 1,800 | 50 | 15 | 40 | 12 | Trâu | ✈ Bay |
@@ -93,36 +92,27 @@
 | | | | | | HelicopterParasiteRedToilet | 5 | 0.9s | 25 |
 | | | | | | PoliceToilet | 2 | 2.5s | 9 |
 | | | | | | GlassesYellowToilet | 1 | 2.5s | 11 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 21 | Mid Game | 110 | — | — | GlassesYellowToilet | 2 | 1.3s | 11 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 22 | Mid Game | 115 | — | — | GlassesYellowToilet | 3 | 1.1s | 11 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 23 | Mid Game | 120 | — | — | GlassesYellowToilet | 4 | 1.0s | 11 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 24 | Mid Game | 125 | — | — | **GlassesRedToilet** | **1** | **1.5s** | **25** |
 | | | | | | *(Giới thiệu solo)* | | | |
 | 25 | Mid Game | 130 | Wave 20 | — | GlassesYellowToilet | 4 | 0.9s | 11 |
 | | | | | | GlassesRedToilet | 1 | 1.3s | 25 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 26 | Mid Game | 140 | — | — | **FlyingBuzzsawToilet** | **1** | **3.0s** | **12** |
 | | | | | | *(Giới thiệu solo)* | | | |
 | 27 | Mid Game | 150 | — | — | GlassesYellowToilet | 3 | 0.9s | 11 |
 | | | | | | GlassesRedToilet | 2 | 1.1s | 25 |
 | | | | | | FlyingBuzzsawToilet | 1 | 2.8s | 12 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 28 | Mid Game | 160 | — | — | GlassesYellowToilet | 3 | 0.8s | 11 |
 | | | | | | GlassesRedToilet | 2 | 1.0s | 25 |
 | | | | | | FlyingBuzzsawToilet | 1 | 2.5s | 12 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 29 | Mid Game | 170 | — | — | GlassesYellowToilet | 2 | 0.8s | 11 |
 | | | | | | GlassesRedToilet | 2 | 1.0s | 25 |
 | | | | | | FlyingBuzzsawToilet | 1 | 2.5s | 12 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | 30 | Mid Game | 215 | Wave 25 | — | GlassesYellowToilet | 2 | 0.8s | 11 |
 | | | | | | GlassesRedToilet | 2 | 0.9s | 25 |
 | | | | | | FlyingBuzzsawToilet | 1 | 2.3s | 12 |
-| | | | | | DJYellowToiletBuff | 1 | 2.5s | 8 |
 | | | | | | DJYellowToilet | 1 | 2.5s | 11 |
 | 31 | Late Game | 165 | — | — | DJYellowToilet | 4 | 1.3s | 11 |
 | 32 | Late Game | 170 | — | — | DJYellowToilet | 6 | 1.1s | 11 |

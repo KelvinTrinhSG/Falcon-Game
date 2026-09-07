@@ -40,7 +40,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV17",
+	"PlayerDataV20",
 	ProfileTemplate
 )
 
