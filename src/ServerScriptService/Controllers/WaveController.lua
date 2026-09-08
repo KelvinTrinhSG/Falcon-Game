@@ -170,7 +170,7 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 				if not isFlying then
 					local attackCooldown = enemy:GetAttribute("LastAttack") or 0
 					local waveSpeedMultiplier = plot:GetAttribute("WaveSpeed") or 1
-					local attackRate = 1 / waveSpeedMultiplier
+					local attackRate = (enemyConfig.AttackCooldown or 1) / waveSpeedMultiplier
 
 					local hitboxCFrame = rootPart.CFrame * CFrame.new(0, 0, -1.5)
 					local hitboxSize = Vector3.new(1.5, 4, 2)
@@ -213,7 +213,8 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 											end
 										end
 
-										local newHealth = health - (enemyConfig.Damage or 10)
+										local dmg = enemyConfig.Damage or 10
+										local newHealth = health - dmg
 										hitModel:SetAttribute("Health", newHealth)
 
 										if newHealth <= 0 then hitModel:Destroy() end

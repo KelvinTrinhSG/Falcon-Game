@@ -19,19 +19,19 @@ local WaveConfigurations = {
 	[2] = {
 		CashReward = 15,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 1.3, Path = {"WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints2", "WayPoints3"}},
 		},
 	},
 	[3] = {
 		CashReward = 20,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 1.1},
+			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[4] = {
 		CashReward = 30,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 1.0},
+			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	-- SmallRedToilet solo intro

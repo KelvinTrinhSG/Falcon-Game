@@ -8,8 +8,9 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["SmallYellowToilet"] = {
 		CashReward = 1,
-		MaxHealth = 60,
+		MaxHealth = 100,
 		Damage = 5,
+		AttackCooldown = 1,
 		WalkSpeed = 10,
 		BaseDamage = 10,
 	},
@@ -17,6 +18,7 @@ local EnemyConfigurations = {
 		CashReward = 2,
 		MaxHealth = 35,
 		Damage = 3,
+		AttackCooldown = 1,
 		WalkSpeed = 25,
 		BaseDamage = 12,
 	},
