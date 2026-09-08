@@ -13,13 +13,13 @@ local WaveConfigurations = {
 	[1] = {
 		CashReward = 10,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "SmallYellowToilet", Count = 3, DelayBetweenSpawns = 3, Path = "WayPoints1"},
 		},
 	},
 	[2] = {
 		CashReward = 15,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 1.3},
+			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 1.3, Path = {"WayPoints2", "WayPoints3"}},
 		},
 	},
 	[3] = {

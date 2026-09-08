@@ -87,6 +87,29 @@ local function getRandomPathFolder(plot: Model): Folder?
 	return waypointsFolder
 end
 
+local function getPathFolder(plot: Model, pathConfig: (string | {string})?): Folder?
+	local pathFolder = plot:FindFirstChild("Path")
+	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
+	if not waypointsFolder then return nil end
+
+	local function findNamed(name: string): Folder?
+		local f = waypointsFolder:FindFirstChild(name)
+		if f and f:IsA("Folder") then return f end
+		warn("[WaveController] Path '" .. name .. "' không tìm thấy, dùng random.")
+		return nil
+	end
+
+	if not pathConfig then
+		return getRandomPathFolder(plot)
+	elseif type(pathConfig) == "string" then
+		return findNamed(pathConfig) or getRandomPathFolder(plot)
+	elseif type(pathConfig) == "table" then
+		local name = pathConfig[math.random(1, #pathConfig)]
+		return findNamed(name) or getRandomPathFolder(plot)
+	end
+	return getRandomPathFolder(plot)
+end
+
 local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?, preSelectedFolder: Folder?)
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
@@ -325,7 +348,7 @@ startNextWave = function(player: Player, plot: Model)
 					enemy.PrimaryPart = enemy:FindFirstChild("HumanoidRootPart")
 				end
 
-				local selectedFolder = getRandomPathFolder(plot)
+				local selectedFolder = getPathFolder(plot, group.Path)
 				local spawnWaypoint = selectedFolder and selectedFolder:FindFirstChild("1")
 				if spawnWaypoint then
 					enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnWaypoint))

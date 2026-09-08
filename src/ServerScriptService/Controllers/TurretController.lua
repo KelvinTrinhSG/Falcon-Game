@@ -46,21 +46,7 @@ end
 local TurretController = {}
 local _activeTurrets = {}
 
-local function setFX(turretModel: Model, enabled: boolean)
-	task.spawn(function()
-		local vfxPart = turretModel:FindFirstChild("TVVFXs", true)
-		if not vfxPart then return end
-		for _, desc in ipairs(vfxPart:GetDescendants()) do
-			if desc:IsA("Light") or desc:IsA("ParticleEmitter") or desc:IsA("Beam") then
-				desc.Enabled = enabled
-			end
-		end
-	end)
-end
-
--- Fires a shot at the turret's current target. Called directly when the attack animation
--- starts (the fire animation is now a single keyframe, so there's no "Fire" marker to wait for).
-local function fireAtTarget(turretModel: Model, data)
+local function executeFireLogic(data, turretModel: Model)
 	if not data.currentTarget then return end
 	local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
 	if not targetRoot then return end
@@ -141,6 +127,19 @@ local function fireAtTarget(turretModel: Model, data)
 		end
 	end
 end
+
+local function setFX(turretModel: Model, enabled: boolean)
+	task.spawn(function()
+		local vfxPart = turretModel:FindFirstChild("TVVFXs", true)
+		if not vfxPart then return end
+		for _, desc in ipairs(vfxPart:GetDescendants()) do
+			if desc:IsA("Light") or desc:IsA("ParticleEmitter") or desc:IsA("Beam") then
+				desc.Enabled = enabled
+			end
+		end
+	end)
+end
+
 
 function TurretController:AddTurret(turretModel: Model, plot: Model)
 	local config = AllItemConfigs[turretModel.Name]
@@ -277,7 +276,8 @@ function TurretController:Start()
 			if now - data.lockOnTime >= 0.1 then
 				data.lastFireTime = now
 				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
-				if data.attackTrack and not data.attackTrack.IsPlaying then
+				if data.attackTrack then
+					data.attackTrack:Stop()
 					data.attackTrack:Play()
 					data.attackTrack:AdjustSpeed(waveSpeedMultiplier)
 				end
@@ -285,7 +285,7 @@ function TurretController:Start()
 					data.fxEnabled = true
 					setFX(turretModel, true)
 				end
-				fireAtTarget(turretModel, data)
+				executeFireLogic(data, turretModel)
 			end
 		end
 	end)
