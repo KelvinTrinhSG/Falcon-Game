@@ -38,7 +38,7 @@ local WaveConfigurations = {
 	[5] = {
 		CashReward = 40,
 		Enemies = {
-			{Enemy = "SmallRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "SmallRedToilet", Count = 3, DelayBetweenSpawns = 1.5, Path = "WayPoints1"},
 		},
 	},
 	[6] = {
