@@ -301,8 +301,6 @@ local function onRemoveItem(player: Player, itemToRemove: Model)
 		end
 	end
 
-	profile.Data.BlockInventory[itemId] = (profile.Data.BlockInventory[itemId] or 0) + 1
-
 	if config.Type == "Turrets" then
 		TurretController:RemoveTurret(itemToRemove)
 	end
