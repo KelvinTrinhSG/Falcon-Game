@@ -1,4 +1,4 @@
---!strict
+﻿--!strict
 -- LOCATION: ServerScriptService/Controllers/WaveController.lua
 
 -- Services
@@ -199,6 +199,7 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 								local health = hitModel:GetAttribute("Health")
 								if health and health > 0 then
 									isBlocked = true
+									humanoid.WalkSpeed = 0
 									humanoid:MoveTo(rootPart.Position)
 
 									local now = os.clock()
@@ -227,7 +228,9 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 				end
 
 				if not isBlocked then
-					humanoid:MoveTo(wp.Position)
+						local baseSpeed = humanoid:GetAttribute("BaseWalkSpeed") or 16
+						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1)
+						humanoid:MoveTo(wp.Position)
 				end
 			end
 		end
