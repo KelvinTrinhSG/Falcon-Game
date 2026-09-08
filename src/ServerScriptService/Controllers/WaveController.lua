@@ -1,4 +1,4 @@
-﻿--!strict
+--!strict
 -- LOCATION: ServerScriptService/Controllers/WaveController.lua
 
 -- Services

@@ -1,4 +1,4 @@
-﻿--!strict
+--!strict
 --[[
 	Wave configurations - balanced, max 15 enemies per wave.
 	Source of truth: WAVES_BALANCED.md

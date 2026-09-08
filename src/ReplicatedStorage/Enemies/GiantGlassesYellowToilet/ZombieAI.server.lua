@@ -1,4 +1,4 @@
-﻿--!strict
+--!strict
 -- Located in each zombie model
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
