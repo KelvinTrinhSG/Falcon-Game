@@ -502,12 +502,18 @@ stopFight = function(plot: Model, reason: string)
 				if config and config.Type == "Turrets" then
 					TurretController:RemoveTurret(itemModel)
 				end
+				itemModel:Destroy()
 			end
 		end
-		local coreBuilding = plot:FindFirstChild("Core1")
-		if coreBuilding then
-			local maxHealth = coreBuilding:GetAttribute("MaxHealth") or 100
-			coreBuilding:SetAttribute("Health", maxHealth)
+		task.wait(0.1)
+		PlacementController:LoadPlacedItems(player, plot)
+		local profile = PlayerController:GetProfile(player)
+		if profile then
+			local coreBuilding = plot:FindFirstChild("Core1")
+			if coreBuilding then
+				local maxHealth = coreBuilding:GetAttribute("MaxHealth") or 100
+				coreBuilding:SetAttribute("Health", maxHealth)
+			end
 		end
 		ReplicatedStorage.Events.WaveStateChanged:FireClient(player, false)
 		ReplicatedStorage.Events.WaveUIStateChanged:FireClient(player, false)

@@ -95,7 +95,7 @@ end)
 
 WaveStateChangedEvent.OnClientEvent:Connect(function(isFighting: boolean, currentHealth: number?, newMaxHealth: number?)
 	plotHealthFrame.Visible = isFighting
-	bottomFrame.Visible = true
+	bottomFrame.Visible = not isFighting
 
 	if isFighting and currentHealth and newMaxHealth then
 		updatePlotHealthUI(currentHealth, newMaxHealth)

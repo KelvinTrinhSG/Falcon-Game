@@ -53,6 +53,9 @@ end
 
 -- NOUVEAU: On encapsule les actions dans des fonctions pour pouvoir les utiliser avec le clavier ET la souris
 local function toggleInventory()
+	-- Si une vague est en cours, on bloque l'action (sans erreur)
+	if isWaveActive then return end
+
 	onInventoryButtonClick()
 	if FrameManager.getOpenFrameName() == "Inventory" then
 		FrameManager.close("Inventory")
@@ -62,6 +65,9 @@ local function toggleInventory()
 end
 
 local function toggleWeapons()
+	-- On ajoute la sécurité ici aussi !
+	if isWaveActive then return end
+
 	onWeaponsButtonClick()
 	if FrameManager.getOpenFrameName() == "InventoryTwo" then
 		FrameManager.close("InventoryTwo")
@@ -71,6 +77,9 @@ local function toggleWeapons()
 end
 
 local function toggleDeleteMode()
+	-- Et on sécurise la suppression
+	if isWaveActive then return end
+
 	if not PlacementHandler.State.isDeleteMode then
 		unequipWeaponRequest:FireServer()
 	end
