@@ -1,4 +1,4 @@
---!strict
+﻿--!strict
 --[[
 	Wave configurations - balanced, max 15 enemies per wave.
 	Source of truth: WAVES_BALANCED.md
@@ -44,8 +44,8 @@ local WaveConfigurations = {
 	[6] = {
 		CashReward = 50,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "SmallRedToilet",    Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "SmallYellowToilet", Count = 6, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "SmallRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = "WayPoints1"},
 		},
 	},
 	-- LargeToilet solo intro

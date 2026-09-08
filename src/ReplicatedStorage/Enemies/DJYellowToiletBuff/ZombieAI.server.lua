@@ -1,4 +1,4 @@
---!strict
+﻿--!strict
 -- Located in each zombie model
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -18,30 +18,10 @@ local ATTACK_COOLDOWN = 1
 local lastAttackTime = 0
 
 local function getDamageableTarget(instance: Instance)
+	-- Chi tan cong Core/PlotHealth, block do WaveController xu ly
 	if instance:IsA("BasePart") and instance.Name == "PlotHealth" then
 		return instance
 	end
-
-	local model = nil
-	if instance:IsA("Model") then
-		model = instance
-	else
-		model = instance:FindFirstAncestorOfClass("Model")
-	end
-
-	if model and model:GetAttribute("IsPlacedItem") == true then
-		local config = nil
-		if ItemConfigsModule.ItemConfigurations then
-			config = ItemConfigsModule.ItemConfigurations[model.Name] or (ItemConfigsModule.LimitedItems and ItemConfigsModule.LimitedItems[model.Name])
-		else
-			config = ItemConfigsModule[model.Name]
-		end
-
-		if config and config.Type == "Blocks" then
-			return model
-		end
-	end
-
 	return nil
 end
 

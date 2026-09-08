@@ -1,4 +1,4 @@
---!strict
+﻿--!strict
 -- Located in each zombie model
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -19,7 +19,7 @@ local ATTACK_COOLDOWN = 1
 local lastAttackTime = 0
 
 local function getDamageableTarget(instance: Instance)
-	-- Chỉ tấn công Core/PlotHealth, block do WaveController xử lý
+	-- Chi tan cong Core/PlotHealth, block do WaveController xu ly
 	if instance:IsA("BasePart") and instance.Name == "PlotHealth" then
 		return instance
 	end

@@ -1,4 +1,4 @@
---!strict
+﻿--!strict
 -- Located in each zombie model
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -20,37 +20,10 @@ local ATTACK_COOLDOWN = 1
 local lastAttackTime = 0
 
 local function getDamageableTarget(instance: Instance)
-	-- 1. Si c'est le Core/Base (PlotHealth), on l'attaque toujours !
+	-- Chi tan cong Core/PlotHealth, block do WaveController xu ly
 	if instance:IsA("BasePart") and instance.Name == "PlotHealth" then
 		return instance
 	end
-
-	-- 2. On cherche si l'objet fait partie d'un modèle posé
-	local model = nil
-	if instance:IsA("Model") then
-		model = instance
-	else
-		model = instance:FindFirstAncestorOfClass("Model")
-	end
-
-	-- 3. Si on trouve un modèle posé par le joueur
-	if model and model:GetAttribute("IsPlacedItem") == true then
-
-		-- On cherche sa configuration dans ItemConfigurations
-		local config = nil
-		if ItemConfigsModule.ItemConfigurations then
-			config = ItemConfigsModule.ItemConfigurations[model.Name] or (ItemConfigsModule.LimitedItems and ItemConfigsModule.LimitedItems[model.Name])
-		else
-			config = ItemConfigsModule[model.Name]
-		end
-
-		-- ⚡ LA MAGIE EST ICI : On retourne le modèle SEULEMENT si c'est un bloc !
-		if config and config.Type == "Blocks" then
-			return model
-		end
-	end
-
-	-- Si ce n'est ni le Core, ni un Bloc (ex: c'est une tourelle), on l'ignore.
 	return nil
 end
 

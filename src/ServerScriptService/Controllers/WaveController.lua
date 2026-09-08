@@ -209,7 +209,7 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 											attackTrack:Play()
 										else
 											if rootPart then
-												rootPart.AssemblyLinearVelocity = (rootPart.CFrame.LookVector * 15) + Vector3.new(0, 20, 0)
+												rootPart.AssemblyLinearVelocity = Vector3.new(0, 20, 0)
 											end
 										end
 
