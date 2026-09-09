@@ -50,7 +50,7 @@ local EnemyConfigurations = {
 	},
 	["PoliceToilet"] = {
 		CashReward = 30,
-		MaxHealth = 1000,
+		MaxHealth = 1500,
 		Damage = 75,
 		WalkSpeed = 8,
 		BaseDamage = 40,

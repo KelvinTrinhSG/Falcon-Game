@@ -135,17 +135,17 @@ local WaveConfigurations = {
 	[18] = {
 		CashReward = 95,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 4, DelayBetweenSpawns = 1.1},
-			{Enemy = "PoliceToilet",                   Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 3.0, Path = {"WayPoints2", "WayPoints3"}},
 		},
 	},
 	[19] = {
 		CashReward = 100,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "PoliceToilet",                   Count = 6, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[20] = {
