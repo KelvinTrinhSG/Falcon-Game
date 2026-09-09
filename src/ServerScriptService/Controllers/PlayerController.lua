@@ -40,7 +40,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV35",
+	"PlayerDataV42",
 	ProfileTemplate
 )
 
@@ -147,11 +147,30 @@ local function onPlayerAdded(player: Player)
 
 	ReplicatedStorage.Events:WaitForChild("CrateDataUpdated"):FireClient(player, profile.Data.Crates)
 
-	task.wait() 
-	if not next(profile.Data.BlockShopStock) then
+	task.wait()
+	local stockSnapshot = profile.Data.BlockShopStock
+	if not next(stockSnapshot) then
 		local isFirstTime = profile.Data.OnboardingStep ~= "Completed"
 		_controllers.BlocksShopController:Restock(player, true, isFirstTime)
 	end
+
+	-- Guard: player đang trong tutorial thì CameraGuy và RockBlock phải luôn có ít nhất 1
+	if profile.Data.OnboardingStep ~= "Completed" then
+		local stock = profile.Data.BlockShopStock
+		local changed = false
+		if not stock["CameraGuy"] or stock["CameraGuy"] <= 0 then
+			stock["CameraGuy"] = 1
+			changed = true
+		end
+		if not stock["RockBlock"] or stock["RockBlock"] <= 0 then
+			stock["RockBlock"] = 1
+			changed = true
+		end
+		if changed then
+			ReplicatedStorage.Events:WaitForChild("UpdateBlockStocks"):FireClient(player, stock)
+		end
+	end
+
 	if not next(profile.Data.WeaponShopStock) then
 		_controllers.WeaponsShopController:Restock(player)
 	end

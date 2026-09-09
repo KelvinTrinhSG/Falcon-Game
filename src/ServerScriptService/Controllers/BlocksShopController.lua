@@ -55,6 +55,7 @@ function ShopController:Restock(player: Player, suppressNotification: boolean?, 
 	profile.Data.BlockShopStock = newStock
 	profile.Data.BlockShopNextRestock = os.time() + RESTOCK_INTERVAL_SECONDS
 
+	print(`[Shop] Restock xong cho {player.Name}:`, newStock)
 	updateStocksEvent:FireClient(player, newStock)
 	if not suppressNotification then
 		showNotificationEvent:FireClient(player, "The Blocks Shop has been restocked!", "Normal")
