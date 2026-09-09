@@ -294,11 +294,11 @@ local EnemyConfigurations = {
 	-- LES BOSS MAJEURS
 	-- ==========================================
 	["BossToilet"] = {
-		CashReward = 50,
-		MaxHealth = 35000,
+		CashReward = 500,
+		MaxHealth = 7500,
 		Damage = 200,
-		WalkSpeed = 8,
-		BaseDamage = 100,
+		WalkSpeed = 4,
+		BaseDamage = 200,
 	},
 	["BossToilet2"] = {
 		CashReward = 150,

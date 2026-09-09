@@ -151,11 +151,12 @@ local WaveConfigurations = {
 	[20] = {
 		CashReward = 160,
 		UnlocksStartingWave = 15,
+		IsBossWave = true,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 2.5},
-			{Enemy = "GlassesYellowToilet",            Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "BossToilet",                     Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 2, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 2, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2"}},
+			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2"}},
 		},
 	},
 
