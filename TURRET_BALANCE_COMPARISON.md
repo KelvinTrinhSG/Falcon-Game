@@ -77,9 +77,11 @@ DPS = `Damage * FireRate` (khớp với cách `TurretController.lua` tính coold
 
 ### A. `src/ReplicatedStorage/Modules/ItemConfigurations.lua` — bảng `ItemConfigurations` (9 turret thường) — ✅ ĐÃ LÀM
 
-- [x] `EngineerCameraGuy` → `Range` 12 → **14**
-- [x] `EngineerCameraGuy` → `FireRate` 0.5 → **0.8**
-- [x] `SpeakerGuy` → `Range` 18 → **16**
+> ⚠️ **`EngineerCameraGuy` và `SpeakerGuy` đã bị master rebalance** (commit `89efc50` / `74426e9`) với chỉ số khác hẳn (Damage/Price ×10–25). Khi merge master vào nhánh này, **đã lấy chỉ số của master** cho 2 con này, bỏ sửa đổi Range/FireRate ở đây. Bảng target cũ cho 2 con này không còn hiệu lực.
+
+- [x] ~~`EngineerCameraGuy` → `Range` 12 → 14~~ → **theo master: Price 800, Damage 250, Range 10, FireRate 1**
+- [x] ~~`EngineerCameraGuy` → `FireRate` 0.5 → 0.8~~ → (như trên)
+- [x] ~~`SpeakerGuy` → `Range` 18 → 16~~ → **theo master: Price 6400, Damage 2500, Range 11, FireRate 1**
 - [x] `NinjaCameraGuy` → `Range` 16 → **12**
 - [x] `NinjaCameraGuy` → `FireRate` 2 → **4**
 - [x] `LargeScientistCameraman` → `FireRate` 1 → **1.5**

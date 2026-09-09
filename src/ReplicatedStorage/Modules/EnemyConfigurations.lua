@@ -24,9 +24,9 @@ local EnemyConfigurations = {
 	},
 	["LargeToilet"] = {
 		CashReward = 3,
-		MaxHealth = 250,
+		MaxHealth = 200,
 		Damage = 15,
-		WalkSpeed = 8,
+		WalkSpeed = 6,
 		BaseDamage = 20,
 	},
 
@@ -49,11 +49,11 @@ local EnemyConfigurations = {
 		BaseDamage = 55,
 	},
 	["PoliceToilet"] = {
-		CashReward = 6,
-		MaxHealth = 650,
-		Damage = 30,
-		WalkSpeed = 9,
-		BaseDamage = 30,
+		CashReward = 30,
+		MaxHealth = 1500,
+		Damage = 75,
+		WalkSpeed = 8,
+		BaseDamage = 40,
 	},
 
 	-- ==========================================
@@ -61,18 +61,18 @@ local EnemyConfigurations = {
 	-- Conçu pour Extreme Turret (250 Dmg) et Toxic (400 Dmg)
 	-- ==========================================
 	["GlassesYellowToilet"] = {
-		CashReward = 7,
-		MaxHealth = 450,
-		Damage = 25,
+		CashReward = 200,
+		MaxHealth = 5000,
+		Damage = 250,
 		WalkSpeed = 11,
-		BaseDamage = 20,
+		BaseDamage = 50,
 	},
 	["GlassesRedToilet"] = {
-		CashReward = 8,
-		MaxHealth = 280,
-		Damage = 18,
+		CashReward = 400,
+		MaxHealth = 2500,
+		Damage = 150,
 		WalkSpeed = 25,
-		BaseDamage = 25,
+		BaseDamage = 55,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
@@ -129,11 +129,11 @@ local EnemyConfigurations = {
 		BaseDamage = 40,
 	},
 	["FlyingBuzzsawToilet"] = {
-		CashReward = 15,
-		MaxHealth = 1800,
-		Damage = 50,
-		WalkSpeed = 12,
-		BaseDamage = 40,
+		CashReward = 600,
+		MaxHealth = 7500,
+		Damage = 750,
+		WalkSpeed = 15,
+		BaseDamage = 60,
 		IsFlying = true,
 	},
 
@@ -169,19 +169,19 @@ local EnemyConfigurations = {
 	-- Tourelles recommandées : Stars (1000 Dmg) & Lava (2500 Dmg)
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
-		CashReward = 19,
-		MaxHealth = 180,
-		Damage = 12,
+		CashReward = 10,
+		MaxHealth = 500,
+		Damage = 25,
 		WalkSpeed = 10,
-		BaseDamage = 15,
+		BaseDamage = 20,
 		IsFlying = true,
 	},
 	["HelicopterParasiteRedToilet"] = {
 		CashReward = 20,
-		MaxHealth = 100,
-		Damage = 8,
+		MaxHealth = 250,
+		Damage = 15,
 		WalkSpeed = 25,
-		BaseDamage = 18,
+		BaseDamage = 25,
 		IsFlying = true,
 	},
 	["LargePoliceToilet"] = {
@@ -294,11 +294,11 @@ local EnemyConfigurations = {
 	-- LES BOSS MAJEURS
 	-- ==========================================
 	["BossToilet"] = {
-		CashReward = 50,
-		MaxHealth = 35000,
+		CashReward = 2000,
+		MaxHealth = 7500,
 		Damage = 200,
-		WalkSpeed = 8,
-		BaseDamage = 100,
+		WalkSpeed = 4,
+		BaseDamage = 200,
 	},
 	["BossToilet2"] = {
 		CashReward = 150,

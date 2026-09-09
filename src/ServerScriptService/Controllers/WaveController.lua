@@ -65,7 +65,7 @@ local function getRandomSpawnCFrame(spawnPart: BasePart): CFrame
 	local size = spawnPart.Size
 	local randomX = (math.random() - 0.5) * size.X
 	local randomZ = (math.random() - 0.5) * size.Z
-	local yOffset = size.Y / 2 + 3
+	local yOffset = size.Y / 2 + 5
 	return spawnPart.CFrame * CFrame.new(randomX, yOffset, randomZ)
 end
 
@@ -87,7 +87,7 @@ local function getRandomPathFolder(plot: Model): Folder?
 	return waypointsFolder
 end
 
-local function getPathFolder(plot: Model, pathConfig: (string | {string})?): Folder?
+local function getPathFolder(plot: Model, pathConfig: (string | {string})?, spawnIndex: number?): Folder?
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
 	if not waypointsFolder then return nil end
@@ -104,7 +104,12 @@ local function getPathFolder(plot: Model, pathConfig: (string | {string})?): Fol
 	elseif type(pathConfig) == "string" then
 		return findNamed(pathConfig) or getRandomPathFolder(plot)
 	elseif type(pathConfig) == "table" then
-		local name = pathConfig[math.random(1, #pathConfig)]
+		local name
+		if spawnIndex and spawnIndex <= #pathConfig then
+			name = pathConfig[spawnIndex]
+		else
+			name = pathConfig[math.random(1, #pathConfig)]
+		end
 		return findNamed(name) or getRandomPathFolder(plot)
 	end
 	return getRandomPathFolder(plot)
@@ -276,6 +281,9 @@ startNextWave = function(player: Player, plot: Model)
 		return
 	end
 
+	-- Kiểm tra trước khi update HighestWave: nếu đã từng qua wave này thì boss không spawn lại
+	local alreadyBeaten = waveConfig.IsBossWave and (profile.Data.HighestWave >= state.CurrentWave)
+
 	if state.CurrentWave > profile.Data.HighestWave then
 		profile.Data.HighestWave = state.CurrentWave
 		local leaderstats = player:FindFirstChild("leaderstats")
@@ -284,13 +292,20 @@ startNextWave = function(player: Player, plot: Model)
 	end
 
 	local totalEnemiesInWave = 0
-	for _, group in ipairs(waveConfig.Enemies) do totalEnemiesInWave += group.Count end
+	for _, group in ipairs(waveConfig.Enemies) do
+		local isBossEnemy = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2")
+		if not (alreadyBeaten and isBossEnemy) then
+			totalEnemiesInWave += group.Count
+		end
+	end
 	state.EnemiesKilledInWave = 0
 	state.TotalEnemiesInWave = totalEnemiesInWave
 
 	ReplicatedStorage.Events.WaveUIStateChanged:FireClient(player, true, state.CurrentWave, totalEnemiesInWave, waveConfig.IsBossWave)
 
 	for _, group in ipairs(waveConfig.Enemies) do
+		local isBossEnemy = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2")
+		if alreadyBeaten and isBossEnemy then continue end
 		task.spawn(function()
 			local enemyTemplate = ReplicatedStorage.Enemies:FindFirstChild(group.Enemy)
 			if not enemyTemplate then return end
@@ -352,7 +367,7 @@ startNextWave = function(player: Player, plot: Model)
 					enemy.PrimaryPart = enemy:FindFirstChild("HumanoidRootPart")
 				end
 
-				local selectedFolder = getPathFolder(plot, group.Path)
+				local selectedFolder = getPathFolder(plot, group.Path, i)
 				local spawnWaypoint = selectedFolder and selectedFolder:FindFirstChild("1")
 				if spawnWaypoint then
 					enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnWaypoint))
@@ -444,7 +459,8 @@ startNextWave = function(player: Player, plot: Model)
 								local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 								if cash then
 									local multiplier = player:GetAttribute("CashMultiplier") or 1
-									local finalReward = math.floor(completedWaveConfig.CashReward * multiplier)
+									local reward = (alreadyBeaten and completedWaveConfig.NoBossCashReward) or completedWaveConfig.CashReward
+									local finalReward = math.floor(reward * multiplier)
 									cash.Value += finalReward
 									ReplicatedStorage.Events.ShowCollectionEffect:FireClient(player, finalReward)
 								end

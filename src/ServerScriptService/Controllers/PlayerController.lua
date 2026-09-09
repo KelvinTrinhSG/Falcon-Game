@@ -40,7 +40,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV25",
+	"PlayerDataV42",
 	ProfileTemplate
 )
 
@@ -56,9 +56,18 @@ function PlayerController:SetupSharedInstances() end
 -- ==========================================
 -- 👥 FONCTION POUR RECALCULER LE MULTIPLICATEUR (GAMEPASS + AMIS)
 -- ==========================================
+local NO_MULTIPLIER_IDS = { [11115679011] = true }
+
 local function UpdateAllPlayersMultiplier()
 	for _, p1 in ipairs(Players:GetPlayers()) do
 		task.spawn(function()
+			if NO_MULTIPLIER_IDS[p1.UserId] then
+				p1:SetAttribute("CashMultiplier", 1)
+				p1:SetAttribute("ActiveFriendsCount", 0)
+				print(`[Multiplier] {p1.Name} (UserId={p1.UserId}) bị chặn x2 → CashMultiplier = 1`)
+				return
+			end
+
 			local friendCount = 0
 
 			-- On compte combien d'amis p1 a dans le serveur
@@ -79,6 +88,8 @@ local function UpdateAllPlayersMultiplier()
 
 			-- Optionnel: Tu peux aussi stocker le nombre d'amis pour ton GUI
 			p1:SetAttribute("ActiveFriendsCount", friendCount)
+
+			print(`[Multiplier] {p1.Name} → BaseMult={baseMult}, Friends={friendCount}, Final={finalMult}`)
 		end)
 	end
 end
@@ -136,10 +147,30 @@ local function onPlayerAdded(player: Player)
 
 	ReplicatedStorage.Events:WaitForChild("CrateDataUpdated"):FireClient(player, profile.Data.Crates)
 
-	task.wait() 
-	if not next(profile.Data.BlockShopStock) then
-		_controllers.BlocksShopController:Restock(player)
+	task.wait()
+	local stockSnapshot = profile.Data.BlockShopStock
+	if not next(stockSnapshot) then
+		local isFirstTime = profile.Data.OnboardingStep ~= "Completed"
+		_controllers.BlocksShopController:Restock(player, true, isFirstTime)
 	end
+
+	-- Guard: player đang trong tutorial thì CameraGuy và RockBlock phải luôn có ít nhất 1
+	if profile.Data.OnboardingStep ~= "Completed" then
+		local stock = profile.Data.BlockShopStock
+		local changed = false
+		if not stock["CameraGuy"] or stock["CameraGuy"] <= 0 then
+			stock["CameraGuy"] = 1
+			changed = true
+		end
+		if not stock["RockBlock"] or stock["RockBlock"] <= 0 then
+			stock["RockBlock"] = 1
+			changed = true
+		end
+		if changed then
+			ReplicatedStorage.Events:WaitForChild("UpdateBlockStocks"):FireClient(player, stock)
+		end
+	end
+
 	if not next(profile.Data.WeaponShopStock) then
 		_controllers.WeaponsShopController:Restock(player)
 	end
@@ -155,16 +186,19 @@ local function onPlayerAdded(player: Player)
 	-- ==========================================
 	task.spawn(function()
 		local baseMultiplier = 1
-		local hasX2 = false
-		local hasVIP = false
 
-		pcall(function() hasX2 = MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_X2) end)
-		pcall(function() hasVIP = MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_VIP) end)
+		if not NO_MULTIPLIER_IDS[player.UserId] then
+			local hasX2 = false
+			local hasVIP = false
 
-		if hasX2 then
-			baseMultiplier = 2
-		elseif hasVIP then
-			baseMultiplier = 1.5
+			pcall(function() hasX2 = MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_X2) end)
+			pcall(function() hasVIP = MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_VIP) end)
+
+			if hasX2 then
+				baseMultiplier = 2
+			elseif hasVIP then
+				baseMultiplier = 1.5
+			end
 		end
 
 		-- On sauvegarde la base du joueur AVANT de compter les amis
@@ -202,6 +236,11 @@ function PlayerController:Start()
 	-- ==========================================
 	MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gamePassId, wasPurchased)
 		if wasPurchased then
+			if NO_MULTIPLIER_IDS[player.UserId] then
+				print(`[Multiplier] {player.Name} mua gamepass nhưng bị chặn x2, bỏ qua.`)
+				return
+			end
+
 			local currentBase = player:GetAttribute("BaseCashMultiplier") or 1
 
 			if gamePassId == GAMEPASS_X2 then
