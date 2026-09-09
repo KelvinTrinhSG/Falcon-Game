@@ -6,8 +6,10 @@ local Players = game:GetService("Players")
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 local ItemConfigurations = ItemConfigsModule.ItemConfigurations
+local LimitedItems = ItemConfigsModule.LimitedItems
 
 local PlayerController
+local LimitedTurretController
 
 local RESTOCK_INTERVAL_SECONDS = 180
 local GUARANTEED_ITEMS = {"CarboardBlock", "CameraGuy"}
@@ -44,6 +46,28 @@ function ShopController:Restock(player: Player, suppressNotification: boolean?)
 		end
 	end
 
+	-- Cách A: turret Titan (LimitedItems) roll chung vào kho shop này, giống 9 turret thường.
+	-- CHỈ roll turret đang được track kho global (nằm trong STOCK_KEYS). Turret chưa track
+	-- thì KHÔNG set newStock[itemId] (để nil) -> client ẩn hẳn card cho tới khi D1 thêm key.
+	-- Turret đã track thì LUÔN có entry mỗi restock: trúng Chance -> 1..Max, trượt -> 0.
+	for itemId, config in pairs(LimitedItems) do
+		if config.Chance and config.StockAmount
+			and LimitedTurretController and LimitedTurretController:IsStockTracked(itemId) then
+			local finalStock = 0
+			if math.random() * 100 <= config.Chance then
+				local rolled = math.random(config.StockAmount.Min, config.StockAmount.Max)
+				-- GetStock đọc DataStore — bọc pcall để lỗi kho global không làm hỏng cả lượt Restock
+				local ok, globalRemaining = pcall(function()
+					return LimitedTurretController:GetStock(itemId)
+				end)
+				if ok and type(globalRemaining) == "number" then
+					finalStock = math.max(0, math.min(rolled, globalRemaining))
+				end
+			end
+			newStock[itemId] = finalStock
+		end
+	end
+
 	profile.Data.BlockShopStock = newStock
 	profile.Data.BlockShopNextRestock = os.time() + RESTOCK_INTERVAL_SECONDS
 
@@ -56,6 +80,12 @@ end
 local function onPurchaseRequest(player: Player, itemId: string)
 	local profile = PlayerController:GetProfile(player)
 	local config = ItemConfigurations[itemId]
+	-- D2 (Cách A): turret Titan nằm ở bảng LimitedItems, không phải ItemConfigurations
+	local isLimited = false
+	if not config then
+		config = LimitedItems[itemId]
+		isLimited = true
+	end
 	if not profile or not config then return end
 	local playerStock = profile.Data.BlockShopStock
 
@@ -66,11 +96,37 @@ local function onPurchaseRequest(player: Player, itemId: string)
 		end
 	end
 
+	-- D2: turret Titan còn phải check kho global toàn server (lớp 1).
+	-- Đây chỉ là cửa chặn sớm cho UX; cửa chặn thật là ConsumeStock bên dưới (có hoàn tiền).
+	if isLimited then
+		if not LimitedTurretController then
+			showNotificationEvent:FireClient(player, "Sorry, this item just sold out!", "Error")
+			return
+		end
+		local ok, remaining = pcall(function()
+			return LimitedTurretController:GetStock(itemId)
+		end)
+		if ok and type(remaining) == "number" and remaining <= 0 then
+			showNotificationEvent:FireClient(player, "Sorry, this item just sold out!", "Error")
+			return
+		end
+	end
+
 	local leaderstats = player:FindFirstChild("leaderstats")
 	local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 
 	if cash and cash.Value >= config.Price then
 		cash.Value -= config.Price
+
+		-- D2: trừ kho global cho turret Titan; nếu vừa hết sạch thì hoàn tiền
+		if isLimited then
+			local consumed = LimitedTurretController and LimitedTurretController:ConsumeStock(itemId)
+			if not consumed then
+				cash.Value += config.Price
+				showNotificationEvent:FireClient(player, "Sorry, this item just sold out!", "Error")
+				return
+			end
+		end
 
 		if not config.Unlimited then
 			playerStock[itemId] -= 1
@@ -105,6 +161,7 @@ end
 
 function ShopController:Init(controllers: {[string]: any})
 	PlayerController = controllers.PlayerController
+	LimitedTurretController = controllers.LimitedTurretController
 end
 
 function ShopController:Start()

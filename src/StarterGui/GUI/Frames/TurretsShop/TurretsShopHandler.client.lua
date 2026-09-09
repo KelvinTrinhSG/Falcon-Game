@@ -6,6 +6,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 local ItemConfigurations = ItemConfigsModule.ItemConfigurations
+local LimitedItems = ItemConfigsModule.LimitedItems
 
 local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
 local NumberFormatter = require(ReplicatedStorage.Modules.NumberFormatter)
@@ -69,6 +70,15 @@ local function populateShop()
 	local itemsToDisplay = {}
 	for itemId, config in pairs(ItemConfigurations) do
 		if config.Type == "Turrets" then
+			table.insert(itemsToDisplay, {Id = itemId, Config = config})
+		end
+	end
+	-- E (Cách A): turret Titan từ bảng LimitedItems hiện chung trong Turrets Shop, dùng
+	-- y hệt card của turret thường. Hiện card khi server có track turret đó (currentStocks
+	-- có key — do mục C set mỗi restock). Hết stock chỉ xám nút Buy, không ẩn card.
+	-- Turret chưa track (currentStocks[itemId] == nil) -> không hiện, tới khi D1 thêm key.
+	for itemId, config in pairs(LimitedItems) do
+		if config.Type == "Turrets" and currentStocks[itemId] ~= nil then
 			table.insert(itemsToDisplay, {Id = itemId, Config = config})
 		end
 	end
