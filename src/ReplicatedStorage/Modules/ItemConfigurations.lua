@@ -142,15 +142,15 @@ local ItemConfigurations = {
 	EngineerCameraGuy = {
 		DisplayName = "Engineer Camera Guy",
 		Type = "Turrets",
-		Price = 500,
+		Price = 1000,
 		ImageId = "rbxassetid://127153357548293",
 		ProductID = 3710656704,
 		Unlimited = false,
 		Chance = 90,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 100,
-		Range = 12,
-		FireRate = 0.5,
+		Range = 10,
+		FireRate = 1,
 		Health = 5000000000,
 	},
 
@@ -324,7 +324,7 @@ local LimitedItems = {
 }
 
 local BaseConfigurations = {
-	Core1 = { DisplayName = "Camera Post",     Price = 0,     Health = 300,  ImageId = "rbxassetid://138618181818045", ProductID = 0           },
+	Core1 = { DisplayName = "Camera Post",     Price = 0,     Health = 100,  ImageId = "rbxassetid://138618181818045", ProductID = 0           },
 	Core2 = { DisplayName = "Speaker Station", Price = 2000,  Health = 450,  ImageId = "rbxassetid://119650006445523", ProductID = 3710733502  },
 	Core3 = { DisplayName = "Broadcast Tower", Price = 10000, Health = 750,  ImageId = "rbxassetid://72443890466175",  ProductID = 3710733557  },
 	Core4 = { DisplayName = "Signal Fortress", Price = 25000, Health = 1200, ImageId = "rbxassetid://129302868825261", ProductID = 3710733607  },

@@ -24,9 +24,9 @@ local EnemyConfigurations = {
 	},
 	["LargeToilet"] = {
 		CashReward = 3,
-		MaxHealth = 250,
+		MaxHealth = 200,
 		Damage = 15,
-		WalkSpeed = 8,
+		WalkSpeed = 6,
 		BaseDamage = 20,
 	},
 
@@ -169,11 +169,11 @@ local EnemyConfigurations = {
 	-- Tourelles recommandées : Stars (1000 Dmg) & Lava (2500 Dmg)
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
-		CashReward = 19,
-		MaxHealth = 180,
+		CashReward = 20,
+		MaxHealth = 200,
 		Damage = 12,
 		WalkSpeed = 10,
-		BaseDamage = 15,
+		BaseDamage = 20,
 		IsFlying = true,
 	},
 	["HelicopterParasiteRedToilet"] = {

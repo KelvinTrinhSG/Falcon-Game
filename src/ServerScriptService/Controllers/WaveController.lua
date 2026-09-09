@@ -65,7 +65,7 @@ local function getRandomSpawnCFrame(spawnPart: BasePart): CFrame
 	local size = spawnPart.Size
 	local randomX = (math.random() - 0.5) * size.X
 	local randomZ = (math.random() - 0.5) * size.Z
-	local yOffset = size.Y / 2 + 3
+	local yOffset = size.Y / 2 + 5
 	return spawnPart.CFrame * CFrame.new(randomX, yOffset, randomZ)
 end
 
@@ -87,7 +87,7 @@ local function getRandomPathFolder(plot: Model): Folder?
 	return waypointsFolder
 end
 
-local function getPathFolder(plot: Model, pathConfig: (string | {string})?): Folder?
+local function getPathFolder(plot: Model, pathConfig: (string | {string})?, spawnIndex: number?): Folder?
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
 	if not waypointsFolder then return nil end
@@ -104,7 +104,12 @@ local function getPathFolder(plot: Model, pathConfig: (string | {string})?): Fol
 	elseif type(pathConfig) == "string" then
 		return findNamed(pathConfig) or getRandomPathFolder(plot)
 	elseif type(pathConfig) == "table" then
-		local name = pathConfig[math.random(1, #pathConfig)]
+		local name
+		if spawnIndex and spawnIndex <= #pathConfig then
+			name = pathConfig[spawnIndex]
+		else
+			name = pathConfig[math.random(1, #pathConfig)]
+		end
 		return findNamed(name) or getRandomPathFolder(plot)
 	end
 	return getRandomPathFolder(plot)
@@ -352,7 +357,7 @@ startNextWave = function(player: Player, plot: Model)
 					enemy.PrimaryPart = enemy:FindFirstChild("HumanoidRootPart")
 				end
 
-				local selectedFolder = getPathFolder(plot, group.Path)
+				local selectedFolder = getPathFolder(plot, group.Path, i)
 				local spawnWaypoint = selectedFolder and selectedFolder:FindFirstChild("1")
 				if spawnWaypoint then
 					enemy:SetPrimaryPartCFrame(getRandomSpawnCFrame(spawnWaypoint))

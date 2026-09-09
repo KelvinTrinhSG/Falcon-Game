@@ -21,7 +21,9 @@ local getStocks = ReplicatedStorage.Functions:WaitForChild("GetBlockShopStocks")
 local showNotificationEvent = ReplicatedStorage.Events:WaitForChild("ShowNotification")
 local blockInventoryUpdatedEvent = ReplicatedStorage.Events:WaitForChild("BlockInventoryUpdated")
 
-function ShopController:Restock(player: Player, suppressNotification: boolean?)
+local FIRST_TIME_MAX_ITEMS = {"CameraGuy", "RockBlock"}
+
+function ShopController:Restock(player: Player, suppressNotification: boolean?, isFirstTime: boolean?)
 	local profile = PlayerController:GetProfile(player)
 	if not profile then return end
 
@@ -29,14 +31,20 @@ function ShopController:Restock(player: Player, suppressNotification: boolean?)
 	for _, itemId in ipairs(GUARANTEED_ITEMS) do
 		local config = ItemConfigurations[itemId]
 		if config and config.StockAmount then
-			newStock[itemId] = math.random(config.StockAmount.Min, config.StockAmount.Max)
+			if isFirstTime and table.find(FIRST_TIME_MAX_ITEMS, itemId) then
+				newStock[itemId] = config.StockAmount.Max
+			else
+				newStock[itemId] = math.random(config.StockAmount.Min, config.StockAmount.Max)
+			end
 		end
 	end
 	for itemId, config in pairs(ItemConfigurations) do
 		if config.Unlimited or table.find(GUARANTEED_ITEMS, itemId) then continue end
 
 		if config.Chance and config.StockAmount then
-			if math.random() * 100 <= config.Chance then
+			if isFirstTime and table.find(FIRST_TIME_MAX_ITEMS, itemId) then
+				newStock[itemId] = config.StockAmount.Max
+			elseif math.random() * 100 <= config.Chance then
 				newStock[itemId] = math.random(config.StockAmount.Min, config.StockAmount.Max)
 			else
 				newStock[itemId] = 0
