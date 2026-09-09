@@ -61,18 +61,18 @@ local EnemyConfigurations = {
 	-- Conçu pour Extreme Turret (250 Dmg) et Toxic (400 Dmg)
 	-- ==========================================
 	["GlassesYellowToilet"] = {
-		CashReward = 7,
-		MaxHealth = 450,
-		Damage = 25,
+		CashReward = 200,
+		MaxHealth = 5000,
+		Damage = 250,
 		WalkSpeed = 11,
-		BaseDamage = 20,
+		BaseDamage = 50,
 	},
 	["GlassesRedToilet"] = {
-		CashReward = 8,
-		MaxHealth = 280,
-		Damage = 18,
+		CashReward = 400,
+		MaxHealth = 2500,
+		Damage = 150,
 		WalkSpeed = 25,
-		BaseDamage = 25,
+		BaseDamage = 55,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
@@ -129,11 +129,11 @@ local EnemyConfigurations = {
 		BaseDamage = 40,
 	},
 	["FlyingBuzzsawToilet"] = {
-		CashReward = 15,
-		MaxHealth = 1800,
-		Damage = 50,
-		WalkSpeed = 12,
-		BaseDamage = 40,
+		CashReward = 600,
+		MaxHealth = 7500,
+		Damage = 750,
+		WalkSpeed = 15,
+		BaseDamage = 60,
 		IsFlying = true,
 	},
 
@@ -294,7 +294,7 @@ local EnemyConfigurations = {
 	-- LES BOSS MAJEURS
 	-- ==========================================
 	["BossToilet"] = {
-		CashReward = 500,
+		CashReward = 2000,
 		MaxHealth = 7500,
 		Damage = 200,
 		WalkSpeed = 4,

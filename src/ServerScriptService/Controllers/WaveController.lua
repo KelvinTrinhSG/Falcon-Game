@@ -281,6 +281,9 @@ startNextWave = function(player: Player, plot: Model)
 		return
 	end
 
+	-- Kiểm tra trước khi update HighestWave: nếu đã từng qua wave này thì boss không spawn lại
+	local alreadyBeaten = waveConfig.IsBossWave and (profile.Data.HighestWave >= state.CurrentWave)
+
 	if state.CurrentWave > profile.Data.HighestWave then
 		profile.Data.HighestWave = state.CurrentWave
 		local leaderstats = player:FindFirstChild("leaderstats")
@@ -289,13 +292,20 @@ startNextWave = function(player: Player, plot: Model)
 	end
 
 	local totalEnemiesInWave = 0
-	for _, group in ipairs(waveConfig.Enemies) do totalEnemiesInWave += group.Count end
+	for _, group in ipairs(waveConfig.Enemies) do
+		local isBossEnemy = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2")
+		if not (alreadyBeaten and isBossEnemy) then
+			totalEnemiesInWave += group.Count
+		end
+	end
 	state.EnemiesKilledInWave = 0
 	state.TotalEnemiesInWave = totalEnemiesInWave
 
 	ReplicatedStorage.Events.WaveUIStateChanged:FireClient(player, true, state.CurrentWave, totalEnemiesInWave, waveConfig.IsBossWave)
 
 	for _, group in ipairs(waveConfig.Enemies) do
+		local isBossEnemy = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2")
+		if alreadyBeaten and isBossEnemy then continue end
 		task.spawn(function()
 			local enemyTemplate = ReplicatedStorage.Enemies:FindFirstChild(group.Enemy)
 			if not enemyTemplate then return end
@@ -449,7 +459,8 @@ startNextWave = function(player: Player, plot: Model)
 								local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 								if cash then
 									local multiplier = player:GetAttribute("CashMultiplier") or 1
-									local finalReward = math.floor(completedWaveConfig.CashReward * multiplier)
+									local reward = (alreadyBeaten and completedWaveConfig.NoBossCashReward) or completedWaveConfig.CashReward
+									local finalReward = math.floor(reward * multiplier)
 									cash.Value += finalReward
 									ReplicatedStorage.Events.ShowCollectionEffect:FireClient(player, finalReward)
 								end
