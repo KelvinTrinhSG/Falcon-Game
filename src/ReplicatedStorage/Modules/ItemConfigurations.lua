@@ -178,7 +178,7 @@ local ItemConfigurations = {
 		ImageId = "rbxassetid://86656983607357",
 		ProductID = 3710656794,
 		Unlimited = false,
-		Chance = 90,
+		Chance = 95,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 50,
 		Range = 10,
