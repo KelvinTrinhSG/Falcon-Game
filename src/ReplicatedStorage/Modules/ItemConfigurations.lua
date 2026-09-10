@@ -256,7 +256,7 @@ local ItemConfigurations = {
 		ProductID = 3710657003,
 		Unlimited = false,
 		Chance = 20,
-		StockAmount = {Min = 1, Max = 3},
+		StockAmount = {Min = 1, Max = 5},
 		Damage = 3000,
 		Range = 35,
 		Cooldown = 0.1,
