@@ -149,15 +149,15 @@ local WaveConfigurations = {
 		},
 	},
 	[20] = {
-		CashReward = 4000,
-		NoBossCashReward = 175,
+		CashReward = 2000,
+		NoBossCashReward = 1000,
 		UnlocksStartingWave = 15,
 		IsBossWave = true,
 		Enemies = {
-			{Enemy = "BossToilet",                     Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 2, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 2, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2"}},
-			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2"}},
+			{Enemy = "BossToilet",          Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
+			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "PoliceToilet",        Count = 5, DelayBetweenSpawns = 3.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 
