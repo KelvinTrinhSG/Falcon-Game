@@ -289,6 +289,26 @@ function TurretController:Start()
 						end
 					end
 				end
+			elseif data.config.TargetingMode == "ClosestToEnd" then
+				-- Priority 1: highest WaypointIndex (closest to end) | Priority 2: closest distance to turret (tiebreaker)
+				local bestIndex = -1
+				local bestDist = math.huge
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist <= data.config.Range then
+							local wpIndex = enemy:GetAttribute("WaypointIndex") or 0
+							if wpIndex > bestIndex or (wpIndex == bestIndex and dist < bestDist) then
+								closestTarget = enemy
+								bestIndex = wpIndex
+								bestDist = dist
+							end
+						end
+					end
+				end
 			elseif data.config.TargetingMode == "HighestHP" then
 				-- Priority: highest current HP within range
 				local bestHP = -1

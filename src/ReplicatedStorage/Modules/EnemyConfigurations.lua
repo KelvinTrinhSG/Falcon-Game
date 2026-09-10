@@ -23,7 +23,7 @@ local EnemyConfigurations = {
 		BaseDamage = 12,
 	},
 	["LargeToilet"] = {
-		CashReward = 3,
+		CashReward = 7,
 		MaxHealth = 500,
 		Damage = 15,
 		WalkSpeed = 6,
@@ -49,10 +49,11 @@ local EnemyConfigurations = {
 		BaseDamage = 55,
 	},
 	["PoliceToilet"] = {
-		CashReward = 30,
-		MaxHealth = 1500,
-		Damage = 75,
-		WalkSpeed = 8,
+		CashReward = 14,
+		MaxHealth = 5000,
+		Damage = 150,
+		AttackCooldown = 1,
+		WalkSpeed = 6,
 		BaseDamage = 40,
 	},
 
@@ -61,18 +62,20 @@ local EnemyConfigurations = {
 	-- Conçu pour Extreme Turret (250 Dmg) et Toxic (400 Dmg)
 	-- ==========================================
 	["GlassesYellowToilet"] = {
-		CashReward = 200,
-		MaxHealth = 5000,
-		Damage = 250,
-		WalkSpeed = 11,
-		BaseDamage = 50,
+		CashReward = 6,
+		MaxHealth = 1000,
+		Damage = 50,
+		AttackCooldown = 1,
+		WalkSpeed = 10,
+		BaseDamage = 20,
 	},
 	["GlassesRedToilet"] = {
-		CashReward = 400,
-		MaxHealth = 2500,
-		Damage = 150,
+		CashReward = 10,
+		MaxHealth = 750,
+		Damage = 30,
+		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 55,
+		BaseDamage = 24,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,

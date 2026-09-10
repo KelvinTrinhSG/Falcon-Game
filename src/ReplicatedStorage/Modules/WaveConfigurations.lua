@@ -50,7 +50,7 @@ local WaveConfigurations = {
 	},
 	-- LargeToilet solo intro
 	[7] = {
-		CashReward = 65,
+		CashReward = 250,
 		Enemies = {
 			{Enemy = "LargeToilet", Count = 3, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
@@ -84,68 +84,68 @@ local WaveConfigurations = {
 	-- ==========================================
 	-- CYCLE 2 (Waves 11-20) - Transition
 	-- ==========================================
-	-- HelicopterParasiteYellowToilet solo intro
+	-- GlassesYellowToilet solo intro
 	[11] = {
-		CashReward = 100,
+		CashReward = 450,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 3, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "GlassesYellowToilet", Count = 3, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[12] = {
-		CashReward = 105,
+		CashReward = 500,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	[13] = {
-		CashReward = 110,
+		CashReward = 550,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 10, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
+			{Enemy = "GlassesYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
 		},
 	},
-	-- HelicopterParasiteRedToilet solo intro
+	-- GlassesRedToilet solo intro
 	[14] = {
-		CashReward = 115,
+		CashReward = 600,
 		Enemies = {
-			{Enemy = "HelicopterParasiteRedToilet", Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "GlassesRedToilet", Count = 3, DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[15] = {
-		CashReward = 125,
+		CashReward = 650,
 		UnlocksStartingWave = 10,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 10, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5,  DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "GlassesYellowToilet", Count = 10, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
+			{Enemy = "GlassesRedToilet",    Count = 5,  DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	[16] = {
-		CashReward = 135,
+		CashReward = 700,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "GlassesYellowToilet", Count = 8, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2"}},
+			{Enemy = "GlassesRedToilet",    Count = 7, DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
 		},
 	},
 	-- PoliceToilet solo intro
 	[17] = {
-		CashReward = 140,
+		CashReward = 750,
 		Enemies = {
-			{Enemy = "PoliceToilet", Count = 3, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "PoliceToilet", Count = 3, DelayBetweenSpawns = 3.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[18] = {
-		CashReward = 155,
+		CashReward = 800,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "PoliceToilet",                   Count = 2, DelayBetweenSpawns = 3.0, Path = {"WayPoints2", "WayPoints3"}},
+			{Enemy = "GlassesYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "GlassesRedToilet",    Count = 3, DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "PoliceToilet",        Count = 2, DelayBetweenSpawns = 3.5, Path = {"WayPoints1", "WayPoints2"}},
 		},
 	},
 	[19] = {
-		CashReward = 170,
+		CashReward = 850,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "PoliceToilet",                   Count = 6, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "GlassesYellowToilet", Count = 7, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "GlassesRedToilet",    Count = 7, DelayBetweenSpawns = 1.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "PoliceToilet",        Count = 6, DelayBetweenSpawns = 3.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[20] = {

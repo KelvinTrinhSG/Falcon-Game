@@ -152,7 +152,7 @@ local ItemConfigurations = {
 		Range = 30,
 		Cooldown = 2,
 		Health = 5000000000,
-		TargetingMode = "FastestFarthest",
+		TargetingMode = "ClosestToEnd",
 	},
 
 	SpeakerGuy = {
