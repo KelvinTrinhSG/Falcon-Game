@@ -45,6 +45,44 @@ end
 -- Controller
 local TurretController = {}
 local _activeTurrets = {}
+local _slowedEnemies = {} -- [enemyModel] = { thread, highlight }
+
+local function applySlowEffect(hitModel: Model, slowConfig: {Duration: number, SpeedMultiplier: number})
+	local humanoid = hitModel:FindFirstChildOfClass("Humanoid")
+	if not humanoid or humanoid.Health <= 0 then return end
+
+	local existing = _slowedEnemies[hitModel]
+
+	if existing then
+		task.cancel(existing.thread)
+	else
+		local highlight = Instance.new("Highlight")
+		highlight.Name = "SlowHighlight"
+		highlight.FillColor = Color3.fromRGB(0, 120, 255)
+		highlight.OutlineColor = Color3.fromRGB(0, 200, 255)
+		highlight.FillTransparency = 0.5
+		highlight.OutlineTransparency = 0
+		highlight.Parent = hitModel
+
+		_slowedEnemies[hitModel] = { highlight = highlight, thread = nil }
+		existing = _slowedEnemies[hitModel]
+	end
+
+	humanoid:SetAttribute("SlowMultiplier", slowConfig.SpeedMultiplier)
+
+	existing.thread = task.delay(slowConfig.Duration, function()
+		if hitModel and hitModel.Parent then
+			local h = hitModel:FindFirstChildOfClass("Humanoid")
+			if h then
+				h:SetAttribute("SlowMultiplier", 1)
+			end
+		end
+		if existing.highlight and existing.highlight.Parent then
+			existing.highlight:Destroy()
+		end
+		_slowedEnemies[hitModel] = nil
+	end)
+end
 
 local function executeFireLogic(data, turretModel: Model)
 	if not data.currentTarget then return end
@@ -88,6 +126,10 @@ local function executeFireLogic(data, turretModel: Model)
 				local healthBefore = hitHumanoid.Health
 
 DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
+
+				if data.config.SlowEffect then
+					applySlowEffect(hitModel, data.config.SlowEffect)
+				end
 
 				local currentDamage = data.plot:GetAttribute("TotalDamage") or 0
 				data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage)
@@ -225,18 +267,76 @@ function TurretController:Start()
 			end
 
 			local turretPosition = turretModel.PrimaryPart.Position
-			local closestTarget, closestDist = nil, data.config.Range
+			local closestTarget = nil
 
-			for _, enemy in ipairs(enemiesFolder:GetChildren()) do
-				local humanoid = enemy:FindFirstChildOfClass("Humanoid")
-				local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
-				local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-
-				if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
-					local dist = (rootPart.Position - turretPosition).Magnitude
-					if dist < closestDist then
-						closestTarget = enemy
-						closestDist = dist
+			if data.config.TargetingMode == "FastestFarthest" then
+				-- Priority 1: farthest distance within range | Priority 2: highest WalkSpeed (tiebreaker)
+				local bestSpeed = -1
+				local bestDist = -1
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist <= data.config.Range then
+							local speed = humanoid.WalkSpeed
+							if dist > bestDist or (dist == bestDist and speed > bestSpeed) then
+								closestTarget = enemy
+								bestSpeed = speed
+								bestDist = dist
+							end
+						end
+					end
+				end
+			elseif data.config.TargetingMode == "ClosestToEnd" then
+				-- Priority 1: highest WaypointIndex (closest to end) | Priority 2: closest distance to turret (tiebreaker)
+				local bestIndex = -1
+				local bestDist = math.huge
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist <= data.config.Range then
+							local wpIndex = enemy:GetAttribute("WaypointIndex") or 0
+							if wpIndex > bestIndex or (wpIndex == bestIndex and dist < bestDist) then
+								closestTarget = enemy
+								bestIndex = wpIndex
+								bestDist = dist
+							end
+						end
+					end
+				end
+			elseif data.config.TargetingMode == "HighestHP" then
+				-- Priority: highest current HP within range
+				local bestHP = -1
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist <= data.config.Range and humanoid.Health > bestHP then
+							closestTarget = enemy
+							bestHP = humanoid.Health
+						end
+					end
+				end
+			else
+				-- Default: closest enemy within range
+				local closestDist = data.config.Range
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist < closestDist then
+							closestTarget = enemy
+							closestDist = dist
+						end
 					end
 				end
 			end
@@ -256,7 +356,7 @@ function TurretController:Start()
 			end
 
 			local waveSpeedMultiplier = data.plot:GetAttribute("WaveSpeed") or 1
-			local currentFireRate = data.config.FireRate * waveSpeedMultiplier
+			local currentCooldown = data.config.Cooldown / waveSpeedMultiplier
 
 			if not data.currentTarget then
 				if data.attackTrack and data.attackTrack.IsPlaying then data.attackTrack:Stop() end
@@ -268,7 +368,7 @@ function TurretController:Start()
 				continue
 			end
 
-			if now - data.lastFireTime < (1 / currentFireRate) then
+			if now - data.lastFireTime < currentCooldown then
 				continue
 			end
 

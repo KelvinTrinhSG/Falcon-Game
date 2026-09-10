@@ -144,9 +144,10 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 	end)
 
 	task.spawn(function()
-		for _, wp in ipairs(waypoints) do
+		for waypointIdx, wp in ipairs(waypoints) do
 			if not enemy.Parent or humanoid.Health <= 0 or not state.IsActive then break end
 
+			enemy:SetAttribute("WaypointIndex", waypointIdx)
 			if goalValue then goalValue.Value = wp end
 
 			local reached = false
@@ -234,7 +235,8 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 
 				if not isBlocked then
 						local baseSpeed = humanoid:GetAttribute("BaseWalkSpeed") or 16
-						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1)
+						local slowMult = humanoid:GetAttribute("SlowMultiplier") or 1
+						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1) * slowMult
 						humanoid:MoveTo(wp.Position)
 				end
 			end

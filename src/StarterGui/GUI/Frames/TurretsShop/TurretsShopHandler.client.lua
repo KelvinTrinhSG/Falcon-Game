@@ -220,8 +220,8 @@ if restockButton and restockConfig then
 end
 
 local initialStocksSuccess, initialStocks = pcall(getStocks.InvokeServer, getStocks)
-if initialStocksSuccess and initialStocks then
+if initialStocksSuccess and initialStocks and next(initialStocks) and not next(currentStocks) then
 	currentStocks = initialStocks
-else
+elseif not initialStocksSuccess then
 	warn("[TurretsShopHandler] Could not get initial stocks on startup.")
 end
