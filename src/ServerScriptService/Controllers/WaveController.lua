@@ -234,7 +234,8 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 
 				if not isBlocked then
 						local baseSpeed = humanoid:GetAttribute("BaseWalkSpeed") or 16
-						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1)
+						local slowMult = humanoid:GetAttribute("SlowMultiplier") or 1
+						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1) * slowMult
 						humanoid:MoveTo(wp.Position)
 				end
 			end

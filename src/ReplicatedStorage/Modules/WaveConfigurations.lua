@@ -11,73 +11,73 @@ local WaveConfigurations = {
 	-- CYCLE 1 (Waves 1-10) - Khởi Đầu
 	-- ==========================================
 	[1] = {
-		CashReward = 10,
+		CashReward = 30,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 3, DelayBetweenSpawns = 3, Path = "WayPoints1"},
+			{Enemy = "SmallYellowToilet", Count = 3, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[2] = {
-		CashReward = 15,
+		CashReward = 50,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints2", "WayPoints3", "WayPoints2", "WayPoints3", "WayPoints2"}},
+			{Enemy = "SmallYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	[3] = {
-		CashReward = 20,
+		CashReward = 70,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints1", "WayPoints2", "WayPoints3", "WayPoints1"}},
+			{Enemy = "SmallYellowToilet", Count = 7, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
 		},
 	},
 	[4] = {
-		CashReward = 30,
+		CashReward = 100,
 		Enemies = {
 			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	-- SmallRedToilet solo intro
 	[5] = {
-		CashReward = 40,
+		CashReward = 150,
 		Enemies = {
-			{Enemy = "SmallRedToilet", Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallRedToilet", Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints1", "WayPoints2"}},
 		},
 	},
 	[6] = {
-		CashReward = 50,
+		CashReward = 220,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 6, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
-			{Enemy = "SmallRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints2", "WayPoints3", "WayPoints2"}},
+			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints2", "WayPoints3", "WayPoints2", "WayPoints3", "WayPoints2"}},
 		},
 	},
 	-- LargeToilet solo intro
 	[7] = {
 		CashReward = 65,
 		Enemies = {
-			{Enemy = "LargeToilet", Count = 2, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2"}},
+			{Enemy = "LargeToilet", Count = 3, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[8] = {
-		CashReward = 80,
+		CashReward = 300,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 3, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "SmallRedToilet",    Count = 2, DelayBetweenSpawns = 1.5, Path = {"WayPoints2", "WayPoints3"}},
-			{Enemy = "LargeToilet",       Count = 1, DelayBetweenSpawns = 4.0, Path = "WayPoints1"},
+			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallRedToilet",    Count = 6, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "LargeToilet",       Count = 3, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[9] = {
-		CashReward = 100,
+		CashReward = 350,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 4, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
-			{Enemy = "SmallRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints2", "WayPoints3", "WayPoints2"}},
-			{Enemy = "LargeToilet",       Count = 1, DelayBetweenSpawns = 4.0, Path = "WayPoints1"},
+			{Enemy = "SmallYellowToilet", Count = 6, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "SmallRedToilet",    Count = 6, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "LargeToilet",       Count = 6, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[10] = {
-		CashReward = 150,
+		CashReward = 400,
 		UnlocksStartingWave = 5,
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 4, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
-			{Enemy = "SmallRedToilet",    Count = 4, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
-			{Enemy = "LargeToilet",       Count = 2, DelayBetweenSpawns = 4.0, Path = {"WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "SmallRedToilet",    Count = 9, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "LargeToilet",       Count = 9, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 

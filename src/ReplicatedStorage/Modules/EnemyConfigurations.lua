@@ -7,7 +7,7 @@ local EnemyConfigurations = {
 	-- Conçu pour être géré par Old Turret (DPS ~50) et Modern Turret
 	-- ==========================================
 	["SmallYellowToilet"] = {
-		CashReward = 1,
+		CashReward = 3,
 		MaxHealth = 100,
 		Damage = 5,
 		AttackCooldown = 1,
@@ -15,8 +15,8 @@ local EnemyConfigurations = {
 		BaseDamage = 10,
 	},
 	["SmallRedToilet"] = {
-		CashReward = 2,
-		MaxHealth = 50,
+		CashReward = 5,
+		MaxHealth = 75,
 		Damage = 3,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
@@ -24,7 +24,7 @@ local EnemyConfigurations = {
 	},
 	["LargeToilet"] = {
 		CashReward = 3,
-		MaxHealth = 200,
+		MaxHealth = 500,
 		Damage = 15,
 		WalkSpeed = 6,
 		BaseDamage = 20,
