@@ -14,22 +14,16 @@ local LimitedTurretController = {}
 local stockDataStore = DataStoreService:GetDataStore("GlobalItemStock")
 local MAX_STOCK = 999
 
--- One DataStore key per limited item
-local STOCK_KEYS: {[string]: string} = {
-	TitanCameraGuy  = "TitanCameraGuyStock",
-	TitanTVMan      = "TitanTVManStock",
-	TitanSpeakerman = "TitanSpeakermanStock",
-}
+-- One DataStore key per limited item.
+-- TitanCameraGuy / TitanTVMan / TitanSpeakerman đã chuyển sang bán trong Turrets Shop
+-- (roll Chance/StockAmount như turret thường) -> KHÔNG còn kho global 999.
+-- Bảng này giờ rỗng; mọi limited turret rơi vào nhánh "grant directly" của ProcessPurchase.
+local STOCK_KEYS: {[string]: string} = {}
 
 -- Remotes
 local getStockFunc = ReplicatedStorage.Functions:WaitForChild("GetLimitedTurretStock")
 local stockUpdatedEvent = ReplicatedStorage.Events:WaitForChild("LimitedTurretStockUpdated")
 local showNotificationEvent = ReplicatedStorage.Events:WaitForChild("ShowNotification")
-
--- true nếu turret này có kho global toàn server (nằm trong STOCK_KEYS).
-function LimitedTurretController:IsStockTracked(itemId: string): boolean
-	return STOCK_KEYS[itemId] ~= nil
-end
 
 function LimitedTurretController:GetStock(itemId: string): number
 	local key = STOCK_KEYS[itemId]
@@ -48,33 +42,6 @@ function LimitedTurretController:GetStock(itemId: string): number
 		warn("Could not get stock for", itemId, ":", stock)
 		return 0
 	end
-end
-
--- Trừ 1 đơn vị khỏi kho global của một limited item.
--- Trả về true nếu trừ được, false nếu đã hết hàng / item không có kho global / lỗi DataStore.
--- Dùng cho đường mua bằng Cash (BlocksShopController) — đường Robux vẫn đi qua ProcessPurchase.
-function LimitedTurretController:ConsumeStock(itemId: string): boolean
-	local key = STOCK_KEYS[itemId]
-	if not key then return false end
-
-	local success, newStock = pcall(function()
-		return stockDataStore:IncrementAsync(key, -1)
-	end)
-	if not success then
-		warn("Could not consume stock for", itemId, ":", newStock)
-		return false
-	end
-
-	if newStock >= 0 then
-		stockUpdatedEvent:FireAllClients(itemId, newStock)
-		return true
-	end
-
-	-- Hết hàng: hoàn lại đơn vị vừa trừ
-	pcall(function()
-		stockDataStore:IncrementAsync(key, 1)
-	end)
-	return false
 end
 
 function LimitedTurretController:ProcessPurchase(player: Player, itemId: string)
