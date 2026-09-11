@@ -154,6 +154,7 @@ local WaveConfigurations = {
 		UnlocksStartingWave = 15,
 		IsBossWave = true,
 		AlwaysBoss = true,
+		BossImageId = "rbxassetid://81446192290144",
 		Enemies = {
 			{Enemy = "BossToilet",          Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
 			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 2.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
