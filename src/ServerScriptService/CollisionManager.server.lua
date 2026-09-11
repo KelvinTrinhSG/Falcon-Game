@@ -11,6 +11,7 @@ local Workspace = game:GetService("Workspace")
 pcall(function()
 	PhysicsService:RegisterCollisionGroup("Zombies")
 	PhysicsService:RegisterCollisionGroup("PlacedItems")
+	PhysicsService:RegisterCollisionGroup("Players")
 end)
 
 -- ==========================================
