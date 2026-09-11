@@ -178,7 +178,8 @@ DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 
 		if not hitSomething then
 			if isDebug then
-				print("[DEBUG LSC] MISS - ray hit:", result and result.Instance and result.Instance.Name or "nothing")
+				local hitInst = result and result.Instance
+				print("[DEBUG LSC] MISS - ray hit:", hitInst and hitInst:GetFullName() or "nothing")
 			end
 			if ownerPlayer then
 				TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, origin + direction * data.config.Range)
