@@ -132,11 +132,11 @@ local EnemyConfigurations = {
 		BaseDamage = 40,
 	},
 	["FlyingBuzzsawToilet"] = {
-		CashReward = 600,
-		MaxHealth = 7500,
-		Damage = 750,
-		WalkSpeed = 15,
-		BaseDamage = 60,
+		CashReward = 850,
+		MaxHealth = 75000,
+		Damage = 1350,
+		WalkSpeed = 6,
+		BaseDamage = 70,
 		IsFlying = true,
 	},
 
@@ -172,19 +172,20 @@ local EnemyConfigurations = {
 	-- Tourelles recommandées : Stars (1000 Dmg) & Lava (2500 Dmg)
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
-		CashReward = 10,
-		MaxHealth = 500,
-		Damage = 25,
+		CashReward = 200,
+		MaxHealth = 15000,
+		Damage = 450,
 		WalkSpeed = 10,
-		BaseDamage = 20,
+		BaseDamage = 50,
 		IsFlying = true,
 	},
 	["HelicopterParasiteRedToilet"] = {
-		CashReward = 20,
-		MaxHealth = 250,
-		Damage = 15,
+		CashReward = 350,
+		MaxHealth = 11250,
+		Damage = 270,
 		WalkSpeed = 25,
-		BaseDamage = 25,
+		AttackCooldown = 0.5,
+		BaseDamage = 60,
 		IsFlying = true,
 	},
 	["LargePoliceToilet"] = {

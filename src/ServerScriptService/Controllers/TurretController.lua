@@ -324,6 +324,21 @@ function TurretController:Start()
 						end
 					end
 				end
+			elseif data.config.TargetingMode == "HighestSpeed" then
+				-- Priority: highest WalkSpeed within range
+				local bestSpeed = -1
+				for _, enemy in ipairs(enemiesFolder:GetChildren()) do
+					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
+					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+						local dist = (rootPart.Position - turretPosition).Magnitude
+						if dist <= data.config.Range and humanoid.WalkSpeed > bestSpeed then
+							closestTarget = enemy
+							bestSpeed = humanoid.WalkSpeed
+						end
+					end
+				end
 			else
 				-- Default: closest enemy within range
 				local closestDist = data.config.Range

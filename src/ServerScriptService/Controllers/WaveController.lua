@@ -284,7 +284,8 @@ startNextWave = function(player: Player, plot: Model)
 	end
 
 	-- Kiểm tra trước khi update HighestWave: nếu đã từng qua wave này thì boss không spawn lại
-	local alreadyBeaten = waveConfig.IsBossWave and (profile.Data.HighestWave >= state.CurrentWave)
+	-- AlwaysBoss = true thì boss luôn spawn bất kể đã qua wave chưa
+	local alreadyBeaten = waveConfig.IsBossWave and not waveConfig.AlwaysBoss and (profile.Data.HighestWave >= state.CurrentWave)
 
 	if state.CurrentWave > profile.Data.HighestWave then
 		profile.Data.HighestWave = state.CurrentWave
