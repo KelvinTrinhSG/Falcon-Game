@@ -19,7 +19,6 @@ function DamageHandler.dealDamage(source: Instance, target: Instance, damageAmou
 		if model and model:GetAttribute("IsInvincible") then return false end
 
 		humanoid:TakeDamage(damageAmount)
-		print(string.format("[DamageHandler] TakeDamage → %s | -%d | HP after: %d", target.Name, damageAmount, humanoid.Health))
 
 		-- Only highlight if the target is still alive
 		if humanoid.Health > 0 then
