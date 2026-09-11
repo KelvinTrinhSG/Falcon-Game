@@ -146,11 +146,16 @@ end
 local function resetAdminData(player: Player)
 	if player.UserId ~= ADMIN_ID then return end
 
-	task.wait(2)
-
 	local profile = PlayerController:GetProfile(player)
+	local waited = 0
+	while not profile and waited < 30 do
+		task.wait(0.5)
+		waited += 0.5
+		profile = PlayerController:GetProfile(player)
+	end
+
 	if not profile then
-		warn("[AdminResetData] Không tìm thấy profile!")
+		warn("[AdminResetData] Không tìm thấy profile sau 30s!")
 		return
 	end
 
