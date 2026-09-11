@@ -385,9 +385,6 @@ function TurretController:Start()
 			local waveSpeedMultiplier = data.plot:GetAttribute("WaveSpeed") or 1
 			local currentCooldown = data.config.Cooldown / waveSpeedMultiplier
 
-			if turretModel.Name == "LargeScientistCameraman" then
-				print(string.format("[DEBUG LSC] Cooldown config: %.2f | WaveSpeed: %.1f | Effective: %.2f", data.config.Cooldown, waveSpeedMultiplier, currentCooldown))
-			end
 
 			if not data.currentTarget then
 				if data.attackTrack and data.attackTrack.IsPlaying then data.attackTrack:Stop() end
@@ -404,6 +401,9 @@ function TurretController:Start()
 			end
 
 			if now - data.lockOnTime >= 0.1 then
+				if turretModel.Name == "LargeScientistCameraman" and data.lastFireTime > 0 then
+					print(string.format("[DEBUG LSC] Interval: %.3fs", now - data.lastFireTime))
+				end
 				data.lastFireTime = now
 				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
 				if data.attackTrack then
