@@ -55,4 +55,3 @@ end
 -- On écoute en permanence chaque fois qu'un joueur pose une nouvelle tourelle/bloc
 plotsFolder.DescendantAdded:Connect(applyCollisionGroup)
 
-print("🛡️ CollisionManager : Slimes et Tourelles se traverseront sans se bloquer !")

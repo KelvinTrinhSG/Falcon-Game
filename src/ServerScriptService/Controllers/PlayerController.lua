@@ -64,7 +64,6 @@ local function UpdateAllPlayersMultiplier()
 			if NO_MULTIPLIER_IDS[p1.UserId] then
 				p1:SetAttribute("CashMultiplier", 1)
 				p1:SetAttribute("ActiveFriendsCount", 0)
-				print(`[Multiplier] {p1.Name} (UserId={p1.UserId}) bị chặn x2 → CashMultiplier = 1`)
 				return
 			end
 
@@ -89,7 +88,6 @@ local function UpdateAllPlayersMultiplier()
 			-- Optionnel: Tu peux aussi stocker le nombre d'amis pour ton GUI
 			p1:SetAttribute("ActiveFriendsCount", friendCount)
 
-			print(`[Multiplier] {p1.Name} → BaseMult={baseMult}, Friends={friendCount}, Final={finalMult}`)
 		end)
 	end
 end
@@ -208,7 +206,6 @@ local function onPlayerAdded(player: Player)
 		UpdateAllPlayersMultiplier()
 	end)
 
-	print(`Player {player.Name} joined and data was loaded successfully.`)
 end
 
 local function onPlayerRemoving(player: Player)
@@ -216,7 +213,6 @@ local function onPlayerRemoving(player: Player)
 	if profile then
 		profile:EndSession()
 		_profiles[player] = nil
-		print(`Player {player.Name} left. Data session ended.`)
 	end
 
 	-- On recalcule le boost des joueurs restants
@@ -237,8 +233,7 @@ function PlayerController:Start()
 	MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gamePassId, wasPurchased)
 		if wasPurchased then
 			if NO_MULTIPLIER_IDS[player.UserId] then
-				print(`[Multiplier] {player.Name} mua gamepass nhưng bị chặn x2, bỏ qua.`)
-				return
+					return
 			end
 
 			local currentBase = player:GetAttribute("BaseCashMultiplier") or 1

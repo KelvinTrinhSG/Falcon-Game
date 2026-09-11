@@ -7,6 +7,5 @@ function PhysicsController:Start()
 	PhysicsService:CollisionGroupSetCollidable("Zombies", "Zombies", false)
 	PhysicsService:CollisionGroupSetCollidable("Zombies", "Players", false)
 	PhysicsService:CollisionGroupSetCollidable("Players", "Players", false)
-	print("Custom collision groups for Players and Zombies have been configured.")
 end
 return PhysicsController

@@ -291,7 +291,6 @@ end)
 local highlightZombieEvent = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
 highlightZombieEvent.OnClientEvent:Connect(function(zombieModel: Model)
 	if not zombieModel or not zombieModel.Parent then return end
-	print(string.format("[ClientFXController] HighlightZombie → %s", zombieModel.Name))
 	local highlight = Instance.new("Highlight")
 	highlight.FillColor = Color3.fromRGB(255, 0, 0)
 	highlight.FillTransparency = 0.5

@@ -20,7 +20,6 @@ local function setupSignForPlot(plot)
 
 	local function updateDisplay()
 		local ownerId = plot:GetAttribute("OwnerId")
-		print("--- Updating sign for " .. plot.Name .. " | OwnerId: " .. tostring(ownerId))
 
 		if ownerId and ownerId > 0 then
 			-- 1. NOM DU JOUEUR
@@ -48,7 +47,6 @@ local function setupSignForPlot(plot)
 
 		elseif ownerId and ownerId < 0 then
 			-- CAS SPÉCIAL : Test Studio (ID négatif)
-			print("Détection d'un joueur de test (ID négatif)")
 			if nameText then nameText.Text = "Mode Test" end
 			if icon then icon.Image = "rbxassetid://15419830" end
 		else
