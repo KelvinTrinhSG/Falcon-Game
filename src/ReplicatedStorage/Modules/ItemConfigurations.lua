@@ -4,7 +4,7 @@ local ItemConfigurations = {
 	RockBlock = {
 		DisplayName = "Rock Block",
 		Type = "Blocks",
-		Price = 25,
+		Price = 100,
 		ImageId = "rbxassetid://136783950073385",
 		ProductID = 3710658637,
 		Unlimited = false,
@@ -16,7 +16,7 @@ local ItemConfigurations = {
 	ConcreteBlock = {
 		DisplayName = "Concrete Block",
 		Type = "Blocks",
-		Price = 75,
+		Price = 200,
 		ImageId = "rbxassetid://114128595436055",
 		ProductID = 3710658669,
 		Unlimited = false,
@@ -28,13 +28,13 @@ local ItemConfigurations = {
 	IceBlock = {
 		DisplayName = "Ice Block",
 		Type = "Blocks",
-		Price = 150,
+		Price = 300,
 		ImageId = "rbxassetid://103260168489888",
 		ProductID = 3710658705,
 		Unlimited = false,
 		Chance = 80,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 100,
+		Health = 150,
 	},
 
 	FireBlock = {
@@ -46,7 +46,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 70,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 125,
+		Health = 200,
 	},
 
 	LavaBlock = {
