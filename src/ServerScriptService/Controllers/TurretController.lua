@@ -105,6 +105,11 @@ local function executeFireLogic(data, turretModel: Model)
 			table.insert(ignoreList, item)
 		end
 	end
+	for _, p in ipairs(Players:GetPlayers()) do
+		if p.Character then
+			table.insert(ignoreList, p.Character)
+		end
+	end
 	raycastParams.FilterDescendantsInstances = ignoreList
 
 	for _, attachment in ipairs(data.attachments) do
