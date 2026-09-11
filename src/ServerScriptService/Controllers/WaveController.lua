@@ -514,7 +514,10 @@ stopFight = function(plot: Model, reason: string)
 		end
 	end
 	_plotStates[plot] = nil
+	_playerSpeeds[player] = 1
+	plot:SetAttribute("WaveSpeed", 1)
 	if player then
+		player:SetAttribute("WaveSpeedMultiplier", 1)
 		if reason == "manual" then
 			ReplicatedStorage.Events.EquipLastWeaponRequest:FireClient(player)
 		end
