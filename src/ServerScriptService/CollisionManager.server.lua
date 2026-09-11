@@ -18,6 +18,8 @@ end)
 -- ==========================================
 -- On dit à Roblox : Les Zombies et les Objets Placés se traversent !
 PhysicsService:CollisionGroupSetCollidable("Zombies", "PlacedItems", false)
+-- Players cũng đi xuyên qua turret/block
+PhysicsService:CollisionGroupSetCollidable("Players", "PlacedItems", false)
 
 -- ==========================================
 -- 3️⃣ APPLICATION AUTOMATIQUE
