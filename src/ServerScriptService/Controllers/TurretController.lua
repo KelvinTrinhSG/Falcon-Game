@@ -89,7 +89,7 @@ local function executeFireLogic(data, turretModel: Model)
 	local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
 	if not targetRoot then return end
 
-	local isDebug = turretModel:GetAttribute("ItemId") == "LargeScientistCameraman"
+	local isDebug = turretModel.Name == "LargeScientistCameraman"
 	if isDebug then
 		print("[DEBUG LSC] Firing at:", data.currentTarget.Name)
 	end
