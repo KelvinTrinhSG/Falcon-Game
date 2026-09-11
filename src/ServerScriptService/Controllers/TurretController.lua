@@ -89,10 +89,6 @@ local function executeFireLogic(data, turretModel: Model)
 	local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
 	if not targetRoot then return end
 
-	local isDebug = turretModel.Name == "LargeScientistCameraman"
-	if isDebug then
-		print("[DEBUG LSC] Firing at:", data.currentTarget.Name)
-	end
 
 	local ownerId = data.plot:GetAttribute("OwnerId")
 	local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
@@ -138,9 +134,6 @@ local function executeFireLogic(data, turretModel: Model)
 
 			if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
 				local healthBefore = hitHumanoid.Health
-				if isDebug then
-					print("[DEBUG LSC] HIT:", hitModel.Name, "| HP before:", healthBefore, "| Damage:", data.config.Damage)
-				end
 
 DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 
@@ -181,10 +174,6 @@ DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 		end
 
 		if not hitSomething then
-			if isDebug then
-				local hitInst = result and result.Instance
-				print("[DEBUG LSC] MISS - ray hit:", hitInst and hitInst:GetFullName() or "nothing")
-			end
 			if ownerPlayer then
 				TurretFiredFX:FireClient(ownerPlayer, turretModel, origin, origin + direction * data.config.Range)
 			end
