@@ -198,7 +198,7 @@ local ItemConfigurations = {
 		Chance = 90,
 		StockAmount = {Min = 1, Max = 5},
 		Damage = 500,
-		Range = 30,
+		Range = 35,
 		Cooldown = 1.8,
 		Health = 5000000000,
 		TargetingMode = "ClosestToEnd",
