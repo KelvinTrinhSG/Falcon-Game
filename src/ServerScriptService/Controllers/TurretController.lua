@@ -110,6 +110,10 @@ local function executeFireLogic(data, turretModel: Model)
 			table.insert(ignoreList, p.Character)
 		end
 	end
+	local path = data.plot:FindFirstChild("Path")
+	if path then
+		table.insert(ignoreList, path)
+	end
 	raycastParams.FilterDescendantsInstances = ignoreList
 
 	for _, attachment in ipairs(data.attachments) do
