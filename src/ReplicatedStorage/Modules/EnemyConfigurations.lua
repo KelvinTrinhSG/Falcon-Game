@@ -133,8 +133,8 @@ local EnemyConfigurations = {
 	},
 	["FlyingBuzzsawToilet"] = {
 		CashReward = 850,
-		MaxHealth = 60000,
-		Damage = 1080,
+		MaxHealth = 50000,
+		Damage = 900,
 		WalkSpeed = 6,
 		BaseDamage = 70,
 		IsFlying = true,
@@ -173,16 +173,16 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["HelicopterParasiteYellowToilet"] = {
 		CashReward = 200,
-		MaxHealth = 12000,
-		Damage = 360,
+		MaxHealth = 10000,
+		Damage = 300,
 		WalkSpeed = 10,
 		BaseDamage = 50,
 		IsFlying = true,
 	},
 	["HelicopterParasiteRedToilet"] = {
 		CashReward = 350,
-		MaxHealth = 9000,
-		Damage = 216,
+		MaxHealth = 7500,
+		Damage = 180,
 		WalkSpeed = 25,
 		AttackCooldown = 0.5,
 		BaseDamage = 60,
