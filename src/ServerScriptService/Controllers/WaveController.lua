@@ -125,7 +125,7 @@ local function getPathFolder(plot: Model, pathConfig: (string | {string})?, spaw
 	return getRandomPathFolder(plot)
 end
 
-local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?, preSelectedFolder: Folder?)
+local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: Model, state: table, goalValue: ObjectValue, enemyConfig: table, attackTrack: AnimationTrack?, preSelectedFolder: Folder?, startWaypointIndex: number?)
 	local pathFolder = plot:FindFirstChild("Path")
 	local waypointsFolder = pathFolder and pathFolder:FindFirstChild("Waypoints")
 	local isFlying = enemy:GetAttribute("IsFlying") == true
@@ -153,8 +153,10 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 		return a.Name < b.Name
 	end)
 
+	local startIdx = startWaypointIndex or 1
 	task.spawn(function()
 		for waypointIdx, wp in ipairs(waypoints) do
+			if waypointIdx < startIdx then continue end
 			if not enemy.Parent or humanoid.Health <= 0 or not state.IsActive then break end
 
 			enemy:SetAttribute("WaypointIndex", waypointIdx)
@@ -542,7 +544,8 @@ startNextWave = function(player: Player, plot: Model)
 
 								local seGoal = Instance.new("ObjectValue")
 								seGoal.Name = "Goal"
-								seGoal.Value = plot:FindFirstChild("Core1")
+								local _core1 = plot:FindFirstChild("Core1")
+								seGoal.Value = (_core1 and _core1:IsA("Model") and _core1.PrimaryPart) or _core1
 								seGoal.Parent = se
 
 								local seOwner = Instance.new("ObjectValue")
@@ -600,7 +603,12 @@ startNextWave = function(player: Player, plot: Model)
 									seAttackTrack = seAnimator:LoadAnimation(seAnim)
 								end
 
-								moveEnemyAlongWaypoints(se, sh, plot, state, seGoal, sc, seAttackTrack, selectedFolder)
+								local summonerWpIdx = enemy:GetAttribute("WaypointIndex") or 1
+								moveEnemyAlongWaypoints(se, sh, plot, state, seGoal, sc, seAttackTrack, selectedFolder, summonerWpIdx)
+
+								if _ < summonCfg.Count then
+									task.wait(1)
+								end
 							end
 							task.wait(summonCfg.Cooldown)
 						end
