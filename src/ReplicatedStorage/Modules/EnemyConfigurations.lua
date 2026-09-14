@@ -37,7 +37,7 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["AssassinYellowToilet"] = {
 		CashReward = 400,
-		MaxHealth = 16000,
+		MaxHealth = 80000,
 		Damage = 1200,
 		AttackCooldown = 1,
 		WalkSpeed = 10,
@@ -46,7 +46,7 @@ local EnemyConfigurations = {
 	},
 	["AssassinRedToilet"] = {
 		CashReward = 700,
-		MaxHealth = 12000,
+		MaxHealth = 60000,
 		Damage = 720,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
@@ -55,7 +55,7 @@ local EnemyConfigurations = {
 	},
 	["PoliceToilet"] = {
 		CashReward = 1700,
-		MaxHealth = 80000,
+		MaxHealth = 400000,
 		Damage = 3600,
 		AttackCooldown = 2,
 		WalkSpeed = 6,
@@ -68,16 +68,15 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["GlassesYellowToilet"] = {
 		CashReward = 400,
-		MaxHealth = 16000,
+		MaxHealth = 80000,
 		Damage = 1200,
 		AttackCooldown = 1,
 		WalkSpeed = 10,
 		BaseDamage = 100,
-		IsStealthed = true,
 	},
 	["GlassesRedToilet"] = {
 		CashReward = 700,
-		MaxHealth = 12000,
+		MaxHealth = 60000,
 		Damage = 720,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
@@ -112,7 +111,7 @@ local EnemyConfigurations = {
 	},
 	["DualBladeToilet"] = {
 		CashReward = 1700,
-		MaxHealth = 80000,
+		MaxHealth = 400000,
 		Damage = 3600,
 		AttackCooldown = 2,
 		WalkSpeed = 6,
@@ -313,7 +312,7 @@ local EnemyConfigurations = {
 	},
 	["BossToilet2"] = {
 		CashReward = 3000,
-		MaxHealth = 3200000,
+		MaxHealth = 16000000,
 		Damage = 144000,
 		WalkSpeed = 4,
 		BaseDamage = 1200,
