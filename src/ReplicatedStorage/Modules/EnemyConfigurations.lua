@@ -96,18 +96,20 @@ local EnemyConfigurations = {
 	-- Conçu pour Bunker Turret (700 Dmg) et Stars (1000 Dmg)
 	-- ==========================================
 	["DJYellowToilet"] = {
-		CashReward = 10,
-		MaxHealth = 1200,
-		Damage = 45,
-		WalkSpeed = 11,
-		BaseDamage = 25,
+		CashReward = 8500,
+		MaxHealth = 128000,
+		Damage = 5760,
+		AttackCooldown = 1,
+		WalkSpeed = 10,
+		BaseDamage = 150,
 	},
 	["DJRedToilet"] = {
-		CashReward = 11,
-		MaxHealth = 850,
-		Damage = 35,
+		CashReward = 14875,
+		MaxHealth = 96000,
+		Damage = 3456,
+		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 30,
+		BaseDamage = 160,
 	},
 	["DualBladeToilet"] = {
 		CashReward = 1700,
@@ -276,11 +278,12 @@ local EnemyConfigurations = {
 		BaseDamage = 70,
 	},
 	["UFOToilet"] = {
-		CashReward = 29,
-		MaxHealth = 70000,
-		Damage = 1000,
-		WalkSpeed = 14,
-		BaseDamage = 85,
+		CashReward = 36125,
+		MaxHealth = 640000,
+		Damage = 17280,
+		AttackCooldown = 2,
+		WalkSpeed = 10,
+		BaseDamage = 180,
 		IsFlying = true,
 	},
 	["RocketToilet"] = {

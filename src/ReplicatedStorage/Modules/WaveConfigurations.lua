@@ -325,77 +325,73 @@ local WaveConfigurations = {
 	-- CYCLE 5 (Waves 41-50) - Nature
 	-- ==========================================
 	[41] = {
-		CashReward = 220,
+		CashReward = 10000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 4, DelayBetweenSpawns = 1.3},
+			{Enemy = "DJYellowToilet", Count = 3, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[42] = {
-		CashReward = 225,
+		CashReward = 11000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 6, DelayBetweenSpawns = 1.1},
+			{Enemy = "DJYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	[43] = {
-		CashReward = 230,
+		CashReward = 12000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 8, DelayBetweenSpawns = 1.0},
+			{Enemy = "DJYellowToilet", Count = 7, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
 		},
 	},
-	-- VacuumRedToilet solo intro
 	[44] = {
-		CashReward = 235,
+		CashReward = 13000,
 		Enemies = {
-			{Enemy = "VacuumRedToilet", Count = 3, DelayBetweenSpawns = 1.5},
+			{Enemy = "DJRedToilet", Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[45] = {
-		CashReward = 240,
+		CashReward = 14000,
 		UnlocksStartingWave = 40,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 8, DelayBetweenSpawns = 0.9},
-			{Enemy = "VacuumRedToilet",    Count = 3, DelayBetweenSpawns = 1.3},
+			{Enemy = "DJYellowToilet", Count = 5, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "DJRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
-	-- GlitchToilet solo intro
 	[46] = {
-		CashReward = 250,
+		CashReward = 15000,
 		Enemies = {
-			{Enemy = "GlitchToilet", Count = 3, DelayBetweenSpawns = 3.0},
+			{Enemy = "DJYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "DJRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	[47] = {
-		CashReward = 260,
+		CashReward = 16000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 6, DelayBetweenSpawns = 0.9},
-			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.1},
-			{Enemy = "GlitchToilet",       Count = 1, DelayBetweenSpawns = 2.8},
+			{Enemy = "UFOToilet", Count = 3, DelayBetweenSpawns = 4, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[48] = {
-		CashReward = 270,
+		CashReward = 17000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 6, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "GlitchToilet",       Count = 2, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "DJRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "UFOToilet",      Count = 2, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2"}},
 		},
 	},
 	[49] = {
-		CashReward = 280,
+		CashReward = 18000,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet", Count = 5, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",    Count = 5, DelayBetweenSpawns = 1.0},
-			{Enemy = "GlitchToilet",       Count = 3, DelayBetweenSpawns = 2.3},
+			{Enemy = "DJYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "DJRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "UFOToilet",      Count = 3, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[50] = {
-		CashReward = 370,
+		CashReward = 19000,
 		UnlocksStartingWave = 45,
 		Enemies = {
-			{Enemy = "VacuumYellowToilet",    Count = 4, DelayBetweenSpawns = 0.8},
-			{Enemy = "VacuumRedToilet",       Count = 5, DelayBetweenSpawns = 0.9},
-			{Enemy = "GlitchToilet",          Count = 3, DelayBetweenSpawns = 2.3},
-			{Enemy = "DualBladeYellowToilet", Count = 1, DelayBetweenSpawns = 2.5},
+			{Enemy = "DJYellowToilet", Count = 9, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "DJRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "UFOToilet",      Count = 5, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 
