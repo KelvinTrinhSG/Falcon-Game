@@ -47,7 +47,7 @@ function ShopController:Restock(player: Player, suppressNotification: boolean?, 
 			elseif math.random() * 100 <= config.Chance then
 				newStock[itemId] = math.random(config.StockAmount.Min, config.StockAmount.Max)
 			else
-				newStock[itemId] = 0
+				newStock[itemId] = 1
 			end
 		end
 	end
