@@ -310,6 +310,7 @@ local WaveConfigurations = {
 	[40] = {
 		CashReward = 6000,
 		IsBossWave = true,
+		AlwaysBoss = true,
 		UnlocksStartingWave = 35,
 		BossImageId = "rbxassetid://81446192290144",
 		Enemies = {
