@@ -1,4 +1,4 @@
---#ReplicatedStorage>Modules>ItemConfigurations
+﻿--#ReplicatedStorage>Modules>ItemConfigurations
 local ItemConfigurations = {
 	--BLOCKS
 	RockBlock = {
@@ -82,7 +82,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 40,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 3600,
+		Health = 12000,
 	},
 
 	PlasmaBlock = {
@@ -94,7 +94,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 35,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 4800,
+		Health = 24000,
 	},
 
 	CyberBlock = {
