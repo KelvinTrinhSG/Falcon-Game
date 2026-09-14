@@ -2,6 +2,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local Debris = game:GetService("Debris")
+local Workspace = game:GetService("Workspace")
 
 -- Modules
 local Maid = require(ReplicatedStorage.Modules.Maid)
@@ -24,59 +25,98 @@ local SwingSound = handle:WaitForChild("SwingSound1")
 -- Events
 local HighlightZombie = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
 
--- Only allow hits during the active swing window
-local SWING_WINDOW = 0.7
+local HITBOX_SIZE = Vector3.new(4, 4, 7)
+local SWING_COOLDOWN = 0.8
 
--- Track which enemies were already hit this swing (1 hit per enemy per swing)
 local hitThisSwing = {}
+local isSwinging = false
 
-local function onBladeTouched(hit: BasePart)
-	if not hit or not hit.Parent then return end
+local function showDebugHitbox(cf: CFrame)
+	local box = Instance.new("Part")
+	box.Name = "DEBUG_Hitbox"
+	box.Size = HITBOX_SIZE
+	box.CFrame = cf
+	box.Anchored = true
+	box.CanCollide = false
+	box.CanTouch = false
+	box.CanQuery = false
+	box.Transparency = 0.5
+	box.Color = Color3.fromRGB(255, 100, 0)
+	box.Material = Enum.Material.Neon
+	box.Parent = Workspace
+	Debris:AddItem(box, 0.1)
+end
 
-	local hitModel = hit:FindFirstAncestorOfClass("Model")
-	if not hitModel then return end
+local function doHitbox()
+	local overlapParams = OverlapParams.new()
+	overlapParams.FilterType = Enum.RaycastFilterType.Exclude
+	overlapParams.FilterDescendantsInstances = { tool.Parent }
 
-	local humanoid = hitModel:FindFirstChildOfClass("Humanoid")
-	if not humanoid or humanoid.Health <= 0 then return end
-	if not hitModel:FindFirstChild("Goal") then return end
-	if hitModel:GetAttribute("IsFlying") then return end
+	local hitboxCFrame = blade.CFrame
+	showDebugHitbox(hitboxCFrame)
 
-	if hitThisSwing[hitModel] then return end
-	hitThisSwing[hitModel] = true
+	local parts = Workspace:GetPartBoundsInBox(hitboxCFrame, HITBOX_SIZE, overlapParams)
 
 	local damage = tool:GetAttribute("Damage") or 10
-	humanoid:TakeDamage(damage)
+	local player = Players:GetPlayerFromCharacter(tool.Parent)
 
-	HighlightZombie:FireClient(Players:GetPlayerFromCharacter(tool.Parent), hitModel)
+	for _, part in ipairs(parts) do
+		local hitModel = part:FindFirstAncestorOfClass("Model")
+		if not hitModel then continue end
 
-	local sound = HitSoundTemplate:Clone()
-	sound.Parent = humanoid.RootPart or hitModel.PrimaryPart
-	sound:Play()
-	Debris:AddItem(sound, 2)
+		local humanoid = hitModel:FindFirstChildOfClass("Humanoid")
+		if not humanoid or humanoid.Health <= 0 then continue end
+		if not hitModel:FindFirstChild("Goal") then continue end
+		if hitModel:GetAttribute("IsFlying") then continue end
+		if hitThisSwing[hitModel] then continue end
+
+		hitThisSwing[hitModel] = true
+		humanoid:TakeDamage(damage)
+		print(string.format("[SwordHit] %s chém %s | dmg: %d | HP còn: %.0f", tool.Name, hitModel.Name, damage, humanoid.Health))
+
+		if player then
+			HighlightZombie:FireClient(player, hitModel)
+		end
+
+		local sound = HitSoundTemplate:Clone()
+		sound.Parent = humanoid.RootPart or hitModel.PrimaryPart
+		sound:Play()
+		Debris:AddItem(sound, 2)
+	end
 end
 
 local function onActivated()
+	if isSwinging then return end
 	local character = tool.Parent
 	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 	if not humanoid or humanoid:GetState() == Enum.HumanoidStateType.Dead then return end
+
+	isSwinging = true
 	SwingSound:Play()
 	hitThisSwing = {}
-	blade.CanTouch = true
-	task.delay(SWING_WINDOW, function()
-		blade.CanTouch = false
-	end)
+	print(string.format("[SwordSwing] %s swing | dmg: %d | hitbox: %s", tool.Name, tool:GetAttribute("Damage") or 10, tostring(HITBOX_SIZE)))
+
+	local elapsed = 0
+	local interval = 0.1
+	local swingWindow = 0.7
+	while elapsed < swingWindow do
+		task.wait(interval)
+		elapsed += interval
+		doHitbox()
+	end
+
+	task.wait(SWING_COOLDOWN - swingWindow)
+	isSwinging = false
 end
 
 tool.Equipped:Connect(function()
 	EquipSound:Play()
 	hitThisSwing = {}
-	blade.CanTouch = false
-	toolMaid:GiveTask(blade.Touched:Connect(onBladeTouched))
 	toolMaid:GiveTask(tool.Activated:Connect(onActivated))
 end)
 
 tool.Unequipped:Connect(function()
 	UnequipSound:Play()
-	lastHitTime = {}
+	hitThisSwing = {}
 	toolMaid:DoCleaning()
 end)
