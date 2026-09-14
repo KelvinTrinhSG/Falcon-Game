@@ -384,6 +384,12 @@ function TurretController:Start()
 
 			local waveSpeedMultiplier = data.plot:GetAttribute("WaveSpeed") or 1
 			local currentCooldown = data.config.Cooldown / waveSpeedMultiplier
+			if data.config.RapidFire and data.currentTarget then
+				local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
+				if targetRoot and (targetRoot.Position - turretPosition).Magnitude <= data.config.RapidFire.Threshold then
+					currentCooldown = data.config.RapidFire.Cooldown / waveSpeedMultiplier
+				end
+			end
 
 
 			if not data.currentTarget then

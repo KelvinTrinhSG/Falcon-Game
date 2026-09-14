@@ -298,6 +298,7 @@ local ItemConfigurations = {
 		Cooldown = 0.45,
 		Health = 5000000000,
 		TargetingMode = "HighestHP",
+		RapidFire = { Threshold = 8, Cooldown = 0.1 },
 	},
 
 	UpgradedTitanCameraGuy = {
