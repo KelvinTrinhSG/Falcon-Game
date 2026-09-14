@@ -253,6 +253,11 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 						local slowMult = humanoid:GetAttribute("SlowMultiplier") or 1
 						humanoid.WalkSpeed = baseSpeed * (plot:GetAttribute("WaveSpeed") or 1) * slowMult
 						humanoid:MoveTo(wp.Position)
+
+						if enemyConfig and enemyConfig.IsStealthed and not enemy:GetAttribute("IsStealthed") then
+							enemy:SetAttribute("IsStealthed", true)
+							setStealthVisuals(enemy, true)
+						end
 				end
 			end
 		end
