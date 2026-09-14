@@ -36,26 +36,28 @@ local EnemyConfigurations = {
 	-- Conçu pour forcer l'achat de Laser Turret (175 Dmg)
 	-- ==========================================
 	["AssassinYellowToilet"] = {
-		CashReward = 4,
-		MaxHealth = 6000,
-		Damage = 120,
-		WalkSpeed = 12,
-		BaseDamage = 40,
+		CashReward = 400,
+		MaxHealth = 80000,
+		Damage = 1200,
+		AttackCooldown = 1,
+		WalkSpeed = 10,
+		BaseDamage = 100,
 	},
 	["AssassinRedToilet"] = {
-		CashReward = 5,
-		MaxHealth = 4000,
-		Damage = 250,
+		CashReward = 700,
+		MaxHealth = 60000,
+		Damage = 720,
+		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 55,
+		BaseDamage = 110,
 	},
 	["PoliceToilet"] = {
-		CashReward = 14,
-		MaxHealth = 5000,
-		Damage = 150,
+		CashReward = 1700,
+		MaxHealth = 400000,
+		Damage = 3600,
 		AttackCooldown = 2,
 		WalkSpeed = 6,
-		BaseDamage = 40,
+		BaseDamage = 120,
 	},
 
 	-- ==========================================
@@ -63,20 +65,20 @@ local EnemyConfigurations = {
 	-- Conçu pour Extreme Turret (250 Dmg) et Toxic (400 Dmg)
 	-- ==========================================
 	["GlassesYellowToilet"] = {
-		CashReward = 6,
-		MaxHealth = 1000,
-		Damage = 50,
+		CashReward = 400,
+		MaxHealth = 80000,
+		Damage = 1200,
 		AttackCooldown = 1,
 		WalkSpeed = 10,
-		BaseDamage = 20,
+		BaseDamage = 100,
 	},
 	["GlassesRedToilet"] = {
-		CashReward = 10,
-		MaxHealth = 750,
-		Damage = 30,
+		CashReward = 700,
+		MaxHealth = 60000,
+		Damage = 720,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 24,
+		BaseDamage = 110,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,
@@ -106,12 +108,12 @@ local EnemyConfigurations = {
 		BaseDamage = 30,
 	},
 	["DualBladeToilet"] = {
-		CashReward = 12,
-		MaxHealth = 8000,
-		Damage = 120,
-		WalkSpeed = 10,
-		BaseDamage = 50,
-		ExplosionRadius = 6,
+		CashReward = 1700,
+		MaxHealth = 400000,
+		Damage = 3600,
+		AttackCooldown = 2,
+		WalkSpeed = 6,
+		BaseDamage = 120,
 	},
 
 	-- ==========================================
@@ -307,11 +309,11 @@ local EnemyConfigurations = {
 		BaseDamage = 200,
 	},
 	["BossToilet2"] = {
-		CashReward = 150,
-		MaxHealth = 150000,
-		Damage = 500,
-		WalkSpeed = 8,
-		BaseDamage = 150,
+		CashReward = 3000,
+		MaxHealth = 16000000,
+		Damage = 144000,
+		WalkSpeed = 4,
+		BaseDamage = 1200,
 	},
 }
 
