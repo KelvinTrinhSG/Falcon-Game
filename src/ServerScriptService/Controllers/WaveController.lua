@@ -43,7 +43,7 @@ local function setStealthVisuals(enemy: Model, isStealthed: boolean)
 	if not toiletModel then return end
 	for _, part in ipairs(toiletModel:GetDescendants()) do
 		if part:IsA("BasePart") then
-			part.Transparency = isStealthed and 0.6 or 0
+			part.Transparency = isStealthed and 0.8 or 0
 		end
 	end
 end
