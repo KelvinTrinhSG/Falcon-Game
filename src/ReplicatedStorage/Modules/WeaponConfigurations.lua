@@ -100,10 +100,10 @@ local WeaponConfigurations = {
 		ClassicSword =       { DisplayName = "Spike Plunger",        ImageId = "rbxassetid://81886121617790",   Damage = 250 },
 		WhiteSword =         { DisplayName = "Blue Sword",           ImageId = "rbxassetid://90226630787229",   Damage = 500 },
 		--Metal
-		BlueSword =          { DisplayName = "White Sword",          ImageId = "rbxassetid://139852795392041",  Damage = 8000 },
-		IceSword =           { DisplayName = "Red Sword",            ImageId = "rbxassetid://116078406754070",  Damage = 20000 },
-		AzureSword =         { DisplayName = "Blue Cross Sword",     ImageId = "rbxassetid://118698605379620",  Damage = 40000 },
-		PinkSword =          { DisplayName = "Pink Cross Sword",     ImageId = "rbxassetid://81210037074644",   Damage = 80000 },
+		BlueSword =          { DisplayName = "White Sword",          ImageId = "rbxassetid://139852795392041",  Damage = 4000 },
+		IceSword =           { DisplayName = "Red Sword",            ImageId = "rbxassetid://116078406754070",  Damage = 8000 },
+		AzureSword =         { DisplayName = "Blue Cross Sword",     ImageId = "rbxassetid://118698605379620",  Damage = 16000 },
+		PinkSword =          { DisplayName = "Pink Cross Sword",     ImageId = "rbxassetid://81210037074644",   Damage = 32000 },
 		--Earth
 		EasterSword =        { DisplayName = "Red Cross Sword",      ImageId = "rbxassetid://125491454519337",  Damage = 300 },
 		GemSword =           { DisplayName = "Eviscerator Axe",      ImageId = "rbxassetid://104646480564542",  Damage = 450 },
