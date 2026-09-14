@@ -17,7 +17,7 @@ local GAMEPASS_VIP = 1832112258
 local GAMEPASS_X2 = 1969462271
 
 local ProfileTemplate = {
-	Cash = 250,
+	Cash = 300,
 	Strength = 0,
 	BlockInventory = {},
 	PlacedItems = {},
@@ -40,7 +40,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV64",
+	"PlayerDataV66",
 	ProfileTemplate
 )
 
