@@ -58,7 +58,7 @@ local WeaponConfigurations = {
 		},
 		CameraCrate = {
 			DisplayName = "Camera Crate",
-			Price = 4000,
+			Price = 20000,
 			ImageId = "rbxassetid://73525180630420",
 			ProductID = 3710659561,
 			SkipTimerProductID = 3710659872,
@@ -75,7 +75,7 @@ local WeaponConfigurations = {
 		},
 		SpeakerCrate = {
 			DisplayName = "Speaker Crate",
-			Price = 15000,
+			Price = 100000,
 			ImageId = "rbxassetid://73742143095642",
 			ProductID = 3710659593,
 			SkipTimerProductID = 3710659904,
@@ -94,26 +94,26 @@ local WeaponConfigurations = {
 
 	Weapons = {
 		--Starter
-		WoodSword = { DisplayName = "Simple Plunger", ImageId = "rbxassetid://79610656590032" }, -- 10
+		WoodSword =          { DisplayName = "Simple Plunger",       ImageId = "rbxassetid://79610656590032",   Damage = 50 },
 		--Wood
-		StoneSword = { DisplayName = "Upgraded Plunger", ImageId = "rbxassetid://117547325913450" }, -- 20
-		ClassicSword = { DisplayName = "Spike Plunger", ImageId = "rbxassetid://81886121617790" }, -- 35
-		WhiteSword = { DisplayName = "Blue Sword", ImageId = "rbxassetid://90226630787229" }, -- 50
+		StoneSword =         { DisplayName = "Upgraded Plunger",     ImageId = "rbxassetid://117547325913450",  Damage = 100 },
+		ClassicSword =       { DisplayName = "Spike Plunger",        ImageId = "rbxassetid://81886121617790",   Damage = 250 },
+		WhiteSword =         { DisplayName = "Blue Sword",           ImageId = "rbxassetid://90226630787229",   Damage = 500 },
 		--Metal
-		BlueSword = { DisplayName = "White Sword", ImageId = "rbxassetid://139852795392041" }, -- 75
-		IceSword = { DisplayName = "Red Sword", ImageId = "rbxassetid://116078406754070" }, -- 100
-		AzureSword = { DisplayName = "Blue Cross Sword", ImageId = "rbxassetid://118698605379620" }, -- 150
-		PinkSword = { DisplayName = "Pink Cross Sword", ImageId = "rbxassetid://81210037074644" }, -- 200
+		BlueSword =          { DisplayName = "White Sword",          ImageId = "rbxassetid://139852795392041",  Damage = 8000 },
+		IceSword =           { DisplayName = "Red Sword",            ImageId = "rbxassetid://116078406754070",  Damage = 20000 },
+		AzureSword =         { DisplayName = "Blue Cross Sword",     ImageId = "rbxassetid://118698605379620",  Damage = 40000 },
+		PinkSword =          { DisplayName = "Pink Cross Sword",     ImageId = "rbxassetid://81210037074644",   Damage = 80000 },
 		--Earth
-		EasterSword = { DisplayName = "Red Cross Sword", ImageId = "rbxassetid://125491454519337" }, -- 300
-		GemSword = { DisplayName = "Eviscerator Axe", ImageId = "rbxassetid://104646480564542" }, -- 450
-		PotOSword = { DisplayName = "Chain Sword", ImageId = "rbxassetid://121357990994950" }, -- 600
-		EarthSword = { DisplayName = "Agent Katana", ImageId = "rbxassetid://125658051215157" }, -- 900
+		EasterSword =        { DisplayName = "Red Cross Sword",      ImageId = "rbxassetid://125491454519337",  Damage = 300 },
+		GemSword =           { DisplayName = "Eviscerator Axe",      ImageId = "rbxassetid://104646480564542",  Damage = 450 },
+		PotOSword =          { DisplayName = "Chain Sword",          ImageId = "rbxassetid://121357990994950",  Damage = 600 },
+		EarthSword =         { DisplayName = "Agent Katana",         ImageId = "rbxassetid://125658051215157",  Damage = 900 },
 		--God
-		PrismFang = { DisplayName = "Energized Arm Blade", ImageId = "rbxassetid://98454166948595" }, -- 1500
-		SovereignSplitter = { DisplayName = "TV Man Sword", ImageId = "rbxassetid://112933347863376" }, -- 2500
-		Crownbreaker = { DisplayName = "Mechanical Hammer", ImageId = "rbxassetid://92354199611433" }, -- 4000
-		LightSword = { DisplayName = "Crescent Rose", ImageId = "rbxassetid://72717771975412" }, -- 7000
+		PrismFang =          { DisplayName = "Energized Arm Blade",  ImageId = "rbxassetid://98454166948595",   Damage = 1500 },
+		SovereignSplitter =  { DisplayName = "TV Man Sword",         ImageId = "rbxassetid://112933347863376",  Damage = 2500 },
+		Crownbreaker =       { DisplayName = "Mechanical Hammer",    ImageId = "rbxassetid://92354199611433",   Damage = 4000 },
+		LightSword =         { DisplayName = "Crescent Rose",        ImageId = "rbxassetid://72717771975412",   Damage = 7000 },
 	}
 }
 

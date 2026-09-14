@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
 local WEAPONS_FOLDER = ReplicatedStorage:WaitForChild("Weapons")
+local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
 
 local WaveController
 local PlayerController
@@ -35,8 +36,11 @@ function WeaponController:EquipWeapon(player: Player, weaponName: string)
 	local weaponTemplate = WEAPONS_FOLDER:FindFirstChild(weaponName)
 	if weaponTemplate then
 		local newWeapon = weaponTemplate:Clone()
+		local weaponConfig = WeaponConfigurations.Weapons[weaponName]
+		if weaponConfig and weaponConfig.Damage then
+			newWeapon:SetAttribute("Damage", weaponConfig.Damage)
+		end
 		newWeapon.Parent = character
-		-- ## REMOVED ## No longer setting the attribute here.
 	end
 end
 
