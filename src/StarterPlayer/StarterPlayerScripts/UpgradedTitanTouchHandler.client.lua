@@ -5,15 +5,15 @@ local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local LimitedItems = require(ReplicatedStorage.Modules.ItemConfigurations).LimitedItems
+local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
+local LimitedItems = ItemConfigsModule.LimitedItems
+local ItemConfigurations = ItemConfigsModule.ItemConfigurations
 local player = Players.LocalPlayer
 
 local touchPartsFolder = Workspace:WaitForChild("UpgradedTitanModels"):WaitForChild("TouchParts")
 
 local ENTRIES = {
-	{ part = touchPartsFolder:WaitForChild("UpgradedTitanTVMan",      math.huge), itemId = "UpgradedTitanTVMan" },
-	{ part = touchPartsFolder:WaitForChild("UpgradedTitanCameraGuy",  math.huge), itemId = "UpgradedTitanCameraGuy" },
-	{ part = touchPartsFolder:WaitForChild("UpgradedTitanSpeakerman", math.huge), itemId = "UpgradedTitanSpeakerman" },
+	{ part = touchPartsFolder:WaitForChild("UpgradedTitanCameraGuy", math.huge), itemId = "UpgradedTitanCameraGuy" },
 }
 
 local debounce: {[string]: boolean} = {}
@@ -21,7 +21,7 @@ local debounce: {[string]: boolean} = {}
 for _, entry in ipairs(ENTRIES) do
 	local part = entry.part :: BasePart
 	local itemId = entry.itemId
-	local config = LimitedItems[itemId]
+	local config = LimitedItems[itemId] or ItemConfigurations[itemId]
 	if not config then
 		warn("[UpgradedTitanTouchHandler] No config for:", itemId)
 		continue

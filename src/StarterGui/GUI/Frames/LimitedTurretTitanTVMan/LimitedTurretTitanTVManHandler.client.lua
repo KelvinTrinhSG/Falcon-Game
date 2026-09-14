@@ -6,6 +6,7 @@ local Players = game:GetService("Players")
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 local LimitedItems = ItemConfigsModule.LimitedItems
+local ItemConfigurations = ItemConfigsModule.ItemConfigurations
 local NumberFormatter = require(ReplicatedStorage.Modules.NumberFormatter)
 
 local player = Players.LocalPlayer
@@ -29,7 +30,7 @@ local getStockFunc = ReplicatedStorage.Functions:WaitForChild("GetLimitedTurretS
 local stockUpdatedEvent = ReplicatedStorage.Events:WaitForChild("LimitedTurretStockUpdated")
 
 local limitedItemId = "TitanTVMan"
-local limitedItemConfig = LimitedItems[limitedItemId]
+local limitedItemConfig = LimitedItems[limitedItemId] or ItemConfigurations[limitedItemId]
 local MAX_STOCK = 999
 
 local function updateDisplay(stock: number)

@@ -319,26 +319,6 @@ local ItemConfigurations = {
 }
 
 local LimitedItems = {
-	UpgradedTitanTVMan = {
-		DisplayName = "Upgraded Titan TV Man",
-		Type = "Turrets",
-		ImageId = "rbxassetid://107737156308510",
-		ProductID = 3710673797,
-		Damage = 6500,
-		Range = 46,
-		Cooldown = 0.33,
-		Health = 5000000000,
-	},
-	UpgradedTitanSpeakerman = {
-		DisplayName = "Upgraded Titan Speakerman",
-		Type = "Turrets",
-		ImageId = "rbxassetid://123643804387642",
-		ProductID = 3710673852,
-		Damage = 12000,
-		Range = 50,
-		Cooldown = 0.29,
-		Health = 5000000000,
-	},
 }
 
 local BaseConfigurations = {
