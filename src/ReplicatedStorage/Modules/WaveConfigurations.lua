@@ -253,7 +253,7 @@ local WaveConfigurations = {
 	[32] = {
 		CashReward = 1600,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 3, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[33] = {
@@ -273,15 +273,15 @@ local WaveConfigurations = {
 		CashReward = 1900,
 		UnlocksStartingWave = 30,
 		Enemies = {
-			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
-			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "AssassinYellowToilet", Count = 5, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[36] = {
 		CashReward = 2000,
 		Enemies = {
 			{Enemy = "AssassinYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	-- DualBladeToilet solo intro
@@ -295,16 +295,16 @@ local WaveConfigurations = {
 		CashReward = 2100,
 		Enemies = {
 			{Enemy = "AssassinYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "DualBladeToilet",      Count = 2, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2"}},
+			{Enemy = "AssassinRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "DualBladeToilet",      Count = 2, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[39] = {
 		CashReward = 2200,
 		Enemies = {
 			{Enemy = "AssassinYellowToilet", Count = 7, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
-			{Enemy = "DualBladeToilet",      Count = 3, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "AssassinRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "DualBladeToilet",      Count = 3, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 	[40] = {
@@ -313,10 +313,10 @@ local WaveConfigurations = {
 		UnlocksStartingWave = 35,
 		BossImageId = "rbxassetid://81446192290144",
 		Enemies = {
-			{Enemy = "BossToilet2",          Count = 1, DelayBetweenSpawns = 5,   Path = {"WayPoints1"}},
-			{Enemy = "GlassesYellowToilet",  Count = 5, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
-			{Enemy = "GlassesRedToilet",     Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
-			{Enemy = "PoliceToilet",         Count = 5, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "BossToilet2",         Count = 1, DelayBetweenSpawns = 3,   Path = {"WayPoints1"}},
+			{Enemy = "GlassesYellowToilet", Count = 5, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "GlassesRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "PoliceToilet",        Count = 5, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 
