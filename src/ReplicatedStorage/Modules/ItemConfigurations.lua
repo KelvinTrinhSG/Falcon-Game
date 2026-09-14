@@ -281,7 +281,7 @@ local ItemConfigurations = {
 		Cooldown = 1.8,
 		Health = 5000000000,
 		TargetingMode = "HighestSpeed",
-		SlowEffect = { Duration = 3, SpeedMultiplier = 0.5 },
+		SlowEffect = { Duration = 6, SpeedMultiplier = 0.5 },
 	},
 
 	TitanSpeakerman = {
