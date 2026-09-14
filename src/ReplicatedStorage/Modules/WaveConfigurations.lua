@@ -195,15 +195,15 @@ local WaveConfigurations = {
 		CashReward = 1200,
 		UnlocksStartingWave = 20,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 10, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 5,  DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 5, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 3, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[26] = {
 		CashReward = 1250,
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 8, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 	-- FlyingBuzzsawToilet solo intro
@@ -225,8 +225,8 @@ local WaveConfigurations = {
 		CashReward = 1350,
 		Enemies = {
 			{Enemy = "HelicopterParasiteYellowToilet", Count = 7, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
-			{Enemy = "FlyingBuzzsawToilet",            Count = 6, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
+			{Enemy = "FlyingBuzzsawToilet",            Count = 3, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3"}},
 		},
 	},
 	[30] = {
@@ -234,8 +234,8 @@ local WaveConfigurations = {
 		UnlocksStartingWave = 25,
 		Enemies = {
 			{Enemy = "HelicopterParasiteYellowToilet", Count = 9, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 9, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "FlyingBuzzsawToilet",            Count = 9, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "FlyingBuzzsawToilet",            Count = 5, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
 		},
 	},
 
