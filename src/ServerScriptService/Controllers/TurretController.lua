@@ -141,6 +141,33 @@ DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 					applySlowEffect(hitModel, data.config.SlowEffect)
 				end
 
+				if data.config.ExplosionRadius then
+					local hitPosition = result.Position
+					local explosion = Instance.new("Explosion")
+					explosion.BlastRadius = data.config.ExplosionRadius
+					explosion.BlastPressure = 0
+					explosion.DestroyJointRadiusPercent = 0
+					explosion.ExplosionType = Enum.ExplosionType.NoCraters
+					explosion.Position = hitPosition
+					explosion.Parent = Workspace
+					Debris:AddItem(explosion, 1)
+
+					local activeEnemies = Workspace:FindFirstChild("ActiveEnemies")
+					if activeEnemies then
+						for _, otherEnemy in ipairs(activeEnemies:GetChildren()) do
+							if otherEnemy == hitModel then continue end
+							local otherRoot = otherEnemy:FindFirstChild("HumanoidRootPart")
+							local otherHumanoid = otherEnemy:FindFirstChildOfClass("Humanoid")
+							local ownerPlotVal = otherEnemy:FindFirstChild("OwnerPlot")
+							if otherRoot and otherHumanoid and ownerPlotVal and ownerPlotVal.Value == data.plot
+								and otherHumanoid.Health > 0
+								and (otherRoot.Position - hitPosition).Magnitude <= data.config.ExplosionRadius then
+								DamageHandler.dealDamage(turretModel, otherEnemy, data.config.Damage)
+							end
+						end
+					end
+				end
+
 				local currentDamage = data.plot:GetAttribute("TotalDamage") or 0
 				data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage)
 

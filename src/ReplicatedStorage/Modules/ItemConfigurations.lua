@@ -265,6 +265,7 @@ local ItemConfigurations = {
 		Range = 18,
 		Cooldown = 0.9,
 		Health = 5000000000,
+		ExplosionRadius = 10,
 	},
 
 	TitanTVMan = {
