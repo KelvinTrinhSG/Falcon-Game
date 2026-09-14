@@ -82,7 +82,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 70,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 12000,
+		Health = 14400,
 	},
 
 	PlasmaBlock = {
@@ -94,7 +94,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 65,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 24000,
+		Health = 28800,
 	},
 
 	CyberBlock = {
@@ -106,7 +106,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 60,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 48000,
+		Health = 57600,
 	},
 
 	TitanBlock = {
@@ -118,7 +118,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 55,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 96000,
+		Health = 115200,
 	},
 
 	--TURRETS
