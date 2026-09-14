@@ -100,25 +100,25 @@ local ItemConfigurations = {
 	CyberBlock = {
 		DisplayName = "Cyber Block",
 		Type = "Blocks",
-		Price = 6000,
+		Price = 25000,
 		ImageId = "rbxassetid://94711260291584",
 		ProductID = 3710658910,
 		Unlimited = false,
 		Chance = 60,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 700,
-	},	
+		Health = 48000,
+	},
 
 	TitanBlock = {
 		DisplayName = "Titan Block",
 		Type = "Blocks",
-		Price = 10000,
+		Price = 50000,
 		ImageId = "rbxassetid://129725207947239",
 		ProductID = 3710658939,
 		Unlimited = false,
 		Chance = 55,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 1000,
+		Health = 96000,
 	},
 
 	--TURRETS
