@@ -38,6 +38,16 @@ if not activeEnemiesFolder then
 	activeEnemiesFolder.Parent = Workspace
 end
 
+local function setStealthVisuals(enemy: Model, isStealthed: boolean)
+	local toiletModel = enemy:FindFirstChild("Toilet")
+	if not toiletModel then return end
+	for _, part in ipairs(toiletModel:GetDescendants()) do
+		if part:IsA("BasePart") then
+			part.Transparency = isStealthed and 0.6 or 0
+		end
+	end
+end
+
 -- Fonction pour trouver le Plot du joueur, compatible avec l'astuce du "Déguisement"
 local function getPlotForPlayer(player: Player): Model?
 	local plotNum = player:GetAttribute("PlotNumber")
@@ -207,6 +217,7 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 									isBlocked = true
 									if enemy:GetAttribute("IsStealthed") then
 										enemy:SetAttribute("IsStealthed", false)
+										setStealthVisuals(enemy, false)
 									end
 									humanoid.WalkSpeed = 0
 									humanoid:MoveTo(rootPart.Position)
@@ -347,6 +358,7 @@ startNextWave = function(player: Player, plot: Model)
 
 				if enemyConfig and enemyConfig.IsStealthed then
 					enemy:SetAttribute("IsStealthed", true)
+					setStealthVisuals(enemy, true)
 				end
 
 				local goalValue = Instance.new("ObjectValue")
