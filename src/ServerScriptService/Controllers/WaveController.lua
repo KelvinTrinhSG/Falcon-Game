@@ -205,6 +205,9 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 								local health = hitModel:GetAttribute("Health")
 								if health and health > 0 then
 									isBlocked = true
+									if enemy:GetAttribute("IsStealthed") then
+										enemy:SetAttribute("IsStealthed", false)
+									end
 									humanoid.WalkSpeed = 0
 									humanoid:MoveTo(rootPart.Position)
 
@@ -340,6 +343,10 @@ startNextWave = function(player: Player, plot: Model)
 
 				if enemyConfig and enemyConfig.IsFlying then
 					enemy:SetAttribute("IsFlying", true)
+				end
+
+				if enemyConfig and enemyConfig.IsStealthed then
+					enemy:SetAttribute("IsStealthed", true)
 				end
 
 				local goalValue = Instance.new("ObjectValue")

@@ -289,7 +289,7 @@ function TurretController:Start()
 					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
 					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
 					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 and not enemy:GetAttribute("IsStealthed") then
 						local dist = (rootPart.Position - turretPosition).Magnitude
 						if dist <= data.config.Range then
 							local speed = humanoid.WalkSpeed
@@ -309,7 +309,7 @@ function TurretController:Start()
 					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
 					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
 					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 and not enemy:GetAttribute("IsStealthed") then
 						local dist = (rootPart.Position - turretPosition).Magnitude
 						if dist <= data.config.Range then
 							local wpIndex = enemy:GetAttribute("WaypointIndex") or 0
@@ -328,7 +328,7 @@ function TurretController:Start()
 					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
 					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
 					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 and not enemy:GetAttribute("IsStealthed") then
 						local dist = (rootPart.Position - turretPosition).Magnitude
 						if dist <= data.config.Range and humanoid.Health > bestHP then
 							closestTarget = enemy
@@ -343,7 +343,7 @@ function TurretController:Start()
 					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
 					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
 					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 and not enemy:GetAttribute("IsStealthed") then
 						local dist = (rootPart.Position - turretPosition).Magnitude
 						if dist <= data.config.Range and humanoid.WalkSpeed > bestSpeed then
 							closestTarget = enemy
@@ -358,7 +358,7 @@ function TurretController:Start()
 					local humanoid = enemy:FindFirstChildOfClass("Humanoid")
 					local ownerPlotVal = enemy:FindFirstChild("OwnerPlot")
 					local rootPart = enemy:FindFirstChild("HumanoidRootPart")
-					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 then
+					if ownerPlotVal and ownerPlotVal.Value == data.plot and rootPart and humanoid and humanoid.Health > 0 and not enemy:GetAttribute("IsStealthed") then
 						local dist = (rootPart.Position - turretPosition).Magnitude
 						if dist < closestDist then
 							closestTarget = enemy

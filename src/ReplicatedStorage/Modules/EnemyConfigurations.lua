@@ -42,6 +42,7 @@ local EnemyConfigurations = {
 		AttackCooldown = 1,
 		WalkSpeed = 10,
 		BaseDamage = 100,
+		IsStealthed = true,
 	},
 	["AssassinRedToilet"] = {
 		CashReward = 700,
@@ -50,6 +51,7 @@ local EnemyConfigurations = {
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
 		BaseDamage = 110,
+		IsStealthed = true,
 	},
 	["PoliceToilet"] = {
 		CashReward = 1700,
