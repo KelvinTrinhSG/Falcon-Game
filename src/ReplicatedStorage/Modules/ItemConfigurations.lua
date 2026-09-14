@@ -1,4 +1,4 @@
-﻿--#ReplicatedStorage>Modules>ItemConfigurations
+--#ReplicatedStorage>Modules>ItemConfigurations
 local ItemConfigurations = {
 	--BLOCKS
 	RockBlock = {
