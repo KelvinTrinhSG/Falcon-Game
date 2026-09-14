@@ -70,7 +70,7 @@ local ItemConfigurations = {
 		Unlimited = false,
 		Chance = 75,
 		StockAmount = {Min = 1, Max = 7},
-		Health = 4800,
+		Health = 7200,
 	},
 
 	GoldBlock = {
