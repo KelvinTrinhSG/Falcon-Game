@@ -517,6 +517,96 @@ startNextWave = function(player: Player, plot: Model)
 
 				humanoid.Died:Once(onEnemyDeath)
 
+				if enemyConfig and enemyConfig.Summon then
+					local summonCfg = enemyConfig.Summon
+					task.spawn(function()
+						while enemy.Parent and humanoid.Health > 0 and state.IsActive do
+							for _ = 1, summonCfg.Count do
+								local summonTemplate = ReplicatedStorage.Enemies:FindFirstChild(summonCfg.Enemy)
+								if not summonTemplate then continue end
+
+								local se = summonTemplate:Clone()
+								local sh = se:WaitForChild("Humanoid")
+								local sc = EnemyConfigurations[summonCfg.Enemy]
+
+								if sc and sc.MaxHealth then
+									sh.MaxHealth = sc.MaxHealth
+									sh.Health = sc.MaxHealth
+								end
+
+								local baseSpeed = (sc and sc.WalkSpeed) or sh.WalkSpeed
+								sh.WalkSpeed = baseSpeed * (_playerSpeeds[player] or 1)
+								sh:SetAttribute("BaseWalkSpeed", baseSpeed)
+
+								if sc and sc.IsFlying then se:SetAttribute("IsFlying", true) end
+
+								local seGoal = Instance.new("ObjectValue")
+								seGoal.Name = "Goal"
+								seGoal.Value = plot:FindFirstChild("Core1")
+								seGoal.Parent = se
+
+								local seOwner = Instance.new("ObjectValue")
+								seOwner.Name = "OwnerPlot"
+								seOwner.Value = plot
+								seOwner.Parent = se
+
+								for _, desc in ipairs(se:GetDescendants()) do
+									if desc:IsA("BasePart") then desc.CollisionGroup = "Zombies" end
+								end
+								local seToilet = se:FindFirstChild("Toilet")
+								if seToilet then
+									for _, desc in ipairs(seToilet:GetDescendants()) do
+										if desc:IsA("BasePart") then
+											desc.CanCollide = false
+											desc.Massless = true
+										end
+									end
+								end
+
+								if not se.PrimaryPart then
+									se.PrimaryPart = se:FindFirstChild("HumanoidRootPart")
+								end
+
+								local summonerRoot = enemy:FindFirstChild("HumanoidRootPart")
+								if summonerRoot then
+									se:SetPrimaryPartCFrame(CFrame.new(summonerRoot.Position))
+								end
+
+								se.Parent = activeEnemiesFolder
+								local seRoot = se:FindFirstChild("HumanoidRootPart")
+								if seRoot then seRoot:SetNetworkOwner(nil) end
+
+								sh.Died:Once(function()
+									state.TotalKills += 1
+									if sc and sc.CashReward then
+										local leaderstats = player:FindFirstChild("leaderstats")
+										local cash = leaderstats and leaderstats:FindFirstChild("Cash")
+										if cash then
+											cash.Value += math.floor(sc.CashReward * (player:GetAttribute("CashMultiplier") or 1))
+										end
+									end
+									ReplicatedStorage.Events.ZombieKilled:FireClient(player, state.EnemiesKilledInWave, state.CurrentWave)
+									se:Destroy()
+								end)
+
+								local seAnimator = sh:FindFirstChildOfClass("Animator")
+								if not seAnimator then
+									seAnimator = Instance.new("Animator")
+									seAnimator.Parent = sh
+								end
+								local seAnim = se:FindFirstChild("AttackAnimation")
+								local seAttackTrack = nil
+								if seAnim and seAnim:IsA("Animation") then
+									seAttackTrack = seAnimator:LoadAnimation(seAnim)
+								end
+
+								moveEnemyAlongWaypoints(se, sh, plot, state, seGoal, sc, seAttackTrack, selectedFolder)
+							end
+							task.wait(summonCfg.Cooldown)
+						end
+					end)
+				end
+
 				local currentWaitSpeed = _playerSpeeds[player] or 1
 				task.wait(group.DelayBetweenSpawns / currentWaitSpeed)
 			end
