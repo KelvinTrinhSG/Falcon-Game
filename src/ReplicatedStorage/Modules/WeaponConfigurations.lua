@@ -105,15 +105,15 @@ local WeaponConfigurations = {
 		AzureSword =         { DisplayName = "Blue Cross Sword",     ImageId = "rbxassetid://118698605379620",  Damage = 16000 },
 		PinkSword =          { DisplayName = "Pink Cross Sword",     ImageId = "rbxassetid://81210037074644",   Damage = 32000 },
 		--Earth
-		EasterSword =        { DisplayName = "Red Cross Sword",      ImageId = "rbxassetid://125491454519337",  Damage = 300 },
-		GemSword =           { DisplayName = "Eviscerator Axe",      ImageId = "rbxassetid://104646480564542",  Damage = 450 },
-		PotOSword =          { DisplayName = "Chain Sword",          ImageId = "rbxassetid://121357990994950",  Damage = 600 },
-		EarthSword =         { DisplayName = "Agent Katana",         ImageId = "rbxassetid://125658051215157",  Damage = 900 },
+		EasterSword =        { DisplayName = "Red Cross Sword",      ImageId = "rbxassetid://125491454519337",  Damage = 32000 },
+		GemSword =           { DisplayName = "Eviscerator Axe",      ImageId = "rbxassetid://104646480564542",  Damage = 64000 },
+		PotOSword =          { DisplayName = "Chain Sword",          ImageId = "rbxassetid://121357990994950",  Damage = 96000 },
+		EarthSword =         { DisplayName = "Agent Katana",         ImageId = "rbxassetid://125658051215157",  Damage = 128000 },
 		--God
-		PrismFang =          { DisplayName = "Energized Arm Blade",  ImageId = "rbxassetid://98454166948595",   Damage = 1500 },
-		SovereignSplitter =  { DisplayName = "TV Man Sword",         ImageId = "rbxassetid://112933347863376",  Damage = 2500 },
-		Crownbreaker =       { DisplayName = "Mechanical Hammer",    ImageId = "rbxassetid://92354199611433",   Damage = 4000 },
-		LightSword =         { DisplayName = "Crescent Rose",        ImageId = "rbxassetid://72717771975412",   Damage = 7000 },
+		PrismFang =          { DisplayName = "Energized Arm Blade",  ImageId = "rbxassetid://98454166948595",   Damage = 96000 },
+		SovereignSplitter =  { DisplayName = "TV Man Sword",         ImageId = "rbxassetid://112933347863376",  Damage = 192000 },
+		Crownbreaker =       { DisplayName = "Mechanical Hammer",    ImageId = "rbxassetid://92354199611433",   Damage = 288000 },
+		LightSword =         { DisplayName = "Crescent Rose",        ImageId = "rbxassetid://72717771975412",   Damage = 384000 },
 	}
 }
 
