@@ -21,10 +21,10 @@ local restockButton = designFrame:WaitForChild("RestockButton")
 
 local onboardingStepValue = ReplicatedStorage:WaitForChild("OnboardingStep")
 
-local purchaseItemEvent = ReplicatedStorage.Events:WaitForChild("PurchaseBlockItem")
-local updateStocksEvent = ReplicatedStorage.Events:WaitForChild("UpdateBlockStocks")
-local getResetTime = ReplicatedStorage.Functions:WaitForChild("GetBlockShopResetTime")
-local getStocks = ReplicatedStorage.Functions:WaitForChild("GetBlockShopStocks")
+local purchaseItemEvent = ReplicatedStorage.Events:WaitForChild("PurchaseTurretItem")
+local updateStocksEvent = ReplicatedStorage.Events:WaitForChild("UpdateTurretStocks")
+local getResetTime = ReplicatedStorage.Functions:WaitForChild("GetTurretShopResetTime")
+local getStocks = ReplicatedStorage.Functions:WaitForChild("GetTurretShopStocks")
 
 local currentStocks: {[string]: number} = {}
 local isPopulating = false

@@ -37,6 +37,8 @@ local ProfileTemplate = {
 	WeaponShopNextRestock = 0,
 	BaseShopStock = {},
 	BaseShopNextRestock = 0,
+	TurretsShopStock = {},
+	TurretsShopNextRestock = 0,
 }
 
 local GameProfileStore = ProfileService.New(
@@ -171,6 +173,10 @@ local function onPlayerAdded(player: Player)
 
 	if not next(profile.Data.WeaponShopStock) then
 		_controllers.WeaponsShopController:Restock(player)
+	end
+
+	if not next(profile.Data.TurretsShopStock) then
+		_controllers.TurretsShopController:Restock(player, true)
 	end
 
 	if profile.Data.OnboardingStep and profile.Data.OnboardingStep ~= "Completed" then

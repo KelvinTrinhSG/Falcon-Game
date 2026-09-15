@@ -522,6 +522,7 @@ startNextWave = function(player: Player, plot: Model)
 					task.spawn(function()
 						while enemy.Parent and humanoid.Health > 0 and state.IsActive do
 							for _ = 1, summonCfg.Count do
+								if not enemy.Parent or humanoid.Health <= 0 or not state.IsActive then break end
 								local summonTemplate = ReplicatedStorage.Enemies:FindFirstChild(summonCfg.Enemy)
 								if not summonTemplate then continue end
 

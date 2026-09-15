@@ -1,10 +1,6 @@
-print("[HealthUpdater] Script started for DJYellowToilet")
 local billboard = script.Parent
-print("[HealthUpdater] billboard:", billboard, billboard.ClassName)
 local bar = billboard:WaitForChild("Bar", 5)
-print("[HealthUpdater] bar:", bar)
 local hpText = billboard:WaitForChild("Hp", 5)
-print("[HealthUpdater] hpText:", hpText)
 
 -- BillboardGui is inside Humanoid (not a BasePart), so we must set Adornee
 -- to HumanoidRootPart for it to render at the correct 3D position above the enemy
@@ -21,7 +17,6 @@ local function updateHealth()
 	local currentHealth = math.max(0, humanoid.Health)
 	local maxHealth = humanoid.MaxHealth
 
-	print(string.format("[HealthUpdater] DJYellowToilet → HP: %d / %d | Enabled: %s", currentHealth, maxHealth, tostring(currentHealth > 0 and currentHealth < maxHealth)))
 
 	if maxHealth <= 0 then return end
 

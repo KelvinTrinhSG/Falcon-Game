@@ -102,7 +102,7 @@ local EnemyConfigurations = {
 		AttackCooldown = 1,
 		WalkSpeed = 10,
 		BaseDamage = 150,
-		Summon = { Enemy = "HelicopterParasiteRedToilet", Count = 3, Cooldown = 6 },
+		Summon = { Enemy = "HelicopterParasiteRedToilet", Count = 3, Cooldown = 8 },
 	},
 	["DJRedToilet"] = {
 		CashReward = 14875,
@@ -284,7 +284,7 @@ local EnemyConfigurations = {
 		MaxHealth = 640000,
 		Damage = 17280,
 		AttackCooldown = 2,
-		WalkSpeed = 10,
+		WalkSpeed = 6,
 		BaseDamage = 180,
 		IsFlying = true,
 	},

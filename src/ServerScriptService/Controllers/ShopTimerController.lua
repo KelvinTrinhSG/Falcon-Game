@@ -7,6 +7,7 @@ local PlayerController
 local BlocksShopController
 local WeaponsShopController
 local BaseShopController
+local TurretsShopController
 
 local ShopTimerController = {}
 
@@ -18,6 +19,7 @@ function ShopTimerController:Init(controllers: {[string]: any})
 	BlocksShopController = controllers.BlocksShopController
 	WeaponsShopController = controllers.WeaponsShopController
 	BaseShopController = controllers.BaseShopController
+	TurretsShopController = controllers.TurretsShopController
 end
 
 function ShopTimerController:Start()
@@ -49,6 +51,11 @@ function ShopTimerController:Start()
 				if currentTime >= profile.Data.BaseShopNextRestock then
 					print(`Player {player.Name}'s Bases Shop is restocking automatically.`)
 					BaseShopController:Restock(player)
+				end
+
+				-- Check Turrets Shop timer
+				if currentTime >= (profile.Data.TurretsShopNextRestock or 0) then
+					TurretsShopController:Restock(player)
 				end
 			end
 		end

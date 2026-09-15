@@ -19,6 +19,7 @@ local BlocksShopController
 local BaseShopController
 local PlotController
 local LimitedTurretController
+local TurretsShopController
 
 local RESTOCK_INTERVAL_SECONDS = 300
 local MAX_CRATES = 3
@@ -107,7 +108,7 @@ local function processReceipt(receiptInfo: {[string]: any})
 			showNotificationEvent:FireClient(player, "Blocks Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		elseif itemId == "RestockTurretsShop" then
-			BlocksShopController:Restock(player, true)
+			TurretsShopController:Restock(player, true)
 			showNotificationEvent:FireClient(player, "Defenders Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		elseif itemId == "RestockBasesShop" then
@@ -293,6 +294,7 @@ function ShopController:Init(controllers: {[string]: any})
 	BaseShopController = controllers.BaseShopController
 	PlotController = controllers.PlotController
 	LimitedTurretController = controllers.LimitedTurretController
+	TurretsShopController = controllers.TurretsShopController
 end
 
 function ShopController:Start()
