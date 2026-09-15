@@ -179,18 +179,19 @@ function BaseShopController:Start()
 			return
 		end
 
-		if profile.Data.Cash < config.Price then
+		local leaderstats = player:FindFirstChild("leaderstats")
+		local cashValue = leaderstats and leaderstats:FindFirstChild("Cash")
+
+		if not (cashValue and cashValue.Value >= config.Price) then
 			showNotificationEvent:FireClient(player, "Not enough cash!", "Error")
 			return
 		end
 
-		profile.Data.Cash -= config.Price
+		cashValue.Value -= config.Price
 		table.insert(profile.Data.OwnedBases, baseId)
 
 		stock[baseId] = 0
 		profile.Data.BaseShopStock = stock
-
-		cashUpdatedEvent:FireClient(player, profile.Data.Cash)
 		showNotificationEvent:FireClient(player, config.DisplayName .. " purchased!", "Success")
 
 		self:EquipBase(player, baseId)
