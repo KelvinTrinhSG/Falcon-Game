@@ -9,6 +9,7 @@ local DamageHandler = require(ReplicatedStorage.Modules.DamageHandler)
 
 -- ⚡ NOUVEAU : On importe les configurations de tes objets pour distinguer Blocs et Tourelles
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
+local ItemConfigurations = ItemConfigsModule.ItemConfigurations
 
 local zombie = script.Parent
 local humanoid = zombie:WaitForChild("Humanoid")
@@ -17,6 +18,28 @@ local rootPart = zombie:WaitForChild("HumanoidRootPart")
 local ATTACK_RANGE = 4
 local ATTACK_COOLDOWN = 1
 local lastAttackTime = 0
+
+humanoid.Died:Connect(function()
+	local enemyConfig = EnemyConfigurations[zombie.Name]
+	local radius = enemyConfig and enemyConfig.DeathExplosionRadius or 0
+	if radius <= 0 then return end
+
+	local ownerPlotValue = zombie:FindFirstChild("OwnerPlot")
+	local ownerPlot = ownerPlotValue and ownerPlotValue.Value
+	if not ownerPlot then return end
+
+	local deathPos = rootPart.Position
+	for _, item in ipairs(ownerPlot:GetChildren()) do
+		if not item:GetAttribute("IsPlacedItem") then continue end
+		local itemConfig = ItemConfigurations[item.Name]
+		if not (itemConfig and itemConfig.Type == "Blocks") then continue end
+		local primaryPart = item.PrimaryPart or item:FindFirstChildOfClass("BasePart")
+		if not primaryPart then continue end
+		if (primaryPart.Position - deathPos).Magnitude <= radius then
+			item:Destroy()
+		end
+	end
+end)
 
 local function getDamageableTarget(instance: Instance)
 	-- Chi tan cong Core/PlotHealth, block do WaveController xu ly

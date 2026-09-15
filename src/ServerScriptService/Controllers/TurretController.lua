@@ -124,12 +124,15 @@ local function executeFireLogic(data, turretModel: Model)
 
 			while currentObj and currentObj ~= Workspace do
 				if currentObj:IsA("Model") and currentObj:FindFirstChildOfClass("Humanoid") then
-					hitModel = currentObj
-					hitHumanoid = currentObj:FindFirstChildOfClass("Humanoid")
-					break
+					if currentObj:FindFirstChild("Goal") then
+						hitModel = currentObj
+						hitHumanoid = currentObj:FindFirstChildOfClass("Humanoid")
+						break
+					end
 				end
 				currentObj = currentObj.Parent
 			end
+
 
 			if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
 				local healthBefore = hitHumanoid.Health

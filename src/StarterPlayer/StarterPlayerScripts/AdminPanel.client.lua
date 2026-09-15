@@ -4,10 +4,12 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local ADMIN_ID = 11115679011
 
+if not RunService:IsStudio() then return end
 if player.UserId ~= ADMIN_ID then return end
 
 -- ScreenGui

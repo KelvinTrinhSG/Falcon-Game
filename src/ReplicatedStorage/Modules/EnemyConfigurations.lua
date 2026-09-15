@@ -83,11 +83,12 @@ local EnemyConfigurations = {
 		BaseDamage = 24,
 	},
 	["GlitchToilet"] = {
-		CashReward = 9,
-		MaxHealth = 9000,
-		Damage = 150,
-		WalkSpeed = 12,
-		BaseDamage = 60,
+		CashReward = 72250,
+		MaxHealth = 240000,
+		Damage = 345600,
+		AttackCooldown = 2,
+		WalkSpeed = 6,
+		BaseDamage = 240,
 		ExplosionRadius = 6,
 	},
 
@@ -97,7 +98,7 @@ local EnemyConfigurations = {
 	-- ==========================================
 	["DJYellowToilet"] = {
 		CashReward = 8500,
-		MaxHealth = 128000,
+		MaxHealth = 64000,
 		Damage = 5760,
 		AttackCooldown = 1,
 		WalkSpeed = 10,
@@ -106,7 +107,7 @@ local EnemyConfigurations = {
 	},
 	["DJRedToilet"] = {
 		CashReward = 14875,
-		MaxHealth = 96000,
+		MaxHealth = 48000,
 		Damage = 3456,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
@@ -127,18 +128,22 @@ local EnemyConfigurations = {
 	-- Tourelles recommandées : Toxic (400 Dmg) & Bunker (700 Dmg)
 	-- ==========================================
 	["VacuumYellowToilet"] = {
-		CashReward = 13,
-		MaxHealth = 2000,
-		Damage = 50,
-		WalkSpeed = 11,
-		BaseDamage = 30,
+		CashReward = 17000,
+		MaxHealth = 96000,
+		Damage = 115200,
+		AttackCooldown = 1,
+		WalkSpeed = 10,
+		BaseDamage = 200,
+		DeathExplosionRadius = 5,
 	},
 	["VacuumRedToilet"] = {
-		CashReward = 14,
-		MaxHealth = 1400,
-		Damage = 80,
+		CashReward = 29750,
+		MaxHealth = 72000,
+		Damage = 69120,
+		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 40,
+		BaseDamage = 220,
+		DeathExplosionRadius = 10,
 	},
 	["FlyingBuzzsawToilet"] = {
 		CashReward = 850,
@@ -281,7 +286,7 @@ local EnemyConfigurations = {
 	},
 	["UFOToilet"] = {
 		CashReward = 36125,
-		MaxHealth = 640000,
+		MaxHealth = 160000,
 		Damage = 17280,
 		AttackCooldown = 2,
 		WalkSpeed = 6,
@@ -317,10 +322,20 @@ local EnemyConfigurations = {
 	},
 	["BossToilet2"] = {
 		CashReward = 3000,
-		MaxHealth = 3200000,
+		MaxHealth = 640000,
 		Damage = 999999,
+		AttackCooldown = 1,
 		WalkSpeed = 4,
 		BaseDamage = 999999,
+	},
+	["BossToilet3"] = {
+		CashReward = 120000,
+		MaxHealth = 480000,
+		Damage = 999999,
+		AttackCooldown = 1,
+		WalkSpeed = 4,
+		BaseDamage = 999999,
+		IsFlying = true,
 	},
 }
 

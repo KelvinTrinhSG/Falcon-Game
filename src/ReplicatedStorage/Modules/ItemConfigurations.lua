@@ -262,7 +262,7 @@ local ItemConfigurations = {
 		Chance = 60,
 		StockAmount = {Min = 1, Max = 3},
 		Damage = 8000,
-		Range = 10,
+		Range = 14,
 		Cooldown = 0.9,
 		Health = 5000000000,
 		ExplosionRadius = 6,
