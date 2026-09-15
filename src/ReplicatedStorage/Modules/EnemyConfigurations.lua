@@ -54,12 +54,12 @@ local EnemyConfigurations = {
 		IsStealthed = true,
 	},
 	["PoliceToilet"] = {
-		CashReward = 1700,
-		MaxHealth = 400000,
-		Damage = 3600,
+		CashReward = 14,
+		MaxHealth = 5000,
+		Damage = 150,
 		AttackCooldown = 2,
 		WalkSpeed = 6,
-		BaseDamage = 120,
+		BaseDamage = 40,
 	},
 
 	-- ==========================================
@@ -67,20 +67,20 @@ local EnemyConfigurations = {
 	-- Conçu pour Extreme Turret (250 Dmg) et Toxic (400 Dmg)
 	-- ==========================================
 	["GlassesYellowToilet"] = {
-		CashReward = 400,
-		MaxHealth = 80000,
-		Damage = 1200,
+		CashReward = 6,
+		MaxHealth = 1000,
+		Damage = 50,
 		AttackCooldown = 1,
 		WalkSpeed = 10,
-		BaseDamage = 100,
+		BaseDamage = 20,
 	},
 	["GlassesRedToilet"] = {
-		CashReward = 700,
-		MaxHealth = 60000,
-		Damage = 720,
+		CashReward = 10,
+		MaxHealth = 750,
+		Damage = 30,
 		AttackCooldown = 0.5,
 		WalkSpeed = 25,
-		BaseDamage = 110,
+		BaseDamage = 24,
 	},
 	["GlitchToilet"] = {
 		CashReward = 9,

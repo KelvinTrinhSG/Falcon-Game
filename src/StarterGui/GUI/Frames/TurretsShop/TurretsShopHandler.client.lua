@@ -43,6 +43,13 @@ local function startTimer()
 
 	local success, nextTime = pcall(getResetTime.InvokeServer, getResetTime)
 	if success and typeof(nextTime) == "number" then
+		if nextTime <= os.time() then
+			-- Restock chưa được set (new player), retry sau 2s
+			task.delay(2, function()
+				if shopFrame.Visible then startTimer() end
+			end)
+			return
+		end
 		visualTimerConnection = RunService.Heartbeat:Connect(function()
 			if not shopFrame.Visible then
 				if visualTimerConnection then

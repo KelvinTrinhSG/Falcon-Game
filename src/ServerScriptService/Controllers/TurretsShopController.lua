@@ -87,8 +87,9 @@ local function onPurchaseRequest(player: Player, itemId: string)
 	ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, inventory)
 	showNotificationEvent:FireClient(player, "Purchased " .. config.DisplayName .. "!", "Success")
 
-	if profile.Data.OnboardingStep ~= "Completed" then
-		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step2_PlaceTurret")
+	if profile.Data.OnboardingStep == "Step3_BuyOldTurret" then
+		profile.Data.OnboardingStep = "Step3b_BuyFirstBlock"
+		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step3b_BuyFirstBlock")
 	end
 end
 
