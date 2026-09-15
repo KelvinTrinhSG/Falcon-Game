@@ -89,7 +89,6 @@ local function executeFireLogic(data, turretModel: Model)
 	local targetRoot = data.currentTarget:FindFirstChild("HumanoidRootPart")
 	if not targetRoot then return end
 
-
 	local ownerId = data.plot:GetAttribute("OwnerId")
 	local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
 
@@ -143,14 +142,18 @@ DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 
 				if data.config.ExplosionRadius then
 					local hitPosition = result.Position
-					local explosion = Instance.new("Explosion")
-					explosion.BlastRadius = data.config.ExplosionRadius
-					explosion.BlastPressure = 0
-					explosion.DestroyJointRadiusPercent = 0
-					explosion.ExplosionType = Enum.ExplosionType.NoCraters
-					explosion.Position = hitPosition
-					explosion.Parent = Workspace
-					Debris:AddItem(explosion, 1)
+					local sphere = Instance.new("Part")
+					sphere.Shape = Enum.PartType.Ball
+					sphere.Size = Vector3.new(1, 1, 1) * data.config.ExplosionRadius * 2
+					sphere.CFrame = CFrame.new(hitPosition)
+					sphere.Anchored = true
+					sphere.CanCollide = false
+					sphere.CastShadow = false
+					sphere.Material = Enum.Material.Neon
+					sphere.Color = Color3.fromRGB(255, 0, 0)
+					sphere.Transparency = 0.8
+					sphere.Parent = Workspace
+					Debris:AddItem(sphere, 1)
 
 					local activeEnemies = Workspace:FindFirstChild("ActiveEnemies")
 					if activeEnemies then
@@ -428,9 +431,6 @@ function TurretController:Start()
 			end
 
 			if now - data.lockOnTime >= 0.1 then
-				if turretModel.Name == "LargeScientistCameraman" and data.lastFireTime > 0 then
-					print(string.format("[DEBUG LSC] Interval: %.3fs", now - data.lastFireTime))
-				end
 				data.lastFireTime = now
 				if data.idleTrack and data.idleTrack.IsPlaying then data.idleTrack:Stop() end
 				if data.attackTrack then

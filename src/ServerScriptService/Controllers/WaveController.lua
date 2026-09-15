@@ -239,7 +239,6 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 										local dmg = enemyConfig.Damage or 10
 										local newHealth = health - dmg
 										hitModel:SetAttribute("Health", newHealth)
-										print(string.format("[BlockDamage] %s → %s | dmg: %d | HP: %d → %d", enemy.Name, hitModel.Name, dmg, health, math.max(0, newHealth)))
 
 										if newHealth <= 0 then hitModel:Destroy() end
 									end
@@ -271,7 +270,6 @@ local function moveEnemyAlongWaypoints(enemy: Model, humanoid: Humanoid, plot: M
 				local currentHealth = coreBuilding:GetAttribute("Health") or 0
 				local newHealth = math.max(0, currentHealth - baseDamage)
 				coreBuilding:SetAttribute("Health", newHealth)
-				print(string.format("[CoreDamage] %s → Core | baseDmg: %d | HP: %d → %d", enemy.Name, baseDamage, currentHealth, newHealth))
 			end
 			humanoid.Health = 0
 		end
@@ -731,7 +729,6 @@ function WaveController:SetWaveSpeed(player: Player, multiplier: number)
 			end
 		end
 	end
-	print(string.format("[WaveController] WaveSpeed x%g → %s", multiplier, player.Name))
 end
 
 function WaveController:Init(controllers: {[string]: any})
