@@ -145,16 +145,6 @@ local function updateSpeed3Visuals()
 	if speed3Stroke then speed3Stroke.Color = isX3Active and OnStroke or OffStroke end
 end
 
-local waveStateChanged = eventsFolder:WaitForChild("WaveStateChanged")
-waveStateChanged.OnClientEvent:Connect(function(isActive: boolean)
-	if not isActive then
-		isX2Active = false
-		isX3Active = false
-		updateSpeed1Visuals()
-		updateSpeed3Visuals()
-	end
-end)
-
 speed1Btn.MouseButton1Click:Connect(function()
 	isX2Active = not isX2Active
 	if isX2Active then isX3Active = false end

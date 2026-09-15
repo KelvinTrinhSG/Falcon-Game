@@ -311,16 +311,16 @@ local EnemyConfigurations = {
 	["BossToilet"] = {
 		CashReward = 1000,
 		MaxHealth = 20000,
-		Damage = 600,
+		Damage = 999999,
 		WalkSpeed = 4,
-		BaseDamage = 200,
+		BaseDamage = 999999,
 	},
 	["BossToilet2"] = {
 		CashReward = 3000,
 		MaxHealth = 3200000,
-		Damage = 144000,
+		Damage = 999999,
 		WalkSpeed = 4,
-		BaseDamage = 1200,
+		BaseDamage = 999999,
 	},
 }
 

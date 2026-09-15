@@ -274,11 +274,23 @@ end)
 local turretFiredEvent = ReplicatedStorage.Events:WaitForChild("TurretFiredFX")
 local effectsFolder = Workspace:FindFirstChild("Effects") or Instance.new("Folder", Workspace)
 effectsFolder.Name = "Effects"
+local TRACER_COLORS: {[string]: Color3} = {
+	LargeScientistCameraman = Color3.new(1, 0, 0),
+	LargeSpeakerGuy         = Color3.new(1, 0, 0),
+	LargeTvGuy              = Color3.new(1, 0, 0),
+	LaserCameramanCar       = Color3.new(1, 0, 0),
+	TitanCameraGuy          = Color3.fromRGB(128, 0, 255),
+	TitanTVMan              = Color3.fromRGB(128, 0, 255),
+	TitanSpeakerman         = Color3.fromRGB(128, 0, 255),
+	UpgradedTitanCameraGuy  = Color3.fromRGB(128, 0, 255),
+}
 turretFiredEvent.OnClientEvent:Connect(function(turretModel: Model, startPos: Vector3, endPos: Vector3)
 	local distance = (startPos - endPos).Magnitude
 	local tracer = Instance.new("Part")
 	tracer.Anchored, tracer.CanCollide, tracer.CanTouch, tracer.CastShadow = true, false, false, false
-	tracer.Color, tracer.Material = Color3.new(1, 1, 0), Enum.Material.Neon
+	local turretName = turretModel and turretModel.Name or ""
+	tracer.Color = TRACER_COLORS[turretName] or Color3.new(1, 1, 0)
+	tracer.Material = Enum.Material.Neon
 	tracer.Size = Vector3.new(0.1, 0.1, distance)
 	tracer.CFrame = CFrame.lookAt(startPos, endPos) * CFrame.new(0, 0, -distance / 2)
 	tracer.Parent = effectsFolder
