@@ -25,7 +25,7 @@ local SwingSound = handle:WaitForChild("SwingSound1")
 -- Events
 local HighlightZombie = ReplicatedStorage.Events:WaitForChild("HighlightZombie")
 
-local HITBOX_SIZE = Vector3.new(4, 4, 7)
+local HITBOX_SIZE = Vector3.new(4, 4, 8)
 local SWING_COOLDOWN = 0.8
 
 local hitThisSwing = {}
@@ -40,7 +40,7 @@ local function showDebugHitbox(cf: CFrame)
 	box.CanCollide = false
 	box.CanTouch = false
 	box.CanQuery = false
-	box.Transparency = 0.5
+	box.Transparency = 1
 	box.Color = Color3.fromRGB(255, 100, 0)
 	box.Material = Enum.Material.Neon
 	box.Parent = Workspace

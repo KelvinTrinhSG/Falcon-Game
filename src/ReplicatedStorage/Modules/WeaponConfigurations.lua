@@ -98,9 +98,9 @@ local WeaponConfigurations = {
 		--Wood
 		StoneSword =         { DisplayName = "Upgraded Plunger",     ImageId = "rbxassetid://117547325913450",  Damage = 100 },
 		ClassicSword =       { DisplayName = "Spike Plunger",        ImageId = "rbxassetid://81886121617790",   Damage = 250 },
-		WhiteSword =         { DisplayName = "Blue Sword",           ImageId = "rbxassetid://90226630787229",   Damage = 500 },
+		WhiteSword =         { DisplayName = "White Sword",          ImageId = "rbxassetid://90226630787229",   Damage = 500 },
 		--Metal
-		BlueSword =          { DisplayName = "White Sword",          ImageId = "rbxassetid://139852795392041",  Damage = 4000 },
+		BlueSword =          { DisplayName = "Blue Sword",           ImageId = "rbxassetid://139852795392041",  Damage = 4000 },
 		IceSword =           { DisplayName = "Red Sword",            ImageId = "rbxassetid://116078406754070",  Damage = 8000 },
 		AzureSword =         { DisplayName = "Blue Cross Sword",     ImageId = "rbxassetid://118698605379620",  Damage = 16000 },
 		PinkSword =          { DisplayName = "Pink Cross Sword",     ImageId = "rbxassetid://81210037074644",   Damage = 32000 },
