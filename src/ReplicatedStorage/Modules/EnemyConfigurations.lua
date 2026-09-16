@@ -89,7 +89,7 @@ local EnemyConfigurations = {
 		AttackCooldown = 2,
 		WalkSpeed = 6,
 		BaseDamage = 240,
-		ExplosionRadius = 6,
+		ExplosionRadius = 10,
 	},
 
 	-- ==========================================

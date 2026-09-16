@@ -28,14 +28,42 @@ humanoid.Died:Connect(function()
 	local ownerPlot = ownerPlotValue and ownerPlotValue.Value
 	if not ownerPlot then return end
 
+	local DESTROYABLE_TURRETS = {
+		CameraGuy = true,
+		EngineerCameraGuy = true,
+		SpeakerGuy = true,
+		TvGuy = true,
+		LargeScientistCameraman = true,
+		LargeSpeakerGuy = true,
+		LargeTvGuy = true,
+		LaserCameramanCar = true,
+	}
+
 	local deathPos = rootPart.Position
+
+	local sphere = Instance.new("Part")
+	sphere.Shape = Enum.PartType.Ball
+	sphere.Size = Vector3.new(radius * 2, radius * 2, radius * 2)
+	sphere.CFrame = CFrame.new(deathPos)
+	sphere.Anchored = true
+	sphere.CanCollide = false
+	sphere.CanQuery = false
+	sphere.CastShadow = false
+	sphere.Color = Color3.fromRGB(255, 50, 50)
+	sphere.Transparency = 0.8
+	sphere.Material = Enum.Material.Neon
+	sphere.Parent = Workspace
+	game:GetService("Debris"):AddItem(sphere, 0.5)
+
 	for _, item in ipairs(ownerPlot:GetChildren()) do
 		if not item:GetAttribute("IsPlacedItem") then continue end
-		local itemConfig = ItemConfigurations[item.Name]
-		if not (itemConfig and itemConfig.Type == "Blocks") then continue end
 		local primaryPart = item.PrimaryPart or item:FindFirstChildOfClass("BasePart")
 		if not primaryPart then continue end
-		if (primaryPart.Position - deathPos).Magnitude <= radius then
+		if (primaryPart.Position - deathPos).Magnitude > radius then continue end
+
+		local itemConfig = ItemConfigurations[item.Name]
+		if not itemConfig then continue end
+		if DESTROYABLE_TURRETS[item.Name] then
 			item:Destroy()
 		end
 	end

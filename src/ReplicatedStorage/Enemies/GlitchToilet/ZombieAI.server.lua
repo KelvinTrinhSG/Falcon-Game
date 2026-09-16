@@ -6,10 +6,9 @@ local Workspace = game:GetService("Workspace")
 
 local EnemyConfigurations = require(ReplicatedStorage.Modules.EnemyConfigurations)
 local DamageHandler = require(ReplicatedStorage.Modules.DamageHandler)
-local EnemySkills = require(ReplicatedStorage.Modules.EnemySkills)
 
--- ⚡ NOUVEAU : On importe les configurations de tes objets pour distinguer Blocs et Tourelles
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
+local ItemConfigurations = ItemConfigsModule.ItemConfigurations
 
 local zombie = script.Parent
 local humanoid = zombie:WaitForChild("Humanoid")
@@ -83,7 +82,54 @@ end)
 
 humanoid.Died:Connect(function()
 	local enemyConfig = EnemyConfigurations[zombie.Name]
-	if enemyConfig and enemyConfig.ExplosionRadius then
-		EnemySkills.explodeOnDeath(zombie, enemyConfig.ExplosionRadius)
+	local radius = enemyConfig and enemyConfig.ExplosionRadius or 0
+	if radius <= 0 then return end
+
+	local ownerPlotValue = zombie:FindFirstChild("OwnerPlot")
+	local ownerPlot = ownerPlotValue and ownerPlotValue.Value
+	if not ownerPlot then return end
+
+	local deathPos = rootPart.Position
+
+	local sphere = Instance.new("Part")
+	sphere.Shape = Enum.PartType.Ball
+	sphere.Size = Vector3.new(radius * 2, radius * 2, radius * 2)
+	sphere.CFrame = CFrame.new(deathPos)
+	sphere.Anchored = true
+	sphere.CanCollide = false
+	sphere.CanQuery = false
+	sphere.CastShadow = false
+	sphere.Color = Color3.fromRGB(180, 0, 255)
+	sphere.Transparency = 0.8
+	sphere.Material = Enum.Material.Neon
+	sphere.Parent = Workspace
+	game:GetService("Debris"):AddItem(sphere, 0.5)
+
+	local DESTROYABLE_TURRETS = {
+		CameraGuy = true,
+		EngineerCameraGuy = true,
+		SpeakerGuy = true,
+		TvGuy = true,
+		LargeScientistCameraman = true,
+		LargeSpeakerGuy = true,
+		LargeTvGuy = true,
+		LaserCameramanCar = true,
+		TitanCameraGuy = true,
+		TitanTVMan = true,
+		UpgradedTitanCameraGuy = true,
+		TitanSpeakerman = true,
+	}
+
+	for _, item in ipairs(ownerPlot:GetChildren()) do
+		if not item:GetAttribute("IsPlacedItem") then continue end
+		local primaryPart = item.PrimaryPart or item:FindFirstChildOfClass("BasePart")
+		if not primaryPart then continue end
+		if (primaryPart.Position - deathPos).Magnitude > radius then continue end
+
+		local itemConfig = ItemConfigurations[item.Name]
+		if not itemConfig then continue end
+		if DESTROYABLE_TURRETS[item.Name] then
+			item:Destroy()
+		end
 	end
 end)
