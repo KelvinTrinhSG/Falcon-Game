@@ -134,6 +134,12 @@ for _, data in ipairs(BUTTONS) do
 	img.ScaleType = Enum.ScaleType.Fit
 	img.Parent = btn
 
+	local aspectConstraint = Instance.new("UIAspectRatioConstraint")
+	aspectConstraint.AspectRatio = 1
+	aspectConstraint.DominantAxis = Enum.DominantAxis.Height
+	aspectConstraint.AspectType = Enum.AspectType.FitWithinMaxSize
+	aspectConstraint.Parent = img
+
 	-- TextLabel (1/5 dưới)
 	local label = Instance.new("TextLabel")
 	label.Name = "Label"
