@@ -1,25 +1,21 @@
 local DataStoreService = game:GetService("DataStoreService")
 local Players = game:GetService("Players")
+local ServerScriptService = game:GetService("ServerScriptService")
 
--- Crée une base de données spéciale pour les Vagues (nom différent de l'argent !)
-local waveLeaderboard = DataStoreService:GetOrderedDataStore("WaveLeaderboard_V1")
+local PlayerController = require(ServerScriptService.Controllers.PlayerController)
 
--- Le chemin vers ton interface Wave
+local toiletHPLeaderboard = DataStoreService:GetOrderedDataStore("ToiletHPLeaderboard_V1")
+
 local boardModel = script.Parent
 local guiPart = boardModel:WaitForChild("GUIPart")
 local leaderboardGUI = guiPart:WaitForChild("LeaderboardGUI")
 local scrollingFrame = leaderboardGUI:WaitForChild("ScrollingFrame")
 
--- ==========================================
--- 🔄 FONCTION DE MISE À JOUR DU PANNEAU
--- ==========================================
 local function updateLeaderboard()
 	local success, errorMessage = pcall(function()
-		-- Récupère le Top 30 des plus hautes vagues
-		local data = waveLeaderboard:GetSortedAsync(false, 30)
+		local data = toiletHPLeaderboard:GetSortedAsync(false, 30)
 		local page = data:GetCurrentPage()
 
-		-- On cache les 30 cases d'abord
 		for i = 1, 30 do
 			local placeFrame = scrollingFrame:FindFirstChild("Place_" .. i)
 			if placeFrame then
@@ -27,10 +23,9 @@ local function updateLeaderboard()
 			end
 		end
 
-		-- On remplit avec les données
 		for rank, entry in ipairs(page) do
 			local userId = tonumber(entry.key)
-			local waveValue = entry.value
+			local xToiletHP = entry.value
 
 			local placeFrame = scrollingFrame:FindFirstChild("Place_" .. rank)
 			if placeFrame then
@@ -43,7 +38,7 @@ local function updateLeaderboard()
 
 				local frame = placeFrame:FindFirstChild("Frame")
 				if frame then
-					local username = "Joueur Inconnu"
+					local username = "Unknown"
 					pcall(function()
 						username = Players:GetNameFromUserIdAsync(userId)
 					end)
@@ -55,50 +50,35 @@ local function updateLeaderboard()
 
 					frame.NamePlayerLeader.Text = username
 					frame.AvatarPlayerLeader.Image = headshot
-
-					-- On affiche juste le numéro de la vague (ex: 25)
-					-- Si tu préfères afficher "Vague 25", remplace par : frame.Value.Text = "Wave " .. tostring(waveValue)
-					frame.Value.Text = tostring(waveValue)
+					frame.Value.Text = "x" .. tostring(xToiletHP)
 				end
 			end
 		end
 	end)
 
 	if not success then
-		warn("Erreur Leaderboard Wave : ", errorMessage)
+		warn("Erreur Leaderboard ToiletHP : ", errorMessage)
 	end
 end
 
--- ==========================================
--- 💾 SAUVEGARDER LA PLUS HAUTE VAGUE
--- ==========================================
-local function savePlayerWave(player)
-	local leaderstats = player:FindFirstChild("leaderstats")
-	-- Attention au nom exact ! Chez toi c'est "Highest Wave" avec un espace.
-	local highestWave = leaderstats and leaderstats:FindFirstChild("Highest Wave")
-
-	if highestWave then
+local function savePlayerToiletHP(player)
+	local profile = PlayerController:GetProfile(player)
+	if profile then
 		pcall(function()
-			waveLeaderboard:SetAsync(tostring(player.UserId), highestWave.Value)
+			toiletHPLeaderboard:SetAsync(tostring(player.UserId), profile.Data.xToiletHP or 1)
 		end)
 	end
 end
 
-Players.PlayerRemoving:Connect(savePlayerWave)
+Players.PlayerRemoving:Connect(savePlayerToiletHP)
 
--- ==========================================
--- ⏱️ BOUCLE DE RAFRAÎCHISSEMENT (Toutes les 60s)
--- ==========================================
 task.spawn(function()
 	while true do
-		-- On sauvegarde les joueurs actuellement en jeu
 		for _, player in ipairs(Players:GetPlayers()) do
-			savePlayerWave(player)
+			savePlayerToiletHP(player)
 		end
 
-		-- On met à jour l'affichage
 		updateLeaderboard()
-
-		task.wait(60) 
+		task.wait(60)
 	end
 end)
