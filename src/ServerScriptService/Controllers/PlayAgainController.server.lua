@@ -18,6 +18,10 @@ local playAgainDamageEvent  = Instance.new("RemoteEvent")
 playAgainDamageEvent.Name   = "PlayAgainDamage"
 playAgainDamageEvent.Parent = ReplicatedStorage.Events
 
+local playAgainHPEvent  = Instance.new("RemoteEvent")
+playAgainHPEvent.Name   = "PlayAgainHP"
+playAgainHPEvent.Parent = ReplicatedStorage.Events
+
 local gameWinEvent    = Instance.new("RemoteEvent")
 gameWinEvent.Name     = "GameWin"
 gameWinEvent.Parent   = ReplicatedStorage.Events
@@ -86,5 +90,13 @@ playAgainDamageEvent.OnServerEvent:Connect(function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or not checkCompleted(player, profile) then return end
 	profile.Data.xTowerDam = (profile.Data.xTowerDam or 1) + 1
+	resetAndTeleport(player, profile)
+end)
+
+-- Nút x2 Toilet HP
+playAgainHPEvent.OnServerEvent:Connect(function(player: Player)
+	local profile = PlayerController:GetProfile(player)
+	if not profile or not checkCompleted(player, profile) then return end
+	profile.Data.xToiletHP = (profile.Data.xToiletHP or 1) + 1
 	resetAndTeleport(player, profile)
 end)

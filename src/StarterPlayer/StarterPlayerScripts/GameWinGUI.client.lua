@@ -156,10 +156,13 @@ local playAgainMoneyBtn = buttonsFrame:WaitForChild("PlayAgainMoney")
 local playAgainMoneyLabel = playAgainMoneyBtn:WaitForChild("Label")
 local playAgainDamageBtn = buttonsFrame:WaitForChild("PlayAgainDamage")
 local playAgainDamageLabel = playAgainDamageBtn:WaitForChild("Label")
+local playAgainHPBtn = buttonsFrame:WaitForChild("PlayAgainHP")
+local playAgainHPLabel = playAgainHPBtn:WaitForChild("Label")
 
-gameWinEvent.OnClientEvent:Connect(function(xMoney: number, xTowerDam: number)
+gameWinEvent.OnClientEvent:Connect(function(xMoney: number, xTowerDam: number, xToiletHP: number)
 	playAgainMoneyLabel.Text = "x" .. ((xMoney or 1) + 1) .. " Money"
 	playAgainDamageLabel.Text = "x" .. ((xTowerDam or 1) + 1) .. " Tower Damage"
+	playAgainHPLabel.Text = "x" .. ((xToiletHP or 1) + 1) .. " Toilet HP"
 	screenGui.Enabled = true
 end)
 
@@ -183,4 +186,11 @@ local playAgainDamageEvent = ReplicatedStorage.Events:WaitForChild("PlayAgainDam
 playAgainDamageBtn.MouseButton1Click:Connect(function()
 	playAgainDamageBtn.Active = false
 	playAgainDamageEvent:FireServer()
+end)
+
+-- Wire nút x2 Toilet HP
+local playAgainHPEvent = ReplicatedStorage.Events:WaitForChild("PlayAgainHP")
+playAgainHPBtn.MouseButton1Click:Connect(function()
+	playAgainHPBtn.Active = false
+	playAgainHPEvent:FireServer()
 end)

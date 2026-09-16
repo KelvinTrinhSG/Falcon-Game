@@ -341,8 +341,10 @@ startNextWave = function(player: Player, plot: Model)
 				local enemyConfig = EnemyConfigurations[enemy.Name]
 
 				if enemyConfig and enemyConfig.MaxHealth then
-					humanoid.MaxHealth = enemyConfig.MaxHealth
-					humanoid.Health = enemyConfig.MaxHealth
+					local xToiletHP = player:GetAttribute("xToiletHP") or 1
+					local scaledHP = enemyConfig.MaxHealth * xToiletHP
+					humanoid.MaxHealth = scaledHP
+					humanoid.Health = scaledHP
 				end
 
 				if waveConfig.IsBossWave then
@@ -504,7 +506,7 @@ startNextWave = function(player: Player, plot: Model)
 								if profile.Data.HighestCompletedWave < 60 then profile.Data.HighestCompletedWave = 60 end
 								stopFight(plot, "win")
 								local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin", 10)
-								if gameWinEvent then gameWinEvent:FireClient(player, profile.Data.xMoney or 1, profile.Data.xTowerDam or 1) end
+								if gameWinEvent then gameWinEvent:FireClient(player, profile.Data.xMoney or 1, profile.Data.xTowerDam or 1, profile.Data.xToiletHP or 1) end
 								return
 							end
 
@@ -542,8 +544,10 @@ startNextWave = function(player: Player, plot: Model)
 								local sc = EnemyConfigurations[summonCfg.Enemy]
 
 								if sc and sc.MaxHealth then
-									sh.MaxHealth = sc.MaxHealth
-									sh.Health = sc.MaxHealth
+									local xToiletHP = player:GetAttribute("xToiletHP") or 1
+									local scaledHP = sc.MaxHealth * xToiletHP
+									sh.MaxHealth = scaledHP
+									sh.Health = scaledHP
 								end
 
 								local baseSpeed = (sc and sc.WalkSpeed) or sh.WalkSpeed

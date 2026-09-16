@@ -145,6 +145,7 @@ local function onPlayerAdded(player: Player)
 
 	player:SetAttribute("xMoney", profile.Data.xMoney or 1)
 	player:SetAttribute("xTowerDam", profile.Data.xTowerDam or 1)
+	player:SetAttribute("xToiletHP", profile.Data.xToiletHP or 1)
 
 	local weaponInventoryUpdatedEvent = ReplicatedStorage.Events:WaitForChild("WeaponInventoryUpdated")
 	weaponInventoryUpdatedEvent:FireClient(player, profile.Data.WeaponInventory)
