@@ -87,20 +87,27 @@ Players.PlayerAdded:Connect(function(player)
 		local freeSpinsVal = 1
 		local robuxSpinsVal = 0
 
+		warn("[WheelServer] Player:", player.Name, "| saved type:", type(saved), "| saved value:", tostring(saved))
+
 		if type(saved) == "table" then
 			lastSpin = saved.LastSpin or 0
 			freeSpinsVal = saved.FreeSpins or 0
 			robuxSpinsVal = saved.RobuxSpins or 0
-		elseif type(saved) == "number" then 
+			warn("[WheelServer] Branch: TABLE | LastSpin:", lastSpin, "FreeSpins:", freeSpinsVal, "RobuxSpins:", robuxSpinsVal)
+		elseif type(saved) == "number" then
 			lastSpin = saved
 			freeSpinsVal = (os.time() - lastSpin >= COOLDOWN) and 1 or 0
 			robuxSpinsVal = 0
+			warn("[WheelServer] Branch: NUMBER | lastSpin:", lastSpin, "-> freeSpinsVal:", freeSpinsVal)
+		else
+			warn("[WheelServer] Branch: NIL (new player) | freeSpinsVal default:", freeSpinsVal)
 		end
 
 		derniersSpins[player.UserId] = lastSpin
 
 		if freeSpinsVal == 0 and lastSpin > 0 then
 			local rem = COOLDOWN - (os.time() - lastSpin)
+			warn("[WheelServer] freeSpins=0, lastSpin>0 | rem:", rem)
 			if rem > 0 then
 				WheelCooldownEvent:FireClient(player, rem)
 				task.delay(rem, function()
@@ -112,9 +119,14 @@ Players.PlayerAdded:Connect(function(player)
 				end)
 			else
 				freeSpinsVal = 1
+				warn("[WheelServer] Cooldown passed -> freeSpinsVal set to 1")
 			end
+		elseif freeSpinsVal == 0 and lastSpin == 0 then
+			warn("[WheelServer] BUG DETECTED: freeSpins=0 AND lastSpin=0 -> forcing freeSpinsVal=1")
+			freeSpinsVal = 1
 		end
 
+		warn("[WheelServer] Final -> FreeSpins:", freeSpinsVal, "RobuxSpins:", robuxSpinsVal)
 		fs.Value = freeSpinsVal
 		rs.Value = robuxSpinsVal
 	end)
