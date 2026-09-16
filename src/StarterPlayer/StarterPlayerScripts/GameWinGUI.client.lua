@@ -128,7 +128,8 @@ for _, data in ipairs(BUTTONS) do
 	local img = Instance.new("ImageLabel")
 	img.Name = "Icon"
 	img.Size = UDim2.new(1, 0, 0.8, 0)
-	img.Position = UDim2.fromScale(0, 0)
+	img.Position = UDim2.fromScale(0.5, 0)
+	img.AnchorPoint = Vector2.new(0.5, 0)
 	img.BackgroundTransparency = 1
 	img.Image = data.image
 	img.ScaleType = Enum.ScaleType.Fit
