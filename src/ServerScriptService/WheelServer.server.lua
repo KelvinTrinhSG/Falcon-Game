@@ -21,12 +21,12 @@ local ANGLE_SEGMENT = 360 / NB_SEGMENTS
 local COOLDOWN      = 1800
 
 local Items = {
-	{id="Item1", name="+1 Spin",         chance=40,  type="Spin",  amount=1},
+	{id="Item1", name="+1 Spin",         chance=45,  type="Spin",  amount=1},
 	{id="Item2", name="$1,000 Cash",     chance=25,  type="Cash",  amount=1000},
 	{id="Item3", name="Engineer Camera Guy", chance=15, type="Item",  itemId="EngineerCameraGuy"},
 	{id="Item4", name="X3 WAVE Pass",    chance=0.5, type="Pass",  itemId="X3WavePass"},
 	{id="Item5", name="Titan Crate",      chance=1.5, type="Crate", itemId="TitanCrate"},
-	{id="Item6", name="+3 Spins",        chance=10,  type="Spin",  amount=3},
+	{id="Item6", name="+3 Spins",        chance=5,   type="Spin",  amount=3},
 	{id="Item7", name="$7,500 BIG Cash", chance=3,   type="Cash",  amount=7500},
 	{id="Item8", name="Plasma Block",    chance=5,   type="Item",  itemId="PlasmaBlock"},
 }
