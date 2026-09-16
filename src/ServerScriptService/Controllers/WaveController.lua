@@ -297,7 +297,8 @@ startNextWave = function(player: Player, plot: Model)
 		local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 		if cash then
 			local multiplier = player:GetAttribute("CashMultiplier") or 1
-			cash.Value += math.floor(FINAL_VICTORY_CASH * multiplier)
+			local xMoney = player:GetAttribute("xMoney") or 1
+			cash.Value += math.floor(FINAL_VICTORY_CASH * multiplier * xMoney)
 		end
 		ReplicatedStorage.Events.ShowNotification:FireClient(player, "You've beaten all waves! Congratulations!", "Mythical")
 		stopFight(plot, "win")
@@ -468,9 +469,10 @@ startNextWave = function(player: Player, plot: Model)
 					if not reachedEnd and enemyConfig and enemyConfig.CashReward then
 						local leaderstats = player:FindFirstChild("leaderstats")
 						local cash = leaderstats and leaderstats:FindFirstChild("Cash")
-						if cash then 
+						if cash then
 							local multiplier = player:GetAttribute("CashMultiplier") or 1
-							cash.Value += math.floor(enemyConfig.CashReward * multiplier) 
+							local xMoney = player:GetAttribute("xMoney") or 1
+							cash.Value += math.floor(enemyConfig.CashReward * multiplier * xMoney)
 						end
 					end
 
@@ -488,8 +490,9 @@ startNextWave = function(player: Player, plot: Model)
 								local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 								if cash then
 									local multiplier = player:GetAttribute("CashMultiplier") or 1
+									local xMoney = player:GetAttribute("xMoney") or 1
 									local reward = (alreadyBeaten and completedWaveConfig.NoBossCashReward) or completedWaveConfig.CashReward
-									local finalReward = math.floor(reward * multiplier)
+									local finalReward = math.floor(reward * multiplier * xMoney)
 									cash.Value += finalReward
 									ReplicatedStorage.Events.ShowCollectionEffect:FireClient(player, finalReward)
 								end
@@ -592,7 +595,7 @@ startNextWave = function(player: Player, plot: Model)
 										local leaderstats = player:FindFirstChild("leaderstats")
 										local cash = leaderstats and leaderstats:FindFirstChild("Cash")
 										if cash then
-											cash.Value += math.floor(sc.CashReward * (player:GetAttribute("CashMultiplier") or 1))
+											cash.Value += math.floor(sc.CashReward * (player:GetAttribute("CashMultiplier") or 1) * (player:GetAttribute("xMoney") or 1))
 										end
 									end
 									ReplicatedStorage.Events.ZombieKilled:FireClient(player, state.EnemiesKilledInWave, state.CurrentWave)

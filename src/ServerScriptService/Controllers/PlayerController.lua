@@ -24,6 +24,9 @@ local ProfileTemplate = {
 	HighestWave = 0,
 	HighestCompletedWave = 0,
 	StartingWave = 1,
+	xMoney = 1,
+	xTowerDam = 1,
+	xToiletHP = 1,
 	OwnedModels = {"Gulf"},
 	EquippedModel = "Gulf",
 	OwnedBases = {"Core1"},
@@ -139,6 +142,8 @@ local function onPlayerAdded(player: Player)
 	if profile.Data.LastEquippedWeapon then
 		player:SetAttribute("LastEquippedWeapon", profile.Data.LastEquippedWeapon)
 	end
+
+	player:SetAttribute("xMoney", profile.Data.xMoney or 1)
 
 	local weaponInventoryUpdatedEvent = ReplicatedStorage.Events:WaitForChild("WeaponInventoryUpdated")
 	weaponInventoryUpdatedEvent:FireClient(player, profile.Data.WeaponInventory)
