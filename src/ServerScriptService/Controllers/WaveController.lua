@@ -495,11 +495,19 @@ startNextWave = function(player: Player, plot: Model)
 								end
 							end
 
-							if state.CurrentWave == 100 then
-								if profile.Data.HighestWave < 100 then profile.Data.HighestWave = 100 end
+							if state.CurrentWave == 60 then
+								if profile.Data.HighestWave < 60 then profile.Data.HighestWave = 60 end
+								if profile.Data.HighestCompletedWave == nil then profile.Data.HighestCompletedWave = 0 end
+								if profile.Data.HighestCompletedWave < 60 then profile.Data.HighestCompletedWave = 60 end
 								stopFight(plot, "win")
-								ReplicatedStorage.Events.ShowNotification:FireClient(player, "INCROYABLE ! Tu as battu la vague 100 ! Ton Plot évolue en V2 !", "Mythical")
-								return 
+								local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin", 10)
+								if gameWinEvent then gameWinEvent:FireClient(player) end
+								return
+							end
+
+							if profile.Data.HighestCompletedWave == nil then profile.Data.HighestCompletedWave = 0 end
+							if state.CurrentWave > profile.Data.HighestCompletedWave then
+								profile.Data.HighestCompletedWave = state.CurrentWave
 							end
 
 							if profile and completedWaveConfig.UnlocksStartingWave then

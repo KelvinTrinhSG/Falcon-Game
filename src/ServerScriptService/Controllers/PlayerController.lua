@@ -22,6 +22,7 @@ local ProfileTemplate = {
 	BlockInventory = {},
 	PlacedItems = {},
 	HighestWave = 0,
+	HighestCompletedWave = 0,
 	StartingWave = 1,
 	OwnedModels = {"Gulf"},
 	EquippedModel = "Gulf",
@@ -42,7 +43,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV69",
+	"PlayerDataV70",
 	ProfileTemplate
 )
 

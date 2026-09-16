@@ -1,5 +1,6 @@
 --!strict
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
 
 local player = Players.LocalPlayer
@@ -146,4 +147,19 @@ for _, data in ipairs(BUTTONS) do
 	label.Parent = btn
 end
 
+screenGui.Enabled = false
 screenGui.Parent = playerGui
+
+-- Hiện GUI khi server fire GameWin
+local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin")
+gameWinEvent.OnClientEvent:Connect(function()
+	screenGui.Enabled = true
+end)
+
+-- Wire nút Play Again
+local playAgainEvent = ReplicatedStorage.Events:WaitForChild("PlayAgain")
+local playAgainBtn = buttonsFrame:WaitForChild("PlayAgain")
+playAgainBtn.MouseButton1Click:Connect(function()
+	playAgainBtn.Active = false
+	playAgainEvent:FireServer()
+end)

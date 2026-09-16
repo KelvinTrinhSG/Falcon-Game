@@ -472,7 +472,8 @@ local WaveConfigurations = {
 		},
 	},
 
-	-- ==========================================
+	-- [END] Max wave is 60
+	--[[
 	-- CYCLE 7 (Waves 61-70) - Ocean
 	-- ==========================================
 	[61] = {
@@ -958,6 +959,7 @@ local WaveConfigurations = {
 			{Enemy = "StriderRocketToilet",    Count = 6, DelayBetweenSpawns = 1.2},
 		},
 	},
+	--]]
 }
 
 return WaveConfigurations
