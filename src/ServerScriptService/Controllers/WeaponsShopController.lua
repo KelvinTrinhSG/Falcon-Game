@@ -74,21 +74,22 @@ local function processReceipt(receiptInfo: {[string]: any})
 	if not player then return Enum.ProductPurchaseDecision.NotProcessedYet end
 
 	-- 🎡 ACHATS DE LA ROUE (SPINS)
-	if productId == 3595244091 or productId == 3595244324 or productId == 3595244673 then
+	if productId == 3710799997 or productId == 3710800155 or productId == 3710800204 then
 		local rs = player:FindFirstChild("RobuxSpins")
 		if not rs then return Enum.ProductPurchaseDecision.NotProcessedYet end
 
-		if productId == 3595244091 then
+		if productId == 3710799997 then
 			rs.Value = rs.Value + 1
-			showNotificationEvent:FireClient(player, "+1 Spin (x2 Luck) acheté !", "Success")
-		elseif productId == 3595244324 then
+			showNotificationEvent:FireClient(player, "+1 Spin purchased!", "Success")
+		elseif productId == 3710800155 then
 			rs.Value = rs.Value + 3
-			showNotificationEvent:FireClient(player, "+3 Spins (x2 Luck) achetés !", "Success")
-		elseif productId == 3595244673 then
+			showNotificationEvent:FireClient(player, "+3 Spins purchased!", "Success")
+		elseif productId == 3710800204 then
 			rs.Value = rs.Value + 10
-			showNotificationEvent:FireClient(player, "+10 Spins (x2 Luck) achetés !", "Success")
+			showNotificationEvent:FireClient(player, "+10 Spins purchased!", "Success")
 		end
 
+		warn("[WheelServer] ProcessReceipt: player", player.Name, "bought productId", productId, "-> RobuxSpins =", rs.Value)
 		return Enum.ProductPurchaseDecision.PurchaseGranted
 	end
 
