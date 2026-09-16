@@ -152,7 +152,12 @@ screenGui.Parent = playerGui
 
 -- Hiện GUI khi server fire GameWin
 local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin")
-gameWinEvent.OnClientEvent:Connect(function()
+local playAgainMoneyBtn = buttonsFrame:WaitForChild("PlayAgainMoney")
+local playAgainMoneyLabel = playAgainMoneyBtn:WaitForChild("Label")
+
+gameWinEvent.OnClientEvent:Connect(function(xMoney: number)
+	local currentXMoney = xMoney or 1
+	playAgainMoneyLabel.Text = "x" .. (currentXMoney + 1) .. " Money"
 	screenGui.Enabled = true
 end)
 
@@ -162,4 +167,11 @@ local playAgainBtn = buttonsFrame:WaitForChild("PlayAgain")
 playAgainBtn.MouseButton1Click:Connect(function()
 	playAgainBtn.Active = false
 	playAgainEvent:FireServer()
+end)
+
+-- Wire nút x2 Money
+local playAgainMoneyEvent = ReplicatedStorage.Events:WaitForChild("PlayAgainMoney")
+playAgainMoneyBtn.MouseButton1Click:Connect(function()
+	playAgainMoneyBtn.Active = false
+	playAgainMoneyEvent:FireServer()
 end)
