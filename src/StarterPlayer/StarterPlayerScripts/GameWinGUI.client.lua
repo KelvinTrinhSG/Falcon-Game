@@ -104,10 +104,10 @@ listLayout.Padding = UDim.new(0, 14)
 listLayout.Parent = buttonsFrame
 
 local BUTTONS = {
-	{ name = "PlayAgain",       text = "Play Again",       image = "", color = Color3.fromRGB(50, 170, 80),  order = 1 },
-	{ name = "PlayAgainMoney",  text = "x2 Money",         image = "", color = Color3.fromRGB(210, 155, 10), order = 2 },
-	{ name = "PlayAgainDamage", text = "x2 Tower Damage",  image = "", color = Color3.fromRGB(210, 50, 50),  order = 3 },
-	{ name = "PlayAgainHP",     text = "x2 Toilet HP",     image = "", color = Color3.fromRGB(120, 50, 210), order = 4 },
+	{ name = "PlayAgain",       text = "Play Again",       image = "rbxassetid://115302066834398", color = Color3.fromRGB(50, 170, 80),  order = 1 },
+	{ name = "PlayAgainMoney",  text = "x2 Money",         image = "rbxassetid://123224432188531", color = Color3.fromRGB(210, 155, 10), order = 2 },
+	{ name = "PlayAgainDamage", text = "x2 Tower Damage",  image = "rbxassetid://92172262093635",  color = Color3.fromRGB(210, 50, 50),  order = 3 },
+	{ name = "PlayAgainHP",     text = "x2 Toilet HP",     image = "rbxassetid://99487651969287",  color = Color3.fromRGB(120, 50, 210), order = 4 },
 }
 
 for _, data in ipairs(BUTTONS) do
