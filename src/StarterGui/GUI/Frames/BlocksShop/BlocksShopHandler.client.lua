@@ -30,6 +30,7 @@ local currentStocks: {[string]: number} = {}
 local isPopulating = false
 local visualTimerConnection: RBXScriptConnection?
 local robuxPricesCache: {[number]: string} = {}
+local isPurchasing = false
 
 local function formatRemaining(seconds: number): string
 	if seconds <= 0 then return "00:00" end
@@ -62,6 +63,7 @@ end
 local function populateShop()
 	if isPopulating then return end
 	isPopulating = true
+	isPurchasing = false
 	for _, child in ipairs(scrollingFrame:GetChildren()) do
 		if not child:IsA("UILayout") then child:Destroy() end
 	end
@@ -104,8 +106,12 @@ local function populateShop()
 			buyButton.Active = isInStock
 			buyButton.TextColor3 = if isInStock then Color3.new(1,1,1) else Color3.fromRGB(200,200,200)
 			buyButton.MouseButton1Click:Connect(function()
+				if isPurchasing then return end
 				if isInStock then
+					isPurchasing = true
+					buyButton.Active = false
 					purchaseItemEvent:FireServer(itemId)
+					task.delay(5, function() isPurchasing = false end)
 				else
 					NotificationManager.show("This item is out of stock!", "Error")
 				end

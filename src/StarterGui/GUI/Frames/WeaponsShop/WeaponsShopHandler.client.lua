@@ -28,6 +28,7 @@ local currentCrateCount = 0
 local MAX_CRATES = 3
 local timerConnection: RBXScriptConnection?
 local robuxPricesCache = {}
+local isPurchasing = false
 
 local function formatRemaining(seconds: number): string
 	if seconds <= 0 then return "00:00" end
@@ -68,6 +69,7 @@ local function startTimer(nextTime: number?)
 end
 
 local function populateShop()
+	isPurchasing = false
 	for _, child in ipairs(scrollingFrame:GetChildren()) do
 		if not child:IsA("UILayout") then child:Destroy() end
 	end
@@ -91,7 +93,11 @@ local function populateShop()
 		item.ItemPrice.Text = NumberFormatter.formatNumber(config.Price, "$")
 		item.ItemStock.Text = "Stock: " .. tostring(currentStocks[itemId] or 0)
 		item.BuyButton.MouseButton1Click:Connect(function()
+			if isPurchasing then return end
+			isPurchasing = true
+			item.BuyButton.Active = false
 			purchaseItemEvent:FireServer(itemId)
+			task.delay(5, function() isPurchasing = false end)
 		end)
 		local robuxButton = item:FindFirstChild("RobuxBuy")
 		if robuxButton and robuxButton:IsA("GuiButton") then

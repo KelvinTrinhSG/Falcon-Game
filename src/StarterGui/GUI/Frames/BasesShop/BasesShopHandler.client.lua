@@ -35,6 +35,7 @@ local visualTimerConnection: RBXScriptConnection?
 local isFighting: boolean = false
 local robuxPricesCache: {[number]: string} = {}
 local ROBUX_ICON = "\xee\x80\x82"
+local isPurchasing = false
 
 waveStateChanged.OnClientEvent:Connect(function(active: boolean)
 	isFighting = active
@@ -71,6 +72,7 @@ local function startTimer()
 end
 
 local function populateShop()
+	isPurchasing = false
 	for _, child in ipairs(scrollingFrame:GetChildren()) do
 		if not child:IsA("UILayout") then child:Destroy() end
 	end
@@ -142,11 +144,15 @@ local function populateShop()
 					buyText.Text = if config.Price == 0 then "Free" else NumberFormatter.formatNumber(config.Price, "$")
 				end
 				buyButton.MouseButton1Click:Connect(function()
+					if isPurchasing then return end
 					if isFighting then
 						NotificationManager.show("Stop fighting first!", "Error")
 						return
 					end
+					isPurchasing = true
+					buyButton.Active = false
 					purchaseBaseEvent:FireServer(baseId)
+					task.delay(5, function() isPurchasing = false end)
 				end)
 			end
 			if robuxBuyButton and config.ProductID and config.ProductID > 0 then
