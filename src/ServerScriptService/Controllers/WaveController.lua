@@ -504,7 +504,7 @@ startNextWave = function(player: Player, plot: Model)
 								if profile.Data.HighestCompletedWave < 60 then profile.Data.HighestCompletedWave = 60 end
 								stopFight(plot, "win")
 								local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin", 10)
-								if gameWinEvent then gameWinEvent:FireClient(player, profile.Data.xMoney or 1) end
+								if gameWinEvent then gameWinEvent:FireClient(player, profile.Data.xMoney or 1, profile.Data.xTowerDam or 1) end
 								return
 							end
 

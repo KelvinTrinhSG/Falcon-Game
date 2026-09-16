@@ -154,10 +154,12 @@ screenGui.Parent = playerGui
 local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin")
 local playAgainMoneyBtn = buttonsFrame:WaitForChild("PlayAgainMoney")
 local playAgainMoneyLabel = playAgainMoneyBtn:WaitForChild("Label")
+local playAgainDamageBtn = buttonsFrame:WaitForChild("PlayAgainDamage")
+local playAgainDamageLabel = playAgainDamageBtn:WaitForChild("Label")
 
-gameWinEvent.OnClientEvent:Connect(function(xMoney: number)
-	local currentXMoney = xMoney or 1
-	playAgainMoneyLabel.Text = "x" .. (currentXMoney + 1) .. " Money"
+gameWinEvent.OnClientEvent:Connect(function(xMoney: number, xTowerDam: number)
+	playAgainMoneyLabel.Text = "x" .. ((xMoney or 1) + 1) .. " Money"
+	playAgainDamageLabel.Text = "x" .. ((xTowerDam or 1) + 1) .. " Tower Damage"
 	screenGui.Enabled = true
 end)
 
@@ -174,4 +176,11 @@ local playAgainMoneyEvent = ReplicatedStorage.Events:WaitForChild("PlayAgainMone
 playAgainMoneyBtn.MouseButton1Click:Connect(function()
 	playAgainMoneyBtn.Active = false
 	playAgainMoneyEvent:FireServer()
+end)
+
+-- Wire nút x2 Tower Damage
+local playAgainDamageEvent = ReplicatedStorage.Events:WaitForChild("PlayAgainDamage")
+playAgainDamageBtn.MouseButton1Click:Connect(function()
+	playAgainDamageBtn.Active = false
+	playAgainDamageEvent:FireServer()
 end)

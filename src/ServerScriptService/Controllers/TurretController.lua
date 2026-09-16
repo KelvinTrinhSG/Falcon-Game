@@ -91,6 +91,7 @@ local function executeFireLogic(data, turretModel: Model)
 
 	local ownerId = data.plot:GetAttribute("OwnerId")
 	local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
+	local xTowerDam = (ownerPlayer and ownerPlayer:GetAttribute("xTowerDam")) or 1
 
 	local raycastParams = RaycastParams.new()
 	raycastParams.FilterType = Enum.RaycastFilterType.Exclude
@@ -137,7 +138,7 @@ local function executeFireLogic(data, turretModel: Model)
 			if hitHumanoid and hitModel and hitModel:FindFirstChild("Goal") then
 				local healthBefore = hitHumanoid.Health
 
-DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
+DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage * xTowerDam)
 
 				if data.config.SlowEffect then
 					applySlowEffect(hitModel, data.config.SlowEffect)
@@ -168,14 +169,14 @@ DamageHandler.dealDamage(turretModel, hitModel, data.config.Damage)
 							if otherRoot and otherHumanoid and ownerPlotVal and ownerPlotVal.Value == data.plot
 								and otherHumanoid.Health > 0
 								and (otherRoot.Position - hitPosition).Magnitude <= data.config.ExplosionRadius then
-								DamageHandler.dealDamage(turretModel, otherEnemy, data.config.Damage)
+								DamageHandler.dealDamage(turretModel, otherEnemy, data.config.Damage * xTowerDam)
 							end
 						end
 					end
 				end
 
 				local currentDamage = data.plot:GetAttribute("TotalDamage") or 0
-				data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage)
+				data.plot:SetAttribute("TotalDamage", currentDamage + data.config.Damage * xTowerDam)
 
 				if healthBefore > 0 and hitHumanoid.Health <= 0 then
 					if slimeDeathSound then
