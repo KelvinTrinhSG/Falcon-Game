@@ -9,8 +9,6 @@ local function updateMultiplierUI()
 	local xMoney = player:GetAttribute("xMoney") or 1
 	local total = cashMult * xMoney
 
-	warn("[MultiplierGUI] cashMult:", cashMult, "| xMoney:", xMoney, "| total:", total, "| frame.Visible will be:", total > 1)
-
 	if total > 1 then
 		frame.Visible = true
 		textLabel.Text = "x" .. tostring(math.floor(total * 100) / 100)
@@ -21,10 +19,7 @@ end
 
 updateMultiplierUI()
 
-player:GetAttributeChangedSignal("CashMultiplier"):Connect(function()
-	warn("[MultiplierGUI] CashMultiplier changed ->", player:GetAttribute("CashMultiplier"))
-	updateMultiplierUI()
-end)
+player:GetAttributeChangedSignal("CashMultiplier"):Connect(updateMultiplierUI)
 player:GetAttributeChangedSignal("xMoney"):Connect(updateMultiplierUI)
 
 -- Fallback: recheck sau 3s và 6s phòng trường hợp server set trước khi signal connect

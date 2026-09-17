@@ -75,7 +75,6 @@ local function UpdateAllPlayersMultiplier()
 				if NO_MULTIPLIER_IDS[p1.UserId] then
 					p1:SetAttribute("CashMultiplier", 1)
 					p1:SetAttribute("ActiveFriendsCount", 0)
-					warn("[Multiplier]", p1.Name, "is in NO_MULTIPLIER_IDS, skipped.")
 					return
 				end
 
@@ -86,19 +85,12 @@ local function UpdateAllPlayersMultiplier()
 						local ok, isFriend = pcall(function()
 							return p1:IsFriendsWith(p2.UserId)
 						end)
-						if ok then
-							warn("[Multiplier]", p1.Name, "IsFriendsWith", p2.Name, "->", isFriend)
-							if isFriend then friendCount += 1 end
-						else
-							warn("[Multiplier] IsFriendsWith ERROR for", p1.Name, "vs", p2.Name, ":", isFriend)
-						end
+						if ok and isFriend then friendCount += 1 end
 					end
 				end
 
 				local baseMult = p1:GetAttribute("BaseCashMultiplier") or 1
 				local finalMult = baseMult + (friendCount * 0.25)
-
-				warn("[Multiplier]", p1.Name, "| friends:", friendCount, "| base:", baseMult, "| final:", finalMult)
 
 				p1:SetAttribute("CashMultiplier", finalMult)
 				p1:SetAttribute("ActiveFriendsCount", friendCount)
