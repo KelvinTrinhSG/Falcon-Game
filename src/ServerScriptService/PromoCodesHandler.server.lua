@@ -14,9 +14,9 @@ local blockInventoryUpdatedEvent = ReplicatedStorage:WaitForChild("Events"):Wait
 -- 🎁 LA LISTE DES CODES SECRETS
 -- ==========================================
 local CODES = {
-	["WELCOME"]      = {RewardType = "Crate", RewardItem = "CameraCrate"},
-	["UPDATE1"]      = {RewardType = "Spin",  Amount = 10},
-	["THANK3KVISIT"] = {RewardType = "Block", RewardItem = "GoldBlock", Amount = 3},
+	["FREEITEM"] = {RewardType = "Crate", RewardItem = "CameraCrate"},
+	["CASH2K"]   = {RewardType = "Cash",  Amount = 2000},
+	["GOLD3"]    = {RewardType = "Block", RewardItem = "GoldBlock", Amount = 3},
 }
 
 redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
@@ -31,7 +31,7 @@ redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
 
 	-- On vérifie si le joueur a déjà utilisé ce code
 	if profile.Data.UsedCodes[codeText] then
-		showNotificationEvent:FireClient(player, "Code déjà utilisé !", "Error")
+		showNotificationEvent:FireClient(player, "Code already used!", "Error")
 		return
 	end
 
@@ -45,9 +45,9 @@ redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
 
 			if success then
 				profile.Data.UsedCodes[codeText] = true
-				showNotificationEvent:FireClient(player, "Récompense : +1 " .. codeInfo.RewardItem, "Success")
+				showNotificationEvent:FireClient(player, "Reward: +1 " .. codeInfo.RewardItem, "Success")
 			else
-				showNotificationEvent:FireClient(player, "Ton terrain est plein (Max 3 caisses) !", "Error")
+				showNotificationEvent:FireClient(player, "Your plot is full (Max 3 crates)!", "Error")
 			end
 
 			-- 💰 SI C'EST DE L'ARGENT :
@@ -57,7 +57,7 @@ redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
 			if cash then
 				cash.Value += codeInfo.Amount
 				profile.Data.UsedCodes[codeText] = true
-				showNotificationEvent:FireClient(player, "Récompense : +" .. codeInfo.Amount .. " Cash", "Success")
+				showNotificationEvent:FireClient(player, "Reward: +$" .. codeInfo.Amount .. " Cash", "Success")
 			end
 
 			-- 🎡 SI CE SONT DES SPINS (ROUE) :
@@ -66,7 +66,7 @@ redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
 			if freeSpins then
 				freeSpins.Value += codeInfo.Amount
 				profile.Data.UsedCodes[codeText] = true
-				showNotificationEvent:FireClient(player, "Récompense : +" .. codeInfo.Amount .. " Spins", "Success")
+				showNotificationEvent:FireClient(player, "Reward: +" .. codeInfo.Amount .. " Spins", "Success")
 			end
 
 			-- 🧱 SI CE SONT DES BLOCS :
@@ -86,11 +86,11 @@ redeemCodeEvent.OnServerEvent:Connect(function(player, codeText)
 			-- On actualise le menu en bas de l'écran du joueur
 			blockInventoryUpdatedEvent:FireClient(player, profile.Data.BlockInventory)
 
-			showNotificationEvent:FireClient(player, "Récompense : +" .. amount .. " " .. itemId, "Success")
+			showNotificationEvent:FireClient(player, "Reward: +" .. amount .. " " .. itemId, "Success")
 		end
 
 	else
 		-- Si le code tapé n'est pas dans la liste
-		showNotificationEvent:FireClient(player, "Code invalide.", "Error")
+		showNotificationEvent:FireClient(player, "Invalid code.", "Error")
 	end
 end)

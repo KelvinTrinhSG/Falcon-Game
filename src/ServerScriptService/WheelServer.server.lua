@@ -1,3 +1,6 @@
+-- SpinWheel removed from Workspace — script disabled
+do return end
+
 local ReplicatedStorage  = game:GetService("ReplicatedStorage")
 local DataStoreService   = game:GetService("DataStoreService")
 local Players            = game:GetService("Players")

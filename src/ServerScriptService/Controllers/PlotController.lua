@@ -97,7 +97,7 @@ function PlotController:EquipModel(player: Player, modelName: string, forceEquip
 	end
 
 	if not forceEquip then
-		ShowNotificationEvent:FireClient(player, `{modelConfig.DisplayName} équipé !`, "Success")
+		ShowNotificationEvent:FireClient(player, `{modelConfig.DisplayName} equipped!`, "Success")
 	end
 end
 
@@ -174,7 +174,7 @@ local function validateAndRefundPlacements(player: Player, plot: Model)
 	if itemsRefunded > 0 then
 		ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, profile.Data.BlockInventory)
 		task.delay(2, function()
-			ShowNotificationEvent:FireClient(player, itemsRefunded .. " objets mal placés ont été remboursés dans ton inventaire !", "Warning")
+			ShowNotificationEvent:FireClient(player, itemsRefunded .. " misplaced items were refunded to your inventory!", "Warning")
 		end)
 	end
 end

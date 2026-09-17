@@ -10,7 +10,7 @@ if not GlobalMessageEvent then
 end
 
 local NOM_DU_CANAL = "AnnonceGlobale"
-local ADMIN_IDS = { 8912812154 } -- Ton ID
+local ADMIN_IDS = { 11115679011 }
 
 local function isAdmin(player)
 	for _, id in ipairs(ADMIN_IDS) do
