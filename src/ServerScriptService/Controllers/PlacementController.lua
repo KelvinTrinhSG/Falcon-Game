@@ -317,7 +317,6 @@ local function onItemDestroyedByNPC(player: Player, uniqueId: string)
 	for i, data in ipairs(profile.Data.PlacedItems) do
 		if data.UniqueId == uniqueId then
 			table.remove(profile.Data.PlacedItems, i)
-			print("Removed item destroyed by zombie from save data.")
 			break
 		end
 	end

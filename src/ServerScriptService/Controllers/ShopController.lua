@@ -38,7 +38,6 @@ local function setupShopTrigger(shopName: string, shopModel: Model)
 
 		debounce[player] = true
 
-		print(`Player {player.Name} touched the {shopName} trigger.`)
 		openShopFrameEvent:FireClient(player, shopName)
 
 		task.delay(1, function()
@@ -46,7 +45,6 @@ local function setupShopTrigger(shopName: string, shopModel: Model)
 		end)
 	end)
 
-	print(`Successfully set up trigger for {shopName}.`)
 end
 
 function ShopController:Start()

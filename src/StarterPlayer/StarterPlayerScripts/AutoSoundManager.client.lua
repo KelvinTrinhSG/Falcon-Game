@@ -48,4 +48,3 @@ Workspace.DescendantAdded:Connect(autoAssignSound)
 ReplicatedStorage.DescendantAdded:Connect(autoAssignSound)
 SoundService.DescendantAdded:Connect(autoAssignSound)
 
-print("🎧 AutoSoundManager : Tous les groupes (SFX & Music) sont opérationnels !")

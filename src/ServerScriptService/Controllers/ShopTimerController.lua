@@ -37,19 +37,16 @@ function ShopTimerController:Start()
 
 				-- Check Blocks Shop timer
 				if currentTime >= profile.Data.BlockShopNextRestock then
-					print(`Player {player.Name}'s Blocks Shop is restocking automatically.`)
 					BlocksShopController:Restock(player)
 				end
 
 				-- Check Weapons Shop timer
 				if currentTime >= profile.Data.WeaponShopNextRestock then
-					print(`Player {player.Name}'s Weapons Shop is restocking automatically.`)
 					WeaponsShopController:Restock(player)
 				end
 
 				-- Check Bases Shop timer
 				if currentTime >= profile.Data.BaseShopNextRestock then
-					print(`Player {player.Name}'s Bases Shop is restocking automatically.`)
 					BaseShopController:Restock(player)
 				end
 

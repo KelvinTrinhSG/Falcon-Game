@@ -19,6 +19,5 @@ local openShopFrameEvent: RemoteEvent = ReplicatedStorage.Events:WaitForChild("O
 
 -- Listen for the server's instruction to open a shop frame
 openShopFrameEvent.OnClientEvent:Connect(function(frameName: string)
-	print(`Received instruction to open frame: {frameName}`)
 	FrameManager.open(frameName)
 end)

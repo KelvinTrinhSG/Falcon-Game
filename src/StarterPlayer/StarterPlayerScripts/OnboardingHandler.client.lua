@@ -61,8 +61,6 @@ local function setStep(stepName: string)
 	cleanup()
 	currentStep = stepName
 	onboardingStepValue.Value = stepName
-	print("Onboarding step:", stepName)
-
 	if stepName == "Step1_TeleportToShop" then
 		instructionsLabel.Text = "Teleport to the shop!"
 		instructionsLabel.Visible = true

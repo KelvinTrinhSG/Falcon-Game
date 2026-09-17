@@ -88,9 +88,7 @@ function CrateController:SpawnCrateModel(plot: Model, crateData: table)
 
 		crateInteractionDebounce[newCrate] = true
 
-		-- ## ADDED ## Final debug print to check the time value just before the decision
 		local unlockTime = newCrate:GetAttribute("UnlockTimestamp")
-		print(`[CrateController] Touched by owner. CurrentTime: {os.time()}, UnlockTime: {unlockTime}`)
 
 		if os.time() >= unlockTime then
 			onOpenCrate(player, newCrate)
