@@ -3,6 +3,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TeleportService = game:GetService("TeleportService")
 local ServerScriptService = game:GetService("ServerScriptService")
+local AnalyticsService = game:GetService("AnalyticsService")
 
 local PlayerController = require(ServerScriptService.Controllers.PlayerController)
 
@@ -74,6 +75,7 @@ end
 playAgainEvent.OnServerEvent:Connect(function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or not checkCompleted(player, profile) then return end
+	pcall(function() AnalyticsService:LogCustomEvent(player, "PlayAgain_Standard", 1) end)
 	resetAndTeleport(player, profile)
 end)
 
@@ -82,6 +84,7 @@ playAgainMoneyEvent.OnServerEvent:Connect(function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or not checkCompleted(player, profile) then return end
 	profile.Data.xMoney = (profile.Data.xMoney or 1) + 1
+	pcall(function() AnalyticsService:LogCustomEvent(player, "PlayAgain_xMoney", profile.Data.xMoney) end)
 	resetAndTeleport(player, profile)
 end)
 
@@ -90,6 +93,7 @@ playAgainDamageEvent.OnServerEvent:Connect(function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or not checkCompleted(player, profile) then return end
 	profile.Data.xTowerDam = (profile.Data.xTowerDam or 1) + 1
+	pcall(function() AnalyticsService:LogCustomEvent(player, "PlayAgain_xTowerDam", profile.Data.xTowerDam) end)
 	resetAndTeleport(player, profile)
 end)
 
@@ -98,5 +102,6 @@ playAgainHPEvent.OnServerEvent:Connect(function(player: Player)
 	local profile = PlayerController:GetProfile(player)
 	if not profile or not checkCompleted(player, profile) then return end
 	profile.Data.xToiletHP = (profile.Data.xToiletHP or 1) + 1
+	pcall(function() AnalyticsService:LogCustomEvent(player, "PlayAgain_xToiletHP", profile.Data.xToiletHP) end)
 	resetAndTeleport(player, profile)
 end)

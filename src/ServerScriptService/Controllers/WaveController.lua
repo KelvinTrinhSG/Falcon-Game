@@ -7,7 +7,14 @@ local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local CollectionService = game:GetService("CollectionService")
 local Debris = game:GetService("Debris")
-local MarketplaceService = game:GetService("MarketplaceService") 
+local MarketplaceService = game:GetService("MarketplaceService")
+local AnalyticsService = game:GetService("AnalyticsService")
+
+-- Funnel milestones: wave -> step index
+local FUNNEL_STEPS: {[number]: number} = {}
+for i, wave in ipairs({5,10,15,20,25,30,35,40,45,50,55,60}) do
+	FUNNEL_STEPS[wave] = i
+end
 
 -- Modules
 local PlayerController
@@ -504,6 +511,10 @@ startNextWave = function(player: Player, plot: Model)
 								if profile.Data.HighestWave < 60 then profile.Data.HighestWave = 60 end
 								if profile.Data.HighestCompletedWave == nil then profile.Data.HighestCompletedWave = 0 end
 								if profile.Data.HighestCompletedWave < 60 then profile.Data.HighestCompletedWave = 60 end
+								pcall(function()
+									AnalyticsService:LogFunnelStepEvent(player, "WaveProgression", nil, 12, "Wave 60")
+									AnalyticsService:LogCustomEvent(player, "WaveCompleted_60", 1)
+								end)
 								stopFight(plot, "win")
 								local gameWinEvent = ReplicatedStorage.Events:WaitForChild("GameWin", 10)
 								if gameWinEvent then gameWinEvent:FireClient(player, profile.Data.xMoney or 1, profile.Data.xTowerDam or 1, profile.Data.xToiletHP or 1) end
@@ -513,6 +524,14 @@ startNextWave = function(player: Player, plot: Model)
 							if profile.Data.HighestCompletedWave == nil then profile.Data.HighestCompletedWave = 0 end
 							if state.CurrentWave > profile.Data.HighestCompletedWave then
 								profile.Data.HighestCompletedWave = state.CurrentWave
+							end
+
+							local stepIndex = FUNNEL_STEPS[state.CurrentWave]
+							if stepIndex then
+								pcall(function()
+									AnalyticsService:LogFunnelStepEvent(player, "WaveProgression", nil, stepIndex, "Wave " .. state.CurrentWave)
+									AnalyticsService:LogCustomEvent(player, "WaveCompleted_" .. state.CurrentWave, 1)
+								end)
 							end
 
 							if profile and completedWaveConfig.UnlocksStartingWave then
