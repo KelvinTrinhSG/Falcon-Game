@@ -62,7 +62,7 @@ function PlayerController:SetupSharedInstances() end
 -- ==========================================
 -- 👥 FONCTION POUR RECALCULER LE MULTIPLICATEUR (GAMEPASS + AMIS)
 -- ==========================================
-local NO_MULTIPLIER_IDS = { [11115679011] = true }
+local NO_MULTIPLIER_IDS = {} -- { [11115679011] = true }
 
 local _multiplierPending = false
 local function UpdateAllPlayersMultiplier()
@@ -216,9 +216,9 @@ local function onPlayerAdded(player: Player)
 			pcall(function() hasVIP = MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_VIP) end)
 
 			if hasX2 then
-				baseMultiplier = 2
+				baseMultiplier = 1
 			elseif hasVIP then
-				baseMultiplier = 1.5
+				baseMultiplier = 1
 			end
 		end
 
@@ -262,10 +262,10 @@ function PlayerController:Start()
 			local currentBase = player:GetAttribute("BaseCashMultiplier") or 1
 
 			if gamePassId == GAMEPASS_X2 then
-				player:SetAttribute("BaseCashMultiplier", 2)
+				player:SetAttribute("BaseCashMultiplier", 1)
 				UpdateAllPlayersMultiplier()
 			elseif gamePassId == GAMEPASS_VIP and currentBase < 2 then
-				player:SetAttribute("BaseCashMultiplier", 1.5)
+				player:SetAttribute("BaseCashMultiplier", 1)
 				UpdateAllPlayersMultiplier()
 			end
 		end
