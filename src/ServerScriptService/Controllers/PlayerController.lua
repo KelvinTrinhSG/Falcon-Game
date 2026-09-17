@@ -64,38 +64,47 @@ function PlayerController:SetupSharedInstances() end
 -- ==========================================
 local NO_MULTIPLIER_IDS = { [11115679011] = true }
 
+local _multiplierPending = false
 local function UpdateAllPlayersMultiplier()
-	for _, p1 in ipairs(Players:GetPlayers()) do
-		task.spawn(function()
-			if NO_MULTIPLIER_IDS[p1.UserId] then
-				p1:SetAttribute("CashMultiplier", 1)
-				p1:SetAttribute("ActiveFriendsCount", 0)
-				return
-			end
-
-			local friendCount = 0
-
-			-- On compte combien d'amis p1 a dans le serveur
-			for _, p2 in ipairs(Players:GetPlayers()) do
-				if p1 ~= p2 and p1:IsFriendsWith(p2.UserId) then
-					friendCount += 1
+	if _multiplierPending then return end
+	_multiplierPending = true
+	task.delay(2, function()
+		_multiplierPending = false
+		for _, p1 in ipairs(Players:GetPlayers()) do
+			task.spawn(function()
+				if NO_MULTIPLIER_IDS[p1.UserId] then
+					p1:SetAttribute("CashMultiplier", 1)
+					p1:SetAttribute("ActiveFriendsCount", 0)
+					warn("[Multiplier]", p1.Name, "is in NO_MULTIPLIER_IDS, skipped.")
+					return
 				end
-			end
 
-			-- On récupère la base (1 par défaut, ou 1.5/2 si VIP/X2)
-			local baseMult = p1:GetAttribute("BaseCashMultiplier") or 1
+				local friendCount = 0
 
-			-- Calcul final : Base + (0.25 par ami)
-			local finalMult = baseMult + (friendCount * 0.25)
+				for _, p2 in ipairs(Players:GetPlayers()) do
+					if p1 ~= p2 then
+						local ok, isFriend = pcall(function()
+							return p1:IsFriendsWith(p2.UserId)
+						end)
+						if ok then
+							warn("[Multiplier]", p1.Name, "IsFriendsWith", p2.Name, "->", isFriend)
+							if isFriend then friendCount += 1 end
+						else
+							warn("[Multiplier] IsFriendsWith ERROR for", p1.Name, "vs", p2.Name, ":", isFriend)
+						end
+					end
+				end
 
-			-- On met à jour l'attribut officiel du joueur
-			p1:SetAttribute("CashMultiplier", finalMult)
+				local baseMult = p1:GetAttribute("BaseCashMultiplier") or 1
+				local finalMult = baseMult + (friendCount * 0.25)
 
-			-- Optionnel: Tu peux aussi stocker le nombre d'amis pour ton GUI
-			p1:SetAttribute("ActiveFriendsCount", friendCount)
+				warn("[Multiplier]", p1.Name, "| friends:", friendCount, "| base:", baseMult, "| final:", finalMult)
 
-		end)
-	end
+				p1:SetAttribute("CashMultiplier", finalMult)
+				p1:SetAttribute("ActiveFriendsCount", friendCount)
+			end)
+		end
+	end)
 end
 
 local function onPlayerAdded(player: Player)

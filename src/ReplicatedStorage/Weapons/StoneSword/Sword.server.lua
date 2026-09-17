@@ -72,7 +72,6 @@ local function doHitbox()
 
 		hitThisSwing[hitModel] = true
 		humanoid:TakeDamage(damage)
-		print(string.format("[SwordHit] %s chém %s | dmg: %d | HP còn: %.0f", tool.Name, hitModel.Name, damage, humanoid.Health))
 
 		if player then
 			HighlightZombie:FireClient(player, hitModel)
@@ -94,7 +93,6 @@ local function onActivated()
 	isSwinging = true
 	SwingSound:Play()
 	hitThisSwing = {}
-	print(string.format("[SwordSwing] %s swing | dmg: %d | hitbox: %s", tool.Name, tool:GetAttribute("Damage") or 10, tostring(HITBOX_SIZE)))
 
 	local elapsed = 0
 	local interval = 0.1
