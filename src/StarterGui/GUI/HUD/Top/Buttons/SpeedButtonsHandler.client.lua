@@ -18,7 +18,7 @@ local changeSpeedEvent = eventsFolder:WaitForChild("ChangeWaveSpeed", 5)
 
 -- L'ID de ton Gamepass X3 Speed
 local GAMEPASS_X3_SPEED = 1968442351
-local ownsSpeedPass = false
+local ownsSpeedPass = true
 
 -- ==========================================
 -- ✨ ANIMATIONS DES BOUTONS (Survol & Clic)
