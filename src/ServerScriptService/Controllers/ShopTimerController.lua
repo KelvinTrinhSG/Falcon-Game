@@ -45,11 +45,6 @@ function ShopTimerController:Start()
 					WeaponsShopController:Restock(player)
 				end
 
-				-- Check Bases Shop timer
-				if currentTime >= profile.Data.BaseShopNextRestock then
-					BaseShopController:Restock(player)
-				end
-
 				-- Check Turrets Shop timer
 				if currentTime >= (profile.Data.TurretsShopNextRestock or 0) then
 					TurretsShopController:Restock(player)

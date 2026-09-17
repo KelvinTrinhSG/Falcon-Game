@@ -112,10 +112,7 @@ local function processReceipt(receiptInfo: {[string]: any})
 			TurretsShopController:Restock(player, true)
 			showNotificationEvent:FireClient(player, "Defenders Shop Restocked!", "Success")
 			return Enum.ProductPurchaseDecision.PurchaseGranted
-		elseif itemId == "RestockBasesShop" then
-			BaseShopController:Restock(player, true)
-			showNotificationEvent:FireClient(player, "Bases Shop Restocked!", "Success")
-			return Enum.ProductPurchaseDecision.PurchaseGranted
+
 		elseif itemId == "RestockWeaponsShop" then
 			ShopController:Restock(player, true)
 			showNotificationEvent:FireClient(player, "Crates Shop Restocked!", "Success")
@@ -124,11 +121,7 @@ local function processReceipt(receiptInfo: {[string]: any})
 	elseif productType == "Base" then
 		if not table.find(profile.Data.OwnedBases, itemId) then
 			table.insert(profile.Data.OwnedBases, itemId)
-			local stock = profile.Data.BaseShopStock or {}
-			stock[itemId] = 0
-			profile.Data.BaseShopStock = stock
 			BaseShopController:EquipBase(player, itemId)
-			ReplicatedStorage.Events.UpdateBaseStocks:FireClient(player, stock)
 			showNotificationEvent:FireClient(player, config.DisplayName .. " purchased!", "Success")
 		end
 		return Enum.ProductPurchaseDecision.PurchaseGranted

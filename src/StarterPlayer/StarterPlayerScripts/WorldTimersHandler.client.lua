@@ -26,11 +26,7 @@ local shopConfigs = {
 		GetTimeFunc = ReplicatedStorage.Functions:WaitForChild("GetWeaponShopResetTime"),
 		UpdateEvent = ReplicatedStorage.Events:WaitForChild("UpdateWeaponStocks"),
 	},
-	BasesShop = {
-		TimerLabel = Workspace:WaitForChild("BasesShop"):WaitForChild("RestockGUI"):WaitForChild("TimerLabel"),
-		GetTimeFunc = ReplicatedStorage.Functions:WaitForChild("GetBasesShopResetTime"),
-		UpdateEvent = ReplicatedStorage.Events:WaitForChild("UpdateBaseStocks"),
-	},
+
 }
 
 -- A table to keep track of the active timer connections for each shop
