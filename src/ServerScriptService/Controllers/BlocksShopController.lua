@@ -101,8 +101,8 @@ local function onPurchaseRequest(player: Player, itemId: string)
 
 			-- 2. Le joueur est à la nouvelle étape "Acheter Bloc" et achète un Bloc
 		elseif profile.Data.OnboardingStep == "Step3b_BuyFirstBlock" and config.Type == "Blocks" then
-			profile.Data.OnboardingStep = "Step4_TeleportToPlot"
-			ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step4_TeleportToPlot")
+			profile.Data.OnboardingStep = "Step4b_VisitTitanTVMan"
+			ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step4b_VisitTitanTVMan")
 		end
 		-- ==========================================
 

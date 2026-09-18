@@ -297,8 +297,8 @@ function PlayerController:Start()
 		["Step2_OpenDefenceShop"] = "Step3_BuyOldTurret",
 		["Step3_BuyOldTurret"] = "Step3b_BuyFirstBlock",
 		["Step3b_BuyFirstBlock"] = "Step4_TeleportToPlot",
-		["Step4_TeleportToPlot"] = "Step4b_VisitTitanTVMan",
-		["Step4b_VisitTitanTVMan"] = "Step5_OpenInventory",
+		["Step4b_VisitTitanTVMan"] = "Step4_TeleportToPlot",
+		["Step4_TeleportToPlot"] = "Step5_OpenInventory",
 		["Step5_OpenInventory"] = "Step6_PlaceOldTurret",
 		["Step6_PlaceOldTurret"] = "Step6b_PlaceRockBlock", -- ⚡ AJOUTÉ : On demande de poser le bloc après la tourelle
 		["Step6b_PlaceRockBlock"] = "Step7_StartFight",      -- ⚡ MODIFIÉ : Puis on lance le combat

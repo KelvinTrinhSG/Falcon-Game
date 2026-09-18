@@ -214,8 +214,8 @@ touchPart.Touched:Connect(function(hit)
 	-- Advance onboarding if player is on the visit step
 	local visitProfile = getProfile(player)
 	if visitProfile and visitProfile.Data.OnboardingStep == "Step4b_VisitTitanTVMan" then
-		visitProfile.Data.OnboardingStep = "Step5_OpenInventory"
-		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step5_OpenInventory")
+		visitProfile.Data.OnboardingStep = "Step4_TeleportToPlot"
+		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step4_TeleportToPlot")
 	end
 
 	local remaining = getCooldownRemaining(player)
