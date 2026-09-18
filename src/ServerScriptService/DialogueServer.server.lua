@@ -23,10 +23,6 @@ local getTVManCooldown = Instance.new("RemoteFunction")
 getTVManCooldown.Name = "getTVManCooldown"
 getTVManCooldown.Parent = Remotes
 
-local secretAgentCashFX = Instance.new("RemoteEvent")
-secretAgentCashFX.Name = "SecretAgentCashFX"
-secretAgentCashFX.Parent = Remotes
-
 -- Constants
 local RunService = game:GetService("RunService")
 local TEST_USER_ID = 11115679011

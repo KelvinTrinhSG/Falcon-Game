@@ -19,7 +19,6 @@ for id, config in pairs(ItemConfigurations) do
 	AllItemConfigs[id] = config
 end
 
-local secretAgentCashFX: RemoteEvent
 for id, config in pairs(LimitedItems) do
 	AllItemConfigs[id] = config
 end
@@ -303,8 +302,6 @@ function TurretController:ResetTurretRotation(turretModel: Model)
 end
 
 function TurretController:Start()
-	secretAgentCashFX = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("SecretAgentCashFX")
-
 	RunService.Heartbeat:Connect(function(deltaTime)
 		local enemiesFolder = Workspace:FindFirstChild("ActiveEnemies")
 		if not enemiesFolder then return end
@@ -318,24 +315,6 @@ function TurretController:Start()
 			end
 
 			local turretPosition = turretModel.PrimaryPart.Position
-
-			-- Cash-generating turret (e.g. SecretAgent) — skip fire logic
-			if data.config.CashPerSecond then
-				if now - data.lastCashTime >= 1 then
-					data.lastCashTime = now
-					local ownerId = data.plot:GetAttribute("OwnerId")
-					local ownerPlayer = ownerId and Players:GetPlayerByUserId(ownerId)
-					if ownerPlayer then
-						local leaderstats = ownerPlayer:FindFirstChild("leaderstats")
-						local cash = leaderstats and leaderstats:FindFirstChild("Cash")
-						if cash then cash.Value += data.config.CashPerSecond end
-						if secretAgentCashFX then
-							secretAgentCashFX:FireClient(ownerPlayer, turretModel)
-						end
-					end
-				end
-				continue
-			end
 
 			local closestTarget = nil
 

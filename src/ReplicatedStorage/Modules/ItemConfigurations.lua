@@ -317,15 +317,6 @@ local ItemConfigurations = {
 		TargetingMode = "ClosestToEnd",
 	},
 
-	SecretAgent = {
-		DisplayName = "Secret Agent",
-		Type = "Turrets",
-		Price = 0,
-		ImageId = "rbxassetid://0",
-		ProductID = 0,
-		Health = 5000000000,
-		CashPerSecond = 2,
-	},
 }
 
 local LimitedItems = {
