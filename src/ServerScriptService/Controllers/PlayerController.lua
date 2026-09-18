@@ -43,6 +43,7 @@ local ProfileTemplate = {
 	BaseShopNextRestock = 0,
 	TurretsShopStock = {},
 	TurretsShopNextRestock = 0,
+	TitanTVManLastSupport = 0,
 }
 
 local GameProfileStore = ProfileService.New(
