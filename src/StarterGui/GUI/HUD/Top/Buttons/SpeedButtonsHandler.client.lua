@@ -3,7 +3,6 @@
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
-local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
@@ -12,13 +11,8 @@ local buttonsFolder = script.Parent
 local speed1Btn = buttonsFolder:WaitForChild("Speed1")
 local speed3Btn = buttonsFolder:WaitForChild("Speed3")
 
--- On prépare l'événement pour parler au serveur
 local eventsFolder = ReplicatedStorage:WaitForChild("Events")
-local changeSpeedEvent = eventsFolder:WaitForChild("ChangeWaveSpeed", 5) 
-
--- L'ID de ton Gamepass X3 Speed
-local GAMEPASS_X3_SPEED = 1968442351
-local ownsSpeedPass = true
+local changeSpeedEvent = eventsFolder:WaitForChild("ChangeWaveSpeed", 5)
 
 -- ==========================================
 -- ✨ ANIMATIONS DES BOUTONS (Survol & Clic)
@@ -51,29 +45,11 @@ end
 if speed1Btn:IsA("GuiButton") then applyAnimations(speed1Btn) end
 if speed3Btn:IsA("GuiButton") then applyAnimations(speed3Btn) end
 
--- ==========================================
--- 🔒 GESTION DU CADENAS (INTERFACE)
--- ==========================================
-local function updateSpeed3UI()
-	local lockedFrame = speed3Btn:FindFirstChild("Locked")
-	local textLabel = speed3Btn:FindFirstChild("Text")
-
-	-- ⚡ NOUVEAU : On vérifie AUSSI l'attribut donné par la roue !
-	local hasWonPass = (player:GetAttribute("HasX3WavePass") == true)
-
-	if ownsSpeedPass or hasWonPass then
-		if lockedFrame then lockedFrame.Visible = false end
-		if textLabel then textLabel.Visible = true end
-	else
-		if lockedFrame then lockedFrame.Visible = true end
-		if textLabel then textLabel.Visible = false end
-	end
-end
-
--- On écoute si le serveur donne soudainement le pass via la Roue !
-player:GetAttributeChangedSignal("HasX3WavePass"):Connect(function()
-	updateSpeed3UI()
-end)
+-- Ẩn lock, hiện text cho Speed3 ngay khi load
+local lockedFrame = speed3Btn:FindFirstChild("Locked")
+local textLabel = speed3Btn:FindFirstChild("Text")
+if lockedFrame then lockedFrame.Visible = false end
+if textLabel then textLabel.Visible = true end
 
 -- ==========================================
 -- 🏃‍♂️ ENVOI DU SIGNAL DE VITESSE AU SERVEUR
@@ -82,37 +58,13 @@ local function requestWaveSpeed(multiplier: number)
 	if changeSpeedEvent then
 		changeSpeedEvent:FireServer(multiplier)
 	else
-		warn("L'événement ChangeWaveSpeed n'existe pas dans ReplicatedStorage.Events !")
+		warn("[SpeedButtons] ChangeWaveSpeed event not found in ReplicatedStorage.Events")
 	end
 end
 
 -- ==========================================
--- 🛒 VÉRIFICATION ET ACHAT DU GAMEPASS
--- ==========================================
-task.spawn(function()
-	local success, hasPass = pcall(function()
-		return MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_X3_SPEED)
-	end)
-	if success and hasPass then
-		ownsSpeedPass = true
-	end
-	updateSpeed3UI()
-end)
-
--- QUAND LE JOUEUR ACHÈTE LE PASS EN JEU :
-MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(purchasedPlayer, passId, wasPurchased)
-	if purchasedPlayer == player and passId == GAMEPASS_X3_SPEED and wasPurchased then
-		ownsSpeedPass = true
-		updateSpeed3UI() -- Enlève le cadenas
-		requestWaveSpeed(3) -- ⚡ ACTIVE LA VITESSE X3 IMMÉDIATEMENT !
-	end
-end)
-
--- ==========================================
 -- 🖱️ CLICS SUR LES BOUTONS
 -- ==========================================
-
--- Toggle x1/x2 cho Speed1 | Toggle x3 cho Speed3
 local isX2Active = false
 local isX3Active = false
 
@@ -153,19 +105,15 @@ speed1Btn.MouseButton1Click:Connect(function()
 	requestWaveSpeed(isX2Active and 2 or 1)
 end)
 
+speed3Btn.MouseButton1Click:Connect(function()
+	print("[Speed3] Clicked | isX3Active (before) =", isX3Active)
+	isX3Active = not isX3Active
+	if isX3Active then isX2Active = false end
+	updateSpeed1Visuals()
+	updateSpeed3Visuals()
+	requestWaveSpeed(isX3Active and 3 or 1)
+	print("[Speed3] Fired speed", isX3Active and 3 or 1)
+end)
+
 updateSpeed1Visuals()
 updateSpeed3Visuals()
-
-speed3Btn.MouseButton1Click:Connect(function()
-	local hasWonPass = (player:GetAttribute("HasX3WavePass") == true)
-
-	if ownsSpeedPass or hasWonPass then
-		isX3Active = not isX3Active
-		if isX3Active then isX2Active = false end
-		updateSpeed1Visuals()
-		updateSpeed3Visuals()
-		requestWaveSpeed(isX3Active and 3 or 1)
-	else
-		MarketplaceService:PromptGamePassPurchase(player, GAMEPASS_X3_SPEED)
-	end
-end)

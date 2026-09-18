@@ -135,7 +135,7 @@ local function setupPriceLabel(button: GuiButton, priceLabel: TextLabel, id: num
 			return MarketplaceService:GetProductInfo(id, infoType)
 		end)
 		if button:GetAttribute("AlreadyOwned") then return end
-		if success and productInfo then
+		if success and productInfo and productInfo.PriceInRobux then
 			local priceString = " " .. productInfo.PriceInRobux
 			robuxPricesCache[id] = priceString
 			priceLabel.Text = priceString

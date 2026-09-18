@@ -244,22 +244,3 @@ Players.PlayerRemoving:Connect(function(player)
 	debounce[player] = nil
 end)
 
--- Test: cấp SecretAgent cho Aplayer3210 khi join
-Players.PlayerAdded:Connect(function(player)
-	if not RunService:IsStudio() then return end
-	if player.UserId ~= TEST_USER_ID then return end
-
-	task.spawn(function()
-		local PlayerController = require(ServerScriptService.Controllers.PlayerController)
-		local profile = PlayerController:GetProfile(player)
-		while not profile do
-			task.wait(0.5)
-			profile = PlayerController:GetProfile(player)
-		end
-
-		profile.Data.BlockInventory["SecretAgent"] = (profile.Data.BlockInventory["SecretAgent"] or 0) + 1
-		ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(player, profile.Data.BlockInventory)
-		print("[Test] Gave SecretAgent to", player.Name)
-		print("[Test] BlockInventory:", profile.Data.BlockInventory)
-	end)
-end)

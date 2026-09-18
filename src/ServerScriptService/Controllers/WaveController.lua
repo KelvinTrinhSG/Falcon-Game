@@ -781,16 +781,6 @@ function WaveController:Start()
 		changeSpeedEvent.OnServerEvent:Connect(function(player, multiplier)
 			if multiplier ~= 1 and multiplier ~= 2 and multiplier ~= 3 then return end
 
-			if multiplier == 3 then
-				local success, hasPass = pcall(function()
-					return MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_X3_SPEED)
-				end)
-
-				local hasWonPass = (player:GetAttribute("HasX3WavePass") == true)
-
-				if not (success and hasPass) and not hasWonPass then return end
-			end
-
 			_playerSpeeds[player] = multiplier
 			player:SetAttribute("WaveSpeedMultiplier", multiplier)
 
