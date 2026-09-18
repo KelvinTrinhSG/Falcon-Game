@@ -55,7 +55,7 @@ local NORMAL_IDS = {
 	"rbxassetid://98294731871015",
 }
 
-local currentVolume = 1
+local currentVolume = 0.5
 local currentMusic: Sound? = nil
 local isBossActive = false
 local isWaveActive = false
@@ -187,4 +187,4 @@ UserInputService.InputEnded:Connect(function(input)
 	end
 end)
 
-sliderButton.Position = UDim2.new(1, 0, sliderButton.Position.Y.Scale, sliderButton.Position.Y.Offset)
+sliderButton.Position = UDim2.new(0.5, 0, sliderButton.Position.Y.Scale, sliderButton.Position.Y.Offset)
