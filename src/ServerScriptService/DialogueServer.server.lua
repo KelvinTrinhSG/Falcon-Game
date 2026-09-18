@@ -211,6 +211,13 @@ touchPart.Touched:Connect(function(hit)
 	if debounce[player] then return end
 	debounce[player] = true
 
+	-- Advance onboarding if player is on the visit step
+	local visitProfile = getProfile(player)
+	if visitProfile and visitProfile.Data.OnboardingStep == "Step4b_VisitTitanTVMan" then
+		visitProfile.Data.OnboardingStep = "Step5_OpenInventory"
+		ReplicatedStorage.Events.UpdateOnboardingStep:FireClient(player, "Step5_OpenInventory")
+	end
+
 	local remaining = getCooldownRemaining(player)
 
 	if remaining > 0 then

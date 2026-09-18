@@ -32,6 +32,9 @@ local inventoryButton = hudBottomButtons:WaitForChild("Inventory")
 
 local turretsShopModel = Workspace:WaitForChild("TurretsShop")
 local blocksShopModel = Workspace:WaitForChild("BlocksShop")
+local titanTVManTouchPart = Workspace:WaitForChild("UpgradedTitanModels")
+	:WaitForChild("TouchParts")
+	:WaitForChild("UpgradedTitanTVMan")
 
 local onboardingImages = {
 	ShopTeleport = shopTeleportButton:WaitForChild("Onboarding"),
@@ -122,6 +125,26 @@ local function setStep(stepName: string)
 		end
 		-- ==========================================e
 		-- ==========================================
+
+	elseif stepName == "Step4b_VisitTitanTVMan" then
+		instructionsLabel.Text = "Visit Titan TV Man for a free support package!"
+		instructionsLabel.Visible = true
+
+		if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+			player.CharacterAdded:Wait()
+		end
+		local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+
+		if humanoidRootPart then
+			attachment0 = Instance.new("Attachment")
+			attachment0.Parent = humanoidRootPart
+			attachment1 = Instance.new("Attachment")
+			attachment1.Parent = titanTVManTouchPart
+			beam = beamTemplate:Clone()
+			beam.Attachment0 = attachment1
+			beam.Attachment1 = attachment0
+			beam.Parent = humanoidRootPart
+		end
 
 	elseif stepName == "Step4_TeleportToPlot" then
 		instructionsLabel.Text = "Teleport to your plot!"
