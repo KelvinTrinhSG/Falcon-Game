@@ -25,6 +25,7 @@ eventRemote.Parent = ReplicatedStorage:WaitForChild("Events")
 
 -- State
 local isEventActive      = false
+local eventStartedAt     = 0
 local spawnedAgents      = {}   -- { model }
 local collectedThisEvent = {}   -- { [player] = true }
 local touchDebounce      = {}   -- { [player] = true }
@@ -94,6 +95,7 @@ end
 local function startEvent()
 	if isEventActive then return end
 	isEventActive = true
+	eventStartedAt = os.time()
 	collectedThisEvent = {}
 	touchDebounce = {}
 	spawnedAgents = {}
@@ -111,7 +113,7 @@ local function startEvent()
 	end
 
 	print(string.format("[SecretAgentEvent] Event started — spawned %d agents", #spawnedAgents))
-	eventRemote:FireAllClients("start")
+	eventRemote:FireAllClients("start", eventStartedAt, DURATION)
 end
 
 local function endEvent()
@@ -136,8 +138,7 @@ Players.PlayerRemoving:Connect(function(player)
 end)
 
 -- Scheduler
-local lastSecond  = -1
-local eventStartedAt = 0  -- os.time() khi event bắt đầu
+local lastSecond = -1
 
 RunService.Heartbeat:Connect(function()
 	local now = os.time()
