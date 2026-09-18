@@ -60,6 +60,7 @@ local function resetAndTeleport(player: Player, profile: any)
 	profile.Data.BaseShopNextRestock    = 0
 	profile.Data.TurretsShopStock       = {}
 	profile.Data.TurretsShopNextRestock = 0
+	profile.Data.TitanTVManLastSupport  = 0
 	-- xMoney, xTowerDam, xToiletHP không reset
 
 	local success, err = pcall(function()
