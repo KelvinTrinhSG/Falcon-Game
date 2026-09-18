@@ -1,5 +1,7 @@
-local Remotes = game.ReplicatedStorage:WaitForChild("Remotes", math.huge)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Remotes = ReplicatedStorage:WaitForChild("Remotes", math.huge)
 local getTVManCooldown = Remotes:WaitForChild("getTVManCooldown", math.huge)
+local NotificationManager = require(ReplicatedStorage.Modules:WaitForChild("NotificationManager"))
 
 local timerLabel = workspace:WaitForChild("UpgradedTitanModels", math.huge)
 	:WaitForChild("Floor", math.huge)
@@ -21,6 +23,7 @@ while true do
 			task.wait(1)
 			remaining -= 1
 		end
+		NotificationManager.show("Titan TV Man support is ready! Go claim your package!", "Success")
 	end
 
 	timerLabel.Text = "Ready for Support"
