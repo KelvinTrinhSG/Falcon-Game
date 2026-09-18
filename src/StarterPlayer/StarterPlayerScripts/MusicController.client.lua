@@ -58,6 +58,7 @@ local NORMAL_IDS = {
 local currentVolume = 1
 local currentMusic: Sound? = nil
 local isBossActive = false
+local isWaveActive = false
 local FADE = 1.5
 
 local function stopWithFade(sound: Sound)
@@ -93,6 +94,7 @@ playNormalMusic()
 local Events = ReplicatedStorage:WaitForChild("Events")
 
 Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(function(isActive: boolean)
+	isWaveActive = isActive
 	if isActive then
 		if not isBossActive then
 			playMusic(fightingMusic, "rbxassetid://102925780230657")
@@ -110,7 +112,9 @@ end)
 
 Events:WaitForChild("BossWaveEnded").OnClientEvent:Connect(function()
 	isBossActive = false
-	playMusic(fightingMusic, "rbxassetid://102925780230657")
+	if isWaveActive then
+		playMusic(fightingMusic, "rbxassetid://102925780230657")
+	end
 end)
 
 Events:WaitForChild("ShowGameOver").OnClientEvent:Connect(function()
