@@ -319,6 +319,8 @@ local function setupTag(tagName: string, applyFn: (Instance) -> (), cleanupFn: (
 	CollectionService:GetInstanceAddedSignal(tagName):Connect(applyFn)
 	CollectionService:GetInstanceRemovedSignal(tagName):Connect(cleanupFn)
 end
+require(ReplicatedStorage.Modules.SecretAgentFX).init()
+
 setupTag("ButtonAnimation", applyButtonAnimation, function(inst) buttonStates[inst] = nil end)
 setupTag("SunburstEffect", applySunburstEffect, function(inst) sunburstObjects[inst] = nil end)
 setupTag("HoverEffect", applyHoverEffect, function(inst) if activeHoverTweens[inst] then for _,t in pairs(activeHoverTweens[inst]) do t:Cancel() end activeHoverTweens[inst] = nil end end)

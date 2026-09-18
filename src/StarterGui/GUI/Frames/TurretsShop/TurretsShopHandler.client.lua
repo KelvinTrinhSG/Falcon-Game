@@ -77,7 +77,7 @@ local function populateShop()
 
 	local itemsToDisplay = {}
 	for itemId, config in pairs(ItemConfigurations) do
-		if config.Type == "Turrets" then
+		if config.Type == "Turrets" and config.Chance and config.StockAmount then
 			table.insert(itemsToDisplay, {Id = itemId, Config = config})
 		end
 	end
