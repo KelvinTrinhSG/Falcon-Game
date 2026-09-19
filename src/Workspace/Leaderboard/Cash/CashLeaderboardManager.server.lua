@@ -110,12 +110,12 @@ Players.PlayerRemoving:Connect(savePlayerCash)
 -- ⏱️ BOUCLE DE RAFRAÎCHISSEMENT (Toutes les 60s)
 -- ==========================================
 task.spawn(function()
+	task.wait(20)
 	while true do
 		for _, player in ipairs(Players:GetPlayers()) do
 			savePlayerCash(player)
 		end
-
 		updateLeaderboard()
-		task.wait(60) 
+		task.wait(60)
 	end
 end)

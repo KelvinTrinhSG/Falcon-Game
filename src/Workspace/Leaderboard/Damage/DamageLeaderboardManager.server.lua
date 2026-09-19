@@ -73,11 +73,11 @@ end
 Players.PlayerRemoving:Connect(savePlayerDamage)
 
 task.spawn(function()
+	task.wait(40)
 	while true do
 		for _, player in ipairs(Players:GetPlayers()) do
 			savePlayerDamage(player)
 		end
-
 		updateLeaderboard()
 		task.wait(60)
 	end

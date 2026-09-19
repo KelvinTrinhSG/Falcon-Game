@@ -77,7 +77,6 @@ task.spawn(function()
 		for _, player in ipairs(Players:GetPlayers()) do
 			savePlayerToiletHP(player)
 		end
-
 		updateLeaderboard()
 		task.wait(60)
 	end
