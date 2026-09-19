@@ -314,7 +314,7 @@ local EnemyConfigurations = {
 	-- LES BOSS MAJEURS
 	-- ==========================================
 	["BossToilet50"] = {
-		CashReward = 120000,
+		CashReward = 72250,
 		MaxHealth = 320000,
 		Damage = 999999,
 		AttackCooldown = 1,
@@ -323,7 +323,7 @@ local EnemyConfigurations = {
 		IsFlying = true,
 	},
 	["BossToilet30"] = {
-		CashReward = 1500,
+		CashReward = 15000,
 		MaxHealth = 160000,
 		Damage = 999999,
 		AttackCooldown = 1,
@@ -334,21 +334,22 @@ local EnemyConfigurations = {
 	["BossToilet10"] = {
 		CashReward = 500,
 		MaxHealth = 2000,
-		Damage = 300,
+		Damage = 999999,
 		AttackCooldown = 1,
 		WalkSpeed = 4,
-		BaseDamage = 200,
+		BaseDamage = 999999,
 	},
 	["BossToilet"] = {
-		CashReward = 1000,
+		CashReward = 5000,
 		MaxHealth = 20000,
 		Damage = 999999,
+		AttackCooldown = 1,
 		WalkSpeed = 4,
 		BaseDamage = 999999,
 	},
 	["BossToilet2"] = {
-		CashReward = 3000,
-		MaxHealth = 640000,
+		CashReward = 30000,
+		MaxHealth = 240000,
 		Damage = 999999,
 		AttackCooldown = 1,
 		WalkSpeed = 4,

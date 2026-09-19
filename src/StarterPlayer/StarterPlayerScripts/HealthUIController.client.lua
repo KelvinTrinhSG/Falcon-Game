@@ -144,6 +144,9 @@ BossWaveStarted.OnClientEvent:Connect(function(bossHumanoid: Humanoid, imageId: 
 end)
 
 BossWaveEnded.OnClientEvent:Connect(function()
+	bossProgressBar:TweenSize(UDim2.new(0, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.2, true)
+	bossTextLabel.Text = "BOSS: 0 / " .. (bossTextLabel.Text:match("/ (.+)") or "0")
+	task.wait(0.2)
 	bossHealthFrame.Visible = false
 	if bossHealthConnection then
 		bossHealthConnection:Disconnect()
