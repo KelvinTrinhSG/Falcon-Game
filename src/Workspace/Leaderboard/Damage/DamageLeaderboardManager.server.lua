@@ -4,7 +4,7 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local PlayerController = require(ServerScriptService.Controllers.PlayerController)
 
-local damageLeaderboard = DataStoreService:GetOrderedDataStore("DamageLeaderboard_V1")
+local damageLeaderboard = DataStoreService:GetOrderedDataStore("DamageLeaderboard_V2")
 
 local boardModel = script.Parent
 local guiPart = boardModel:WaitForChild("GUIPart")

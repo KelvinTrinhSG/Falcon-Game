@@ -72,12 +72,16 @@ local WaveConfigurations = {
 		},
 	},
 	[10] = {
-		CashReward = 400,
+		CashReward = 1000,
 		UnlocksStartingWave = 5,
+		IsBossWave = true,
+		AlwaysBoss = true,
+		BossImageId = "rbxassetid://129238692306060",
 		Enemies = {
-			{Enemy = "SmallYellowToilet", Count = 9, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "SmallRedToilet",    Count = 9, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "LargeToilet",       Count = 9, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
+			{Enemy = "BossToilet10",      Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
+			{Enemy = "SmallYellowToilet", Count = 4, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "SmallRedToilet",    Count = 4, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "LargeToilet",       Count = 4, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
 
@@ -230,11 +234,15 @@ local WaveConfigurations = {
 		},
 	},
 	[30] = {
-		CashReward = 1400,
+		CashReward = 3000,
 		UnlocksStartingWave = 25,
+		IsBossWave = true,
+		AlwaysBoss = true,
+		BossImageId = "rbxassetid://136483204677707",
 		Enemies = {
-			{Enemy = "HelicopterParasiteYellowToilet", Count = 9, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
-			{Enemy = "HelicopterParasiteRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
+			{Enemy = "BossToilet30",                  Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
+			{Enemy = "HelicopterParasiteYellowToilet", Count = 5, DelayBetweenSpawns = 3.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
+			{Enemy = "HelicopterParasiteRedToilet",    Count = 5, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 			{Enemy = "FlyingBuzzsawToilet",            Count = 5, DelayBetweenSpawns = 4.0, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6"}},
 		},
 	},
@@ -386,9 +394,13 @@ local WaveConfigurations = {
 		},
 	},
 	[50] = {
-		CashReward = 19000,
+		CashReward = 54000,
 		UnlocksStartingWave = 45,
+		IsBossWave = true,
+		AlwaysBoss = true,
+		BossImageId = "rbxassetid://87745686174361",
 		Enemies = {
+			{Enemy = "BossToilet50",   Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
 			{Enemy = "DJYellowToilet", Count = 9, DelayBetweenSpawns = 3,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1", "WayPoints2", "WayPoints3"}},
 			{Enemy = "DJRedToilet",    Count = 7, DelayBetweenSpawns = 1.5, Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5", "WayPoints6", "WayPoints1"}},
 			{Enemy = "UFOToilet",      Count = 5, DelayBetweenSpawns = 4,   Path = {"WayPoints1", "WayPoints2", "WayPoints3", "WayPoints4", "WayPoints5"}},
@@ -466,7 +478,7 @@ local WaveConfigurations = {
 		UnlocksStartingWave = 55,
 		IsBossWave = true,
 		AlwaysBoss = true,
-		BossImageId = "rbxassetid://81446192290144",
+		BossImageId = "rbxassetid://116524379045048",
 		Enemies = {
 			{Enemy = "BossToilet3", Count = 1, DelayBetweenSpawns = 3.0, Path = "WayPoints1"},
 		},

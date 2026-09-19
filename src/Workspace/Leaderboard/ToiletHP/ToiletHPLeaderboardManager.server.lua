@@ -4,7 +4,7 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local PlayerController = require(ServerScriptService.Controllers.PlayerController)
 
-local toiletHPLeaderboard = DataStoreService:GetOrderedDataStore("ToiletHPLeaderboard_V1")
+local toiletHPLeaderboard = DataStoreService:GetOrderedDataStore("ToiletHPLeaderboard_V2")
 
 local boardModel = script.Parent
 local guiPart = boardModel:WaitForChild("GUIPart")

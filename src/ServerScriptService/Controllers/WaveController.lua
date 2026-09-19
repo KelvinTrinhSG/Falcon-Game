@@ -422,7 +422,7 @@ startNextWave = function(player: Player, plot: Model)
 				if rootPart then rootPart:SetNetworkOwner(nil) end
 
 				if waveConfig.IsBossWave then
-					local isTheRealBoss = (group.Enemy == "BossToilet" or group.Enemy == "BossToilet2" or group.Enemy == "BossToilet3")
+					local isTheRealBoss = string.sub(group.Enemy, 1, 10) == "BossToilet"
 					if isTheRealBoss then
 						ReplicatedStorage.Events.BossWaveStarted:FireClient(player, humanoid, waveConfig.BossImageId)
 					end

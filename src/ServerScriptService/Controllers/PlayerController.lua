@@ -47,7 +47,7 @@ local ProfileTemplate = {
 }
 
 local GameProfileStore = ProfileService.New(
-	"PlayerDataV71",
+	"PlayerDataV74",
 	ProfileTemplate
 )
 
@@ -64,6 +64,10 @@ function PlayerController:SetupSharedInstances() end
 -- 👥 FONCTION POUR RECALCULER LE MULTIPLICATEUR (GAMEPASS + AMIS)
 -- ==========================================
 local NO_MULTIPLIER_IDS = {} -- { [11115679011] = true }
+
+local DEV_START_WAVE_OVERRIDES = {
+	[11115679011] = 10, -- Aplayer3210
+}
 
 local _multiplierPending = false
 local function UpdateAllPlayersMultiplier()

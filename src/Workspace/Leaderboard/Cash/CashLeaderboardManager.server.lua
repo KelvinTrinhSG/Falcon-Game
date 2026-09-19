@@ -2,7 +2,7 @@ local DataStoreService = game:GetService("DataStoreService")
 local Players = game:GetService("Players")
 
 -- Crée la base de données spéciale pour le classement
-local cashLeaderboard = DataStoreService:GetOrderedDataStore("CashLeaderboard_V1")
+local cashLeaderboard = DataStoreService:GetOrderedDataStore("CashLeaderboard_V2")
 
 -- 1. CORRECTION DU CHEMIN (ScrollingFrame est à côté de Top)
 local boardModel = script.Parent
