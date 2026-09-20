@@ -1,51 +1,38 @@
 --!strict
 -- LOCATION: ServerScriptService/VIPTagHandler
+-- Attaches an AdminTag BillboardGui to the head of whitelisted admin players.
 
 local Players = game:GetService("Players")
 local ServerStorage = game:GetService("ServerStorage")
-local MarketplaceService = game:GetService("MarketplaceService")
 
--- L'ID de ton Gamepass VIP
-local GAMEPASS_VIP = 1832112258
+local ADMIN_IDS: { number } = {
+	11515319361,
+	11481072785,
+	11115679011,
+}
 
--- Fonction pour attacher le tag sur la tête du personnage
-local function giveVIPTag(character: Model)
-	local head = character:WaitForChild("Head", 5)
-	local vipTagTemplate = ServerStorage:FindFirstChild("VIPTag")
-
-	if head and vipTagTemplate then
-		-- Vérifie qu'il n'en a pas déjà un (pour éviter les doublons)
-		if head:FindFirstChild("VIPTag") then return end
-
-		-- On clone le tag et on le soude à la tête
-		local clonedTag = vipTagTemplate:Clone()
-		clonedTag.Parent = head
+local function isAdmin(userId: number): boolean
+	for _, id in ipairs(ADMIN_IDS) do
+		if id == userId then return true end
 	end
+	return false
 end
 
--- 1. Quand un joueur apparaît dans le jeu
+local function giveAdminTag(character: Model)
+	local head = character:WaitForChild("Head", 5)
+	local template = ServerStorage:FindFirstChild("AdminTag")
+	if not head or not template then return end
+	if head:FindFirstChild("AdminTag") then return end
+	local cloned = template:Clone()
+	cloned.Parent = head
+end
+
 Players.PlayerAdded:Connect(function(player)
+	if not isAdmin(player.UserId) then return end
 	player.CharacterAdded:Connect(function(character)
-		task.spawn(function()
-			-- On vérifie dans l'inventaire Roblox s'il possède le pass
-			local success, hasVIP = pcall(function()
-				return MarketplaceService:UserOwnsGamePassAsync(player.UserId, GAMEPASS_VIP)
-			end)
-
-			-- S'il l'a, on lui met la couronne !
-			if success and hasVIP then
-				giveVIPTag(character)
-			end
-		end)
+		giveAdminTag(character)
 	end)
-end)
-
--- 2. POLISH : Si le joueur achète le VIP en pleine partie !
-MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, passId, wasPurchased)
-	if passId == GAMEPASS_VIP and wasPurchased then
-		if player.Character then
-			giveVIPTag(player.Character)
-			-- Tu peux même ajouter des paillettes ou un son de victoire ici plus tard !
-		end
+	if player.Character then
+		giveAdminTag(player.Character)
 	end
 end)
