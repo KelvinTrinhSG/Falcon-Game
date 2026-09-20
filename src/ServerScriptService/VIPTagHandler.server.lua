@@ -1,8 +1,9 @@
 --!strict
 -- LOCATION: ServerScriptService/VIPTagHandler
--- Creates an Admin name tag above the head of whitelisted admin players.
+-- Clones the VIPTag BillboardGui from ServerStorage and attaches it to whitelisted admin players.
 
 local Players = game:GetService("Players")
+local ServerStorage = game:GetService("ServerStorage")
 
 local ADMIN_IDS: { number } = {
 	11515319361,
@@ -19,26 +20,19 @@ end
 
 local function giveAdminTag(character: Model)
 	local head = character:WaitForChild("Head", 5)
-	if not head then return end
-	if head:FindFirstChild("AdminTag") then return end
+	local template = ServerStorage:FindFirstChild("VIPTag")
+	if not head or not template then return end
+	if head:FindFirstChild("VIPTag") then return end
 
-	local billboard = Instance.new("BillboardGui")
-	billboard.Name = "AdminTag"
-	billboard.Size = UDim2.new(0, 120, 0, 30)
-	billboard.StudsOffset = Vector3.new(0, 2.5, 0)
-	billboard.AlwaysOnTop = false
-	billboard.Parent = head
+	local cloned = template:Clone()
 
-	local label = Instance.new("TextLabel")
-	label.Size = UDim2.fromScale(1, 1)
-	label.BackgroundTransparency = 1
-	label.Text = "🔱 Admin"
-	label.TextColor3 = Color3.fromRGB(255, 50, 50)
-	label.TextStrokeTransparency = 0
-	label.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-	label.Font = Enum.Font.GothamBold
-	label.TextScaled = true
-	label.Parent = billboard
+	-- Override the label text with the Admin icon
+	local label = cloned:FindFirstChildWhichIsA("TextLabel")
+	if label then
+		label.Text = "🔱 Admin"
+	end
+
+	cloned.Parent = head
 end
 
 Players.PlayerAdded:Connect(function(player)
