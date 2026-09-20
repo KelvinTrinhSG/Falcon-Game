@@ -277,6 +277,32 @@ return {
         ctx.notify(("gave %d cash to %s (total: %d)"):format(args.amount, args.target.Name, cash.Value), "success")
     end,
 
+    giveblock = function(ctx, args)
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local PlayerController   = require(game:GetService("ServerScriptService").Controllers.PlayerController)
+        local ItemConfigurations = require(ReplicatedStorage.Modules.ItemConfigurations).ItemConfigurations
+
+        local itemId = tostring(args.block or "")
+        local config = ItemConfigurations[itemId]
+        if not config or config.Type ~= "Blocks" then
+            ctx.notify(("giveblock: '%s' is not a valid block id"):format(itemId), "error")
+            return
+        end
+
+        local profile = PlayerController:GetProfile(args.target)
+        if not profile then
+            ctx.notify(("giveblock: no profile found for %s"):format(args.target.Name), "error")
+            return
+        end
+
+        local amount = math.max(1, math.floor(tonumber(args.amount) or 1))
+        local inventory = profile.Data.BlockInventory
+        inventory[itemId] = (inventory[itemId] or 0) + amount
+        ReplicatedStorage.Events.BlockInventoryUpdated:FireClient(args.target, inventory)
+
+        ctx.notify(("gave %dx %s to %s"):format(amount, config.DisplayName, args.target.Name), "success")
+    end,
+
     giveturret = function(ctx, args)
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
         local PlayerController   = require(game:GetService("ServerScriptService").Controllers.PlayerController)

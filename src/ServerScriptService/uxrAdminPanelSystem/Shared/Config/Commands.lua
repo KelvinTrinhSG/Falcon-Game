@@ -1173,6 +1173,20 @@ Commands.resetstats = {
     Args = { { name = "target", type = "Players" } },
     Log = true, Confirm = true,
 }
+Commands.giveblock = {
+    Aliases = {"gb", "addblock"},
+    Category = "ServerOps", Permission = "Admin",
+    Description = "Add blocks to a player's BlockInventory",
+    Args = {
+        { name = "target", type = "Players", default = "me" },
+        { name = "block", type = "String", oneOf = {
+            "RockBlock", "ConcreteBlock", "IceBlock", "FireBlock", "LavaBlock",
+            "ToxicBlock", "GoldBlock", "PlasmaBlock", "CyberBlock", "TitanBlock",
+        }},
+        { name = "amount", type = "Number", default = 1, min = 1, max = 9999 },
+    },
+    Log = true, Webhook = true,
+}
 Commands.giveturret = {
     Aliases = {"gt", "addturret"},
     Category = "ServerOps", Permission = "Admin",
@@ -2103,7 +2117,7 @@ local QUIET = {
     "setproperty", "getproperty",
     "loop", "unloop", "unloopall",
     "restoremap", "lockMap", "insert", "warps",
-    "setstat", "addstat", "subtractstat", "removestat", "resetstats", "givecash", "giveturret",
+    "setstat", "addstat", "subtractstat", "removestat", "resetstats", "givecash", "giveturret", "giveblock",
     "control", "uncontrol", "chatHijacker", "unchathijack", "punish",
     "korblox",  -- impl has own success notify
 }
