@@ -1,6 +1,6 @@
 --!strict
 -- LOCATION: ServerScriptService/VIPTagHandler
--- Attaches an AdminTag BillboardGui to the head of whitelisted admin players.
+-- Attaches the VIPTag template from ServerStorage to whitelisted admin players.
 
 local Players = game:GetService("Players")
 local ServerStorage = game:GetService("ServerStorage")
@@ -20,9 +20,9 @@ end
 
 local function giveAdminTag(character: Model)
 	local head = character:WaitForChild("Head", 5)
-	local template = ServerStorage:FindFirstChild("AdminTag")
+	local template = ServerStorage:FindFirstChild("VIPTag")
 	if not head or not template then return end
-	if head:FindFirstChild("AdminTag") then return end
+	if head:FindFirstChild("VIPTag") then return end
 	local cloned = template:Clone()
 	cloned.Parent = head
 end
