@@ -277,6 +277,35 @@ return {
         ctx.notify(("gave %d cash to %s (total: %d)"):format(args.amount, args.target.Name, cash.Value), "success")
     end,
 
+    givesword = function(ctx, args)
+        local ReplicatedStorage   = game:GetService("ReplicatedStorage")
+        local PlayerController    = require(game:GetService("ServerScriptService").Controllers.PlayerController)
+        local WeaponConfigurations = require(ReplicatedStorage.Modules.WeaponConfigurations)
+
+        local weaponId = tostring(args.weapon or "")
+        local config   = WeaponConfigurations.Weapons[weaponId]
+        if not config then
+            ctx.notify(("givesword: '%s' is not a valid weapon id"):format(weaponId), "error")
+            return
+        end
+
+        local profile = PlayerController:GetProfile(args.target)
+        if not profile then
+            ctx.notify(("givesword: no profile found for %s"):format(args.target.Name), "error")
+            return
+        end
+
+        local inventory = profile.Data.WeaponInventory
+        if table.find(inventory, weaponId) then
+            ctx.notify(("%s already owns %s"):format(args.target.Name, config.DisplayName), "error")
+            return
+        end
+        table.insert(inventory, weaponId)
+        ReplicatedStorage.Events.WeaponInventoryUpdated:FireClient(args.target, inventory)
+
+        ctx.notify(("gave %s to %s"):format(config.DisplayName, args.target.Name), "success")
+    end,
+
     giveblock = function(ctx, args)
         local ReplicatedStorage = game:GetService("ReplicatedStorage")
         local PlayerController   = require(game:GetService("ServerScriptService").Controllers.PlayerController)

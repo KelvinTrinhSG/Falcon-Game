@@ -1173,6 +1173,21 @@ Commands.resetstats = {
     Args = { { name = "target", type = "Players" } },
     Log = true, Confirm = true,
 }
+Commands.givesword = {
+    Aliases = {"gs", "givew", "giveweapon"},
+    Category = "ServerOps", Permission = "Admin",
+    Description = "Unlock a sword/weapon for a player",
+    Args = {
+        { name = "target", type = "Players", default = "me" },
+        { name = "weapon", type = "String", oneOf = {
+            "WoodSword", "StoneSword", "ClassicSword", "WhiteSword",
+            "BlueSword", "IceSword", "AzureSword", "PinkSword",
+            "EasterSword", "GemSword", "PotOSword", "EarthSword",
+            "PrismFang", "SovereignSplitter", "Crownbreaker", "LightSword",
+        }},
+    },
+    Log = true, Webhook = true,
+}
 Commands.giveblock = {
     Aliases = {"gb", "addblock"},
     Category = "ServerOps", Permission = "Admin",
@@ -2117,7 +2132,7 @@ local QUIET = {
     "setproperty", "getproperty",
     "loop", "unloop", "unloopall",
     "restoremap", "lockMap", "insert", "warps",
-    "setstat", "addstat", "subtractstat", "removestat", "resetstats", "givecash", "giveturret", "giveblock",
+    "setstat", "addstat", "subtractstat", "removestat", "resetstats", "givecash", "giveturret", "giveblock", "givesword",
     "control", "uncontrol", "chatHijacker", "unchathijack", "punish",
     "korblox",  -- impl has own success notify
 }
