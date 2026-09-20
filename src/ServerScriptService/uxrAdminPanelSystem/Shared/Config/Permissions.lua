@@ -58,7 +58,7 @@ Permissions.Assignments = {
 	},
 
 	Admin = {
-		Players    = {},
+		Players    = {11481072785, 11515319361},
 		Gamepasses = {},
 		Assets     = {},
 		Groups     = { {231692500, 2} },
