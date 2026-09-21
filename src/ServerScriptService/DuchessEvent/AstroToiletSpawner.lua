@@ -87,17 +87,21 @@ end
 -- ============================================================
 
 local function damageShield()
-	local eventFolder     = Workspace:FindFirstChild("EventFolder")
-	local duchess         = eventFolder and eventFolder:FindFirstChild("DuchessToiletEvent")
-	local shield          = duchess and duchess:FindFirstChild("TVManShield")
-	local shieldHumanoid  = shield and shield:FindFirstChildOfClass("Humanoid")
-	if not shieldHumanoid then
-		warn("[AstroToiletSpawner] TVManShield or its Humanoid not found — damage skipped")
+	local eventFolder = Workspace:FindFirstChild("EventFolder")
+	local duchess     = eventFolder and eventFolder:FindFirstChild("DuchessToiletEvent")
+	local shield      = duchess and duchess:FindFirstChild("TVManShield")
+	if not shield then
+		warn("[AstroToiletSpawner] TVManShield not found — damage skipped")
 		return
 	end
-	shieldHumanoid.Health = math.max(0, shieldHumanoid.Health - 1)
-	print(string.format("[AstroToiletSpawner] TVManShield HP: %d / %d",
-		shieldHumanoid.Health, shieldHumanoid.MaxHealth))
+	local current = shield:GetAttribute("Health")
+	if current == nil then
+		warn("[AstroToiletSpawner] TVManShield has no Health attribute")
+		return
+	end
+	local newHp = math.max(0, current - 1)
+	shield:SetAttribute("Health", newHp)
+	print(string.format("[AstroToiletSpawner] TVManShield HP: %d / 100", newHp))
 end
 
 -- ============================================================

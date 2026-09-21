@@ -2,10 +2,11 @@
 -- LOCATION: ServerScriptService/DuchessEvent/DuchessEventController.server.lua
 -- Duchess / Astro Toilet Event — config only, logic lives in EventClass.
 
-local ServerStorage = game:GetService("ServerStorage")
-local Workspace     = game:GetService("Workspace")
-local EventClass    = require(script.Parent.EventClass)
-local Spawner       = require(script.Parent.AstroToiletSpawner)
+local ServerStorage     = game:GetService("ServerStorage")
+local Workspace         = game:GetService("Workspace")
+local CollectionService = game:GetService("CollectionService")
+local EventClass        = require(script.Parent.EventClass)
+local Spawner           = require(script.Parent.AstroToiletSpawner)
 
 -- ============================================================
 -- Helpers
@@ -63,14 +64,13 @@ EventClass.new({
 		cloneInto((ss :: any):FindFirstChild("Path"),       ws, "SS/.../Path → Workspace")
 		-- Clone TVManShield from ServerStorage into Workspace
 		cloneInto((ss :: any):FindFirstChild("TVManShield"), ws, "SS/.../TVManShield → Workspace")
-		-- Set initial HP to 100
+		-- Set HP via Attribute (same pattern as blocks)
 		local shield = ws and (ws :: any):FindFirstChild("TVManShield")
-		local shieldHumanoid = shield and shield:FindFirstChildOfClass("Humanoid")
-		if shieldHumanoid then
-			shieldHumanoid.MaxHealth = 100
-			shieldHumanoid.Health    = 100
+		if shield then
+			shield:SetAttribute("Health", 100)
+			CollectionService:AddTag(shield, "Damageable")
 		else
-			warn("[DuchessEvent] TVManShield has no Humanoid — HP not set")
+			warn("[DuchessEvent] TVManShield not found after clone")
 		end
 
 		-- Start spawning AstroToilets (Path must be in Workspace first)
