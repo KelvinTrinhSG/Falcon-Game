@@ -62,6 +62,18 @@ local function getPlayerPlot(): Model?
 end
 
 -- ==========================================================
+-- Wave state (phải khai báo trước button handlers)
+-- ==========================================================
+local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
+
+local isWaveActive = false
+ReplicatedStorage_Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(function(isActive: boolean)
+	isWaveActive = isActive
+end)
+
+local ToggleWaveStateEvent = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
+
+-- ==========================================================
 -- ⚡ CONNEXION DES BOUTONS (UNE SEULE FOIS !)
 -- ==========================================================
 local playerGui = localPlayer:WaitForChild("PlayerGui")
@@ -126,16 +138,6 @@ local function restoreHUD()
 		warn("[TeleportController] HUD Bottom not found — cannot restore")
 	end
 end
-
-local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
-
--- Track wave state để biết có đang Fighting không
-local isWaveActive = false
-ReplicatedStorage_Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(function(isActive: boolean)
-	isWaveActive = isActive
-end)
-
-local ToggleWaveStateEvent = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
 
 ReplicatedStorage_Events:WaitForChild("DuchessEventEnd").OnClientEvent:Connect(function()
 	pcall(restoreHUD)
