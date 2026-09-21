@@ -130,6 +130,20 @@ end
 stateHandlers[STATE.ENDING] = function()
 	DuchessEventEnd:FireAllClients()
 
+	-- Reverse folder moves
+	local duchessWorkspace = Workspace:FindFirstChild("EventFolder")
+		and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
+	local ssEventFolder = ServerStorage:FindFirstChild("EventFolder")
+	local ssDuchess = ssEventFolder and ssEventFolder:FindFirstChild("DuchessToiletEvent")
+
+	-- 1. Move Path back to ServerStorage
+	local pathFolder = duchessWorkspace and duchessWorkspace:FindFirstChild("Path")
+	moveFolder(pathFolder, ssDuchess, "Workspace/EventFolder/DuchessToiletEvent/Path")
+
+	-- 2. Move Props back to Workspace
+	local props = ssDuchess and ssDuchess:FindFirstChild("Props")
+	moveFolder(props, duchessWorkspace, "ServerStorage/EventFolder/DuchessToiletEvent/Props")
+
 	task.delay(0.5, function()
 		transitionTo(STATE.IDLE)
 	end)
