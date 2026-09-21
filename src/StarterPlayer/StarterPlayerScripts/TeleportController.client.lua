@@ -74,8 +74,6 @@ local eventTeleportButton: TextButton   = buttonsContainer:WaitForChild("EventTe
 local hudTop    = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Top")
 local hudBottom = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Bottom")
 
-local EVENT_TELEPORT_PART = Workspace:FindFirstChild("EventTeleport")
-
 -- Connect Plot Teleport Button
 plotTeleportButton.MouseButton1Click:Connect(function()
 	local playerPlot = getPlayerPlot()
@@ -103,13 +101,12 @@ end)
 
 -- Connect Event Teleport Button
 eventTeleportButton.MouseButton1Click:Connect(function()
-	local part = EVENT_TELEPORT_PART or Workspace:FindFirstChild("EventTeleport")
-	if part and part:IsA("BasePart") then
-		teleportCharacter((part :: BasePart).CFrame, "Teleported to the event!")
+	if SHOP_TELEPORT_PART and SHOP_TELEPORT_PART:IsA("BasePart") then
+		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Teleported to the event!")
 		hudTop.Visible    = false
 		hudBottom.Visible = false
 	else
-		warn("Could not teleport to event: EventTeleport part is missing in Workspace.")
+		warn("Could not teleport to event: ShopTeleport part is missing in Workspace.")
 	end
 end)
 
