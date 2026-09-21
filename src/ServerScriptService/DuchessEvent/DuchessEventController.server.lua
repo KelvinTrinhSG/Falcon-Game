@@ -25,15 +25,34 @@ local function pivotTitanTVMan(cf: CFrame)
 	model:PivotTo(cf)
 end
 
-local function setUpgradedTitanFloorY(y: number)
+local floorOriginalCFrame: CFrame? = nil
+
+local function getFloor(): Model?
 	local upgradedModels = Workspace:FindFirstChild("UpgradedTitanModels")
 	local floor = upgradedModels and (upgradedModels :: any):FindFirstChild("Floor") :: Model?
 	if not floor then
 		warn("[DuchessEvent] UpgradedTitanModels/Floor not found")
+	end
+	return floor
+end
+
+local function lowerFloor()
+	local floor = getFloor()
+	if not floor then return end
+	local cf = floor:GetPivot()
+	floorOriginalCFrame = cf
+	floor:PivotTo(CFrame.new(cf.X, -100, cf.Z) * CFrame.Angles(cf:ToEulerAnglesXYZ()))
+end
+
+local function restoreFloor()
+	local floor = getFloor()
+	if not floor then return end
+	if not floorOriginalCFrame then
+		warn("[DuchessEvent] floorOriginalCFrame not saved — skipping restore")
 		return
 	end
-	local cf = (floor :: Model):GetPivot()
-	;(floor :: Model):PivotTo(CFrame.new(cf.X, y, cf.Z) * CFrame.Angles(cf:ToEulerAnglesXYZ()))
+	floor:PivotTo(floorOriginalCFrame)
+	floorOriginalCFrame = nil
 end
 
 local function setTitanTVManTouchable(enabled: boolean)
@@ -118,7 +137,7 @@ EventClass.new({
 		-- Tắt touch để người chơi không trigger trong lúc event
 		setTitanTVManTouchable(false)
 		-- Hạ Floor xuống để không cản đường AstroToilet
-		setUpgradedTitanFloorY(-100)
+		lowerFloor()
 
 		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
@@ -142,6 +161,6 @@ EventClass.new({
 		-- Mở lại touch khi event kết thúc
 		setTitanTVManTouchable(true)
 		-- Đưa Floor trở lại vị trí ban đầu
-		setUpgradedTitanFloorY(1.315)
+		restoreFloor()
 	end,
 })
