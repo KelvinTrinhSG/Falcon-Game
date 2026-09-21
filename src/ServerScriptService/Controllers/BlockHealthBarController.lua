@@ -32,7 +32,9 @@ local function setupHealthBar(block: Model)
 	local maxHealth: number = (config and config.Health) or 100
 	local barOriginalSize: UDim2 = bar.Size
 
-	local adornee = block.PrimaryPart or block:FindFirstChildWhichIsA("BasePart")
+	local adornee = if block:IsA("Model")
+		then (block.PrimaryPart or block:FindFirstChildWhichIsA("BasePart"))
+		else block
 	billboard.Adornee = adornee
 	billboard.Enabled = false
 
