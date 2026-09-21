@@ -118,8 +118,12 @@ local function moveAlongWaypoints(model: Model, waypoints: {BasePart})
 		return
 	end
 
+	local reachedEnd = true
 	for _, waypoint in ipairs(waypoints) do
-		if humanoid.Health <= 0 or not model.Parent then break end
+		if humanoid.Health <= 0 or not model.Parent then
+			reachedEnd = false
+			break
+		end
 
 		local elapsed = 0
 		-- Keep re-issuing MoveTo to avoid Roblox's 8s auto-timeout
@@ -135,14 +139,14 @@ local function moveAlongWaypoints(model: Model, waypoints: {BasePart})
 			if dist <= WAYPOINT_THRESHOLD then break end
 		end
 
-		if humanoid.Health <= 0 or not model.Parent then break end
+		if humanoid.Health <= 0 or not model.Parent then
+			reachedEnd = false
+			break
+		end
 	end
 
-	-- Reached End (or died/removed)
-	if model.Parent then
-		model:Destroy()
-		damageShield()
-	end
+	if model.Parent then model:Destroy() end
+	if reachedEnd then damageShield() end
 end
 
 -- ============================================================
@@ -192,6 +196,11 @@ local function spawnOne()
 	local duchess = Workspace:FindFirstChild("EventFolder")
 		and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
 	clone.Parent = duchess or Workspace
+
+	-- Mark as enemy so sword hitboxes (which check for "Goal") can hit it
+	local goalMarker = Instance.new("BoolValue")
+	goalMarker.Name = "Goal"
+	goalMarker.Parent = clone
 
 	-- No collision with players
 	setCollisionGroup(clone, ASTRO_GROUP)
