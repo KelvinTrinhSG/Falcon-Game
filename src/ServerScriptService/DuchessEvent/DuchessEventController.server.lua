@@ -108,8 +108,8 @@ stateHandlers[STATE.STARTING] = function()
 	moveFolder(props, ssDuchess, "Workspace/EventFolder/DuchessToiletEvent/Props")
 
 	-- 2. Move Path from ServerStorage into Workspace
-	local pathFolder = ssEventFolder and ssEventFolder:FindFirstChild("Path")
-	moveFolder(pathFolder, duchessWorkspace, "ServerStorage/EventFolder/Path")
+	local pathFolder = ssDuchess and ssDuchess:FindFirstChild("Path")
+	moveFolder(pathFolder, duchessWorkspace, "ServerStorage/EventFolder/DuchessToiletEvent/Path")
 
 	-- Notify all clients
 	ShowNotification:FireAllClients("⚔️ Astro Toilet is attacking! Defend the main base now!", "Error")
