@@ -67,12 +67,13 @@ function EventSwordManager.give(player: Player)
 	end
 	local clone = SWORD_TEMPLATE:Clone()
 	clone:SetAttribute("IsEventTemp", true)
-	local dest = player:FindFirstChildOfClass("Backpack") or player.Character
-	if dest then
-		clone.Parent = dest
-		print("[EventSwordManager] SovereignSplitter given to", player.Name)
+	-- Parent vào Character để auto-equip ngay lập tức
+	local char = player.Character
+	if char then
+		clone.Parent = char
+		print("[EventSwordManager] SovereignSplitter equipped to", player.Name)
 	else
-		warn("[EventSwordManager] no Backpack/Character found for", player.Name)
+		warn("[EventSwordManager] no Character found for", player.Name)
 		clone:Destroy()
 	end
 end

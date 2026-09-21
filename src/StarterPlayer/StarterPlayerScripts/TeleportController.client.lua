@@ -67,8 +67,23 @@ end
 local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
 
 local isWaveActive = false
+local isInDuchessEvent = false  -- true khi player đã click EventTeleport
+
 ReplicatedStorage_Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(function(isActive: boolean)
 	isWaveActive = isActive
+end)
+
+local WaveUIStateChanged = ReplicatedStorage_Events:WaitForChild("WaveUIStateChanged")
+WaveUIStateChanged.OnClientEvent:Connect(function()
+	-- HealthUIController sẽ set Bottom.Visible = true khi wave stop
+	-- Override lại nếu player đang trong event
+	if isInDuchessEvent then
+		task.defer(function()
+			if isInDuchessEvent and hudBottom then
+				hudBottom.Visible = false
+			end
+		end)
+	end
 end)
 
 local ToggleWaveStateEvent  = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
@@ -116,6 +131,7 @@ end)
 eventTeleportButton.MouseButton1Click:Connect(function()
 	print("[TeleportController] EventTeleport clicked")
 	if SHOP_TELEPORT_PART and SHOP_TELEPORT_PART:IsA("BasePart") then
+		isInDuchessEvent  = true
 		-- Thực hiện ngay lập tức trước khi teleportCharacter có thể yield
 		if isWaveActive then
 			ToggleWaveStateEvent:FireServer()
@@ -131,6 +147,7 @@ eventTeleportButton.MouseButton1Click:Connect(function()
 end)
 
 local function restoreHUD()
+	isInDuchessEvent = false
 	if hudTop and hudTop.Parent then
 		hudTop.Visible = true
 	else
