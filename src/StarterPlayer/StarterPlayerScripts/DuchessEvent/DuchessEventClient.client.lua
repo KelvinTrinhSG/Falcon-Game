@@ -23,14 +23,14 @@ local notificationTemplate: TextLabel = ReplicatedStorage
 	:WaitForChild("Templates")
 	:WaitForChild("NotificationTemplate")
 
--- Warning-style colors (matches NotificationManager "Normal" palette)
 local STROKE_COLOR   = Color3.fromRGB(100, 0, 0)
 local GRADIENT_COLOR = ColorSequence.new({
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 85, 85)),
 })
 
-local TWEEN_FADE = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local TWEEN_FADE               = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local NOTIFICATION_DISPLAY_TIME = 5.6
 
 -- ============================================================
 -- Helpers
@@ -50,14 +50,18 @@ local countdownLabel: TextLabel? = nil
 local countdownThread: thread?   = nil
 local eventActive: boolean       = false
 
+-- stopCountdown forward declaration (used inside startCountdown's thread)
+local stopCountdown: () -> ()
+
 local function destroyGui()
+	-- Cancel thread first to avoid it calling stopCountdown after destroy
 	if countdownThread then
 		task.cancel(countdownThread)
 		countdownThread = nil
 	end
 	if activeGui then
 		activeGui:Destroy()
-		activeGui = nil
+		activeGui      = nil
 		countdownLabel = nil
 	end
 end
@@ -65,7 +69,6 @@ end
 local function startCountdown(duration: number)
 	destroyGui()
 
-	-- ScreenGui
 	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name           = "DuchessEventCountdown"
 	screenGui.ResetOnSpawn   = false
@@ -74,38 +77,25 @@ local function startCountdown(duration: number)
 	screenGui.Parent         = PlayerGui
 	activeGui = screenGui
 
-	-- Clone NotificationTemplate (TextLabel with UIStroke + UIGradient)
 	local label: TextLabel = notificationTemplate:Clone()
-	label.Text            = formatTime(duration)
-	label.TextScaled      = true
-	-- Center on screen
-	label.AnchorPoint     = Vector2.new(0.5, 0)
-	label.Position        = UDim2.new(0.5, 0, 0.05, 0)
-	label.Size            = UDim2.new(0, 220, 0, 70)
-	label.Parent          = screenGui
+	label.Text         = formatTime(duration)
+	label.TextScaled   = true
+	label.AnchorPoint  = Vector2.new(0.5, 0)
+	label.Position     = UDim2.new(0.5, 0, 0.05, 0)
+	label.Size         = UDim2.new(0, 220, 0, 70)
+	label.Parent       = screenGui
+	countdownLabel     = label
 
-	print("[DuchessEvent] Countdown label created — Position:", label.Position, "AbsolutePosition:", label.AbsolutePosition, "Size:", label.Size)
-	print("[DuchessEvent] ScreenGui DisplayOrder:", screenGui.DisplayOrder, "Parent:", screenGui.Parent)
-	countdownLabel = label
-
-	-- Apply Warning color palette
 	local stroke: UIStroke?     = label:FindFirstChild("Stroke") :: UIStroke?
 	local gradient: UIGradient? = label:FindFirstChild("Gradient") :: UIGradient?
-	if stroke then
-		stroke.Color = STROKE_COLOR
-	end
-	if gradient then
-		gradient.Color = GRADIENT_COLOR
-	end
+	if stroke   then stroke.Color   = STROKE_COLOR   end
+	if gradient then gradient.Color = GRADIENT_COLOR  end
 
 	-- Fade in
 	label.TextTransparency = 1
 	if stroke then stroke.Transparency = 1 end
-
 	TweenService:Create(label, TWEEN_FADE, { TextTransparency = 0 }):Play()
-	if stroke then
-		TweenService:Create(stroke, TWEEN_FADE, { Transparency = 0 }):Play()
-	end
+	if stroke then TweenService:Create(stroke, TWEEN_FADE, { Transparency = 0 }):Play() end
 
 	-- Countdown loop
 	local endTime = os.clock() + duration
@@ -119,24 +109,34 @@ local function startCountdown(duration: number)
 			label.Text = formatTime(remaining)
 			task.wait(0.5)
 		end
-		-- Fade out when timer hits 0 (server End event may arrive around same time)
 		task.wait(0.5)
 		stopCountdown()
 	end)
 end
 
-local function stopCountdown()
+stopCountdown = function()
+	-- Null refs immediately — prevents re-entry if called twice simultaneously
 	if not activeGui or not countdownLabel then return end
+	local label = countdownLabel
+	local gui   = activeGui
+	countdownLabel = nil
+	activeGui      = nil
 
-	local label  = countdownLabel
-	local stroke = label:FindFirstChild("Stroke") :: UIStroke?
-
-	TweenService:Create(label, TWEEN_FADE, { TextTransparency = 1 }):Play()
-	if stroke then
-		TweenService:Create(stroke, TWEEN_FADE, { Transparency = 1 }):Play()
+	-- Cancel the countdown thread so it doesn't call stopCountdown again
+	if countdownThread then
+		task.cancel(countdownThread)
+		countdownThread = nil
 	end
 
-	task.delay(TWEEN_FADE.Time + 0.1, destroyGui)
+	local stroke: UIStroke? = label:FindFirstChild("Stroke") :: UIStroke?
+	TweenService:Create(label, TWEEN_FADE, { TextTransparency = 1 }):Play()
+	if stroke then TweenService:Create(stroke, TWEEN_FADE, { Transparency = 1 }):Play() end
+
+	task.delay(TWEEN_FADE.Time + 0.1, function()
+		if gui and gui.Parent then
+			gui:Destroy()
+		end
+	end)
 end
 
 -- ============================================================
@@ -194,26 +194,14 @@ end
 -- Remote Listeners
 -- ============================================================
 
--- Notification lifetime: 0.3s fade-in + 5s display + 0.3s fade-out ≈ 5.6s
-local NOTIFICATION_DISPLAY_TIME = 5.6
-
 DuchessEventStart.OnClientEvent:Connect(function(startTime: number, totalDuration: number)
-	print("[DuchessEvent] DuchessEventStart received — startTime:", startTime, "totalDuration:", totalDuration)
 	eventActive = true
-	-- Wait for the notification to finish displaying, then show countdown
 	task.delay(NOTIFICATION_DISPLAY_TIME, function()
-		print("[DuchessEvent] Delay done, eventActive:", eventActive)
-		if eventActive then
-			local elapsed   = os.time() - startTime
-			local remaining = totalDuration - elapsed
-			print("[DuchessEvent] elapsed:", elapsed, "remaining:", remaining)
-			if remaining > 0 then
-				startCountdown(remaining)
-			else
-				warn("[DuchessEvent] No remaining time — countdown skipped")
-			end
-		else
-			warn("[DuchessEvent] Event already ended — countdown skipped")
+		if not eventActive then return end
+		local elapsed   = os.time() - startTime
+		local remaining = totalDuration - elapsed
+		if remaining > 0 then
+			startCountdown(remaining)
 		end
 	end)
 end)
