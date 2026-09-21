@@ -25,6 +25,18 @@ local function pivotTitanTVMan(cf: CFrame)
 	model:PivotTo(cf)
 end
 
+local function setTitanTVManTouchable(enabled: boolean)
+	local touchParts = Workspace:FindFirstChild("UpgradedTitanModels")
+	local part = touchParts
+		and (touchParts :: any):FindFirstChild("TouchParts")
+		and (touchParts :: any).TouchParts:FindFirstChild("UpgradedTitanTVMan") :: BasePart?
+	if not part then
+		warn("[DuchessEvent] TouchParts/UpgradedTitanTVMan not found")
+		return
+	end
+	(part :: BasePart).CanTouch = enabled
+end
+
 -- ============================================================
 -- Helpers
 -- ============================================================
@@ -92,6 +104,8 @@ EventClass.new({
 
 		-- Teleport TitanTVMan to event position
 		pivotTitanTVMan(TITAN_TVMAN_EVENT)
+		-- Tắt touch để người chơi không trigger trong lúc event
+		setTitanTVManTouchable(false)
 
 		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
@@ -112,5 +126,7 @@ EventClass.new({
 
 		-- Teleport TitanTVMan back to default position
 		pivotTitanTVMan(TITAN_TVMAN_DEFAULT)
+		-- Mở lại touch khi event kết thúc
+		setTitanTVManTouchable(true)
 	end,
 })
