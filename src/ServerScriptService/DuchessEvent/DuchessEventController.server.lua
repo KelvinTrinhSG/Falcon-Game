@@ -102,6 +102,36 @@ local function destroyIn(parent: Instance?, name: string, label: string)
 	print("[DuchessEvent] Destroyed " .. label)
 end
 
+-- Props được stash vào SS thay vì clone/destroy để không mất data
+local stashedProps: Instance? = nil
+
+local function stashProps(ws: Instance?)
+	local props = ws and (ws :: any):FindFirstChild("Props")
+	if not props then
+		warn("[DuchessEvent] Props not found in Workspace — skipping stash")
+		return
+	end
+	local ss = ServerStorage:FindFirstChild("EventFolder")
+		and (ServerStorage :: any).EventFolder:FindFirstChild("DuchessToiletEvent")
+	if not ss then
+		warn("[DuchessEvent] SS DuchessToiletEvent not found — skipping stash")
+		return
+	end
+	stashedProps = props
+	props.Parent = ss
+	print("[DuchessEvent] Props stashed to SS")
+end
+
+local function unstashProps(ws: Instance?)
+	if not stashedProps then
+		warn("[DuchessEvent] stashedProps is nil — skipping unstash")
+		return
+	end
+	stashedProps.Parent = ws
+	print("[DuchessEvent] Props restored to Workspace")
+	stashedProps = nil
+end
+
 -- ============================================================
 -- Instantiate event
 -- ============================================================
@@ -117,8 +147,8 @@ EventClass.new({
 	onStart = function()
 		local ws, ss = getEventFolders()
 
-		-- Destroy Props in Workspace
-		destroyIn(ws, "Props",       "Workspace/.../Props")
+		-- Di chuyển Props sang SS tạm thời
+		stashProps(ws)
 		-- Clone Path from ServerStorage into Workspace
 		cloneInto((ss :: any):FindFirstChild("Path"),       ws, "SS/.../Path → Workspace")
 		-- Clone TVManShield from ServerStorage into Workspace
@@ -153,8 +183,8 @@ EventClass.new({
 		destroyIn(ws, "Path",        "Workspace/.../Path")
 		-- Destroy TVManShield in Workspace
 		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
-		-- Clone Props from ServerStorage back into Workspace
-		cloneInto((ss :: any):FindFirstChild("Props"),      ws, "SS/.../Props → Workspace")
+		-- Đưa Props về lại Workspace
+		unstashProps(ws)
 
 		-- Teleport TitanTVMan back to default position
 		pivotTitanTVMan(TITAN_TVMAN_DEFAULT)
