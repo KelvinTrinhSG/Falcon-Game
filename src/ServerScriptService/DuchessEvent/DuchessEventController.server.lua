@@ -5,8 +5,20 @@
 local ServerStorage     = game:GetService("ServerStorage")
 local Workspace         = game:GetService("Workspace")
 local CollectionService = game:GetService("CollectionService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local EventClass        = require(script.Parent.EventClass)
 local Spawner           = require(script.Parent.AstroToiletSpawner)
+local EventSwordManager = require(script.Parent.EventSwordManager)
+
+-- RemoteEvent để client báo player đã join event (click EventTeleport)
+local eventsFolder = ReplicatedStorage:WaitForChild("Events")
+local duchessEventJoin = Instance.new("RemoteEvent")
+duchessEventJoin.Name   = "DuchessEventJoin"
+duchessEventJoin.Parent = eventsFolder
+
+duchessEventJoin.OnServerEvent:Connect(function(player)
+	EventSwordManager.give(player)
+end)
 
 -- ============================================================
 -- TitanTVMan teleport
@@ -184,6 +196,9 @@ EventClass.new({
 	end,
 
 	onEnd = function()
+		-- Trả lại sword cũ cho tất cả player đã join event
+		EventSwordManager.restoreAll()
+
 		-- Stop spawner and destroy all live AstroToilets first
 		Spawner.stop()
 

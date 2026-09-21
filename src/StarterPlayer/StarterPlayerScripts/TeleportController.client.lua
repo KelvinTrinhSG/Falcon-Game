@@ -71,7 +71,8 @@ ReplicatedStorage_Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(
 	isWaveActive = isActive
 end)
 
-local ToggleWaveStateEvent = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
+local ToggleWaveStateEvent  = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
+local DuchessEventJoin      = ReplicatedStorage_Events:WaitForChild("DuchessEventJoin")
 
 -- ==========================================================
 -- ⚡ CONNEXION DES BOUTONS (UNE SEULE FOIS !)
@@ -120,6 +121,7 @@ eventTeleportButton.MouseButton1Click:Connect(function()
 		end
 		hudTop.Visible    = false
 		hudBottom.Visible = false
+		DuchessEventJoin:FireServer()
 		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Joined Event")
 	else
 		warn("Could not teleport to event: ShopTeleport part is missing in Workspace.")
