@@ -78,7 +78,7 @@ local function startCountdown(duration: number)
 	label.TextScaled      = true
 	-- Center on screen
 	label.AnchorPoint     = Vector2.new(0.5, 0)
-	label.Position        = UDim2.new(0.5, 0, 0, 0)
+	label.Position        = UDim2.new(0.5, 0, 0.05, 0)
 	label.Size            = UDim2.new(0, 220, 0, 70)
 	label.Parent          = screenGui
 
