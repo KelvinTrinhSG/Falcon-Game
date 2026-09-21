@@ -4,6 +4,8 @@
 -- States: IDLE -> STARTING -> ACTIVE -> ENDING -> IDLE
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ServerStorage     = game:GetService("ServerStorage")
+local Workspace         = game:GetService("Workspace")
 
 -- Ensure Events folder exists
 local eventsFolder: Folder = ReplicatedStorage:FindFirstChild("Events") :: Folder
@@ -87,7 +89,28 @@ end
 -- State Handlers
 -- ============================================================
 
+local function moveFolder(instance: Instance?, newParent: Instance?, label: string)
+	if not instance then
+		warn("[DuchessEvent] moveFolder: " .. label .. " not found — skipping")
+		return
+	end
+	instance.Parent = newParent
+	print("[DuchessEvent] Moved " .. label .. " → " .. (newParent and newParent:GetFullName() or "nil"))
+end
+
 stateHandlers[STATE.STARTING] = function()
+	-- 1. Move Props out of Workspace into ServerStorage
+	local duchessWorkspace = Workspace:FindFirstChild("EventFolder")
+		and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
+	local props = duchessWorkspace and duchessWorkspace:FindFirstChild("Props")
+	local ssEventFolder = ServerStorage:FindFirstChild("EventFolder")
+	local ssDuchess = ssEventFolder and ssEventFolder:FindFirstChild("DuchessToiletEvent")
+	moveFolder(props, ssDuchess, "Workspace/EventFolder/DuchessToiletEvent/Props")
+
+	-- 2. Move Path from ServerStorage into Workspace
+	local pathFolder = ssEventFolder and ssEventFolder:FindFirstChild("Path")
+	moveFolder(pathFolder, duchessWorkspace, "ServerStorage/EventFolder/Path")
+
 	-- Notify all clients
 	ShowNotification:FireAllClients("⚔️ Astro Toilet is attacking! Defend the main base now!", "Error")
 
