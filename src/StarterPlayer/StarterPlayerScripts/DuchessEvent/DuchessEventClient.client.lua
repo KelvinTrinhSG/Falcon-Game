@@ -45,9 +45,10 @@ end
 -- Countdown state
 -- ============================================================
 
-local activeGui: ScreenGui?    = nil
+local activeGui: ScreenGui?      = nil
 local countdownLabel: TextLabel? = nil
-local countdownThread: thread? = nil
+local countdownThread: thread?   = nil
+local eventActive: boolean       = false
 
 local function destroyGui()
 	if countdownThread then
@@ -118,9 +119,9 @@ local function startCountdown(duration: number)
 			label.Text = formatTime(remaining)
 			task.wait(0.5)
 		end
-		-- Client-side safety: clean up if server End event never arrives
-		task.wait(1)
-		destroyGui()
+		-- Fade out when timer hits 0 (server End event may arrive around same time)
+		task.wait(0.5)
+		stopCountdown()
 	end)
 end
 
@@ -198,10 +199,11 @@ local NOTIFICATION_DISPLAY_TIME = 5.6
 
 DuchessEventStart.OnClientEvent:Connect(function(startTime: number, totalDuration: number)
 	print("[DuchessEvent] DuchessEventStart received — startTime:", startTime, "totalDuration:", totalDuration)
+	eventActive = true
 	-- Wait for the notification to finish displaying, then show countdown
 	task.delay(NOTIFICATION_DISPLAY_TIME, function()
-		print("[DuchessEvent] Delay done, activeGui:", activeGui)
-		if not activeGui then -- don't show if event already ended
+		print("[DuchessEvent] Delay done, eventActive:", eventActive)
+		if eventActive then
 			local elapsed   = os.time() - startTime
 			local remaining = totalDuration - elapsed
 			print("[DuchessEvent] elapsed:", elapsed, "remaining:", remaining)
@@ -211,12 +213,13 @@ DuchessEventStart.OnClientEvent:Connect(function(startTime: number, totalDuratio
 				warn("[DuchessEvent] No remaining time — countdown skipped")
 			end
 		else
-			warn("[DuchessEvent] activeGui already exists — countdown skipped")
+			warn("[DuchessEvent] Event already ended — countdown skipped")
 		end
 	end)
 end)
 
 DuchessEventEnd.OnClientEvent:Connect(function()
+	eventActive = false
 	stopCountdown()
 end)
 
