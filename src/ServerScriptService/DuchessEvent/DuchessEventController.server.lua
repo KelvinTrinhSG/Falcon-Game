@@ -8,7 +8,7 @@ local EventClass    = require(script.Parent.EventClass)
 local Spawner       = require(script.Parent.AstroToiletSpawner)
 
 -- ============================================================
--- Folder helpers (Duchess-specific)
+-- Helpers
 -- ============================================================
 
 local function getEventFolders(): (Instance?, Instance?)
@@ -19,19 +19,27 @@ local function getEventFolders(): (Instance?, Instance?)
 	return duchessWorkspace, ssDuchess
 end
 
-local function moveFolder(instance: Instance?, newParent: Instance?, label: string)
-	if not instance then
-		warn("[DuchessEvent] moveFolder: " .. label .. " not found — skipping")
+local function cloneInto(source: Instance?, parent: Instance?, label: string)
+	if not source then
+		warn("[DuchessEvent] clone: " .. label .. " not found — skipping")
 		return
 	end
-	local ok, err = pcall(function()
-		instance.Parent = newParent
-	end)
-	if ok then
-		print("[DuchessEvent] Moved " .. label)
-	else
-		warn("[DuchessEvent] Failed to move " .. label .. ": " .. tostring(err))
+	if parent and (parent :: any):FindFirstChild(source.Name) then
+		warn("[DuchessEvent] clone: " .. source.Name .. " already exists in destination — skipping")
+		return
 	end
+	source:Clone().Parent = parent
+	print("[DuchessEvent] Cloned " .. label)
+end
+
+local function destroyIn(parent: Instance?, name: string, label: string)
+	local target = parent and (parent :: any):FindFirstChild(name)
+	if not target then
+		warn("[DuchessEvent] destroy: " .. label .. " not found — skipping")
+		return
+	end
+	target:Destroy()
+	print("[DuchessEvent] Destroyed " .. label)
 end
 
 -- ============================================================
@@ -47,28 +55,16 @@ EventClass.new({
 	adminUserId  = 11115679011,
 
 	onStart = function()
-		local duchessWorkspace, ssDuchess = getEventFolders()
-		-- Move Props: Workspace → ServerStorage
-		moveFolder(
-			duchessWorkspace and (duchessWorkspace :: any):FindFirstChild("Props"),
-			ssDuchess,
-			"Workspace/EventFolder/DuchessToiletEvent/Props"
-		)
-		-- Move Path: ServerStorage → Workspace (must happen before spawner starts)
-		moveFolder(
-			ssDuchess and (ssDuchess :: any):FindFirstChild("Path"),
-			duchessWorkspace,
-			"ServerStorage/EventFolder/DuchessToiletEvent/Path"
-		)
-		-- Clone TVManShield into Workspace
-		local tvManShield = ssDuchess and (ssDuchess :: any):FindFirstChild("TVManShield")
-		if tvManShield then
-			local clone = tvManShield:Clone()
-			clone.Parent = duchessWorkspace
-		else
-			warn("[DuchessEvent] TVManShield not found in ServerStorage/EventFolder/DuchessToiletEvent")
-		end
-		-- Start spawning AstroToilets along the waypoints
+		local ws, ss = getEventFolders()
+
+		-- Destroy Props in Workspace
+		destroyIn(ws, "Props",       "Workspace/.../Props")
+		-- Clone Path from ServerStorage into Workspace
+		cloneInto((ss :: any):FindFirstChild("Path"),       ws, "SS/.../Path → Workspace")
+		-- Clone TVManShield from ServerStorage into Workspace
+		cloneInto((ss :: any):FindFirstChild("TVManShield"), ws, "SS/.../TVManShield → Workspace")
+
+		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
 	end,
 
@@ -76,26 +72,13 @@ EventClass.new({
 		-- Stop spawner and destroy all live AstroToilets first
 		Spawner.stop()
 
-		-- Remove TVManShield from Workspace
-		local duchessWorkspace = Workspace:FindFirstChild("EventFolder")
-			and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
-		local shield = duchessWorkspace and (duchessWorkspace :: any):FindFirstChild("TVManShield")
-		if shield then
-			shield:Destroy()
-		end
+		local ws, ss = getEventFolders()
 
-		local duchessWorkspace, ssDuchess = getEventFolders()
-		-- Move Path back: Workspace → ServerStorage
-		moveFolder(
-			duchessWorkspace and (duchessWorkspace :: any):FindFirstChild("Path"),
-			ssDuchess,
-			"Workspace/EventFolder/DuchessToiletEvent/Path"
-		)
-		-- Move Props back: ServerStorage → Workspace
-		moveFolder(
-			ssDuchess and (ssDuchess :: any):FindFirstChild("Props"),
-			duchessWorkspace,
-			"ServerStorage/EventFolder/DuchessToiletEvent/Props"
-		)
+		-- Destroy Path in Workspace
+		destroyIn(ws, "Path",        "Workspace/.../Path")
+		-- Destroy TVManShield in Workspace
+		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
+		-- Clone Props from ServerStorage back into Workspace
+		cloneInto((ss :: any):FindFirstChild("Props"),      ws, "SS/.../Props → Workspace")
 	end,
 })
