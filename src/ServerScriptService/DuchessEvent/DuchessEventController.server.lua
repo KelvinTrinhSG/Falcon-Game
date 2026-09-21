@@ -195,11 +195,9 @@ EventClass.new({
 		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
 		-- Xóa DuchessToilet trong Workspace/DuchessToiletFolder
 		local wsDuchessFolder = ws and (ws :: any):FindFirstChild("DuchessToiletFolder")
-		local duchessToiletDestroyed = destroyIn(wsDuchessFolder, "DuchessToilet", "Workspace/.../DuchessToiletFolder/DuchessToilet")
-		-- Xóa Blast chỉ khi DuchessToilet đã xóa thành công
-		if duchessToiletDestroyed then
-			destroyIn(ws, "Blast", "Workspace/.../Blast")
-		end
+		destroyIn(wsDuchessFolder, "DuchessToilet", "Workspace/.../DuchessToiletFolder/DuchessToilet")
+		-- Luôn xóa Blast khi hết event dù DuchessToilet có xóa được hay không
+		destroyIn(ws, "Blast", "Workspace/.../Blast")
 		-- Đưa Props về lại Workspace
 		unstashProps(ws)
 
