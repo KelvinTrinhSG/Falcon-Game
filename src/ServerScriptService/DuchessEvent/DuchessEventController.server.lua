@@ -153,6 +153,10 @@ EventClass.new({
 		cloneInto((ss :: any):FindFirstChild("Path"),       ws, "SS/.../Path → Workspace")
 		-- Clone TVManShield from ServerStorage into Workspace
 		cloneInto((ss :: any):FindFirstChild("TVManShield"), ws, "SS/.../TVManShield → Workspace")
+		-- Clone DuchessToilet từ SS vào Workspace/DuchessToiletFolder
+		local ssDuchessFolder = (ss :: any):FindFirstChild("DuchessToiletFolder")
+		local wsDuchessFolder = ws and (ws :: any):FindFirstChild("DuchessToiletFolder")
+		cloneInto(ssDuchessFolder and (ssDuchessFolder :: any):FindFirstChild("DuchessToilet"), wsDuchessFolder, "SS/.../DuchessToiletFolder/DuchessToilet → Workspace")
 		-- Set HP via Attribute (same pattern as blocks)
 		local shield = ws and (ws :: any):FindFirstChild("TVManShield")
 		if shield then
@@ -183,6 +187,9 @@ EventClass.new({
 		destroyIn(ws, "Path",        "Workspace/.../Path")
 		-- Destroy TVManShield in Workspace
 		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
+		-- Xóa DuchessToilet trong Workspace/DuchessToiletFolder
+		local wsDuchessFolder = ws and (ws :: any):FindFirstChild("DuchessToiletFolder")
+		destroyIn(wsDuchessFolder, "DuchessToilet", "Workspace/.../DuchessToiletFolder/DuchessToilet")
 		-- Đưa Props về lại Workspace
 		unstashProps(ws)
 
