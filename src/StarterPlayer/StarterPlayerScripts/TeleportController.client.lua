@@ -102,6 +102,10 @@ end)
 -- Connect Event Teleport Button
 eventTeleportButton.MouseButton1Click:Connect(function()
 	if SHOP_TELEPORT_PART and SHOP_TELEPORT_PART:IsA("BasePart") then
+		-- Nếu đang Fighting thì dừng wave trước
+		if isWaveActive then
+			ToggleWaveStateEvent:FireServer()
+		end
 		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Teleported to the event!")
 		hudTop.Visible    = false
 		hudBottom.Visible = false
@@ -124,6 +128,15 @@ local function restoreHUD()
 end
 
 local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
+
+-- Track wave state để biết có đang Fighting không
+local isWaveActive = false
+ReplicatedStorage_Events:WaitForChild("WaveStateChanged").OnClientEvent:Connect(function(isActive: boolean)
+	isWaveActive = isActive
+end)
+
+local ToggleWaveStateEvent = ReplicatedStorage_Events:WaitForChild("ToggleWaveState")
+
 ReplicatedStorage_Events:WaitForChild("DuchessEventEnd").OnClientEvent:Connect(function()
 	pcall(restoreHUD)
 end)
