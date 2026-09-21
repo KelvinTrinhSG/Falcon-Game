@@ -23,10 +23,10 @@ local notificationTemplate: TextLabel = ReplicatedStorage
 	:WaitForChild("NotificationTemplate")
 
 -- Warning-style colors (matches NotificationManager "Normal" palette)
-local STROKE_COLOR   = Color3.fromRGB(145, 97, 0)
+local STROKE_COLOR   = Color3.fromRGB(100, 0, 0)
 local GRADIENT_COLOR = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 170, 0)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0)),
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 85, 85)),
 })
 
 local TWEEN_FADE = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)

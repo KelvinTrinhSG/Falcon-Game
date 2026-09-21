@@ -89,7 +89,7 @@ end
 
 stateHandlers[STATE.STARTING] = function()
 	-- Notify all clients
-	ShowNotification:FireAllClients("⚔️ Astro Toilet is attacking! Defend the main base now!", "Warning")
+	ShowNotification:FireAllClients("⚔️ Astro Toilet is attacking! Defend the main base now!", "Error")
 
 	-- Tell clients to start countdown (pass startTime so client can calc remaining after delay)
 	DuchessEventStart:FireAllClients(os.time(), EVENT_DURATION)
