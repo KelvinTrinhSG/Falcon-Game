@@ -78,7 +78,7 @@ local function startCountdown(duration: number)
 	label.TextScaled      = true
 	-- Center on screen
 	label.AnchorPoint     = Vector2.new(0.5, 0.5)
-	label.Position        = UDim2.new(0.5, 0, 0.25, 0)
+	label.Position        = UDim2.new(0.5, 0, 0.2, 0)
 	label.Size            = UDim2.new(0, 220, 0, 70)
 	label.Parent          = screenGui
 	countdownLabel = label
@@ -170,8 +170,20 @@ end
 -- Remote Listeners
 -- ============================================================
 
-DuchessEventStart.OnClientEvent:Connect(function(duration: number)
-	startCountdown(duration)
+-- Notification lifetime: 0.3s fade-in + 5s display + 0.3s fade-out ≈ 5.6s
+local NOTIFICATION_DISPLAY_TIME = 5.6
+
+DuchessEventStart.OnClientEvent:Connect(function(startTime: number, totalDuration: number)
+	-- Wait for the notification to finish displaying, then show countdown
+	task.delay(NOTIFICATION_DISPLAY_TIME, function()
+		if not activeGui then -- don't show if event already ended
+			local elapsed   = os.time() - startTime
+			local remaining = totalDuration - elapsed
+			if remaining > 0 then
+				startCountdown(remaining)
+			end
+		end
+	end)
 end)
 
 DuchessEventEnd.OnClientEvent:Connect(function()
