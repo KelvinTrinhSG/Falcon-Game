@@ -2,105 +2,140 @@
 -- LOCATION: StarterPlayer/StarterPlayerScripts/DuchessEvent/DuchessEventClient.client.lua
 -- Astro Toilet Event — client-side countdown GUI + test button for admin
 
-local Players        = game:GetService("Players")
+local Players           = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local TweenService   = game:GetService("TweenService")
+local TweenService      = game:GetService("TweenService")
 
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui   = LocalPlayer:WaitForChild("PlayerGui")
 
 local TEST_PLAYER_ID = 11115679011
 
--- Wait for RemoteEvents created by server
-local eventsFolder    = ReplicatedStorage:WaitForChild("Events")
+-- RemoteEvents (created by server on boot)
+local eventsFolder       = ReplicatedStorage:WaitForChild("Events")
 local DuchessEventStart  = eventsFolder:WaitForChild("DuchessEventStart")
 local DuchessEventEnd    = eventsFolder:WaitForChild("DuchessEventEnd")
 local DuchessTestTrigger = eventsFolder:WaitForChild("DuchessTestTrigger")
 
+-- NotificationTemplate (same one used by the notification system)
+local notificationTemplate: TextLabel = ReplicatedStorage
+	:WaitForChild("Templates")
+	:WaitForChild("NotificationTemplate")
+
+-- Warning-style colors (matches NotificationManager "Normal" palette)
+local STROKE_COLOR   = Color3.fromRGB(145, 97, 0)
+local GRADIENT_COLOR = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 170, 0)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 0)),
+})
+
+local TWEEN_FADE = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
 -- ============================================================
--- Build Countdown GUI
+-- Helpers
 -- ============================================================
 
-local function buildCountdownGui(): (ScreenGui, TextLabel, TextLabel)
-	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name              = "DuchessEventCountdown"
-	screenGui.ResetOnSpawn      = false
-	screenGui.IgnoreGuiInset    = false
-	screenGui.ZIndexBehavior    = Enum.ZIndexBehavior.Sibling
-	screenGui.DisplayOrder      = 10
-
-	-- Outer frame
-	local frame = Instance.new("Frame")
-	frame.Name              = "EventFrame"
-	frame.Size              = UDim2.new(0, 280, 0, 90)
-	frame.Position          = UDim2.new(1, -300, 0, 20)
-	frame.BackgroundColor3  = Color3.fromRGB(20, 10, 10)
-	frame.BackgroundTransparency = 0.15
-	frame.BorderSizePixel   = 0
-	frame.Parent            = screenGui
-
-	-- Rounded corners
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 10)
-	corner.Parent = frame
-
-	-- Gradient
-	local gradient = Instance.new("UIGradient")
-	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 30, 0)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(120, 0, 180)),
-	})
-	gradient.Rotation = 90
-	gradient.Parent = frame
-
-	-- Stroke
-	local stroke = Instance.new("UIStroke")
-	stroke.Color       = Color3.fromRGB(255, 80, 0)
-	stroke.Thickness   = 2
-	stroke.Transparency = 0
-	stroke.Parent = frame
-
-	-- Title label
-	local titleLabel = Instance.new("TextLabel")
-	titleLabel.Name              = "Title"
-	titleLabel.Size              = UDim2.new(1, -10, 0, 28)
-	titleLabel.Position          = UDim2.new(0, 5, 0, 5)
-	titleLabel.BackgroundTransparency = 1
-	titleLabel.Text              = "⚔️  ASTRO TOILET EVENT"
-	titleLabel.TextColor3        = Color3.fromRGB(255, 255, 255)
-	titleLabel.TextScaled        = true
-	titleLabel.Font              = Enum.Font.GothamBold
-	titleLabel.Parent            = frame
-
-	-- Countdown label
-	local countdownLabel = Instance.new("TextLabel")
-	countdownLabel.Name              = "Countdown"
-	countdownLabel.Size              = UDim2.new(1, -10, 0, 32)
-	countdownLabel.Position          = UDim2.new(0, 5, 0, 33)
-	countdownLabel.BackgroundTransparency = 1
-	countdownLabel.Text              = "4:00"
-	countdownLabel.TextColor3        = Color3.fromRGB(255, 220, 100)
-	countdownLabel.TextScaled        = true
-	countdownLabel.Font              = Enum.Font.GothamBold
-	countdownLabel.Parent            = frame
-
-	-- Sub-label
-	local subLabel = Instance.new("TextLabel")
-	subLabel.Name              = "Sub"
-	subLabel.Size              = UDim2.new(1, -10, 0, 18)
-	subLabel.Position          = UDim2.new(0, 5, 0, 68)
-	subLabel.BackgroundTransparency = 1
-	subLabel.Text              = "Defend the main base now!"
-	subLabel.TextColor3        = Color3.fromRGB(255, 180, 180)
-	subLabel.TextScaled        = true
-	subLabel.Font              = Enum.Font.Gotham
-	subLabel.Parent            = frame
-
-	return screenGui, countdownLabel, frame
+local function formatTime(seconds: number): string
+	local s = math.max(0, math.floor(seconds))
+	return string.format("%d:%02d", math.floor(s / 60), s % 60)
 end
 
 -- ============================================================
--- Build Test Button (admin only)
+-- Countdown state
+-- ============================================================
+
+local activeGui: ScreenGui?    = nil
+local countdownLabel: TextLabel? = nil
+local countdownThread: thread? = nil
+
+local function destroyGui()
+	if countdownThread then
+		task.cancel(countdownThread)
+		countdownThread = nil
+	end
+	if activeGui then
+		activeGui:Destroy()
+		activeGui = nil
+		countdownLabel = nil
+	end
+end
+
+local function startCountdown(duration: number)
+	destroyGui()
+
+	-- ScreenGui
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name           = "DuchessEventCountdown"
+	screenGui.ResetOnSpawn   = false
+	screenGui.IgnoreGuiInset = false
+	screenGui.DisplayOrder   = 20
+	screenGui.Parent         = PlayerGui
+	activeGui = screenGui
+
+	-- Clone NotificationTemplate (TextLabel with UIStroke + UIGradient)
+	local label: TextLabel = notificationTemplate:Clone()
+	label.Text            = formatTime(duration)
+	label.TextScaled      = true
+	-- Center on screen
+	label.AnchorPoint     = Vector2.new(0.5, 0.5)
+	label.Position        = UDim2.new(0.5, 0, 0.5, 0)
+	label.Size            = UDim2.new(0, 220, 0, 70)
+	label.Parent          = screenGui
+	countdownLabel = label
+
+	-- Apply Warning color palette
+	local stroke: UIStroke?     = label:FindFirstChild("Stroke") :: UIStroke?
+	local gradient: UIGradient? = label:FindFirstChild("Gradient") :: UIGradient?
+	if stroke then
+		stroke.Color = STROKE_COLOR
+	end
+	if gradient then
+		gradient.Color = GRADIENT_COLOR
+	end
+
+	-- Fade in
+	label.TextTransparency = 1
+	if stroke then stroke.Transparency = 1 end
+
+	TweenService:Create(label, TWEEN_FADE, { TextTransparency = 0 }):Play()
+	if stroke then
+		TweenService:Create(stroke, TWEEN_FADE, { Transparency = 0 }):Play()
+	end
+
+	-- Countdown loop
+	local endTime = os.clock() + duration
+	countdownThread = task.spawn(function()
+		while true do
+			local remaining = endTime - os.clock()
+			if remaining <= 0 then
+				label.Text = "0:00"
+				break
+			end
+			label.Text = formatTime(remaining)
+			task.wait(0.5)
+		end
+		-- Client-side safety: clean up if server End event never arrives
+		task.wait(1)
+		destroyGui()
+	end)
+end
+
+local function stopCountdown()
+	if not activeGui or not countdownLabel then return end
+
+	local label  = countdownLabel
+	local stroke = label:FindFirstChild("Stroke") :: UIStroke?
+
+	TweenService:Create(label, TWEEN_FADE, { TextTransparency = 1 }):Play()
+	if stroke then
+		TweenService:Create(stroke, TWEEN_FADE, { Transparency = 1 }):Play()
+	end
+
+	task.delay(TWEEN_FADE.Time + 0.1, destroyGui)
+end
+
+-- ============================================================
+-- Test Button (admin only)
 -- ============================================================
 
 local function buildTestButton()
@@ -112,118 +147,22 @@ local function buildTestButton()
 	testGui.Parent       = PlayerGui
 
 	local btn = Instance.new("TextButton")
-	btn.Size              = UDim2.new(0, 160, 0, 40)
-	btn.Position          = UDim2.new(0, 10, 1, -60)
-	btn.BackgroundColor3  = Color3.fromRGB(180, 0, 0)
-	btn.TextColor3        = Color3.fromRGB(255, 255, 255)
-	btn.Font              = Enum.Font.GothamBold
-	btn.TextSize          = 14
-	btn.Text              = "▶ Trigger Duchess Event"
-	btn.Parent            = testGui
+	btn.Size             = UDim2.new(0, 160, 0, 40)
+	btn.Position         = UDim2.new(0, 10, 1, -60)
+	btn.BackgroundColor3 = Color3.fromRGB(180, 0, 0)
+	btn.TextColor3       = Color3.fromRGB(255, 255, 255)
+	btn.Font             = Enum.Font.GothamBold
+	btn.TextSize         = 14
+	btn.Text             = "▶ Trigger Astro Event"
+	btn.BorderSizePixel  = 0
+	btn.Parent           = testGui
 
-	local btnCorner = Instance.new("UICorner")
-	btnCorner.CornerRadius = UDim.new(0, 8)
-	btnCorner.Parent = btn
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 8)
+	corner.Parent = btn
 
 	btn.MouseButton1Click:Connect(function()
 		DuchessTestTrigger:FireServer()
-	end)
-end
-
--- ============================================================
--- Countdown Logic
--- ============================================================
-
-local TWEEN_FADE = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-
-local activeGui: ScreenGui?     = nil
-local countdownThread: thread?  = nil
-
-local function formatTime(seconds: number): string
-	local s = math.max(0, math.floor(seconds))
-	local m = math.floor(s / 60)
-	local sec = s % 60
-	return string.format("%d:%02d", m, sec)
-end
-
-local function destroyGui()
-	if countdownThread then
-		task.cancel(countdownThread)
-		countdownThread = nil
-	end
-	if activeGui then
-		activeGui:Destroy()
-		activeGui = nil
-	end
-end
-
-local function startCountdown(duration: number)
-	destroyGui() -- safety: clean up any existing GUI
-
-	local screenGui, countdownLabel, frame = buildCountdownGui()
-	screenGui.Parent = PlayerGui
-	activeGui = screenGui
-
-	-- Fade in
-	frame.BackgroundTransparency = 1
-	local uiStroke = frame:FindFirstChildOfClass("UIStroke")
-	if uiStroke then uiStroke.Transparency = 1 end
-	countdownLabel.TextTransparency = 1
-	for _, label in frame:GetChildren() do
-		if label:IsA("TextLabel") then
-			label.TextTransparency = 1
-		end
-	end
-
-	local fadeIn = TweenService:Create(frame, TWEEN_FADE, { BackgroundTransparency = 0.15 })
-	fadeIn:Play()
-	if uiStroke then
-		TweenService:Create(uiStroke, TWEEN_FADE, { Transparency = 0 }):Play()
-	end
-	for _, label in frame:GetChildren() do
-		if label:IsA("TextLabel") then
-			TweenService:Create(label, TWEEN_FADE, { TextTransparency = 0 }):Play()
-		end
-	end
-
-	-- Countdown loop
-	local endTime = os.clock() + duration
-	countdownThread = task.spawn(function()
-		while true do
-			local remaining = endTime - os.clock()
-			if remaining <= 0 then
-				countdownLabel.Text = "0:00"
-				break
-			end
-			countdownLabel.Text = formatTime(remaining)
-			task.wait(0.5)
-		end
-		-- Client-side safety: if server hasn't sent End yet, clean up anyway
-		task.wait(1)
-		destroyGui()
-	end)
-end
-
-local function stopCountdown()
-	if not activeGui then return end
-
-	-- Fade out then destroy
-	local frame = activeGui:FindFirstChild("EventFrame")
-	if frame then
-		local uiStroke = frame:FindFirstChildOfClass("UIStroke")
-		TweenService:Create(frame, TWEEN_FADE, { BackgroundTransparency = 1 }):Play()
-		if uiStroke then
-			TweenService:Create(uiStroke, TWEEN_FADE, { Transparency = 1 }):Play()
-		end
-		for _, label in frame:GetChildren() do
-			if label:IsA("TextLabel") then
-				TweenService:Create(label, TWEEN_FADE, { TextTransparency = 1 }):Play()
-			end
-		end
-	end
-
-	task.delay(TWEEN_FADE.Time + 0.1, function()
-		destroyGui()
 	end)
 end
 
