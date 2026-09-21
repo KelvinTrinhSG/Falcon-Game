@@ -60,6 +60,14 @@ EventClass.new({
 			duchessWorkspace,
 			"ServerStorage/EventFolder/DuchessToiletEvent/Path"
 		)
+		-- Clone TVManShield into Workspace
+		local tvManShield = ssDuchess and (ssDuchess :: any):FindFirstChild("TVManShield")
+		if tvManShield then
+			local clone = tvManShield:Clone()
+			clone.Parent = duchessWorkspace
+		else
+			warn("[DuchessEvent] TVManShield not found in ServerStorage/EventFolder/DuchessToiletEvent")
+		end
 		-- Start spawning AstroToilets along the waypoints
 		Spawner.start()
 	end,
@@ -67,6 +75,14 @@ EventClass.new({
 	onEnd = function()
 		-- Stop spawner and destroy all live AstroToilets first
 		Spawner.stop()
+
+		-- Remove TVManShield from Workspace
+		local duchessWorkspace = Workspace:FindFirstChild("EventFolder")
+			and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
+		local shield = duchessWorkspace and (duchessWorkspace :: any):FindFirstChild("TVManShield")
+		if shield then
+			shield:Destroy()
+		end
 
 		local duchessWorkspace, ssDuchess = getEventFolders()
 		-- Move Path back: Workspace → ServerStorage
