@@ -83,6 +83,24 @@ local function getOrderedWaypoints(folder: Folder): {BasePart}
 end
 
 -- ============================================================
+-- TVManShield damage (called when AstroToilet reaches End)
+-- ============================================================
+
+local function damageShield()
+	local eventFolder     = Workspace:FindFirstChild("EventFolder")
+	local duchess         = eventFolder and eventFolder:FindFirstChild("DuchessToiletEvent")
+	local shield          = duchess and duchess:FindFirstChild("TVManShield")
+	local shieldHumanoid  = shield and shield:FindFirstChildOfClass("Humanoid")
+	if not shieldHumanoid then
+		warn("[AstroToiletSpawner] TVManShield or its Humanoid not found — damage skipped")
+		return
+	end
+	shieldHumanoid.Health = math.max(0, shieldHumanoid.Health - 1)
+	print(string.format("[AstroToiletSpawner] TVManShield HP: %d / %d",
+		shieldHumanoid.Health, shieldHumanoid.MaxHealth))
+end
+
+-- ============================================================
 -- Per-AstroToilet movement (runs in its own coroutine)
 -- ============================================================
 
@@ -119,6 +137,7 @@ local function moveAlongWaypoints(model: Model, waypoints: {BasePart})
 	-- Reached End (or died/removed)
 	if model.Parent then
 		model:Destroy()
+		damageShield()
 	end
 end
 

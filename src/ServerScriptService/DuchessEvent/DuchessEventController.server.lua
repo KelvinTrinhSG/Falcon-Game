@@ -63,6 +63,15 @@ EventClass.new({
 		cloneInto((ss :: any):FindFirstChild("Path"),       ws, "SS/.../Path → Workspace")
 		-- Clone TVManShield from ServerStorage into Workspace
 		cloneInto((ss :: any):FindFirstChild("TVManShield"), ws, "SS/.../TVManShield → Workspace")
+		-- Set initial HP to 100
+		local shield = ws and (ws :: any):FindFirstChild("TVManShield")
+		local shieldHumanoid = shield and shield:FindFirstChildOfClass("Humanoid")
+		if shieldHumanoid then
+			shieldHumanoid.MaxHealth = 100
+			shieldHumanoid.Health    = 100
+		else
+			warn("[DuchessEvent] TVManShield has no Humanoid — HP not set")
+		end
 
 		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
