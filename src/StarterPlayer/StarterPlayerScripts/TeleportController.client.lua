@@ -108,7 +108,7 @@ eventTeleportButton.MouseButton1Click:Connect(function()
 		end
 		hudTop.Visible    = false
 		hudBottom.Visible = false
-		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Teleported to the event!")
+		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Joined Event")
 	else
 		warn("Could not teleport to event: ShopTeleport part is missing in Workspace.")
 	end
