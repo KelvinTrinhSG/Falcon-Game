@@ -27,13 +27,13 @@ end
 
 local function setUpgradedTitanFloorY(y: number)
 	local upgradedModels = Workspace:FindFirstChild("UpgradedTitanModels")
-	local floor = upgradedModels and (upgradedModels :: any):FindFirstChild("Floor") :: BasePart?
+	local floor = upgradedModels and (upgradedModels :: any):FindFirstChild("Floor") :: Model?
 	if not floor then
 		warn("[DuchessEvent] UpgradedTitanModels/Floor not found")
 		return
 	end
-	local cf = (floor :: BasePart).CFrame
-	;(floor :: BasePart).CFrame = CFrame.new(cf.X, y, cf.Z) * CFrame.Angles(cf:ToEulerAnglesXYZ())
+	local cf = (floor :: Model):GetPivot()
+	;(floor :: Model):PivotTo(CFrame.new(cf.X, y, cf.Z) * CFrame.Angles(cf:ToEulerAnglesXYZ()))
 end
 
 local function setTitanTVManTouchable(enabled: boolean)
