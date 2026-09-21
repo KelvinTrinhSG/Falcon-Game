@@ -5,6 +5,44 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace         = game:GetService("Workspace")
+local PhysicsService    = game:GetService("PhysicsService")
+local Players           = game:GetService("Players")
+
+-- ============================================================
+-- Collision groups: AstroToilets ↔ Players = no collision
+-- Both groups still collide with Default (floor/environment)
+-- ============================================================
+
+local ASTRO_GROUP   = "AstroToilets"
+local PLAYERS_GROUP = "Players"
+
+pcall(function() PhysicsService:RegisterCollisionGroup(ASTRO_GROUP) end)
+pcall(function() PhysicsService:RegisterCollisionGroup(PLAYERS_GROUP) end)
+PhysicsService:CollisionGroupSetCollidable(ASTRO_GROUP, PLAYERS_GROUP, false)
+
+local function setCollisionGroup(model: Model, groupName: string)
+	for _, part in model:GetDescendants() do
+		if part:IsA("BasePart") then
+			part.CollisionGroup = groupName
+		end
+	end
+end
+
+local function onCharacterAdded(character: Model)
+	-- Wait a frame so all parts exist before assigning
+	task.defer(function()
+		setCollisionGroup(character, PLAYERS_GROUP)
+	end)
+end
+
+-- Apply to all current and future players
+for _, player in Players:GetPlayers() do
+	if player.Character then onCharacterAdded(player.Character) end
+	player.CharacterAdded:Connect(onCharacterAdded)
+end
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(onCharacterAdded)
+end)
 
 local SPAWN_INTERVAL     = 5    -- seconds between spawns
 local WAYPOINT_THRESHOLD = 4    -- studs — "close enough" to advance to next waypoint
@@ -131,6 +169,9 @@ local function spawnOne()
 	local duchess = Workspace:FindFirstChild("EventFolder")
 		and Workspace.EventFolder:FindFirstChild("DuchessToiletEvent")
 	clone.Parent = duchess or Workspace
+
+	-- No collision with players
+	setCollisionGroup(clone, ASTRO_GROUP)
 
 	table.insert(activeModels, clone)
 
