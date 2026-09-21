@@ -5,6 +5,7 @@
 local ServerStorage = game:GetService("ServerStorage")
 local Workspace     = game:GetService("Workspace")
 local EventClass    = require(script.Parent.EventClass)
+local Spawner       = require(script.Parent.AstroToiletSpawner)
 
 -- ============================================================
 -- Folder helpers (Duchess-specific)
@@ -53,15 +54,20 @@ EventClass.new({
 			ssDuchess,
 			"Workspace/EventFolder/DuchessToiletEvent/Props"
 		)
-		-- Move Path: ServerStorage → Workspace
+		-- Move Path: ServerStorage → Workspace (must happen before spawner starts)
 		moveFolder(
 			ssDuchess and (ssDuchess :: any):FindFirstChild("Path"),
 			duchessWorkspace,
 			"ServerStorage/EventFolder/DuchessToiletEvent/Path"
 		)
+		-- Start spawning AstroToilets along the waypoints
+		Spawner.start()
 	end,
 
 	onEnd = function()
+		-- Stop spawner and destroy all live AstroToilets first
+		Spawner.stop()
+
 		local duchessWorkspace, ssDuchess = getEventFolders()
 		-- Move Path back: Workspace → ServerStorage
 		moveFolder(
