@@ -34,18 +34,26 @@ local function getEventTeleportButton(): GuiObject?
 	return btn
 end
 
+local function setEventTeleportVisible(visible: boolean)
+	local btn = getEventTeleportButton()
+	if not btn then return end
+	;(btn :: any).Visible = visible
+	-- Bàn tay onboarding — chỉ hiện khi button hiện
+	local onboarding = (btn :: any):FindFirstChild("Onboarding")
+	if onboarding then
+		onboarding.Visible = visible
+	end
+end
+
 -- Ẩn button ngay khi load để đảm bảo trạng thái mặc định
 task.defer(function()
-	local btn = getEventTeleportButton()
-	if btn then (btn :: any).Visible = false end
+	setEventTeleportVisible(false)
 end)
 
 local eventsFolder = ReplicatedStorage:WaitForChild("Events")
 eventsFolder:WaitForChild("DuchessEventStart").OnClientEvent:Connect(function()
-	local btn = getEventTeleportButton()
-	if btn then (btn :: any).Visible = true end
+	setEventTeleportVisible(true)
 end)
 eventsFolder:WaitForChild("DuchessEventEnd").OnClientEvent:Connect(function()
-	local btn = getEventTeleportButton()
-	if btn then (btn :: any).Visible = false end
+	setEventTeleportVisible(false)
 end)
