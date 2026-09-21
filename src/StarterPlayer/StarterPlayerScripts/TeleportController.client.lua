@@ -127,6 +127,6 @@ local function restoreHUD()
 end
 
 local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
-ReplicatedStorage_Events:WaitForChild("DuchessEventEnd"):OnClientEvent:Connect(function()
+ReplicatedStorage_Events:WaitForChild("DuchessEventEnd").OnClientEvent:Connect(function()
 	pcall(restoreHUD)
 end)

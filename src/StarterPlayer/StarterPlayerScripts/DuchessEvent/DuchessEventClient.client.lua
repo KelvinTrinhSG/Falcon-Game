@@ -41,11 +41,11 @@ task.defer(function()
 end)
 
 local eventsFolder = ReplicatedStorage:WaitForChild("Events")
-eventsFolder:WaitForChild("DuchessEventStart"):OnClientEvent:Connect(function()
+eventsFolder:WaitForChild("DuchessEventStart").OnClientEvent:Connect(function()
 	local btn = getEventTeleportButton()
 	if btn then (btn :: any).Visible = true end
 end)
-eventsFolder:WaitForChild("DuchessEventEnd"):OnClientEvent:Connect(function()
+eventsFolder:WaitForChild("DuchessEventEnd").OnClientEvent:Connect(function()
 	local btn = getEventTeleportButton()
 	if btn then (btn :: any).Visible = false end
 end)
