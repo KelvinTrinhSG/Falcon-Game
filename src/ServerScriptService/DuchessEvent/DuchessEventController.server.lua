@@ -9,6 +9,23 @@ local EventClass        = require(script.Parent.EventClass)
 local Spawner           = require(script.Parent.AstroToiletSpawner)
 
 -- ============================================================
+-- TitanTVMan teleport
+-- ============================================================
+
+local TITAN_TVMAN_DEFAULT = CFrame.new(12.165, 13.304, -114.671) * CFrame.Angles(0, 0, 0)
+local TITAN_TVMAN_EVENT   = CFrame.new(12.165, 13.304, -111.828) * CFrame.Angles(0, math.rad(180), 0)
+
+local function pivotTitanTVMan(cf: CFrame)
+	local upgradedModels = Workspace:FindFirstChild("UpgradedTitanModels")
+	local model = upgradedModels and (upgradedModels :: any):FindFirstChild("UpgradedTitanTVMan") :: Model?
+	if not model then
+		warn("[DuchessEvent] UpgradedTitanTVMan not found")
+		return
+	end
+	model:PivotTo(cf)
+end
+
+-- ============================================================
 -- Helpers
 -- ============================================================
 
@@ -73,6 +90,9 @@ EventClass.new({
 			warn("[DuchessEvent] TVManShield not found after clone")
 		end
 
+		-- Teleport TitanTVMan to event position
+		pivotTitanTVMan(TITAN_TVMAN_EVENT)
+
 		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
 	end,
@@ -89,5 +109,8 @@ EventClass.new({
 		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
 		-- Clone Props from ServerStorage back into Workspace
 		cloneInto((ss :: any):FindFirstChild("Props"),      ws, "SS/.../Props → Workspace")
+
+		-- Teleport TitanTVMan back to default position
+		pivotTitanTVMan(TITAN_TVMAN_DEFAULT)
 	end,
 })
