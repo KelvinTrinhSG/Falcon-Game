@@ -17,6 +17,7 @@ duchessEventJoin.Name   = "DuchessEventJoin"
 duchessEventJoin.Parent = eventsFolder
 
 duchessEventJoin.OnServerEvent:Connect(function(player)
+	print("[DuchessEvent] DuchessEventJoin received from", player.Name)
 	EventSwordManager.give(player)
 end)
 

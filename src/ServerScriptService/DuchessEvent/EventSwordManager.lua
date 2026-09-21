@@ -39,7 +39,12 @@ local function getTools(player: Player): {Tool}
 end
 
 function EventSwordManager.give(player: Player)
-	if playerStash[player] then return end -- đã join rồi
+	if playerStash[player] then
+		warn("[EventSwordManager] give: already joined —", player.Name)
+		return
+	end
+
+	print("[EventSwordManager] give:", player.Name)
 
 	-- Tạo folder stash riêng cho player
 	local folder = Instance.new("Folder")
@@ -48,14 +53,28 @@ function EventSwordManager.give(player: Player)
 	playerStash[player] = folder
 
 	-- Di chuyển tất cả sword hiện tại của player vào stash
+	local stashed = 0
 	for _, tool in getTools(player) do
 		tool.Parent = folder
+		stashed += 1
 	end
+	print("[EventSwordManager] stashed", stashed, "tool(s) for", player.Name)
 
 	-- Cấp event sword
+	if not SWORD_TEMPLATE then
+		warn("[EventSwordManager] SovereignSplitter template not found!")
+		return
+	end
 	local clone = SWORD_TEMPLATE:Clone()
 	clone:SetAttribute("IsEventTemp", true)
-	clone.Parent = player:FindFirstChildOfClass("Backpack") or player.Character
+	local dest = player:FindFirstChildOfClass("Backpack") or player.Character
+	if dest then
+		clone.Parent = dest
+		print("[EventSwordManager] SovereignSplitter given to", player.Name)
+	else
+		warn("[EventSwordManager] no Backpack/Character found for", player.Name)
+		clone:Destroy()
+	end
 end
 
 function EventSwordManager.restore(player: Player)

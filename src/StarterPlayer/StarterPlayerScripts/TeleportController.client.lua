@@ -114,6 +114,7 @@ end)
 
 -- Connect Event Teleport Button
 eventTeleportButton.MouseButton1Click:Connect(function()
+	print("[TeleportController] EventTeleport clicked")
 	if SHOP_TELEPORT_PART and SHOP_TELEPORT_PART:IsA("BasePart") then
 		-- Thực hiện ngay lập tức trước khi teleportCharacter có thể yield
 		if isWaveActive then
@@ -122,6 +123,7 @@ eventTeleportButton.MouseButton1Click:Connect(function()
 		hudTop.Visible    = false
 		hudBottom.Visible = false
 		DuchessEventJoin:FireServer()
+		print("[TeleportController] DuchessEventJoin fired")
 		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Joined Event")
 	else
 		warn("Could not teleport to event: ShopTeleport part is missing in Workspace.")
