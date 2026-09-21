@@ -113,12 +113,20 @@ eventTeleportButton.MouseButton1Click:Connect(function()
 	end
 end)
 
--- Hàm restore HUD — được gọi khi event kết thúc (export để DuchessEventClient dùng)
+local function restoreHUD()
+	if hudTop and hudTop.Parent then
+		hudTop.Visible = true
+	else
+		warn("[TeleportController] HUD Top not found — cannot restore")
+	end
+	if hudBottom and hudBottom.Parent then
+		hudBottom.Visible = true
+	else
+		warn("[TeleportController] HUD Bottom not found — cannot restore")
+	end
+end
+
 local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
 ReplicatedStorage_Events:WaitForChild("DuchessEventEnd"):OnClientEvent:Connect(function()
-	-- Luôn restore dù có lỗi ở nơi khác
-	pcall(function()
-		hudTop.Visible    = true
-		hudBottom.Visible = true
-	end)
+	pcall(restoreHUD)
 end)
