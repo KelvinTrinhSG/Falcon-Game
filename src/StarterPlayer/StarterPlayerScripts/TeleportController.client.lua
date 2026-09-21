@@ -102,13 +102,13 @@ end)
 -- Connect Event Teleport Button
 eventTeleportButton.MouseButton1Click:Connect(function()
 	if SHOP_TELEPORT_PART and SHOP_TELEPORT_PART:IsA("BasePart") then
-		-- Nếu đang Fighting thì dừng wave trước
+		-- Thực hiện ngay lập tức trước khi teleportCharacter có thể yield
 		if isWaveActive then
 			ToggleWaveStateEvent:FireServer()
 		end
-		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Teleported to the event!")
 		hudTop.Visible    = false
 		hudBottom.Visible = false
+		teleportCharacter(SHOP_TELEPORT_PART.CFrame, "Teleported to the event!")
 	else
 		warn("Could not teleport to event: ShopTeleport part is missing in Workspace.")
 	end
