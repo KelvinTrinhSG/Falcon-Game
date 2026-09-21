@@ -25,6 +25,17 @@ local function pivotTitanTVMan(cf: CFrame)
 	model:PivotTo(cf)
 end
 
+local function setUpgradedTitanFloorY(y: number)
+	local upgradedModels = Workspace:FindFirstChild("UpgradedTitanModels")
+	local floor = upgradedModels and (upgradedModels :: any):FindFirstChild("Floor") :: BasePart?
+	if not floor then
+		warn("[DuchessEvent] UpgradedTitanModels/Floor not found")
+		return
+	end
+	local cf = (floor :: BasePart).CFrame
+	;(floor :: BasePart).CFrame = CFrame.new(cf.X, y, cf.Z) * CFrame.Angles(cf:ToEulerAnglesXYZ())
+end
+
 local function setTitanTVManTouchable(enabled: boolean)
 	local touchParts = Workspace:FindFirstChild("UpgradedTitanModels")
 	local part = touchParts
@@ -106,6 +117,8 @@ EventClass.new({
 		pivotTitanTVMan(TITAN_TVMAN_EVENT)
 		-- Tắt touch để người chơi không trigger trong lúc event
 		setTitanTVManTouchable(false)
+		-- Hạ Floor xuống để không cản đường AstroToilet
+		setUpgradedTitanFloorY(-100)
 
 		-- Start spawning AstroToilets (Path must be in Workspace first)
 		Spawner.start()
@@ -128,5 +141,7 @@ EventClass.new({
 		pivotTitanTVMan(TITAN_TVMAN_DEFAULT)
 		-- Mở lại touch khi event kết thúc
 		setTitanTVManTouchable(true)
+		-- Đưa Floor trở lại vị trí ban đầu
+		setUpgradedTitanFloorY(1.315)
 	end,
 })
