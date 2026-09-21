@@ -79,27 +79,29 @@ local function getEventFolders(): (Instance?, Instance?)
 	return duchessWorkspace, ssDuchess
 end
 
-local function cloneInto(source: Instance?, parent: Instance?, label: string)
+local function cloneInto(source: Instance?, parent: Instance?, label: string): boolean
 	if not source then
 		warn("[DuchessEvent] clone: " .. label .. " not found — skipping")
-		return
+		return false
 	end
 	if parent and (parent :: any):FindFirstChild(source.Name) then
 		warn("[DuchessEvent] clone: " .. source.Name .. " already exists in destination — skipping")
-		return
+		return false
 	end
 	source:Clone().Parent = parent
 	print("[DuchessEvent] Cloned " .. label)
+	return true
 end
 
-local function destroyIn(parent: Instance?, name: string, label: string)
+local function destroyIn(parent: Instance?, name: string, label: string): boolean
 	local target = parent and (parent :: any):FindFirstChild(name)
 	if not target then
 		warn("[DuchessEvent] destroy: " .. label .. " not found — skipping")
-		return
+		return false
 	end
 	target:Destroy()
 	print("[DuchessEvent] Destroyed " .. label)
+	return true
 end
 
 -- Props được stash vào SS thay vì clone/destroy để không mất data
@@ -156,7 +158,11 @@ EventClass.new({
 		-- Clone DuchessToilet từ SS vào Workspace/DuchessToiletFolder
 		local ssDuchessFolder = (ss :: any):FindFirstChild("DuchessToiletFolder")
 		local wsDuchessFolder = ws and (ws :: any):FindFirstChild("DuchessToiletFolder")
-		cloneInto(ssDuchessFolder and (ssDuchessFolder :: any):FindFirstChild("DuchessToilet"), wsDuchessFolder, "SS/.../DuchessToiletFolder/DuchessToilet → Workspace")
+		local duchessToiletCloned = cloneInto(ssDuchessFolder and (ssDuchessFolder :: any):FindFirstChild("DuchessToilet"), wsDuchessFolder, "SS/.../DuchessToiletFolder/DuchessToilet → Workspace")
+		-- Clone Blast vào Workspace chỉ khi DuchessToilet clone thành công
+		if duchessToiletCloned then
+			cloneInto((ss :: any):FindFirstChild("Blast"), ws, "SS/.../Blast → Workspace")
+		end
 		-- Set HP via Attribute (same pattern as blocks)
 		local shield = ws and (ws :: any):FindFirstChild("TVManShield")
 		if shield then
@@ -189,7 +195,11 @@ EventClass.new({
 		destroyIn(ws, "TVManShield", "Workspace/.../TVManShield")
 		-- Xóa DuchessToilet trong Workspace/DuchessToiletFolder
 		local wsDuchessFolder = ws and (ws :: any):FindFirstChild("DuchessToiletFolder")
-		destroyIn(wsDuchessFolder, "DuchessToilet", "Workspace/.../DuchessToiletFolder/DuchessToilet")
+		local duchessToiletDestroyed = destroyIn(wsDuchessFolder, "DuchessToilet", "Workspace/.../DuchessToiletFolder/DuchessToilet")
+		-- Xóa Blast chỉ khi DuchessToilet đã xóa thành công
+		if duchessToiletDestroyed then
+			destroyIn(ws, "Blast", "Workspace/.../Blast")
+		end
 		-- Đưa Props về lại Workspace
 		unstashProps(ws)
 
