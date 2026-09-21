@@ -68,17 +68,20 @@ local function restoreFloor()
 	floorOriginalCFrame = nil
 end
 
-local function setTitanTVManTouchable(enabled: boolean)
-	local touchParts = Workspace:FindFirstChild("UpgradedTitanModels")
-	local part = touchParts
-		and (touchParts :: any):FindFirstChild("TouchParts")
-		and (touchParts :: any).TouchParts:FindFirstChild("UpgradedTitanTVMan") :: BasePart?
+local function setTouchPartEnabled(partName: string, enabled: boolean)
+	local upgradedModels = Workspace:FindFirstChild("UpgradedTitanModels")
+	local touchPartsFolder = upgradedModels and (upgradedModels :: any):FindFirstChild("TouchParts")
+	local part = touchPartsFolder and (touchPartsFolder :: any):FindFirstChild(partName) :: BasePart?
 	if not part then
-		warn("[DuchessEvent] TouchParts/UpgradedTitanTVMan not found")
+		warn("[DuchessEvent] TouchParts/" .. partName .. " not found")
 		return
 	end
 	(part :: BasePart).CanTouch = enabled
 end
+
+-- Kết quả event: "win" hoặc "lose" — reset mỗi lần start
+local eventResult: string = "win"
+local shieldHpConnection: RBXScriptConnection? = nil
 
 -- ============================================================
 -- Helpers
@@ -151,7 +154,7 @@ end
 -- Instantiate event
 -- ============================================================
 
-EventClass.new({
+local eventInstance = EventClass.new({
 	remotePrefix = "DuchessEvent",
 	duration     = 240,
 	scheduleMins = 30,
@@ -160,6 +163,13 @@ EventClass.new({
 	adminUserId  = 11115679011,
 
 	onStart = function()
+		-- Reset kết quả về win (mặc định), ngắt listener cũ nếu còn
+		eventResult = "win"
+		if shieldHpConnection then
+			shieldHpConnection:Disconnect()
+			shieldHpConnection = nil
+		end
+
 		local ws, ss = getEventFolders()
 
 		-- Di chuyển Props sang SS tạm thời
@@ -181,14 +191,24 @@ EventClass.new({
 		if shield then
 			shield:SetAttribute("Health", 100)
 			CollectionService:AddTag(shield, "Damageable")
+			-- Khi shield HP về 0 → lose, kết thúc event sớm
+			shieldHpConnection = (shield :: any):GetAttributeChangedSignal("Health"):Connect(function()
+				local hp = (shield :: any):GetAttribute("Health") or 0
+				if hp <= 0 and eventInstance:getState() == "ACTIVE" then
+					eventResult = "lose"
+					print("[DuchessEvent] TVManShield destroyed — lose")
+					eventInstance:_forceEnd()
+				end
+			end)
 		else
 			warn("[DuchessEvent] TVManShield not found after clone")
 		end
 
 		-- Teleport TitanTVMan to event position
 		pivotTitanTVMan(TITAN_TVMAN_EVENT)
-		-- Tắt touch để người chơi không trigger trong lúc event
-		setTitanTVManTouchable(false)
+		-- Tắt cả 2 touch parts khi event bắt đầu
+		setTouchPartEnabled("UpgradedTitanTVMan",     false)
+		setTouchPartEnabled("UpgradedTitanTVManFail", false)
 		-- Hạ Floor xuống để không cản đường AstroToilet
 		lowerFloor()
 
@@ -197,6 +217,12 @@ EventClass.new({
 	end,
 
 	onEnd = function()
+		-- Ngắt shield HP listener
+		if shieldHpConnection then
+			shieldHpConnection:Disconnect()
+			shieldHpConnection = nil
+		end
+
 		-- Trả lại sword cũ cho tất cả player đã join event
 		EventSwordManager.restoreAll()
 
@@ -219,8 +245,15 @@ EventClass.new({
 
 		-- Teleport TitanTVMan back to default position
 		pivotTitanTVMan(TITAN_TVMAN_DEFAULT)
-		-- Mở lại touch khi event kết thúc
-		setTitanTVManTouchable(true)
+		-- Enable touch part theo kết quả event
+		print("[DuchessEvent] Event result:", eventResult)
+		if eventResult == "win" then
+			setTouchPartEnabled("UpgradedTitanTVMan",     true)
+			setTouchPartEnabled("UpgradedTitanTVManFail", false)
+		else
+			setTouchPartEnabled("UpgradedTitanTVMan",     false)
+			setTouchPartEnabled("UpgradedTitanTVManFail", true)
+		end
 		-- Đưa Floor trở lại vị trí ban đầu
 		restoreFloor()
 	end,
