@@ -27,6 +27,7 @@ end
 local DuchessEventStart  = getOrCreateRemote("DuchessEventStart")
 local DuchessEventEnd    = getOrCreateRemote("DuchessEventEnd")
 local DuchessTestTrigger = getOrCreateRemote("DuchessTestTrigger")
+local DuchessEndTrigger  = getOrCreateRemote("DuchessEndTrigger")
 local ShowNotification   = ReplicatedStorage:WaitForChild("Events"):WaitForChild("ShowNotification")
 
 -- ============================================================
@@ -186,6 +187,12 @@ end
 DuchessTestTrigger.OnServerEvent:Connect(function(player: Player)
 	if player.UserId == TEST_PLAYER_ID then
 		triggerEvent()
+	end
+end)
+
+DuchessEndTrigger.OnServerEvent:Connect(function(player: Player)
+	if player.UserId == TEST_PLAYER_ID then
+		forceEnd()
 	end
 end)
 

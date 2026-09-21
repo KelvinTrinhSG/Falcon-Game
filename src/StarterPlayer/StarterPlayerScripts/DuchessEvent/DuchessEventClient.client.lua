@@ -16,6 +16,7 @@ local eventsFolder       = ReplicatedStorage:WaitForChild("Events")
 local DuchessEventStart  = eventsFolder:WaitForChild("DuchessEventStart")
 local DuchessEventEnd    = eventsFolder:WaitForChild("DuchessEventEnd")
 local DuchessTestTrigger = eventsFolder:WaitForChild("DuchessTestTrigger")
+local DuchessEndTrigger  = eventsFolder:WaitForChild("DuchessEndTrigger")
 
 -- NotificationTemplate (same one used by the notification system)
 local notificationTemplate: TextLabel = ReplicatedStorage
@@ -166,6 +167,25 @@ local function buildTestButton()
 
 	btn.MouseButton1Click:Connect(function()
 		DuchessTestTrigger:FireServer()
+	end)
+
+	local endBtn = Instance.new("TextButton")
+	endBtn.Size             = UDim2.new(0, 160, 0, 40)
+	endBtn.Position         = UDim2.new(0, 10, 1, -110)
+	endBtn.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
+	endBtn.TextColor3       = Color3.fromRGB(255, 255, 255)
+	endBtn.Font             = Enum.Font.GothamBold
+	endBtn.TextSize         = 14
+	endBtn.Text             = "⏹ End Astro Event"
+	endBtn.BorderSizePixel  = 0
+	endBtn.Parent           = testGui
+
+	local endCorner = Instance.new("UICorner")
+	endCorner.CornerRadius = UDim.new(0, 8)
+	endCorner.Parent = endBtn
+
+	endBtn.MouseButton1Click:Connect(function()
+		DuchessEndTrigger:FireServer()
 	end)
 end
 
