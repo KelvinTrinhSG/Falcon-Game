@@ -67,8 +67,14 @@ end
 local playerGui = localPlayer:WaitForChild("PlayerGui")
 local buttonsContainer = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Top"):WaitForChild("Buttons")
 
-local plotTeleportButton: TextButton = buttonsContainer:WaitForChild("PlotTeleport")
-local shopTeleportButton: TextButton = buttonsContainer:WaitForChild("ShopTeleport")
+local plotTeleportButton: TextButton    = buttonsContainer:WaitForChild("PlotTeleport")
+local shopTeleportButton: TextButton    = buttonsContainer:WaitForChild("ShopTeleport")
+local eventTeleportButton: TextButton   = buttonsContainer:WaitForChild("EventTeleport")
+
+local hudTop    = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Top")
+local hudBottom = playerGui:WaitForChild("GUI"):WaitForChild("HUD"):WaitForChild("Bottom")
+
+local EVENT_TELEPORT_PART = Workspace:FindFirstChild("EventTeleport")
 
 -- Connect Plot Teleport Button
 plotTeleportButton.MouseButton1Click:Connect(function()
@@ -93,4 +99,26 @@ shopTeleportButton.MouseButton1Click:Connect(function()
 	else
 		warn("Could not teleport to shop: ShopTeleport part is missing in Workspace.")
 	end
+end)
+
+-- Connect Event Teleport Button
+eventTeleportButton.MouseButton1Click:Connect(function()
+	local part = EVENT_TELEPORT_PART or Workspace:FindFirstChild("EventTeleport")
+	if part and part:IsA("BasePart") then
+		teleportCharacter((part :: BasePart).CFrame, "Teleported to the event!")
+		hudTop.Visible    = false
+		hudBottom.Visible = false
+	else
+		warn("Could not teleport to event: EventTeleport part is missing in Workspace.")
+	end
+end)
+
+-- Hàm restore HUD — được gọi khi event kết thúc (export để DuchessEventClient dùng)
+local ReplicatedStorage_Events = ReplicatedStorage:WaitForChild("Events")
+ReplicatedStorage_Events:WaitForChild("DuchessEventEnd"):OnClientEvent:Connect(function()
+	-- Luôn restore dù có lỗi ở nơi khác
+	pcall(function()
+		hudTop.Visible    = true
+		hudBottom.Visible = true
+	end)
 end)
