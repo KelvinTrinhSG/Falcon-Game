@@ -52,9 +52,15 @@ function EventSwordManager.give(player: Player)
 	folder.Parent = stashRoot
 	playerStash[player] = folder
 
-	-- Di chuyển tất cả sword hiện tại của player vào stash
+	-- Di chuyển tất cả tool của player vào stash, đánh dấu tool đang được equip
 	local stashed = 0
+	local char = player.Character
+	local backpack = player:FindFirstChildOfClass("Backpack")
 	for _, tool in getTools(player) do
+		-- Đánh dấu nếu tool đang được equip (trong Character)
+		if char and tool.Parent == char then
+			tool:SetAttribute("WasEquipped", true)
+		end
 		tool.Parent = folder
 		stashed += 1
 	end
@@ -96,12 +102,15 @@ function EventSwordManager.restore(player: Player)
 			end
 		end
 
-		-- Trả lại swords cũ vào backpack
+		-- Trả lại tools cũ: tool nào WasEquipped thì equip vào Character, còn lại vào Backpack
 		if folder then
-			local dest = backpack or char
-			if dest then
-				for _, tool in folder:GetChildren() do
-					tool.Parent = dest
+			for _, tool in folder:GetChildren() do
+				if tool:GetAttribute("WasEquipped") and char then
+					tool:SetAttribute("WasEquipped", nil)
+					tool.Parent = char  -- equip luôn
+				else
+					local dest = backpack or char
+					if dest then tool.Parent = dest end
 				end
 			end
 		end
