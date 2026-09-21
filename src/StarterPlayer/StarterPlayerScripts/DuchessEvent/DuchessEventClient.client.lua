@@ -78,9 +78,12 @@ local function startCountdown(duration: number)
 	label.TextScaled      = true
 	-- Center on screen
 	label.AnchorPoint     = Vector2.new(0.5, 0.5)
-	label.Position        = UDim2.new(0.5, 0, 0.167, 0)
+	label.Position        = UDim2.new(0.5, 0, 0.143, 0)
 	label.Size            = UDim2.new(0, 220, 0, 70)
 	label.Parent          = screenGui
+
+	print("[DuchessEvent] Countdown label created — Position:", label.Position, "AbsolutePosition:", label.AbsolutePosition, "Size:", label.Size)
+	print("[DuchessEvent] ScreenGui DisplayOrder:", screenGui.DisplayOrder, "Parent:", screenGui.Parent)
 	countdownLabel = label
 
 	-- Apply Warning color palette
@@ -174,14 +177,21 @@ end
 local NOTIFICATION_DISPLAY_TIME = 5.6
 
 DuchessEventStart.OnClientEvent:Connect(function(startTime: number, totalDuration: number)
+	print("[DuchessEvent] DuchessEventStart received — startTime:", startTime, "totalDuration:", totalDuration)
 	-- Wait for the notification to finish displaying, then show countdown
 	task.delay(NOTIFICATION_DISPLAY_TIME, function()
+		print("[DuchessEvent] Delay done, activeGui:", activeGui)
 		if not activeGui then -- don't show if event already ended
 			local elapsed   = os.time() - startTime
 			local remaining = totalDuration - elapsed
+			print("[DuchessEvent] elapsed:", elapsed, "remaining:", remaining)
 			if remaining > 0 then
 				startCountdown(remaining)
+			else
+				warn("[DuchessEvent] No remaining time — countdown skipped")
 			end
+		else
+			warn("[DuchessEvent] activeGui already exists — countdown skipped")
 		end
 	end)
 end)
