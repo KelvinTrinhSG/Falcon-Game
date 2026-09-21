@@ -59,35 +59,45 @@ function EventSwordManager.give(player: Player)
 end
 
 function EventSwordManager.restore(player: Player)
+	-- Luôn xóa stash entry trước để tránh gọi lại 2 lần
 	local folder = playerStash[player]
-	if not folder then return end
 	playerStash[player] = nil
 
-	-- Xóa event sword trong backpack và character
-	local backpack = player:FindFirstChildOfClass("Backpack")
-	local char     = player.Character
-	for _, container in {backpack, char} do
-		if not container then continue end
-		for _, v in container:GetChildren() do
-			if v:IsA("Tool") and v:GetAttribute("IsEventTemp") then
-				v:Destroy()
+	local ok, err = pcall(function()
+		-- Xóa event sword trong backpack và character
+		local backpack = player:FindFirstChildOfClass("Backpack")
+		local char     = player.Character
+		for _, container in {backpack, char} do
+			if not container then continue end
+			for _, v in container:GetChildren() do
+				if v:IsA("Tool") and v:GetAttribute("IsEventTemp") then
+					v:Destroy()
+				end
 			end
 		end
-	end
 
-	-- Trả lại swords cũ vào backpack
-	local dest = backpack or char
-	if dest then
-		for _, tool in folder:GetChildren() do
-			tool.Parent = dest
+		-- Trả lại swords cũ vào backpack
+		if folder then
+			local dest = backpack or char
+			if dest then
+				for _, tool in folder:GetChildren() do
+					tool.Parent = dest
+				end
+			end
 		end
+	end)
+
+	if not ok then
+		warn("[EventSwordManager] restore failed for", player.Name, "—", err)
 	end
 
-	folder:Destroy()
+	-- Luôn dọn folder dù có lỗi
+	if folder and folder.Parent then
+		folder:Destroy()
+	end
 end
 
 function EventSwordManager.restoreAll()
-	-- Copy keys trước để tránh modify table trong lúc iterate
 	local players: {Player} = {}
 	for p in playerStash do table.insert(players, p) end
 	for _, p in players do
