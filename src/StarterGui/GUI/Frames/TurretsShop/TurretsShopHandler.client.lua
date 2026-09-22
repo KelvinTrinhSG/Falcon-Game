@@ -3,6 +3,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local MarketplaceService = game:GetService("MarketplaceService")
+local TweenService = game:GetService("TweenService")
 
 local ItemConfigsModule = require(ReplicatedStorage.Modules.ItemConfigurations)
 local ItemConfigurations = ItemConfigsModule.ItemConfigurations
@@ -12,6 +13,7 @@ local NumberFormatter = require(ReplicatedStorage.Modules.NumberFormatter)
 local NotificationManager = require(ReplicatedStorage.Modules.NotificationManager)
 
 local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 local shopFrame = script.Parent
 local scrollingFrame = shopFrame:WaitForChild("ScrollingFrame")
 local itemTemplate = ReplicatedStorage.Templates:WaitForChild("TurretsTemplate")
@@ -31,6 +33,94 @@ local isPopulating = false
 local visualTimerConnection: RBXScriptConnection?
 local robuxPricesCache: {[number]: string} = {}
 local isPurchasing = false
+
+-- TurretInfo panel
+local turretInfoGui = playerGui:WaitForChild("TurretInfo", 10)
+local turretInfoFrame = turretInfoGui and turretInfoGui:FindFirstChild("Frame")
+
+local function closeTurretInfo()
+	if not turretInfoFrame then return end
+	local uiScale = turretInfoFrame:FindFirstChild("UIScale")
+	turretInfoGui.Enabled = false
+	if uiScale then uiScale.Scale = 0 end
+end
+
+local function getTurretInfoScale(): number
+	local UIS = game:GetService("UserInputService")
+	local PC_SCALE = 0.7
+	if UIS.GamepadEnabled and not UIS.TouchEnabled then
+		return PC_SCALE -- Console (TV distance, same layout as PC)
+	elseif UIS.TouchEnabled then
+		local viewportWidth = workspace.CurrentCamera.ViewportSize.X
+		if viewportWidth < 1000 then
+			return PC_SCALE * 0.55 -- Mobile phone (~0.39)
+		else
+			return PC_SCALE * 0.75 -- Tablet (~0.53)
+		end
+	end
+	return PC_SCALE -- PC / Desktop
+end
+
+local function openTurretInfo(config: {[string]: any})
+	if not turretInfoFrame then
+		warn("[TurretsShopHandler] TurretInfo GUI not found in PlayerGui")
+		return
+	end
+
+	local targetScale = getTurretInfoScale()
+
+	local itemName = turretInfoFrame:FindFirstChild("ItemName")
+	local design = turretInfoFrame:FindFirstChild("Design")
+	local stats = turretInfoFrame:FindFirstChild("Stats")
+	local uiScale = turretInfoFrame:FindFirstChild("UIScale")
+	local exitButton = turretInfoFrame:FindFirstChild("Exit")
+
+	if itemName then itemName.Text = config.DisplayName or "?" end
+	if design then
+		local img = design:FindFirstChild("Image")
+		if img then img.Image = config.ImageId or "" end
+	end
+	if stats then
+		local damageFrame = stats:FindFirstChild("Damage")
+		local fastFrame = stats:FindFirstChild("Fast")
+		if damageFrame then
+			local inner = damageFrame:FindFirstChild("Frame")
+			if inner then
+				local title = inner:FindFirstChild("Title")
+				local count = inner:FindFirstChild("Count")
+				if title then title.Text = "DAMAGE" end
+				if count then count.Text = tostring(config.Damage or "?") end
+			end
+		end
+		if fastFrame then
+			fastFrame.Visible = true
+			local inner = fastFrame:FindFirstChild("Frame")
+			if inner then
+				local count = inner:FindFirstChild("Count")
+				if count then count.Text = tostring(config.Cooldown or config.FireRate or "?") end
+			end
+		end
+	end
+
+	if exitButton then
+		exitButton.MouseButton1Click:Once(function()
+			closeTurretInfo()
+		end)
+	end
+
+	turretInfoGui.Enabled = true
+	turretInfoFrame.Position = UDim2.new(1, -20, 0.6, 0)
+	if uiScale then uiScale.Scale = 0 end
+
+	TweenService:Create(turretInfoFrame, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+		Position = UDim2.new(1, -20, 0.5, 0),
+	}):Play()
+	if uiScale then
+		TweenService:Create(uiScale, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+			Scale = targetScale,
+		}):Play()
+	end
+end
 
 local function formatRemaining(seconds: number): string
 	if seconds <= 0 then return "00:00" end
@@ -130,6 +220,13 @@ local function populateShop()
 			end
 		end
 
+		local informButton: TextButton? = item:FindFirstChild("InformButton")
+		if informButton then
+			informButton.MouseButton1Click:Connect(function()
+				openTurretInfo(config)
+			end)
+		end
+
 		if robuxButton then
 			local tripleText: TextLabel? = robuxButton:FindFirstChild("TripleText")
 			if tripleText then
@@ -185,6 +282,7 @@ shopFrame:GetPropertyChangedSignal("Visible"):Connect(function()
 			visualTimerConnection:Disconnect()
 			visualTimerConnection = nil
 		end
+		closeTurretInfo()
 	end
 end)
 
