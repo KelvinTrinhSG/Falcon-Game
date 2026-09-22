@@ -112,6 +112,14 @@ function MobileToggle.init(ctx)
     Theme.changed.Event:Connect(function()
         panelBtn.BackgroundColor3 = Theme.primary
     end)
+
+    ctx._mobileToggleSg = sg
+end
+
+function MobileToggle.destroy(ctx)
+    local pg = ctx.LocalPlayer:FindFirstChild("PlayerGui")
+    local sg = (ctx._mobileToggleSg) or (pg and pg:FindFirstChild("uxrMobileToggle"))
+    if sg then sg:Destroy() end
 end
 
 return MobileToggle

@@ -99,6 +99,7 @@ end
 
 if not ctx.UtilModule:HasRank(ctx.LocalPlayer, ctx.Permissions.NavSeeRank or "NonAdmin") then
     screen.Enabled = false
+    MobileToggle.destroy(ctx)
     return
 end
 
