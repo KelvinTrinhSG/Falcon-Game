@@ -94,7 +94,7 @@ Permissions.VipServerOwnerRank  = nil         -- private-server owner, e.g. "Mod
 Permissions.FreeAdminRank       = "NonAdmin"  -- floor rank every joining player gets
 
 -- Page gating: minimum rank required for each UI area.
-Permissions.NavSeeRank        = "NonAdmin"   -- can see the panel
+Permissions.NavSeeRank        = "VIP"        -- can see the panel
 Permissions.CommandBarRank    = "VIP"        -- can use the command popup
 Permissions.LogsViewRank      = "Mod"
 Permissions.PunishViewRank    = "Mod"
