@@ -45,8 +45,8 @@ Permissions.Assignments = {
 		Players    = { 11115679011 },
 		Gamepasses = {},
 		Assets     = {},
-		Groups     = {},
-		-- Groups     = { {231692500, 255} },   -- group owner
+		-- Groups     = {},
+		Groups     = { {231692500, 255} },   -- group owner
 		Teams      = {},
 	},
 
@@ -62,8 +62,8 @@ Permissions.Assignments = {
 		Players    = {11481072785, 11515319361},
 		Gamepasses = {},
 		Assets     = {},
-		Groups     = {},
-		-- Groups     = { {231692500, 2} },
+		-- Groups     = {},
+		Groups     = { {231692500, 2} },
 		Teams      = {},
 	},
 
@@ -79,8 +79,8 @@ Permissions.Assignments = {
 		Players    = {},
 		Gamepasses = {},                    -- e.g. { 23423424234 }
 		Assets     = {},
-		Groups     = {},
-		-- Groups     = { {231692500, 1} },
+		-- Groups     = {},
+		Groups     = { {231692500, 1} },
 		Teams      = {},
 	},
 
