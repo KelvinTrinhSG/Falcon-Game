@@ -286,7 +286,7 @@ local ItemConfigurations = {
 	},
 
 	TitanSpeakerman = {
-		DisplayName = "Titan Speakerman",
+		DisplayName = "Upgraded Titan Speaker Guy",
 		Type = "Turrets",
 		Price = 200000,
 		ImageId = "rbxassetid://87090576685536",
