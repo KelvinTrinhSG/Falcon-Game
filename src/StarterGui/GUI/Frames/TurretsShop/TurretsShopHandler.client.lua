@@ -107,7 +107,7 @@ local function openTurretInfo(config: {[string]: any})
 				local inner = specialFrame:FindFirstChild("Frame")
 				if inner then
 					local title = inner:FindFirstChild("Title")
-					if title then title.Text = "Slows Down Toilets" end
+					if title then title.Text = "Slows Toilets " .. tostring(config.SlowEffect.Duration) .. "s" end
 				end
 			else
 				specialFrame.Visible = false
