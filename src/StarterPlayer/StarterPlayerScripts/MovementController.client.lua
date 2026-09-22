@@ -5,7 +5,7 @@ local player = Players.LocalPlayer
 
 -- speeds
 local WALK_SPEED = 40
-local SPRINT_SPEED = 60
+local SPRINT_SPEED = 50
 
 -- animation IDs
 local ANIM_IDS = {
