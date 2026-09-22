@@ -83,6 +83,7 @@ local function openTurretInfo(config: {[string]: any})
 	if stats then
 		local damageFrame = stats:FindFirstChild("Damage")
 		local fastFrame = stats:FindFirstChild("Fast")
+		local specialFrame = stats:FindFirstChild("Special")
 		if damageFrame then
 			local inner = damageFrame:FindFirstChild("Frame")
 			if inner then
@@ -98,6 +99,18 @@ local function openTurretInfo(config: {[string]: any})
 			if inner then
 				local count = inner:FindFirstChild("Count")
 				if count then count.Text = tostring(config.Cooldown or config.FireRate or "?") end
+			end
+		end
+		if specialFrame then
+			if config.SlowEffect then
+				specialFrame.Visible = true
+				local inner = specialFrame:FindFirstChild("Frame")
+				if inner then
+					local title = inner:FindFirstChild("Title")
+					if title then title.Text = "Slows Down Toilets" end
+				end
+			else
+				specialFrame.Visible = false
 			end
 		end
 	end
