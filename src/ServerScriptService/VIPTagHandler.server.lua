@@ -1,9 +1,9 @@
 --!strict
--- LOCATION: ServerScriptService/VIPTagHandler
--- Clones the VIPTag BillboardGui from ServerStorage and attaches it to whitelisted admin players.
-
 local Players = game:GetService("Players")
 local ServerStorage = game:GetService("ServerStorage")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local RankManager = require(ReplicatedStorage.Modules.RankManager)
 
 local ADMIN_IDS: { number } = {
 	11515319361,
@@ -18,7 +18,7 @@ local function isAdmin(userId: number): boolean
 	return false
 end
 
-local function giveAdminTag(character: Model)
+local function applyTag(player: Player, character: Model)
 	local head = character:WaitForChild("Head", 5)
 	local template = ServerStorage:FindFirstChild("VIPTag")
 	if not head or not template then return end
@@ -26,21 +26,27 @@ local function giveAdminTag(character: Model)
 
 	local cloned = template:Clone()
 
-	-- Override the label text with the Admin icon
-	local label = cloned:FindFirstChildWhichIsA("TextLabel")
-	if label then
-		label.Text = "🔱 Admin"
+	local rankLabel = cloned:FindFirstChild("Rank")
+	local nameLabel = cloned:FindFirstChildWhichIsA("TextLabel")
+
+	if rankLabel then
+		local xToiletHP = player:GetAttribute("xToiletHP") or 1
+		rankLabel.Text = RankManager.getRank(xToiletHP)
+		rankLabel.TextColor3 = RankManager.getRankColor(xToiletHP)
+	end
+
+	if nameLabel then
+		nameLabel.Text = if isAdmin(player.UserId) then "🔱 Admin" else player.Name
 	end
 
 	cloned.Parent = head
 end
 
 Players.PlayerAdded:Connect(function(player)
-	if not isAdmin(player.UserId) then return end
 	player.CharacterAdded:Connect(function(character)
-		giveAdminTag(character)
+		applyTag(player, character)
 	end)
 	if player.Character then
-		giveAdminTag(player.Character)
+		applyTag(player, player.Character)
 	end
 end)

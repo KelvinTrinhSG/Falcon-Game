@@ -152,6 +152,53 @@ for _, data in ipairs(BUTTONS) do
 	label.TextScaled = true
 	label.Font = Enum.Font.FredokaOne
 	label.Parent = btn
+
+	if data.name == "PlayAgainHP" then
+		img.Size = UDim2.new(1, 0, 0.68, 0)
+
+		local rankFrame = Instance.new("Frame")
+		rankFrame.Name = "RankFrame"
+		rankFrame.Size = UDim2.new(1, -20, 0.12, 0)
+		rankFrame.Position = UDim2.fromScale(0.5, 0.68)
+		rankFrame.AnchorPoint = Vector2.new(0.5, 0)
+		rankFrame.BackgroundTransparency = 1
+		rankFrame.Parent = btn
+
+		local rankIcon = Instance.new("ImageLabel")
+		rankIcon.Name = "RankIcon"
+		rankIcon.Size = UDim2.new(0, 30, 1, 0)
+		rankIcon.Position = UDim2.fromScale(0, 0.5)
+		rankIcon.AnchorPoint = Vector2.new(0, 0.5)
+		rankIcon.BackgroundTransparency = 1
+		rankIcon.Image = "rbxassetid://95144623342694"
+		rankIcon.ScaleType = Enum.ScaleType.Fit
+		rankIcon.Parent = rankFrame
+
+		local rankLabel = Instance.new("TextLabel")
+		rankLabel.Name = "RankLabel"
+		rankLabel.Size = UDim2.new(1, -34, 1, 0)
+		rankLabel.Position = UDim2.new(0, 34, 0, 0)
+		rankLabel.BackgroundTransparency = 1
+		rankLabel.Text = "Rank"
+		rankLabel.TextColor3 = Color3.fromRGB(255, 215, 0)
+		rankLabel.TextScaled = true
+		rankLabel.TextXAlignment = Enum.TextXAlignment.Left
+		rankLabel.Font = Enum.Font.FredokaOne
+		rankLabel.Parent = rankFrame
+
+		local rankGradient = Instance.new("UIGradient")
+		rankGradient.Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 240, 120)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 140, 0)),
+		})
+		rankGradient.Rotation = 90
+		rankGradient.Parent = rankLabel
+
+		local rankStroke = Instance.new("UIStroke")
+		rankStroke.Color = Color3.fromRGB(130, 80, 0)
+		rankStroke.Thickness = 2
+		rankStroke.Parent = rankLabel
+	end
 end
 
 screenGui.Enabled = false
