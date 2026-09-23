@@ -25,12 +25,7 @@ local function applyTrail(player: Player, character: Model)
 	local xToiletHP = player:GetAttribute("xToiletHP") or 1
 	local config = RankManager.getTrailConfig(xToiletHP)
 
-	print(string.format("[TrailHandler] %s | xToiletHP=%d | Rank=%s | Trail=%s",
-		player.Name, xToiletHP, RankManager.getRank(xToiletHP),
-		if config then "YES" else "NO (Rookie)"
-	))
-
-	clearTrail(torso)
+clearTrail(torso)
 	if not config then return end
 
 	local color = RankManager.getRankColor(xToiletHP)
