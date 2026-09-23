@@ -16,6 +16,7 @@ local shops = {
 	BlocksShop = Workspace:WaitForChild("BlocksShop"),
 	TurretsShop = Workspace:WaitForChild("TurretsShop"),
 	BasesShop = Workspace:WaitForChild("BasesShop"),
+	MapsShop = Workspace:WaitForChild("MapsShop"),
 }
 
 -- State

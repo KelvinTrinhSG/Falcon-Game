@@ -44,6 +44,8 @@ local ProfileTemplate = {
 	TurretsShopStock = {},
 	TurretsShopNextRestock = 0,
 	TitanTVManLastSupport = 0,
+	OwnedMaps = {"Map1"},
+	SelectedMap = "Map1",
 }
 
 local GameProfileStore = ProfileService.New(

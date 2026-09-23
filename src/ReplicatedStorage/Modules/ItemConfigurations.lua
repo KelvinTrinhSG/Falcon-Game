@@ -330,8 +330,20 @@ local BaseConfigurations = {
 	Core5 = { DisplayName = "Titan Dominion",  Price = 60000, Health = 800,  ImageId = "rbxassetid://117127516225593", ProductID = 3710733660  },
 }
 
+local MapConfigurations = {
+	Map1 = { DisplayName = "Map 1", Description = "The classic map", Price = 0,      ImageId = "rbxassetid://0", ProductID = 0 },
+	Map2 = { DisplayName = "Map 2", Description = "A harder path",   Price = 5000,   ImageId = "rbxassetid://0", ProductID = 0 },
+	Map3 = { DisplayName = "Map 3", Description = "A harder path",   Price = 15000,  ImageId = "rbxassetid://0", ProductID = 0 },
+	Map4 = { DisplayName = "Map 4", Description = "A harder path",   Price = 30000,  ImageId = "rbxassetid://0", ProductID = 0 },
+	Map5 = { DisplayName = "Map 5", Description = "A harder path",   Price = 60000,  ImageId = "rbxassetid://0", ProductID = 0 },
+}
+
+local MAP_ORDER = { "Map1", "Map2", "Map3", "Map4", "Map5" }
+
 return {
 	LimitedItems = LimitedItems,
 	ItemConfigurations = ItemConfigurations,
-	BaseConfigurations = BaseConfigurations
+	BaseConfigurations = BaseConfigurations,
+	MapConfigurations = MapConfigurations,
+	MAP_ORDER = MAP_ORDER,
 }

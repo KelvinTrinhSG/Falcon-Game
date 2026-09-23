@@ -24,6 +24,23 @@ local ShowNotificationEvent = ReplicatedStorage.Events:WaitForChild("ShowNotific
 -- Controller Definition
 local PlotController = {}
 local PLOTS_FOLDER = Workspace:WaitForChild("Plots")
+local GAME_MAPS = ReplicatedStorage:WaitForChild("GameMaps")
+
+local function applyPathFromMap(plot: Model, mapName: string)
+	if mapName == "" then return end
+	local map = GAME_MAPS:FindFirstChild(mapName)
+	if not map then return end
+	local mapPlot = map:FindFirstChild(plot.Name)
+	if not mapPlot then return end
+	local newPath = mapPlot:FindFirstChild("Path")
+	if not newPath then return end
+
+	local oldPath = plot:FindFirstChild("Path")
+	if oldPath then oldPath:Destroy() end
+
+	newPath:Clone().Parent = plot
+end
+
 local ResetPlotEvent = ReplicatedStorage.Events:WaitForChild("ResetPlot")
 local UpdateProtectionModelFX = ReplicatedStorage.Events:WaitForChild("UpdateProtectionModelFX")
 
@@ -44,6 +61,12 @@ local function getPlotForPlayer(player: Player): Model?
 		end
 	end
 	return nil
+end
+
+function PlotController:ApplyMapPath(player: Player, mapName: string)
+	local plot = getPlotForPlayer(player)
+	if not plot then return end
+	applyPathFromMap(plot, mapName)
 end
 
 local function spawnPromotionalCrate(plot: Model)
@@ -260,6 +283,10 @@ function PlotController:OnPlayerProfileLoaded(player: Player)
 				end
 			end
 
+			if profile and profile.Data.SelectedMap and profile.Data.SelectedMap ~= "" then
+				applyPathFromMap(assignedPlot, profile.Data.SelectedMap)
+			end
+
 			PlacementController:LoadPlacedItems(player, assignedPlot)
 			CrateController:LoadPlayerCrates(player, assignedPlot)
 
@@ -314,21 +341,34 @@ function PlotController:Start()
 	PLOTS_FOLDER.ChildAdded:Connect(setupPlot)
 	Players.PlayerRemoving:Connect(onPlayerRemoving)
 
-	Players.PlayerAdded:Connect(function(player)
-		player.CharacterAdded:Connect(function(character)
-			task.wait(0.5) 
-			local plot = getPlotForPlayer(player) 
-			if not plot then return end
+	local function onCharacterAdded(player: Player, character: Model)
+		task.wait(0.5)
+		local plot = getPlotForPlayer(player)
+		if not plot then return end
 
-			local spawnPart = plot:FindFirstChild("SpawnPart")
-			if spawnPart and character:FindFirstChild("HumanoidRootPart") then
-				if spawnPart:IsA("SpawnLocation") then
-					player.RespawnLocation = spawnPart
-				end
-				character:SetPrimaryPartCFrame(spawnPart.CFrame * CFrame.new(0, 3, 0))
+		local spawnPart = plot:FindFirstChild("SpawnPart")
+		if spawnPart and character:FindFirstChild("HumanoidRootPart") then
+			if spawnPart:IsA("SpawnLocation") then
+				player.RespawnLocation = spawnPart
 			end
+			character:SetPrimaryPartCFrame(spawnPart.CFrame * CFrame.new(0, 3, 0))
+		end
+
+	end
+
+	local function setupPlayer(player: Player)
+		player.CharacterAdded:Connect(function(character)
+			onCharacterAdded(player, character)
 		end)
-	end)
+		if player.Character then
+			task.spawn(onCharacterAdded, player, player.Character)
+		end
+	end
+
+	Players.PlayerAdded:Connect(setupPlayer)
+	for _, player in ipairs(Players:GetPlayers()) do
+		task.spawn(setupPlayer, player)
+	end
 
 	ResetPlotEvent.OnServerEvent:Connect(function(player)
 		PlacementController:ResetPlotItems(player)
