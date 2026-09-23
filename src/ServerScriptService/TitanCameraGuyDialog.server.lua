@@ -34,6 +34,7 @@ local function playAnimOnModel(model: Model, animId: string)
 	local anim = Instance.new("Animation")
 	anim.AnimationId = animId
 	local track = animator:LoadAnimation(anim)
+	track.Priority = Enum.AnimationPriority.Action4
 	track:Play()
 
 	task.delay(CHEER_DURATION, function()
@@ -41,6 +42,7 @@ local function playAnimOnModel(model: Model, animId: string)
 		local idleTrack = animator:LoadAnimation(idleAnim)
 		idleTrack.Looped = true
 		idleTrack:Play()
+		print("[Cheer] Resumed Idle on:", model.Name)
 	end)
 end
 
@@ -51,14 +53,6 @@ local function playCheerOnModels()
 	end
 end
 
-local laserCarModel = leaderboardArea:WaitForChild("LaserCameramanCar")
-
-local function playSaluteOnCar()
-	for _, model in ipairs(laserCarModel:GetChildren()) do
-		if model.Name == "LaserCameramanCar" then continue end
-		playAnimOnModel(model, CHEER_ANIM_ID)
-	end
-end
 
 touchPart.Touched:Connect(function(hit)
 	local character = hit.Parent
@@ -70,7 +64,6 @@ touchPart.Touched:Connect(function(hit)
 	dialogLabel.Text = "Well fought, " .. player.Name .. ". The Alliance stands because of you."
 
 	playCheerOnModels()
-	playSaluteOnCar()
 
 	if resetThread then task.cancel(resetThread) end
 	resetThread = task.delay(CHEER_DURATION, function()
