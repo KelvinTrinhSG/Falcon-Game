@@ -67,25 +67,12 @@ local function applyTrail(player: Player, character: Model)
 end
 
 local function setupPlayer(player: Player)
-	local conn: RBXScriptConnection
-
 	player.CharacterAdded:Connect(function(character)
 		-- Chờ xToiletHP được set từ PlayerController (tránh race condition)
 		if not player:GetAttribute("xToiletHP") then
 			player:GetAttributeChangedSignal("xToiletHP"):Wait()
 		end
 		applyTrail(player, character)
-
-		-- Re-apply nếu xToiletHP thay đổi trong session
-		conn = player:GetAttributeChangedSignal("xToiletHP"):Connect(function()
-			applyTrail(player, character)
-		end)
-
-		character.AncestryChanged:Connect(function()
-			if not character.Parent and conn then
-				conn:Disconnect()
-			end
-		end)
 	end)
 
 	if player.Character then
