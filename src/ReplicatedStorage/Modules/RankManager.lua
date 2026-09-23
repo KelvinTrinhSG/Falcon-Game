@@ -14,7 +14,7 @@ local RANKS = {
 	{ wins =  3, name = "Vanguard",    color = Color3.fromRGB( 60, 120, 255), trail = { lifetime = 0.35, emission = 0.3, height = 2.0 } },
 	{ wins =  2, name = "Operative",   color = Color3.fromRGB( 60, 200, 220), trail = { lifetime = 0.3,  emission = 0.2, height = 2.0 } },
 	{ wins =  1, name = "Scout",       color = Color3.fromRGB( 80, 200,  80), trail = { lifetime = 0.25, emission = 0.0, height = 2.0 } },
-	{ wins =  0, name = "Rookie",      color = Color3.fromRGB(160, 160, 160), trail = nil },
+	{ wins =  0, name = "Rookie",      color = Color3.fromRGB(160, 160, 160), trail = { lifetime = 0.2,  emission = 0.0, height = 2.0 } },
 }
 
 local function getRankData(xToiletHP: number)
