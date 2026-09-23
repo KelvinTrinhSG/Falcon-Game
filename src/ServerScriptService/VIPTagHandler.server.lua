@@ -18,6 +18,13 @@ local function isAdmin(userId: number): boolean
 	return false
 end
 
+local function updateRankLabel(player: Player, rankLabel: any)
+	local xToiletHP = player:GetAttribute("xToiletHP") or 1
+	local highestWave = math.clamp(player:GetAttribute("HighestWave") or 1, 1, 60)
+	rankLabel.Text = RankManager.getRank(xToiletHP) .. " " .. highestWave
+	rankLabel.TextColor3 = RankManager.getRankColor(xToiletHP)
+end
+
 local function applyTag(player: Player, character: Model)
 	local head = character:WaitForChild("Head", 5)
 	local template = ServerStorage:FindFirstChild("VIPTag")
@@ -30,9 +37,19 @@ local function applyTag(player: Player, character: Model)
 	local nameLabel = cloned:FindFirstChildWhichIsA("TextLabel")
 
 	if rankLabel then
-		local xToiletHP = player:GetAttribute("xToiletHP") or 1
-		rankLabel.Text = RankManager.getRank(xToiletHP)
-		rankLabel.TextColor3 = RankManager.getRankColor(xToiletHP)
+		updateRankLabel(player, rankLabel)
+
+		local conn = player:GetAttributeChangedSignal("HighestWave"):Connect(function()
+			if rankLabel.Parent then
+				updateRankLabel(player, rankLabel)
+			end
+		end)
+
+		character.AncestryChanged:Connect(function()
+			if not character.Parent then
+				conn:Disconnect()
+			end
+		end)
 	end
 
 	if nameLabel then

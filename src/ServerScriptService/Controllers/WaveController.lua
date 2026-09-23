@@ -318,6 +318,7 @@ startNextWave = function(player: Player, plot: Model)
 
 	if state.CurrentWave > profile.Data.HighestWave then
 		profile.Data.HighestWave = state.CurrentWave
+		player:SetAttribute("HighestWave", state.CurrentWave)
 		local leaderstats = player:FindFirstChild("leaderstats")
 		local highestWaveValue = leaderstats and leaderstats:FindFirstChild("Highest Wave")
 		if highestWaveValue then highestWaveValue.Value = state.CurrentWave end
@@ -508,7 +509,10 @@ startNextWave = function(player: Player, plot: Model)
 							end
 
 							if state.CurrentWave == 60 then
-								if profile.Data.HighestWave < 60 then profile.Data.HighestWave = 60 end
+								if profile.Data.HighestWave < 60 then
+									profile.Data.HighestWave = 60
+									player:SetAttribute("HighestWave", 60)
+								end
 								if profile.Data.HighestCompletedWave == nil then profile.Data.HighestCompletedWave = 0 end
 								if profile.Data.HighestCompletedWave < 60 then profile.Data.HighestCompletedWave = 60 end
 								pcall(function()

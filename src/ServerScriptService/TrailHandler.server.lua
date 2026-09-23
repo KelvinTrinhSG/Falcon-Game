@@ -4,13 +4,34 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local RankManager = require(ReplicatedStorage.Modules.RankManager)
 
+local function clearTrail(torso: BasePart)
+	for _, obj in ipairs(torso:GetChildren()) do
+		if (obj:IsA("Trail") and obj.Name == "RankTrail")
+			or obj.Name == "TrailTop"
+			or obj.Name == "TrailBottom"
+		then
+			obj:Destroy()
+		end
+	end
+end
+
 local function applyTrail(player: Player, character: Model)
 	local torso = character:WaitForChild("UpperTorso", 5) :: BasePart?
-	if not torso then return end
+	if not torso then
+		warn("[TrailHandler] UpperTorso not found for", player.Name)
+		return
+	end
 
 	local xToiletHP = player:GetAttribute("xToiletHP") or 1
 	local config = RankManager.getTrailConfig(xToiletHP)
-	if not config then return end -- Rookie: no trail
+
+	print(string.format("[TrailHandler] %s | xToiletHP=%d | Rank=%s | Trail=%s",
+		player.Name, xToiletHP, RankManager.getRank(xToiletHP),
+		if config then "YES" else "NO (Rookie)"
+	))
+
+	clearTrail(torso)
+	if not config then return end
 
 	local color = RankManager.getRankColor(xToiletHP)
 	local half = config.height / 2
@@ -45,11 +66,34 @@ local function applyTrail(player: Player, character: Model)
 	trail.Parent = torso
 end
 
-Players.PlayerAdded:Connect(function(player)
+local function setupPlayer(player: Player)
+	local conn: RBXScriptConnection
+
 	player.CharacterAdded:Connect(function(character)
+		-- Chờ xToiletHP được set từ PlayerController (tránh race condition)
+		if not player:GetAttribute("xToiletHP") then
+			player:GetAttributeChangedSignal("xToiletHP"):Wait()
+		end
 		applyTrail(player, character)
+
+		-- Re-apply nếu xToiletHP thay đổi trong session
+		conn = player:GetAttributeChangedSignal("xToiletHP"):Connect(function()
+			applyTrail(player, character)
+		end)
+
+		character.AncestryChanged:Connect(function()
+			if not character.Parent and conn then
+				conn:Disconnect()
+			end
+		end)
 	end)
+
 	if player.Character then
 		applyTrail(player, player.Character)
 	end
-end)
+end
+
+Players.PlayerAdded:Connect(setupPlayer)
+for _, player in ipairs(Players:GetPlayers()) do
+	setupPlayer(player)
+end

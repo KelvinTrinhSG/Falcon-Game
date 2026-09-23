@@ -79,20 +79,20 @@ local function getTarget(): Player?
 	return nil
 end
 
-task.spawn(function()
-	-- Chờ player vào
-	local player: Player
-	repeat
-		task.wait(1)
-		player = getTarget()
-	until player ~= nil
-
-	print("[TrailTest] Found target:", player.Name)
-
-	local fakeXToiletHP = 1
-	while true do
-		applyTrail(player, fakeXToiletHP)
-		fakeXToiletHP += 1
-		task.wait(5)
-	end
-end)
+--task.spawn(function()
+--	-- Chờ player vào
+--	local player: Player
+--	repeat
+--		task.wait(1)
+--		player = getTarget()
+--	until player ~= nil
+--
+--	print("[TrailTest] Found target:", player.Name)
+--
+--	local fakeXToiletHP = 1
+--	while true do
+--		applyTrail(player, fakeXToiletHP)
+--		fakeXToiletHP += 1
+--		task.wait(5)
+--	end
+--end)
